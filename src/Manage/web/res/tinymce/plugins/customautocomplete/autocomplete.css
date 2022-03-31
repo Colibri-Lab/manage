@@ -1,0 +1,57 @@
+.rte-autocomplete{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: block;
+    z-index: 1000;
+    float: left;
+    min-width: 160px;
+
+    margin: 0;
+    padding: 2px;
+  
+    list-style: none;
+    
+    -webkit-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+    -moz-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+    box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+    border-radius: 3px;
+    border: 1px solid silver;
+
+    background: #fff;
+    font-family: monospace;
+    font-size: 90%;
+    overflow-y: auto;
+    max-height: 20em;
+}
+
+.rte-autocomplete > li.loading {
+	background: url("/project/manage/res/img/loading.gif") center no-repeat;
+	height: 16px;
+}
+
+.rte-autocomplete > li > a {
+    display: block;
+    clear: both;
+    text-decoration: none;
+
+    margin: 0;
+    padding: 0 4px;
+    border-radius: 2px;
+    white-space: pre;
+    color: black;
+    cursor: pointer;
+
+}
+
+.rte-autocomplete >li > a:hover, .rte-autocomplete > li > a:focus, .rte-autocomplete:hover > a, .rte-autocomplete:focus > a {
+    color: #fff;
+    text-decoration: none;
+    background-color: #08f;
+}
+
+.rte-autocomplete >.active > a, .rte-autocomplete > .active > a:hover, .rte-autocomplete > .active > a:focus {
+    color: #fff;
+    text-decoration: none;
+    background-color: #08f;
+}
