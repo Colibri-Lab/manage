@@ -16,6 +16,9 @@ use Colibri\Web\Templates\PhpTemplate;
 use Colibri\Web\View;
 use ScssPhp\ScssPhp\Compiler;
 use ScssPhp\ScssPhp\OutputStyle;
+use Colibri\Web\PayloadCopy;
+use Colibri\Data\Storages\Storages;
+use ReflectionClass;
 
 class Controller extends WebController
 {
@@ -27,7 +30,7 @@ class Controller extends WebController
      * @param mixed $payload данные payload обьекта переданного через POST/PUT
      * @return object
      */
-    public function Index(RequestCollection $get, RequestCollection $post, mixed $payload = null)
+    public function Index(RequestCollection $get, RequestCollection $post, ?PayloadCopy $payload = null): object
     {
 
         $module = App::$moduleManager->tools;
@@ -78,7 +81,7 @@ class Controller extends WebController
      * @return \stdClass
      * @throws \App\Modules\Manage\Exception
      */
-    public function Bundle(RequestCollection $get, RequestCollection $post, ?\stdClass $payload): \stdClass
+    public function Bundle(RequestCollection $get, RequestCollection $post, ?PayloadCopy $payload = null): object
     {
 
         App::$instance->HandleEvent(EventsContainer::BundleComplete, function ($event, $args) {
@@ -126,4 +129,5 @@ class Controller extends WebController
             'utf-8'
         );
     }
+
 }

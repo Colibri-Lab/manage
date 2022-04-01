@@ -47,12 +47,7 @@ class Module extends BaseModule
 	 */
     public function GetTopmostMenu(): Item|array|null {
 
-        return Item::Create('more', 'ЕЩЕ', 'blue', false, '')->Add(
-            Item::Create('manage', 'Инструменты', '', false, '')->Add(
-                Item::Create('backup', 'Слепки системы', '', false, 'Manage.RouteTo("/backup/")')
-            )->Add(
-                Item::Create('execute', 'Выполнить', '', false, 'Manage.RouteTo("/execute/")')
-        ));
+        return null;
 
     }
 

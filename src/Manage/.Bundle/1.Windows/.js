@@ -1,0 +1,1 @@
+App.Modules.Manage.Windows = class {}
