@@ -43,7 +43,12 @@ class Installer
             print_r('Файл конфигурации найден, пропускаем настройку'."\n");
             return;
         }
-        copy($configPath, $configTargetPath);
+        if($mode === 'local') {
+            symlink($configPath, $configTargetPath);
+        }
+        else {
+            copy($configPath, $configTargetPath);
+        }
 
         // нужно прописать в модули
         $modulesTargetPath = $configDir.'modules.yaml';
@@ -64,16 +69,26 @@ class Installer
         $scriptsPath = $path.'/src/Manage/bin/';
         $binDir = './bin/';
 
-        copy($scriptsPath.'manage-migrate.sh', $binDir.'manage-migrate.sh');
-        copy($scriptsPath.'manage-models-generate.sh', $binDir.'manage-models-generate.sh');
-
+        if($mode === 'local') {
+            symlink($scriptsPath.'manage-migrate.sh', $binDir.'manage-migrate.sh');
+            symlink($scriptsPath.'manage-models-generate.sh', $binDir.'manage-models-generate.sh');
+        }
+        else {
+            copy($scriptsPath.'manage-migrate.sh', $binDir.'manage-migrate.sh');
+            copy($scriptsPath.'manage-models-generate.sh', $binDir.'manage-models-generate.sh');
+        }
         print_r('Установка ресурсов'."\n");
         $resPath = $path.'/src/Manage/web/res/';
         $resDir = './web/res/';
 
-        shell_exec('cp -R '.$resPath.'/codemirror/ '.$resDir.'/codemirror/');
-        shell_exec('cp -R '.$resPath.'/tinymce/ '.$resDir.'/tinymce/');
-
+        if($mode === 'local') {
+            symlink($resPath.'/codemirror/', $resDir.'/codemirror/');
+            symlink($resPath.'/tinymce/', $resDir.'/tinymce/');
+        }
+        else {
+            shell_exec('cp -R '.$resPath.'/codemirror/ '.$resDir.'/codemirror/');
+            shell_exec('cp -R '.$resPath.'/tinymce/ '.$resDir.'/tinymce/');
+        }
         print_r('Установка завершена'."\n");
 
     }
