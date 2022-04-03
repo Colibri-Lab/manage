@@ -12,6 +12,8 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
 
         console.log('Initializing module Manage');
 
+        this._formWindow = null;
+
         this._store = App.Store.AddChild('app.manage');
         this._store.AddPathLoader('manage.storages', () => this.Storages(true));
 
@@ -52,6 +54,20 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         }).catch((response) => {
             App.Notices.Add(new Colibri.UI.Notice(response.result));
         });
+    }
+
+    
+    get FormWindow() {
+        if(this._formWindow) {
+            return this._formWindow;
+        }
+
+        this._formWindow = new App.Modules.Manage.Windows.FormWindow('form-window', document.body);
+        if(!this._formWindow.isConnected) {
+            this._formWindow.ConnectTo(document.body);
+        }
+
+        return this._formWindow;
     }
 
 

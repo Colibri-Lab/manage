@@ -42,32 +42,37 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
         this.shown = true;   
         App.Loading.Show();
         return new Promise((resolve, reject) => {
-            Promise.all([
-                App.Store.AsyncQuery(fieldBinding),
+            let promises = [
+                App.Store.AsyncQuery(fieldBinding)
+            ];
+            if(dataBinding && typeof dataBinding === 'string') {
                 App.Store.AsyncQuery(dataBinding)
-            ]).then((response) => {
-    
-                const storage = response[0];
-                const value = response[1];
-    
-                this._form.fields = this._performChanges(storage).fields;
-                this._form.value = value;
-                
-                App.Loading.Hide();
+            }
 
-                this._save.ClearHandlers();
-                this._save.AddHandler('Clicked', () => {
-                    resolve(this._form.value);
-                    this.Hide();
-                });
+            Promise.all(promises)
+                .then((response) => {
+        
+                    const storage = response[0];
+                    const value = dataBinding instanceof Object && !response[1] ? dataBinding : response[1] ?? {};
+        
+                    this._form.fields = this._performChanges(storage).fields;
+                    this._form.value = value;
+                    
+                    App.Loading.Hide();
 
-                this._cancel.ClearHandlers();
-                this._cancel.AddHandler('Clicked', () => {
-                    reject();
-                    this.Hide();
+                    this._save.ClearHandlers();
+                    this._save.AddHandler('Clicked', () => {
+                        resolve(this._form.value);
+                        this.Hide();
+                    });
+
+                    this._cancel.ClearHandlers();
+                    this._cancel.AddHandler('Clicked', () => {
+                        reject();
+                        this.Hide();
+                    });
+        
                 });
-    
-            });
     
         });
 

@@ -6,6 +6,32 @@ namespace App\Modules\Manage;
 class Installer
 {
 
+    private static function _copyOrSymlink($mode, $pathFrom, $pathTo, $fileFrom, $fileTo): void 
+    {
+        print_r('Копируем '.$mode.' '.$pathFrom.' '.$pathTo.' '.$fileFrom.' '.$fileTo."\n");
+        if(!file_exists($pathFrom.$fileFrom)) {
+            print_r('Файл '.$pathFrom.$fileFrom.' не существует'."\n");
+            return;
+        }
+
+        if(file_exists($pathTo.$fileTo)) {
+            print_r('Файл '.$pathTo.$fileTo.' существует'."\n");
+            return;
+        }
+
+        if($mode === 'local') {
+            shell_exec('ln -s '.realpath($pathFrom.$fileFrom).' '.$pathTo.($fileTo != $fileFrom ? $fileTo : ''));
+        }
+        else {
+            shell_exec('cp -R '.realpath($pathFrom.$fileFrom).' '.$pathTo.$fileTo);
+        }
+
+        // если это исполняемый скрипт
+        if(strstr($pathTo.$fileTo, '/bin/') !== false) {
+            chmod($pathTo.$fileTo, 0777);
+        }
+    }
+
     /**
      *
      * @param PackageEvent $event
@@ -34,21 +60,15 @@ class Installer
         $installedPackage = $operation->getPackage();
         $targetDir = $installedPackage->getName();
         $path = $vendorDir.$targetDir;
+        $configPath = $path.'/src/Manage/config-template/';
 
         // копируем конфиг
         print_r('Копируем файл конфигурации'."\n");
-        $configPath = $path.'/src/Manage/config-template/module-'.$mode.'.yaml';
-        $configTargetPath = $configDir.'manage.yaml';
-        if(file_exists($configTargetPath)) {
+        if(file_exists($configDir.'manage.yaml')) {
             print_r('Файл конфигурации найден, пропускаем настройку'."\n");
             return;
         }
-        if($mode === 'local') {
-            symlink($configPath, $configTargetPath);
-        }
-        else {
-            copy($configPath, $configTargetPath);
-        }
+        self::_copyOrSymlink($mode, $configPath, $configDir, 'module-'.$mode.'.yaml', 'manage.yaml');
 
         // нужно прописать в модули
         $modulesTargetPath = $configDir.'modules.yaml';
@@ -69,26 +89,16 @@ class Installer
         $scriptsPath = $path.'/src/Manage/bin/';
         $binDir = './bin/';
 
-        if($mode === 'local') {
-            symlink($scriptsPath.'manage-migrate.sh', $binDir.'manage-migrate.sh');
-            symlink($scriptsPath.'manage-models-generate.sh', $binDir.'manage-models-generate.sh');
-        }
-        else {
-            copy($scriptsPath.'manage-migrate.sh', $binDir.'manage-migrate.sh');
-            copy($scriptsPath.'manage-models-generate.sh', $binDir.'manage-models-generate.sh');
-        }
+        self::_copyOrSymlink($mode, $scriptsPath, $binDir, 'manage-migrate.sh', 'manage-migrate.sh');
+        self::_copyOrSymlink($mode, $scriptsPath, $binDir, 'manage-models-generate.sh', 'manage-models-generate.sh');
+
         print_r('Установка ресурсов'."\n");
         $resPath = $path.'/src/Manage/web/res/';
         $resDir = './web/res/';
 
-        if($mode === 'local') {
-            symlink($resPath.'/codemirror/', $resDir.'/codemirror/');
-            symlink($resPath.'/tinymce/', $resDir.'/tinymce/');
-        }
-        else {
-            shell_exec('cp -R '.$resPath.'/codemirror/ '.$resDir.'/codemirror/');
-            shell_exec('cp -R '.$resPath.'/tinymce/ '.$resDir.'/tinymce/');
-        }
+        self::_copyOrSymlink($mode, $resPath, $resDir, 'codemirror/', 'codemirror/');
+        self::_copyOrSymlink($mode, $resPath, $resDir, 'tinymce/', 'tinymce/');
+        
         print_r('Установка завершена'."\n");
 
     }
