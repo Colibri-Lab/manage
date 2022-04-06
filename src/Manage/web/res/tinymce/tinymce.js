@@ -16169,7 +16169,7 @@ define(
         'background: #FFF;' +
         'width: 7px;' +
         'height: 7px;' +
-        'z-index: ' + (UI.zIndex() + 1) +
+        'z-index: ' + (Colibri.UI.zIndex() + 1) +
         '}' +
         rootClass + ' .mce-resizehandle:hover {' +
         'background: #000' +
@@ -16183,7 +16183,7 @@ define(
         (Env.gecko ? '' : 'outline: 1px dashed black;') + // Gecko produces trails while resizing
         'opacity: .5;' +
         'filter: alpha(opacity=50);' +
-        'z-index: ' + (UI.zIndex() + 1) +
+        'z-index: ' + (Colibri.UI.zIndex() + 1) +
         '}' +
         rootClass + ' .mce-resize-helper {' +
         'background: #555;' +
@@ -16199,7 +16199,7 @@ define(
         'margin: 5px 10px;' +
         'padding: 5px;' +
         'position: absolute;' +
-        'z-index: ' + (UI.zIndex() + 1)  +
+        'z-index: ' + (Colibri.UI.zIndex() + 1)  +
         '}'
       );
 
@@ -35865,7 +35865,7 @@ define(
     }
 
     function addRemove(add, ctrl) {
-        FloatPanel.zIndex = UI.zIndex() + 1;
+        FloatPanel.zIndex = Colibri.UI.zIndex() + 1;
       var i, zIndex = FloatPanel.zIndex || 0xFFFF, topModal;
 
       if (add) {
@@ -35896,7 +35896,7 @@ define(
       var modalBlockEl = $('#' + ctrl.classPrefix + 'modal-block', ctrl.getContainerElm())[0];
 
       if (topModal) {
-        // $(modalBlockEl).css('z-index', UI.zIndex() + 1);
+        // $(modalBlockEl).css('z-index', Colibri.UI.zIndex() + 1);
         $(modalBlockEl).css('z-index', topModal.zIndex - 1);
       } else if (modalBlockEl) {
         modalBlockEl.parentNode.removeChild(modalBlockEl);
@@ -44768,7 +44768,7 @@ define(
       var ifr = DOM.create('iframe', {
         id: editor.id + "_ifr",
         frameBorder: '0',
-        tabIndex: $(settings.selector).attr('tabIndex'),
+        tabIndex: document.querySelector(settings.selector).attr('tabIndex'),
         allowTransparency: "true",
         title: editor.editorManager.translate(
           "Rich Text Area. Press ALT-F9 for menu. " +

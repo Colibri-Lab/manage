@@ -70,6 +70,10 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         return this._formWindow;
     }
 
+    get Store() {
+        return this._store;
+    }
+
 
 }
 
