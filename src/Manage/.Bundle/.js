@@ -77,5 +77,8 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
 
 }
 
+Colibri.UI.FieldIcons['App.Modules.Manage.UI.TinyMCETextArea'] = '<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3H5V25H3V3Z" fill="black"/><path d="M23 3H25V25H23V3Z" fill="black"/><path d="M25 3V5L3 5L3 3H25Z" fill="black"/><path d="M25 23V25H3V23L25 23Z" fill="black"/><path d="M17.1917 20L22 14L17.1917 8L16.0603 9.41177L19.7373 14L16.0603 18.5882L17.1917 20Z" fill="black"/><path d="M10.8083 8L6 14L10.8083 20L11.9397 18.5882L8.26274 14L11.9397 9.41177L10.8083 8Z" fill="black"/></svg>';
+
+
 const Manage = new App.Modules.Manage();
 

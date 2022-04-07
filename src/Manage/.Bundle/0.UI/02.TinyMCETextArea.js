@@ -5,8 +5,24 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
         this._controlElementId = 'html' + Date.Mc();
         this._input.attr('id', this._controlElementId);
+
+        this.handleResize = true;
         this.__initVisual();
+
         
+        // this.AddHandler('Resize', (event, args) => {
+        //     const height = this._element.bounds().height - 50;
+
+        //     if (tinymce.get(this._controlElementId)) {
+        //         tinymce.get(this._controlElementId).theme.resizeTo('100%', height - 100);
+        //     }
+        //     else if(this._codemirror) {
+        //         this._codemirror.setSize('100%', height);
+        //     }
+
+        // });
+
+
     }
 
     __initVisual() {
@@ -153,10 +169,15 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     extraKeys: {"Ctrl-/": (cm) => { cm.foldCode(cm.getCursor()); }},
                 };
             
+
                 // TODO проблема с таб индексом, не берет
                 // props.tabindex = this._input.css('tab-index');
                 this._codemirror = CodeMirror.fromTextArea(this._input, defaultPros);
-                this._codemirror.setSize('100%', 200);
+                this._codemirror.setValue(this._input.value);
+
+                const height = this._element.bounds().height - 50;
+                this._codemirror.setSize('100%', height);
+
 
                 // this._element.find('.ui-formfield-memo').append('<div class="ui-memo-resize-handler"></div>');
                 // this._input.next().resizable({
@@ -204,7 +225,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 this._input.value = val ? val : '';
             }
         } else if (this._fieldData?.params?.code) {
-            this._codemirror && this._codemirror.setValue(val);
+            this._codemirror ? this._codemirror.setValue(val) : (this._input.value = val);
         } else {
             this._input.value = val ? val : '';
         }
