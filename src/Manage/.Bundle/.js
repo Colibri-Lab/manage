@@ -16,6 +16,8 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
 
         this._store = App.Store.AddChild('app.manage');
         this._store.AddPathLoader('manage.storages', () => this.Storages(true));
+        this._store.AddPathLoader('manage.datapoints', () => this.DataPoints(true));
+        this._store.AddPathLoader('manage.modules', () => this.Modules(true));
 
     }
 
@@ -56,7 +58,30 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
 
-    
+    Modules(returnPromise = false) {
+        const promise = this.Call('Modules', 'Config');
+        if(returnPromise) {
+            return promise;
+        }
+        promise.then((response) => {
+            this._store.Set('manage.storages', response.result);
+        }).catch((response) => {
+            App.Notices.Add(new Colibri.UI.Notice(response.result));
+        });
+    }
+
+    DataPoints(returnPromise = false) {
+        const promise = this.Call('DataPoints', 'Config');
+        if(returnPromise) {
+            return promise;
+        }
+        promise.then((response) => {
+            this._store.Set('manage.storages', response.result);
+        }).catch((response) => {
+            App.Notices.Add(new Colibri.UI.Notice(response.result));
+        });
+    }
+
     get FormWindow() {
         if(this._formWindow) {
             return this._formWindow;

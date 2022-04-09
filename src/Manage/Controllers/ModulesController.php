@@ -23,22 +23,28 @@ use Colibri\Utils\Config\Config;
 use Colibri\Utils\Config\ConfigException;
 use App\Modules\Security\Module as SecurityModule;
 
-class StoragesController extends WebController
+class ModulesController extends WebController
 {
 
     
     public function Config(RequestCollection $get, RequestCollection $post, ?PayloadCopy $payload): object
     {
-        
+
         if(!SecurityModule::$instance->current) {
             return $this->Finish(403, 'Permission denied');
         }
-
+        
         $result = [];
-        $storages = Storages::Create();
-        $list = $storages->GetStorages();
-        foreach($list as $name => $storage) {
-            $result[$name] = $storage->ToArray();
+        foreach(App::$moduleManager->list as $module) {
+            if(!$module->Config()->AsObject()->visible) {
+                continue;
+            }
+            $result[] = (object)[
+                'name' => $module->Config()->Query('name')->GetValue(), 
+                'desc' => $module->Config()->Query('desc')->GetValue(), 
+                'config' => $module->moduleConfigPath,
+                'storages' => $module->moduleStoragesPath,
+            ];
         }
         
         return $this->Finish(200, 'ok', $result);

@@ -19,6 +19,7 @@ use ScssPhp\ScssPhp\OutputStyle;
 use Colibri\Web\PayloadCopy;
 use Colibri\Data\Storages\Storages;
 use ReflectionClass;
+use App\Modules\Security\Module as SecurityModule;
 
 class FilesController extends WebController
 {
@@ -26,6 +27,10 @@ class FilesController extends WebController
     
     public function ByGuid(RequestCollection $get, RequestCollection $post, ?PayloadCopy $payload): object
     {
+        if(!SecurityModule::$instance->current) {
+            return $this->Finish(403, 'Permission denied');
+        }
+
         $storage = $post->storage;
         $field = $post->field;
         $guid = $post->guid;

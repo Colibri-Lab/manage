@@ -42,18 +42,15 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
         this.shown = true;   
         App.Loading.Show();
         return new Promise((resolve, reject) => {
-            let promises = [
-                App.Store.AsyncQuery(fieldBinding)
-            ];
-            if(dataBinding && typeof dataBinding === 'string') {
-                App.Store.AsyncQuery(dataBinding)
-            }
 
-            Promise.all(promises)
+            const promiseDataBinding = dataBinding && typeof dataBinding === 'string' ? App.Store.AsyncQuery(dataBinding) : new Promise((rs, rj) => rs(dataBinding));
+            const promiseFieldsBinding = fieldBinding && typeof fieldBinding === 'string' ? App.Store.AsyncQuery(fieldBinding) : new Promise((rs, rj) => rs(fieldBinding));
+
+            Promise.all([promiseFieldsBinding, promiseDataBinding])
                 .then((response) => {
         
                     const storage = response[0];
-                    const value = dataBinding instanceof Object && !response[1] ? dataBinding : response[1] ?? {};
+                    const value = response[1];
         
                     this._form.fields = this._performChanges(storage).fields;
                     this._form.value = value;
