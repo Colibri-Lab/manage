@@ -231,4 +231,57 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         }
     }
 
+    
+    get readonly() {
+        return super.readonly;
+    }
+
+    set readonly(value) {
+        super.readonly = value;
+        if (this._fieldData?.params?.visual == true) {
+            try {
+                if(value) {
+                    tinymce.activeEditor.setMode('readonly');
+                }
+                else {
+                    tinymce.activeEditor.setMode('design');
+                }
+            } catch (e) {
+            }
+        } else if (this._fieldData?.params?.code && this._codemirror) {
+            if(value) {
+                this._codemirror.setOption('readOnly', 'nocursor');
+            }
+            else {
+                this._codemirror.setOption('readOnly', null);
+            }
+        }
+    }
+
+    get enabled() {
+        return super.enabled;
+    }
+
+    set enabled(value) {
+        super.enabled = value;
+        if (this._fieldData?.params?.visual == true) {
+            try {
+                if(value) {
+                    tinymce.activeEditor.setMode('readonly');
+                }
+                else {
+                    tinymce.activeEditor.setMode('design');
+                }
+            } catch (e) {
+            }
+        } else if (this._fieldData?.params?.code && this._codemirror) {
+            if(value) {
+                this._codemirror.setOption('readOnly', 'nocursor');
+            }
+            else {
+                this._codemirror.setOption('readOnly', null);
+            }
+        }
+    }
+
 }

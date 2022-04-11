@@ -40,6 +40,7 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
         }
  
         this.shown = true;   
+        this._save.enabled = false;
         App.Loading.Show();
         return new Promise((resolve, reject) => {
 
