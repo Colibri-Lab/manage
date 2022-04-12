@@ -91,6 +91,13 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     const position = element.bounds();
                     position.top += position.height;
 
+                    const files = new App.Modules.Tools.Windows.FileWindow('filepicker', document.body); 
+                    files.Show(false).then((data) => {
+                        const file = data[0];
+                        files.Dispose();
+                        callback('/res/upload/' + file.path);
+                    });
+
                     // var hide = () => {
                     //     if (!cm._element.is(':hover'))
                     //         cm.Hide();
