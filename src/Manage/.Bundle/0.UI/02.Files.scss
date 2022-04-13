@@ -1,0 +1,102 @@
+.app-component-manage-files-field {
+    width: 100%;
+
+    > [data-object-name$="-content"] > [data-object-name$="-container"] {
+
+        > .app-component-list {
+            .app-component-list-item {
+                padding: 10px;
+                > .app-component-flexbox {
+                    &.app-component-shown {
+                        display: grid;
+                    }
+                    grid-template-columns: 130px calc(100% - 150px) 20px;
+                    
+                    > .app-component-icon {
+                        width: 120px;
+                        height: 66px;
+                        margin-right: 20px;
+                        border: 1px solid #c0c0c0;
+                        border-radius: 3px; 
+                        svg {
+                            padding: 10px;
+                        }
+                        
+                    }
+                
+                    > .app-component-pane {
+                        padding-right: 20px;
+
+                        &:last-child {
+                            padding-right: 0px;
+                            &.app-component-shown {
+                                display: flex;
+                            }
+                            flex-direction: column;
+                            justify-content: flex-start;
+                            align-items: flex-end;
+                        }
+
+                        > .app-component-flexbox {
+                            padding-top: 10px;
+        
+                            .app-component-icon {
+                                border: 1px solid #c0c0c0;
+                                border-radius: 3px; 
+                                width: 24px;
+                                height: 24px;
+                                cursor: pointer;
+                                margin-right: 5px;
+                                &:hover {
+                                    background: #f2f2f2;
+                                }
+                                svg {
+                                    width: 22px;
+                                    height: 22px;
+                                    path {
+                                        fill: #000000;
+                                    }
+                                }
+                            }
+        
+                        }
+
+                        > .app-component-icon {
+                            svg {
+                                width: 14px;
+                                height: 14px;
+                            }
+                        }
+                
+                    }
+            
+                }
+            }
+        }
+
+        > .app-component-flexbox {
+            flex-wrap: nowrap;
+            .app-component-icon {
+                border: 1px solid #c0c0c0;
+                border-radius: 3px; 
+                width: 24px;
+                height: 24px;
+                cursor: pointer;
+                margin-right: 5px;
+                &:hover {
+                    background: #f2f2f2;
+                }
+                svg {
+                    width: 22px;
+                    height: 22px;
+                    path {
+                        fill: #000000;
+                    }
+                }
+            }
+    
+        }
+    }
+
+
+}
