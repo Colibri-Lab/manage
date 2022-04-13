@@ -91,11 +91,17 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     const position = element.bounds();
                     position.top += position.height;
 
-                    const files = new App.Modules.Tools.Windows.FileWindow('filepicker', document.body); 
+                    const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
                     files.Show(false).then((data) => {
                         const file = data[0];
+                        if(file?.bucket) {
+                            // Это удаленный файл
+                            callback('/modules/manage/files/by-guid.stream?bucket=' + file.bucket + '&guid=' + file.guid + '&type=' + file.ext);
+                        }
+                        else {
+                            callback(file.path);
+                        }
                         files.Dispose();
-                        callback('/res/upload/' + file.path);
                     });
 
                     // var hide = () => {

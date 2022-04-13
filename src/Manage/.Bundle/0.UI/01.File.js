@@ -54,11 +54,11 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     }
 
     __chooseClicked(event, args) {
-        const files = new App.Modules.Tools.Windows.FileWindow('filepicker', document.body); 
+        const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
         files.Show(false).then((data) => {
             const file = data[0];
             files.Dispose();
-            this.value = '/res/upload/' + file.path;
+            this.value = file.path;
         });
     }
 
@@ -101,7 +101,7 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
         else {
             const MimeType = Colibri.Common.MimeType;
             if(MimeType.isImage(pi.ext)) {
-                this._icon.icon = 'url(' + value + ')';
+                this._icon.icon = 'url(\'' + value + '\')';
             }
             else if(Colibri.UI.Files[pi.ext] !== undefined) {
                 this._icon.icon = null;

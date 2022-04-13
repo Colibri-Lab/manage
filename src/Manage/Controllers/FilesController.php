@@ -20,6 +20,10 @@ use Colibri\Web\PayloadCopy;
 use Colibri\Data\Storages\Storages;
 use ReflectionClass;
 use App\Modules\Security\Module as SecurityModule;
+use FileServerApiClient\Client;
+use FileServerApiClient\AdminClient;
+use Colibri\Common\MimeType;
+use Colibri\Common\DateHelper;
 
 class FilesController extends WebController
 {
@@ -31,41 +35,30 @@ class FilesController extends WebController
             return $this->Finish(403, 'Permission denied');
         }
 
-        $storage = $post->storage;
-        $field = $post->field;
-        $guid = $post->guid;
+        $bucket = $get->bucket;
+        $guid = $get->guid;
+        $type = $get->type;
 
-        if(!$storage || !$field || !$guid) {
-            return $this->Finish(400, 'Bad request', []);
+        $cacheKey = md5($bucket.$guid);
+        $cacheRoot = App::$config->Query('cache')->GetValue().'img/';
+        $cachePath = App::$webRoot.$cacheRoot.substr($cacheKey, 0, 4).'/'.substr($cacheKey, -4).'/'.$cacheKey.'.'.$type;
+        if(File::Exists($cachePath)) {
+            return $this->Finish(200, $cacheKey.'.'.$type, File::Read($cachePath), 'utf-8', ['Cache-Control' => 'Public', 'Expires' => DateHelper::ToDbString(time())]);
         }
 
-        $storage = Storages::Create()->Load($storage);
-        $field = $storage->GetField($field);
-        $params = $field->params;
-    
-        $remote = $params['remote'];
-        $className = $remote['class'] ?? null;
-        if(!$className) {
-            return $this->Finish(400, 'Bad request', []);
-        }
+        $host = App::$config->Query('hosts.services.fs')->GetValue();
 
-        $args = $remote['args'];
-        $method1 = $remote['method'][0];
+        $adminClient = new AdminClient($host, '');
+        $bucketData = $adminClient->GetBucket($bucket);
 
-        $reflectionClass = new ReflectionClass($className);
-        if(!$reflectionClass->hasMethod($method1)) {
-            return $this->Finish(400, 'Bad request', []);
-        }
+        $client = new Client($host, $bucketData->token);
+        $data = $client->GetObject($guid);
+        $stat = $client->StatObject($guid);
+        $type = MimeType::GetType($stat->mimetype);
 
-        $classInstance = $reflectionClass->newInstanceArgs($args);
-        try {
-            $data = $classInstance->$method1($guid);
-        }
-        catch(\Throwable $e) {
-            return $this->Finish(404, 'File not found', []);
-        }
+        File::Write($cachePath, $data, true, '777');
 
-        return $this->Finish(200, 'file.stream', base64_encode($data));
+        return $this->Finish(200, 'file.' . $type, $data, 'utf-8', ['Cache-Control' => 'Public', 'Expires' => DateHelper::ToDbString(time())]);
     }
 
 }

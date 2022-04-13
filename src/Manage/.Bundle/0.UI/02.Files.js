@@ -45,36 +45,30 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
             path.tabIndex = true;
             clear.tabIndex = choose.tabIndex = download.tabIndex = true;
 
-            path.value = '/res/upload/' + itemData.path;
+            path.value = itemData.path;
             this._showIcon(icon, path.value);
 
             path.AddHandler(['Filled', 'Cleared'], (event, args) => {
-                const index = item.index;
-                const p = path.value;
-
-                this._value.splice(index, 1, p);
+                this._value.splice(item.index, 1, path.value);
                 this.value = this._value;
             });
 
             clear.AddHandler('Clicked', (event, args) => {
-                const index = item.index;
-                this._value.splice(index, 1);
+                this._value.splice(item.index, 1);
                 this.value = this._value;
             });
 
             choose.AddHandler('Clicked', (event, args) => {
-                const files = new App.Modules.Tools.Windows.FileWindow('filepicker', document.body); 
+                const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
                 files.Show(false).then((data) => {
                     const index = item.index;
-                    this._value.splice(index, 1, '/res/upload/' + data[0].path);
+                    this._value.splice(index, 1, data[0].path);
                     this.value = this._value;
                     files.Dispose();
                 });
             });
 
-            download.AddHandler('Clicked', (event, args) => {
-                DownloadFileByPath(item.value.path);
-            });
+            download.AddHandler('Clicked', (event, args) => DownloadFileByPath(item.value.path));
 
 
         };
@@ -107,9 +101,9 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
     }
 
     __chooseClicked(event, args) {
-        const files = new App.Modules.Tools.Windows.FileWindow('filepicker', document.body); 
+        const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
         files.Show(true).then((data) => {
-            data = data.map(d => { return {path: '/res/upload/' + d.path}; });
+            data = data.map(d => { return {path: d.path}; });
             this.value = this.value.concat(data);
             files.Dispose();
         });
@@ -188,7 +182,7 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
         else {
             const MimeType = Colibri.Common.MimeType;
             if(MimeType.isImage(pi.ext)) {
-                component.icon = 'url(' + value + ')';
+                component.icon = 'url(\'' + value + '\')';
             }
             else if(Colibri.UI.Files[pi.ext] !== undefined) {
                 component.icon = null;

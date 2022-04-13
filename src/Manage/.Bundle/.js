@@ -18,6 +18,10 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         this._store.AddPathLoader('manage.storages', () => this.Storages(true));
         this._store.AddPathLoader('manage.datapoints', () => this.DataPoints(true));
         this._store.AddPathLoader('manage.modules', () => this.Modules(true));
+        this._store.AddPathLoader('manage.folders', () => this.Folders('', true));
+        this._store.AddPathLoader('manage.files', () => this.Files('', '', true));
+        this._store.AddPathLoader('manage.remotebuckets', () => this.RemoteBuckets(true));
+        this._store.AddPathLoader('manage.remotefiles', () => this.RemoteFiles(null, '', 1, 1, true));
 
     }
 
@@ -81,6 +85,183 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             App.Notices.Add(new Colibri.UI.Notice(response.result));
         });
     }
+
+    Folders(path = '', returnPromise = false) {
+        const promise = this.Call('FileManager', 'Folders', {path: path})
+        if(returnPromise) {
+            return promise;
+        }
+        promise.then((response) => {
+            this._store.Set('manage.folders', response.result);
+        }).catch((response) => {
+            App.Notices.Add(new Colibri.UI.Notice(response.result));
+        });
+    }
+
+    Files(path = '', searchTerm = '', returnPromise = false) {
+        const promise = this.Call('FileManager', 'Files', {path: path, term: searchTerm})
+        if(returnPromise) {
+            return promise;
+        }
+        promise.then((response) => {
+            this._store.Set('manage.files', response.result);
+        }).catch((response) => {
+            App.Notices.Add(new Colibri.UI.Notice(response.result));
+        });
+    }
+
+    CreateFolder(path) {
+        this.Call('FileManager', 'CreateFolder', {path: path})
+            .then((response) => {
+                let folders = this._store.Query('manage.folders');
+                if(!Array.isArray(folders)) {
+                    folders = [];
+                }
+                folders.push(response.result);
+                this._store.Set('manage.folders', folders);
+            }).catch((response) => {
+                App.Notices.Add(new Colibri.UI.Notice(response.result));
+            });
+    }
+
+    RenameFolder(pathFrom, pathTo) {
+        this.Call('FileManager', 'RenameFolder', {pathFrom: pathFrom, pathTo: pathTo})
+            .then((response) => {
+                this._store.Set('manage.folders', response.result);
+            }).catch((response) => {
+                App.Notices.Add(new Colibri.UI.Notice(response.result));
+            });
+    }
+
+    RemoveFolder(path) {
+        this.Call('FileManager', 'RemoveFolder', {path: path})
+            .then((response) => {
+                this._store.Set('manage.folders', response.result);
+            }).catch((response) => {
+                App.Notices.Add(new Colibri.UI.Notice(response.result));
+            });
+    }
+
+    RenameFile(path, nameFrom, nameTo) {
+        this.Call('FileManager', 'RenameFile', {path: path, nameFrom: nameFrom, nameTo: nameTo})
+            .then((response) => {
+                this._store.Set('manage.files', response.result);
+            }).catch((response) => {
+                App.Notices.Add(new Colibri.UI.Notice(response.result));
+            });
+    }
+
+    RemoveFile(path) {
+        this.Call('FileManager', 'RemoveFile', {path: path})
+            .then((response) => {
+                this._store.Set('manage.files', response.result);
+            }).catch((response) => {
+                App.Notices.Add(new Colibri.UI.Notice(response.result));
+            });
+    }
+
+    UploadFiles(path, files) {
+        this.Call('FileManager', 'UploadFiles', {path: path, files: files}, {}, true, 'UploadFiles')
+            .then((response) => {
+                let files = this._store.Query('manage.files');
+                if(!Array.isArray(files)) {
+                    files = [];
+                }
+                files = files.concat(response.result);
+                this._store.Set('manage.files', files);
+            }).catch((response) => {
+                App.Notices.Add(new Colibri.UI.Notice(response.result));
+            });
+    }
+
+    RemoteBuckets(returnPromise = false) {
+        const promise = this.Call('RemoteFileServer', 'ListBuckets')
+        if(returnPromise) {
+            return promise;
+        }
+        promise.then((response) => {
+            this._store.Set('manage.remotebuckets', response.result);
+        }).catch((response) => {
+            App.Notices.Add(new Colibri.UI.Notice(response.result));
+        });
+    }
+
+    RemoteFiles(bucket, term = null, page = 1, pagesize = 20, returnPromise = false) {
+        const promise = this.Call('RemoteFileServer', 'ListFiles', {bucket: bucket.name, term: term, page: page, pagesize: pagesize})
+        if(returnPromise) {
+            return promise;
+        }
+        promise.then((response) => {
+            if(page == 1) {
+                this._store.Set('manage.remotefiles', response.result);
+            }
+            else if(Array.isArray(response.result)) {
+                let data = this._store.Query('manage.remotefiles');
+                if(!data || !Array.isArray(data)) {
+                    data = [];
+                }
+                data = data.concat(response.result);
+                this._store.Set('manage.remotefiles', data);
+            }
+        }).catch((response) => {
+            App.Notices.Add(new Colibri.UI.Notice(response.result));
+        });
+    }
+    
+    CreateBucket(bucket) {
+        this.Call('RemoteFileServer', 'CreateBucket', {bucket: bucket})
+            .then((response) => {
+                let folders = this._store.Query('manage.remotebuckets');
+                folders.push(response.result);
+                this._store.Set('manage.remotebuckets', folders);
+            }).catch((response) => {
+                App.Notices.Add(new Colibri.UI.Notice(response.result));
+            });
+    }
+
+    RemoveBucket(bucket) {
+        this.Call('RemoteFileServer', 'RemoveBucket', {bucket: bucket.name})
+            .then((response) => {
+                let folders = this._store.Query('manage.remotebuckets');
+                folders = folders.filter(f => f.token != bucket.token);
+                this._store.Set('manage.remotebuckets', folders);
+            }).catch((response) => {
+                App.Notices.Add(new Colibri.UI.Notice(response.result));
+            });
+    }
+
+
+    UploadFilesToRemote(bucket, files) {
+        this.Call('RemoteFileServer', 'UploadFiles', {bucket: bucket.token, bucketname: bucket.name, files: files}, {}, true, 'UploadFiles')
+            .then((response) => {
+                let files = this._store.Query('manage.remotefiles');
+                if(!Array.isArray(files)) {
+                    files = [];
+                }
+                files = files.concat(response.result);
+                this._store.Set('manage.remotefiles', files);
+            }).catch((response) => {
+                App.Notices.Add(new Colibri.UI.Notice(response.result));
+            });
+    }
+
+    DeleteFilesFromRemote(bucket, files) {
+        this.Call('RemoteFileServer', 'RemoveFile', {bucket: bucket.token, files: files})
+            .then((response) => {
+                let fs = this._store.Query('manage.remotefiles');
+                let newFiles = [];
+                for(const f of fs) {
+                    if(files.indexOf(f.guid) === -1) {
+                        newFiles.push(f);
+                    }
+                };
+                this._store.Set('manage.remotefiles', newFiles);
+            }).catch((response) => {
+                App.Notices.Add(new Colibri.UI.Notice(response.result));
+            });
+    }
+
+    
 
     get FormWindow() {
         if(this._formWindow) {

@@ -1,0 +1,21 @@
+<div ComponentName="App.Modules.Manage.Windows.FileWindow">
+
+    <component-container>
+        <component Component="Colibri.UI.Tabs" name="tabs" shown="true">
+            <component-header>
+                <component Component="Colibri.UI.Button" name="files" shown="true" value="Ресурсы" />
+                <component Component="Colibri.UI.Button" name="remotefiles" shown="true" value="Удаленная медиатека" />
+            </component-header>
+            <component-container>
+                <component Component="App.Modules.Manage.UI.FileManager" name="manager" shown="true" />
+                <component Component="App.Modules.Manage.UI.RemoteFileManager" name="remotemanager" shown="true" />
+            </component-container>
+        </component>
+    </component-container>
+    <component-footer>
+        <component Component="Colibri.UI.SuccessButton" name="save" shown="true" enabled="false" value="Выбрать" />
+        <component Component="Colibri.UI.SimpleButton" name="cancel" shown="true" value="Отмена" OnClicked="(event, args) => this.Hide()" />
+    </component-footer>
+
+    
+</div>

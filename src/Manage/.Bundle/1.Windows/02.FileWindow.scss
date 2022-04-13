@@ -1,0 +1,11 @@
+.app-file-window-component {
+    .app-component-window-container {
+        width: 90%;
+        height: calc(90% - 100px);
+        display: grid;
+        grid-template-rows: 60px calc(100% - 110px) 50px;
+        .app-component-window-content {
+            
+        }
+    }
+}
