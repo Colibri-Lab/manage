@@ -45,10 +45,23 @@ App.Modules.Manage.Windows.FileWindow = class extends Colibri.UI.Window {
     }
 
 
-    Show(multiple = true) {
+    Show(multiple = true, showRemote = true, showLocal = true) {
 
         this.multiple = multiple;
         this.shown = true;   
+
+        if(!showRemote || !showLocal) {
+            this._tabs.headerContainer = false;
+            if(showRemote) {
+                this._tabs.selectedIndex = 1;
+            }
+            else {
+                this._tabs.selectedIndex = 0;
+            }
+        }
+        else {
+            this._tabs.headerContainer = true;
+        }
 
         App.Loading.Show();
         return new Promise((resolve, reject) => {

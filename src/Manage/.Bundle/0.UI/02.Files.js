@@ -51,11 +51,13 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
             path.AddHandler(['Filled', 'Cleared'], (event, args) => {
                 this._value.splice(item.index, 1, path.value);
                 this.value = this._value;
+                this.Dispatch('Changed', args);
             });
 
             clear.AddHandler('Clicked', (event, args) => {
                 this._value.splice(item.index, 1);
                 this.value = this._value;
+                this.Dispatch('Changed', args);
             });
 
             choose.AddHandler('Clicked', (event, args) => {
@@ -65,6 +67,7 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
                     this._value.splice(index, 1, data[0].path);
                     this.value = this._value;
                     files.Dispose();
+                    this.Dispatch('Changed', args);
                 });
             });
 
@@ -98,6 +101,7 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
 
     __clearClicked(event, args) {
         this.value = '';
+        this.Dispatch('Changed', args);
     }
 
     __chooseClicked(event, args) {
@@ -106,6 +110,7 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
             data = data.map(d => { return {path: d.path}; });
             this.value = this.value.concat(data);
             files.Dispose();
+            this.Dispatch('Changed', args);
         });
     }
 

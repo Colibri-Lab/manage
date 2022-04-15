@@ -47,7 +47,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     __searchInputFilled(event, args) {
         const selected = this._buckets.selected;
         if(!selected) {
-            this._files.ClearAll(); 
+            this._files.ClearAllRows(); 
             return;           
         }
         this._files.bucket = selected.tag;
@@ -55,7 +55,6 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
     __bucketsSelectionChanged(event, args) {
-
         const selection = this._buckets.selected;
         
         this._searchInput.enabled = selection != null;

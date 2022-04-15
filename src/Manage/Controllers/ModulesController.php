@@ -36,7 +36,8 @@ class ModulesController extends WebController
         
         $result = [];
         foreach(App::$moduleManager->list as $module) {
-            if(!$module->Config()->AsObject()->visible) {
+            $config = $module->Config()->AsObject();
+            if(!$config || !isset($config->visible)) {
                 continue;
             }
             $result[] = (object)[

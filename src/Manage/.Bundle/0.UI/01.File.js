@@ -47,10 +47,12 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
 
     __pathChanged(event, args) {
         this.value = this._path.value;
+        this.Dispatch('Changed', args);
     }
 
     __clearClicked(event, args) {
         this.value = '';
+        this.Dispatch('Changed', args);
     }
 
     __chooseClicked(event, args) {
@@ -59,6 +61,7 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
             const file = data[0];
             files.Dispose();
             this.value = file.path;
+            this.Dispatch('Changed', args);
         });
     }
 

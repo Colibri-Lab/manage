@@ -45,30 +45,30 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
             path.tabIndex = true;
             clear.tabIndex = choose.tabIndex = download.tabIndex = true;
 
-            path.value = itemData.path;
-            this._showIcon(icon, path.value);
+            path.value = itemData.name + ' (' + itemData.ext + ')';
+            path.readonly = true;
+            this._showIcon(icon, itemData);
 
-            path.AddHandler(['Filled', 'Cleared'], (event, args) => {
-                this._value.splice(item.index, 1, path.value);
-                this.value = this._value;
-            });
+
 
             clear.AddHandler('Clicked', (event, args) => {
                 this._value.splice(item.index, 1);
                 this.value = this._value;
+                this.Dispatch('Changed', args);
             });
 
             choose.AddHandler('Clicked', (event, args) => {
                 const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
-                files.Show(false).then((data) => {
+                files.Show(false, true, false).then((data) => {
                     const index = item.index;
-                    this._value.splice(index, 1, data[0].path);
+                    this._value.splice(index, 1, data[0]);
                     this.value = this._value;
                     files.Dispose();
+                    this.Dispatch('Changed', args);
                 });
             });
 
-            download.AddHandler('Clicked', (event, args) => DownloadFileByPath(item.value.path));
+            download.AddHandler('Clicked', (event, args) => DownloadFileByPath(this._getUrl(item.value)));
 
 
         };
@@ -88,30 +88,24 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
     }
 
     _handleEvents() {
-
-        // this._path.AddHandler(['Filled', 'Cleared'], (event, args) => this.__pathChanged(event, args));
-        
         this._clear.AddHandler('Clicked', (event, args) => this.__clearClicked(event, args));
         this._choose.AddHandler('Clicked', (event, args) => this.__chooseClicked(event, args));
-
     }
 
     __clearClicked(event, args) {
-        this.value = '';
+        this.value = null;
+        this.Dispatch('Changed', args);
     }
 
     __chooseClicked(event, args) {
         const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
-        files.Show(true).then((data) => {
-            data = data.map(d => { return {path: d.path}; });
-            this.value = this.value.concat(data);
+        files.Show(true, true, false).then((data) => {
             files.Dispose();
+            this.value = this.value.concat(data);
+            this.Dispatch('Changed', args);
         });
     }
 
-    __downloadClicked(event, args) {
-        DownloadFileByPath(this.value);
-    }
 
     /**
      * Поставить фокус
@@ -174,23 +168,30 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
 
     _showIcon(component, value) {
 
-        const pi = value.pathinfo();
-        if(!pi?.ext) {
+        if(!value?.ext) {
             component.icon = null;
             component.value = null;
         }
         else {
             const MimeType = Colibri.Common.MimeType;
-            if(MimeType.isImage(pi.ext)) {
-                component.icon = 'url(\'' + value + '\')';
+            if(MimeType.isImage(value.ext)) {
+                component.icon = 'url(\'' + this._getUrl(value) + '\')';
             }
-            else if(Colibri.UI.Files[pi.ext] !== undefined) {
+            else if(Colibri.UI.Files[value.ext] !== undefined) {
                 component.icon = null;
-                component.value = Colibri.UI.Files[pi.ext];
+                component.value = Colibri.UI.Files[value.ext];
             }
         }
 
         
+    }
+
+    _isValue(value) {
+        return !Array.isArray(value) && value instanceof Object;
+    }
+    
+    _getUrl(value) {
+        return '/modules/manage/files/by-guid.stream?bucket=' + value.bucket + '&guid=' + value.guid + '&type=' + value.ext;
     }
 
 }

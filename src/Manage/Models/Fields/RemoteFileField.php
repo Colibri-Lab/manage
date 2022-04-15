@@ -18,6 +18,9 @@ use Colibri\Utils\ExtendedObject;
 use Colibri\Data\Storages\Storage;
 use Colibri\Data\Storages\Fields\Field;
 use ReflectionClass;
+use FileServerApiClient\AdminClient;
+use FileServerApiClient\Client;
+use Colibri\AppException;
 
 /**
  * Представление файла в хранилище
@@ -46,18 +49,6 @@ class RemoteFileField
     private $_data;
 
     /**
-     * Название файла
-     * @var string
-     */
-    private $_name;
-
-    /**
-     * Расширение файла
-     * @var string
-     */
-    private $_ext;
-
-    /**
      * Поле
      * @var Field
      */
@@ -69,27 +60,33 @@ class RemoteFileField
      */
     private ?Storage $_storage = null;
 
+    private string $_host = '';
+    private string $_cache = '';
+
+    private ?AdminClient $_adminClient = null;
+    private ?Client $_client = null;
+
     /**
      * Конструктор
      */
-    public function __construct(object|string|null $data, ?Storage $storage = null, ?Field $field = null)
+    public function __construct(object|string|null|array $data, ?Storage $storage = null, ?Field $field = null)
     {
         $this->_storage = $storage;
         $this->_field = $field;
         
         if(is_null($data)) {
             $this->_data = [];
-            $this->_name = '';
-            $this->_ext = '';
         }
         else {
             if(is_string($data)) {
                 $data = json_decode($data);
             }
-            $this->_data = $data;
-            $this->_name = basename($this->_data->name ?? 'untitled.txt');
-            $this->_ext = pathinfo($this->_name, PATHINFO_EXTENSION);
+            $this->_data = (object)$data;
         }
+
+        $this->_host = App::$config->Query('hosts.services.fs')->GetValue();
+        $this->_cache = App::$config->Query('cache')->GetValue().'img/';
+        $this->_adminClient = new AdminClient($this->_host, '');
 
     }
 
@@ -108,10 +105,10 @@ class RemoteFileField
                     return $this->_data->name;
                 }
             case "mimetype": {
-                    return new MimeType($this->_ext);
+                    return new MimeType($this->_data->ext);
                 }
             case "type": {
-                    return $this->_ext;
+                    return $this->_data->ext;
                 }
             case "data": {
                     return $this->_getContent();
@@ -123,7 +120,10 @@ class RemoteFileField
             case "id":
             case "name":
             case "filename": {
-                    return $this->_name;
+                    if(!isset($this->_data->name)) {
+                        $this->_data = $this->_getStat();
+                    }
+                    return $this->_data->name ?? 'untitled.'.$this->type;
                 }
             default: {
                     return null;
@@ -134,10 +134,31 @@ class RemoteFileField
     public function __set(string $nm, mixed $data): void
     {
         if($nm == 'name') {
-            $this->_name = $data;
+            $this->_data->name = $data;
         }
         else if($nm == 'data') {
-            $this->_setContent($data);
+            throw new AppException('Can not set the remote file content');
+        }
+    }
+
+    private function _getStat(): ?object
+    {
+        try {
+
+            $bucket = $this->_data->bucket;
+            $guid = $this->_data->guid;
+
+            $bucketData = $this->_adminClient->GetBucket($bucket);
+
+            if(!$this->_client) {
+                $this->_client = new Client($this->_host, $bucketData->token);
+            }
+
+            return $this->_client->StatObject($guid);
+
+        }
+        catch(\Throwable $e) {
+            return null;            
         }
     }
 
@@ -145,23 +166,17 @@ class RemoteFileField
     {
         try {
 
-            $params = $this->_field->params;
-            $className = $params['class'] ?? null;
-            if(!$className) {
-                return null;
+            $bucket = $this->_data->bucket;
+            $guid = $this->_data->guid;
+
+            $bucketData = $this->_adminClient->GetBucket($bucket);
+
+            if(!$this->_client) {
+                $this->_client = new Client($this->_host, $bucketData->token);
             }
 
-            $args = $params['args'];
-            $method = $params['method'][0];
-            $key = $params['key'];
+            return $this->_client->GetObject($guid);
 
-            $reflectionClass = new ReflectionClass($className);
-            if(!$reflectionClass->hasMethod($method)) {
-                return null;
-            }
-
-            $classInstance = $reflectionClass->newInstanceArgs($args);
-            return $classInstance->$method($this->_data->$key);
         }
         catch(\Throwable $e) {
             return null;            
@@ -169,33 +184,6 @@ class RemoteFileField
 
     }
 
-    private function _setContent($data): void 
-    {
-        try {
-
-            $params = $this->_field->params;
-            $remote = $params['remote'];
-            $className = $remote['class'] ?? null;
-            if(!$className) {
-                return;
-            }
-
-            $args = $remote['args'];
-            $method = $remote['method'][1];
-
-            $reflectionClass = new ReflectionClass($className);
-            if(!$reflectionClass->hasMethod($method)) {
-                return;
-            }
-
-            $classInstance = $reflectionClass->newInstanceArgs($args);
-            $this->_data = $classInstance->$method($data, $this->_name);
-            
-        }
-        catch(\Throwable $e) {
-            return;            
-        }
-    }
 
     /**
      * Возвращает строку (путь)
@@ -204,15 +192,6 @@ class RemoteFileField
     public function ToString(): string
     {
         return json_encode($this->_data);
-    }
-
-    public function ConvertFromFile(mixed $file)
-    {
-        if(!$file) {
-            return;
-        }
-        $this->name = $file->name;
-        $this->data = $file->binary;
     }
 
     /**
@@ -225,10 +204,11 @@ class RemoteFileField
         if (!$size) {
             $size = new Size(0, 0);
         }
-        $md5 = md5($this->_path);
-        $subpath = substr($md5, 0, 2) . '/' . substr($md5, 2, 2) . '/';
-        $name = md5($this->_path) . "." . $size->width . "x" . $size->height . "." . $this->_ext;
-        return App::$config->Query('cache')->GetValue() . 'img/' . $subpath . $name;
+        $cacheKey = md5($this->_data->bucket.$this->_data->guid);
+        $subpath = substr($cacheKey, 0, 4).'/'.substr($cacheKey, -4) . '/';
+        $name = $cacheKey . "." . $size->width . "x" . $size->height . "." . $this->_data->ext;
+        return $this->_cache.$subpath.$name;
+        
     }
 
     /**
@@ -258,7 +238,7 @@ class RemoteFileField
                 $img->Resize($s);
                 $data = $img->data;
             }
-            File::Write($cachePath, $data, true, 0777);
+            File::Write(App::$webRoot.$cachePath, $data, true, '777');
         }
     }
 
@@ -273,18 +253,19 @@ class RemoteFileField
         $options = $options ? new ExtendedObject($options) : new ExtendedObject();
 
         if (!$options->nocache) {
-            if ($this->mimetype->isImage && $size) {
-                if (!$this->CacheExists($size)) {
-                    $this->Cache($size);
-                }
-                return str_replace(App::$webRoot, '/', $this->CacheName($size));
+            if ($this->mimetype->isImage && !$size) {
+                $size = new Size(0, 0);
             }
-            else {
-                return str_replace(App::$webRoot, '/', $this->_path);
+
+            if (!$this->CacheExists($size)) {
+                $this->Cache($size);
             }
+            
+            return str_replace(App::$webRoot, '/', $this->CacheName($size));
+
         }
         else {
-            return str_replace(App::$webRoot, '/', $this->_path);
+            return '';
         }
     }
 
