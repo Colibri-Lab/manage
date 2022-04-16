@@ -42,7 +42,7 @@ class ModulesController extends WebController
             }
             $result[] = (object)[
                 'name' => $module->Config()->Query('name')->GetValue(), 
-                'desc' => $module->Config()->Query('desc')->GetValue(), 
+                'desc' => $module->Config()->Query('desc', "")->GetValue(), 
                 'config' => $module->moduleConfigPath,
                 'storages' => $module->moduleStoragesPath,
             ];
