@@ -214,6 +214,15 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 // content_style: this.tinymceContentStyle,
                 // formats: this.tinymceContentFormats,
                 // style_formats: this.tinymceContentStyleFormats,
+                formats: {
+                    flexBoxAlignStartSpaceBetween: { block: 'div', classes: 'app-ui-component app-component-flexbox app-component-shown -nowrap' },
+                },
+                content_style: 
+                    '.app-component-flexbox { display: flex; align-items: flex-start; justify-content: space-between; border: 1px dashed #c0c0c0; padding: 10px; margin: 10px 0px; }' + 
+                    '.app-component-flexbox > * { margin: 10px; }',
+                style_formats: [
+                    { title: 'Флексбокс (в начало, пространство между блоками)', format: 'flexBoxAlignStartSpaceBetween' }
+                ],
                 codemirror: {
                     indentOnInit: true, // Whether or not to indent code on init.
                     fullscreen: false, // Default setting is false
@@ -234,12 +243,11 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 plugins: [
                     "advlist link image lists charmap print preview hr anchor pagebreak spellchecker",
                     "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                    "table contextmenu directionality emoticons template textcolor paste textcolor codemirror grid" // customautocomplete
+                    "table contextmenu directionality emoticons template textcolor paste textcolor codemirror" // customautocomplete
                 ],
                 toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
                 toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media embed code | pastetext | forecolor backcolor",
                 toolbar3: "grid_insert | table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
-                toolbar4: additionalButtons,
                 // customautocomplete: this.tinymceCustomAutocomplete,
                 grid_preset: 'Bootstrap3',
                 file_picker_callback: (callback, value, meta) => {
