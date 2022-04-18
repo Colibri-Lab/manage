@@ -49,6 +49,7 @@ App.Modules.Manage.Windows.FileWindow = class extends Colibri.UI.Window {
 
         this.multiple = multiple;
         this.shown = true;   
+        this.BringToFront();
 
         if(!showRemote || !showLocal) {
             this._tabs.headerContainer = false;

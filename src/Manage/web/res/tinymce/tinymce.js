@@ -46954,7 +46954,7 @@ define(
 
               // Fire a blur event if the element isn't a UI element
               if (target !== document.body && !isUIElement(activeEditor, target) && editorManager.focusedEditor === activeEditor) {
-                activeEditor.fire('blur', { focusedEditor: null });
+                // activeEditor.fire('blur', { focusedEditor: null });
                 editorManager.focusedEditor = null;
               }
             }

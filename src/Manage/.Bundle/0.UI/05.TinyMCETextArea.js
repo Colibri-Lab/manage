@@ -9,6 +9,8 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         this.handleResize = true;
         this.__initVisual();
 
+        this._filepicker = null;
+
         
         // this.AddHandler('Resize', (event, args) => {
         //     const height = this._element.bounds().height - 50;
@@ -27,10 +29,10 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
     _createSnippetTag(snippet, data, type = 'tag') {
         if(type === 'tag') {
-            return Element.create('component', Object.assign({Component: snippet.name, contentEditable: false}, data, {shown: true, style: snippet.options.styles}));
+            return Element.create('component', Object.assign({Component: snippet.name, contentEditable: 'false'}, data, {shown: 'true', style: snippet.options.styles}));
         }
         else {
-            let html = ['<component Component="' + snippet.name + '" contentEditable="false"'];
+            let html = ['<component Component="' + snippet.name + '" contentEditable="false" shown="true"'];
             Object.forEach(data, (key, value) => {
                 html.push(key + '="' + value + '"');
             });
@@ -232,21 +234,22 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 plugins: [
                     "advlist link image lists charmap print preview hr anchor pagebreak spellchecker",
                     "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                    "table contextmenu directionality emoticons template textcolor paste textcolor codemirror" // customautocomplete
+                    "table contextmenu directionality emoticons template textcolor paste textcolor codemirror grid" // customautocomplete
                 ],
                 toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
                 toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media embed code | pastetext | forecolor backcolor",
-                toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
+                toolbar3: "grid_insert | table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
                 toolbar4: additionalButtons,
                 // customautocomplete: this.tinymceCustomAutocomplete,
+                grid_preset: 'Bootstrap3',
                 file_picker_callback: (callback, value, meta) => {
                     const element = document.querySelector('.mce-open:hover');
 
                     const position = element.bounds();
                     position.top += position.height;
 
-                    const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
-                    files.Show(false).then((data) => {
+                    this._filepicker = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
+                    this._filepicker.Show(false).then((data) => {
                         const file = data[0];
                         if(file?.bucket) {
                             // Это удаленный файл
@@ -255,7 +258,6 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                         else {
                             callback(file.path);
                         }
-                        files.Dispose();
                     });
 
                 },
@@ -406,6 +408,13 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 this._codemirror.setOption('readOnly', null);
             }
         }
+    }
+
+    Dispose() {
+        if(this._filepicker) {
+            this._filepicker.Dispose();
+        }
+        super.Dispose();
     }
 
 }
