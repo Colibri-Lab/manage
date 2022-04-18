@@ -10,4 +10,4 @@ tinymce.addI18n("en", {
     "grid.column.insert_before": "Добавить колонку до", 
     "grid.column.remove": "Удалить колонку", 
     "grid.column.properties": "Свойства колонки" 
-});лз
+});
