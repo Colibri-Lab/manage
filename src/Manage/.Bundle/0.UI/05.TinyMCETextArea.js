@@ -25,6 +25,157 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
     }
 
+    _createSnippetTag(snippet, data, type = 'tag') {
+        if(type === 'tag') {
+            return Element.create('component', Object.assign({Component: snippet.name, contentEditable: false}, data, {shown: true, style: snippet.options.styles}));
+        }
+        else {
+            let html = ['<component Component="' + snippet.name + '" contentEditable="false"'];
+            Object.forEach(data, (key, value) => {
+                html.push(key + '="' + value + '"');
+            });
+            html.push('style="' + snippet.options.styles + '"');
+            html.push(' />');
+            return html.join(' ');
+        }
+    }
+
+    _createAdditionalSnippetsButtons() {
+        return 'add-snippet edit-snippet';
+    }
+
+    _createAdditionalTools() {
+        const tools = [];
+        tools.push({
+            name: "add-snippet",
+            icon: false,
+            text: "Вставить снипет",
+            onclick: (e) => {
+                const button = e.control;
+
+                const _addSnippet = (button, snippet, data) => {
+                    button.settings.editor.selection.setContent(this._createSnippetTag(snippet, data, 'html'));
+                    button.settings.editor.nodeChanged();
+                    this.Dispatch('Changed');
+                }
+
+                Manage.Store.AsyncQuery('manage.modules').then((modules) => {
+                    for(const module of modules) {
+
+                        const snippetsObject = eval('App.Modules.' + module.name + '.Snippets');
+                        if(!snippetsObject) {
+                            continue;
+                        }
+                        const snippetsList = Object.keys(snippetsObject);
+                        if(snippetsList.length == 0) {
+                            continue;
+                        }
+                        
+                        const snippets = {};
+                        const comboList = [];
+                        for(const snippet of snippetsList) {
+                            const name = 'App.Modules.' + module.name + '.Snippets.' + snippet;
+                            const snippetObject = eval(name);
+                            snippets[snippet] = {text: snippet, name: name, options: snippetObject.Options(), fields: snippetObject.Params()};
+                            comboList.push({text: snippets[snippet].options?.title ?? snippet, value: snippet});
+                        }
+
+                        button.settings.editor.windowManager.open({
+                            title: 'Выбрать снипет',
+                            data: {},
+                            body: {
+                                name: 'snippet',
+                                type: 'listbox',
+                                label: 'Снипет',
+                                values: comboList
+                            },
+                            onsubmit: (e1) => {
+                                const snippet = snippets[e1.data.snippet];
+                                const fields = snippet.fields;
+                                if(fields.length > 0) {
+                                    button.settings.editor.windowManager.open({
+                                        title: 'Параметры ' + snippet.text,
+                                        data: {},
+                                        body: fields,
+                                        minWidth: button.settings.editor.getParam("code_dialog_width", 600),
+                                        onsubmit: (e2)  => {
+                                            button.settings.editor.focus();
+                                            _addSnippet(button, snippet, e2.data);
+                                        }
+                                    });
+                                }
+                                else {
+                                    button.settings.editor.focus();
+                                    _addSnippet(button, snippet, {});
+                                }
+
+                            }
+                        });
+                    }
+                });
+
+            }
+
+        });
+
+        tools.push({
+            name: "edit-snippet",
+            icon: false,
+            text: "Редактировать снипет",
+            onclick: (e) => {
+                const button = e.control;
+                const editor = button.settings.editor;
+                const dom = editor.dom;
+                const sel = editor.selection;
+                const node = sel.getNode();
+                if (node.matches('component')) {
+
+                    let attrs = {};
+                    for(const attr of node.attributes) {
+                        attrs[attr.name] = attr.value;
+                    }
+
+                    const snippetName = attrs.component;
+                    delete attrs.Component;
+                    const snippetParams = attrs;
+                    
+                    const _updateSnippet = (button, node, snippet, data) => {
+                        node.replaceWith(this._createSnippetTag(snippet, data));
+                        button.settings.editor.nodeChanged();
+                        this.Dispatch('Changed');
+                    }
+
+
+                    const snippetObject = eval(snippetName);
+                    const snippet = {text: snippetName, name: snippetName, options: snippetObject.Options(), fields: snippetObject.Params(snippetParams)};
+                    const fields = snippet.fields;
+                    if(fields.length > 0) {
+                        button.settings.editor.windowManager.open({
+                            title: 'Параметры ' + snippet.text,
+                            data: {},
+                            body: fields,
+                            minWidth: button.settings.editor.getParam("code_dialog_width", 600),
+                            onsubmit: (e2)  => {
+                                button.settings.editor.focus();
+                                _updateSnippet(button, node, snippet, e2.data);
+                            }
+                        });
+                    }
+                    else {
+                        button.settings.editor.focus();
+                        _updateSnippet(button, node, snippet, e2.data);
+                    }
+
+                }
+                
+
+            }
+
+        });
+
+        return tools;
+    }
+
     __initVisual() {
 
         if (this._fieldData?.params?.visual == true) {
@@ -43,6 +194,9 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
             // if (window.app) {
             //     window.app.raiseEvent('application.tinymce.settings', { control: this });
             // }
+
+            const additionalButtons = this._createAdditionalSnippetsButtons();
+            const additionalTools = this._createAdditionalTools();
             
             tinymce.init({
                 selector: '#' + this._controlElementId,
@@ -83,7 +237,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
                 toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media embed code | pastetext | forecolor backcolor",
                 toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
-                // toolbar4: this.tinymceAditionalToolbarButtons,
+                toolbar4: additionalButtons,
                 // customautocomplete: this.tinymceCustomAutocomplete,
                 file_picker_callback: (callback, value, meta) => {
                     const element = document.querySelector('.mce-open:hover');
@@ -104,56 +258,13 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                         files.Dispose();
                     });
 
-                    // var hide = () => {
-                    //     if (!cm._element.is(':hover'))
-                    //         cm.Hide();
-                    // };
-
-                    // const cm = new Colibri.UI.Tree(this._fieldData?.params?.field + '_filepopup', document.body, 'right top');
-                    
-
-                    // var cm = (new UI.Controls.Tree(this._fieldData?.params?.field + '_filepopup', $(document.body)))
-                    //     .Render()
-                    //     .width('450px')
-                    //     .height('200px')
-                    //     .styles({ background: '#fff', border: '1px solid #c0c0c0', 'box-shadow': '5px 5px 10px rgba(0,0,0,.6)' })
-                    //     .position(position)
-                    //     .addHandler('shown', () => {
-                    //         $(document.body).bind('mousedown', hide);
-                    //     })
-                    //     .addHandler('hidden', () => {
-                    //         $(document.body).unbind('mousedown', hide);
-                    //     })
-                    //     .addHandler('selectionChanged', (sender, args) => {
-                    //         var node = args.node;
-                    //         if (node && node.tag().type != 'none') {
-                    //             if (node.tag().type == 'file' || node.tag().type == 'dir')
-                    //                 callback('/' + node.tag().path);
-                    //             else if (node.tag().type == 'domain' || node.tag().type == 'page') {
-                    //                 callback('//' + node.tag().path + '/');
-                    //             }
-                    //             cm.Hide();
-                    //         }
-                    //     })
-                    //     .Show();
-                    // var _showItems = (results, parent) => {
-                    //     results.forEach((result) => {
-                    //         var newnode = parent.nodes().Add(result.path).title(result.desc ? result.desc : result.name).icon((result.type == 'file' ? (UI.Icons.files[result.ext.toLowerCase()] || UI.Icons.files['']) : UI.Icons.folder)).tag(result);
-                    //         if (result.childs)
-                    //             _showItems(result.childs, newnode);
-                    //     });
-                    // };
-                    // window.app.ExecuteCommand('ApplicationAjaxHandler.Hrefs', {}, (data) => {
-                    //     _showItems(data.results, cm);
-                    // });
-
                 },
                 setup: (ed) => {
 
-                    // this.tinymceAditionalTools.forEach((button) => {
-                    //     button.editor = ed;
-                    //     ed.addButton(button.name, button);
-                    // });
+                    additionalTools.forEach((button) => {
+                        button.editor = ed;
+                        ed.addButton(button.name, button);
+                    });
 
                     ed.on('change', (e) => {
                         this.Dispatch('Changed');
