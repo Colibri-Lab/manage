@@ -28,6 +28,7 @@ class RemoteFileListField extends ArrayList
      */
     public function __construct(array|string $sources, ?Storage $storage = null, ?Field $field = null)
     {
+        parent::__construct([]);
         if(is_string($sources)) {
             $sources = json_decode($sources);
         }
@@ -36,16 +37,25 @@ class RemoteFileListField extends ArrayList
         }
     }
 
+    public function ToArray(): array
+    {
+        $ret = [];
+        foreach($this->data as $f) {
+            $ret[] = $f->ToArray();
+        }
+        return $ret;
+    }
+
     /**
      * Возвращает строку для записи в поле
      * @param string $splitter разделитель
      * @return string собранная строка из путей файлов
      */
-    public function ToString($splitter = ';')
+    public function ToString($splitter = ';'): string
     {
         $sources = [];
         foreach($this as $remoteFile) {
-            $sources = $remoteFile->ToArray();
+            $sources[] = $remoteFile->ToArray();
         }
         return json_encode($sources);
     }

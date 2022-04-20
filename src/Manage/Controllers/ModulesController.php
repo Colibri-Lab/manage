@@ -45,6 +45,7 @@ class ModulesController extends WebController
                 'desc' => $module->Config()->Query('desc', "")->GetValue(), 
                 'config' => $module->moduleConfigPath,
                 'storages' => $module->moduleStoragesPath,
+                'visible' => $module->visible
             ];
         }
         

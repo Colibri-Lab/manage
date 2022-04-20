@@ -1,0 +1,13 @@
+.app-remotefile-viewer-component {
+    .app-component-list {
+        .app-component-list-group {
+            div {
+                display: flex;
+                flex-wrap: wrap;
+                .app-component-list-item {
+                    border-bottom: 0px;
+                }
+            }
+        }
+    }
+}
