@@ -248,8 +248,9 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
                 toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media embed code | pastetext | forecolor backcolor",
                 toolbar3: "grid_insert | table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
+                toolbar4: additionalButtons,
                 // customautocomplete: this.tinymceCustomAutocomplete,
-                grid_preset: 'Bootstrap3',
+                
                 file_picker_callback: (callback, value, meta) => {
                     const element = document.querySelector('.mce-open:hover');
 
