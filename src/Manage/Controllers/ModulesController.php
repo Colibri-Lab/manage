@@ -37,15 +37,15 @@ class ModulesController extends WebController
         $result = [];
         foreach(App::$moduleManager->list as $module) {
             $config = $module->Config()->AsObject();
-            if(!$config || !isset($config->visible)) {
+            if(!($config->visible ?? true)) {
                 continue;
             }
             $result[] = (object)[
-                'name' => $module->Config()->Query('name')->GetValue(), 
-                'desc' => $module->Config()->Query('desc', "")->GetValue(), 
+                'name' => $config->name, 
+                'desc' => $config->desc ?? '', 
                 'config' => $module->moduleConfigPath,
                 'storages' => $module->moduleStoragesPath,
-                'visible' => $module->visible
+                'visible' => $config->visible ?? true
             ];
         }
         
