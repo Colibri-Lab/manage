@@ -25,10 +25,15 @@ class Installer
     {
 
         $modules = self::_loadConfig($file);
-        foreach($modules['entries'] as $entry) {
-            if($entry['name'] === 'Manage') {
-                return;
+        if(is_array($modules['entries'])) {
+            foreach($modules['entries'] as $entry) {
+                if($entry['name'] === 'Manage') {
+                    return;
+                }
             }
+        }
+        else {
+            $modules['entries'] = [];
         }
 
         $modules['entries'][] = [
