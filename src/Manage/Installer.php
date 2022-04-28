@@ -82,7 +82,7 @@ class Installer
   - name: Manage
     entry: \Manage\Module
     enabled: true
-    desc: Менеджеры
+    desc: Административный интерфейс
     visible: true
     for:
       - manage
