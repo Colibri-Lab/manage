@@ -3,30 +3,30 @@
 
     <component Component="Colibri.UI.Split" name="split" shown="true" hasHandle="true">
         <component Component="Colibri.UI.Pane" name="folders-pane" shown="true">
-            <component Component="Colibri.UI.H2" name="ttl" shown="true">Структура</component>
+            <component Component="Colibri.UI.H2" name="ttl" shown="true">#{manage-filemanager-folders;Структура}</component>
             <component Component="App.Modules.Manage.UI.FoldersTree" name="folders" shown="true" hasContextMenu="true" binding="app.manage.folders" />
         </component>
         <component Component="Colibri.UI.Pane" name="files-pane" shown="true">
-            <component Component="Colibri.UI.H2" name="ttl" shown="true">Файлы</component>
+            <component Component="Colibri.UI.H2" name="ttl" shown="true">#{manage-filemanager-files;Файлы}</component>
             <component Component="Colibri.UI.Pane" name="search-pane" shown="true">
-                <component Component="Colibri.UI.Input" name="search-input" enabled="false" shown="true" placeholder="Поиск" />
+                <component Component="Colibri.UI.Input" name="search-input" enabled="false" shown="true" placeholder="#{manage-filemanager-search;Поиск}" />
             </component>
-            <component Component="App.Modules.Manage.UI.FilesGrid" name="files" shown="true" enabled="false" hasContextMenu="true" selectionMode="fullrow" showCheckboxes="true" binding="app.manage.files" emptyMessage="Файлов не найдено">
+            <component Component="App.Modules.Manage.UI.FilesGrid" name="files" shown="true" enabled="false" hasContextMenu="true" selectionMode="fullrow" showCheckboxes="true" binding="app.manage.files" emptyMessage="#{manage-filemanager-filesempty;Файлов не найдено}">
                 <component-header>
                     <component-columns>
-                        <component Component="Colibri.UI.Grid.Column" name="name" shown="true" value="Файл" width="60%" resizable="true" />
-                        <component Component="Colibri.UI.Grid.Column" name="ext" shown="true" value="Тип" width="10%" resizable="true"/>
-                        <component Component="Colibri.UI.Grid.Column" name="size" shown="true" value="Размер" width="10%" resizable="true" viewer="Colibri.UI.FileSizeViewer" />
-                        <component Component="Colibri.UI.Grid.Column" name="created" shown="true" value="Создан" width="10%" resizable="true" viewer="Colibri.UI.DateTimeViewer" />
-                        <component Component="Colibri.UI.Grid.Column" name="modified" shown="true" value="Изменен" width="10%" resizable="false" viewer="Colibri.UI.DateTimeViewer" />
+                        <component Component="Colibri.UI.Grid.Column" name="name" shown="true" value="#{manage-filemanager-files-file;Файл}" width="60%" resizable="true" />
+                        <component Component="Colibri.UI.Grid.Column" name="ext" shown="true" value="#{manage-filemanager-files-type;Тип}" width="10%" resizable="true"/>
+                        <component Component="Colibri.UI.Grid.Column" name="size" shown="true" value="#{manage-filemanager-files-size;Размер}" width="10%" resizable="true" viewer="Colibri.UI.FileSizeViewer" />
+                        <component Component="Colibri.UI.Grid.Column" name="created" shown="true" value="#{manage-filemanager-files-created;Создан}" width="10%" resizable="true" viewer="Colibri.UI.DateTimeViewer" />
+                        <component Component="Colibri.UI.Grid.Column" name="modified" shown="true" value="#{manage-filemanager-files-changed;Изменен}" width="10%" resizable="false" viewer="Colibri.UI.DateTimeViewer" />
                     </component-columns>
                 </component-header>
             </component>
 
             <component Component="Colibri.UI.FlexBox" name="buttons-pane" shown="true">
-                <component Component="Colibri.UI.UploadButton" name="upload-file" multiple="true" shown="true" enabled="false" icon="Colibri.UI.ContextMenuAddIcon">Загрузить файлы</component>
-                <component Component="Colibri.UI.SuccessButton" name="edit-file" shown="true" enabled="false" icon="Colibri.UI.ContextMenuEditIcon">Редактировать название</component>
-                <component Component="Colibri.UI.SuccessButton" name="delete-file" shown="true" enabled="false" icon="Colibri.UI.ContextMenuRemoveIcon">Удалить файлы</component>
+                <component Component="Colibri.UI.UploadButton" name="upload-file" multiple="true" shown="true" enabled="false" icon="Colibri.UI.ContextMenuAddIcon">#{manage-filemanager-buttons-upload;Загрузить файлы}</component>
+                <component Component="Colibri.UI.SuccessButton" name="edit-file" shown="true" enabled="false" icon="Colibri.UI.ContextMenuEditIcon">#{manage-filemanager-buttons-editname;Редактировать название}</component>
+                <component Component="Colibri.UI.SuccessButton" name="delete-file" shown="true" enabled="false" icon="Colibri.UI.ContextMenuRemoveIcon">#{manage-filemanager-buttons-delete;Удалить файлы}</component>
             </component>
         </component>
     </component>

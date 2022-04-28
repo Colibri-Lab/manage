@@ -3,8 +3,8 @@
     <component-container>
         <Tabs name="tabs" shown="true">
             <component-header>
-                <Button name="files" shown="true" value="Ресурсы" />
-                <Button name="remotefiles" shown="true" value="Удаленная медиатека" />
+                <Button name="files" shown="true" value="#{manage-tabs-resources;Ресурсы}" />
+                <Button name="remotefiles" shown="true" value="#{manage-tabs-remote;Удаленная медиатека}" />
             </component-header>
             <component-container>
                 <App.Modules.Manage.UI.FileManager name="manager" shown="true" />
@@ -13,8 +13,8 @@
         </Tabs>
     </component-container>
     <component-footer>
-        <SuccessButton name="save" shown="true" enabled="false" value="Выбрать" />
-        <SimpleButton name="cancel" shown="true" value="Отмена" OnClicked="(event, args) => this.Hide()" />
+        <SuccessButton name="save" shown="true" enabled="false" value="#{app-buttons-choose;Выбрать}" />
+        <SimpleButton name="cancel" shown="true" value="#{app-buttons-cancel;Отмена}" OnClicked="(event, args) => this.Hide()" />
     </component-footer>
 
     

@@ -94,12 +94,12 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
             return;
         }
         if(this._files.checked.length == 0) {
-            App.Confirm.Show('Удаление файлов из удаленного хранилища', 'Вы уверены, что хотите удалить выбранный файл?', 'Удалить!').then(() => {
+            App.Confirm.Show('Удаление файлов из удаленного хранилища', 'Вы уверены, что хотите удалить выбранный файл?', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
                 Manage.DeleteFilesFromRemote(bucket, [this._files.selected.value.guid]);
             });
         }
         else {
-            App.Confirm.Show('Удаление файлов из удаленного хранилища', 'Вы уверены, что хотите удалить выбранные файлы?', 'Удалить!').then(() => {
+            App.Confirm.Show('Удаление файлов из удаленного хранилища', 'Вы уверены, что хотите удалить выбранные файлы?', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
                 let ids = [];
                 this._files.checked.forEach((row) => {
                     ids.push(row.value.guid);
@@ -160,7 +160,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         contextmenu.push({name: 'remove-file', title: 'Удалить', icon: Colibri.UI.ContextMenuRemoveIcon});
 
         args.item.contextmenu = contextmenu;
-        args.item.ShowContextMenu(args.isContextMenuEvent ? 'right bottom' : 'left bottom', '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
+        args.item.ShowContextMenu(args.isContextMenuEvent ? [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.RB] : [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.LB], '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
         
     }
 
@@ -193,7 +193,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
             contextmenu.push({name: 'remove-bucket', title: 'Удалить корзину', icon: Colibri.UI.ContextMenuRemoveIcon});
 
             args.item.contextmenu = contextmenu;
-            args.item.ShowContextMenu(args.isContextMenuEvent ? 'right bottom' : 'left bottom', '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
+            args.item.ShowContextMenu(args.isContextMenuEvent ? [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.RB] : [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.LB], '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
         }
     }
 
@@ -225,7 +225,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
             }).catch(e => console.log(e));
         }
         else if(menuData.name == 'remove-bucket') {
-            App.Confirm.Show('Удаление корзины', 'Вы уверены, что хотите удалить корзину? Все файлы внутри корзины будут удалены физически!', 'Удалить!').then(() => {
+            App.Confirm.Show('Удаление корзины', 'Вы уверены, что хотите удалить корзину? Все файлы внутри корзины будут удалены физически!', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
                 Manage.RemoveBucket(item.tag);
                 this._buckets.selected = null;
             });

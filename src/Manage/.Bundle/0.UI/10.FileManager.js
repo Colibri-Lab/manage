@@ -55,7 +55,7 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
             contextmenu.push({name: 'remove-folder', title: 'Удалить раздел', icon: Colibri.UI.ContextMenuRemoveIcon});
 
             args.item.contextmenu = contextmenu;
-            args.item.ShowContextMenu(args.isContextMenuEvent ? 'right bottom' : 'left bottom', '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
+            args.item.ShowContextMenu(args.isContextMenuEvent ? [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.RB] : [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.LB], '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
         }
     }
 
@@ -77,7 +77,7 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
             item.Edit();
         }
         else if(menuData.name == 'remove-folder') {
-            App.Confirm.Show('Удаление папки', 'Вы уверены, что хотите удалить папку? Внимание! Вместе с папкой будет удалено все ее содержание!', 'Удалить!').then(() => {
+            App.Confirm.Show('Удаление папки', 'Вы уверены, что хотите удалить папку? Внимание! Вместе с папкой будет удалено все ее содержание!', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
                 Manage.RemoveFolder(item.tag.path);
                 this._folders.selected = item.parentNode;
             });
@@ -96,7 +96,7 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
         contextmenu.push({name: 'edit-file', title: 'Редактировать файл', icon: Colibri.UI.ContextMenuEditIcon});
         contextmenu.push({name: 'remove-file', title: 'Удалить файл', icon: Colibri.UI.ContextMenuRemoveIcon});
         args.item.contextmenu = contextmenu;
-        args.item.ShowContextMenu(args.isContextMenuEvent ? 'right bottom' : 'left bottom', '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
+        args.item.ShowContextMenu(args.isContextMenuEvent ? [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.RB] : [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.LB], '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
     }
 
     __clickOnFilesContextMenu(event, args) {
@@ -134,7 +134,7 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
 
         }
         else if(menuData.name == 'remove-file') {
-            App.Confirm.Show('Удаление файла', 'Вы уверены, что хотите удалить файл?', 'Удалить!').then(() => {
+            App.Confirm.Show('Удаление файла', 'Вы уверены, что хотите удалить файл?', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
                 Manage.RemoveFile(item.value.path);
                 item.Dispose();
             });
@@ -330,7 +330,7 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
         }
 
         let paths = files.map(f => f.path);
-        App.Confirm.Show('Удаление файла', 'Вы уверены, что хотите удалить файл?', 'Удалить!').then(() => {
+        App.Confirm.Show('Удаление файла', 'Вы уверены, что хотите удалить файл?', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
             Manage.RemoveFile(paths);
             if(this._files.selected) {
                 this._files.selected.Dispose();

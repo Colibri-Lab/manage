@@ -3,31 +3,31 @@
 
     <component Component="Colibri.UI.Split" name="split" shown="true" hasHandle="true">
         <component Component="Colibri.UI.Pane" name="buckets-pane" shown="true">
-            <component Component="Colibri.UI.H2" name="ttl" shown="true">Корзины</component>
+            <component Component="Colibri.UI.H2" name="ttl" shown="true">#{manage-filemanager-remote-buckets;Корзины}</component>
             <component Component="App.Modules.Tools.BucketsTree" name="buckets" shown="true" binding="app.manage.remotebuckets" hasContextMenu="true" hasTreeContextMenu="true" />
         </component>
         <component Component="Colibri.UI.Pane" name="data-pane" shown="true">
-            <component Component="Colibri.UI.H2" name="ttl" shown="true">Файлы</component>
+            <component Component="Colibri.UI.H2" name="ttl" shown="true">#{manage-filemanager-remote-files;Файлы}</component>
             <component Component="Colibri.UI.Pane" name="search-pane" shown="true">
-                <component Component="Colibri.UI.Input" name="search-input" shown="true" placeholder="Поиск" enabled="false" />
+                <component Component="Colibri.UI.Input" name="search-input" shown="true" placeholder="#{manage-filemanager-remote-search;Поиск}" enabled="false" />
             </component>
-            <component Component="App.Modules.Manage.UI.RemoteFilesGrid" name="files" shown="true" enabled="false" hasContextMenu="true" selectionMode="fullrow" showCheckboxes="true" binding="app.manage.remotefiles" emptyMessage="Файлов в корзине не найдено">
+            <component Component="App.Modules.Manage.UI.RemoteFilesGrid" name="files" shown="true" enabled="false" hasContextMenu="true" selectionMode="fullrow" showCheckboxes="true" binding="app.manage.remotefiles" emptyMessage="#{manage-filemanager-remote-filesempty;Файлов в корзине не найдено}">
                 <component-header>
                     <component-columns>
                         <component Component="Colibri.UI.Grid.Column" name="id" shown="true" value="#" width="5%" resizable="true" />
-                        <component Component="Colibri.UI.Grid.Column" name="datecreated" shown="true" value="Создана" width="10%" resizable="true" viewer="Colibri.UI.DateTimeViewer" />
-                        <component Component="Colibri.UI.Grid.Column" name="guid" shown="true" value="Ключ" width="20%" resizable="true"/>
-                        <component Component="Colibri.UI.Grid.Column" name="name" shown="true" value="Файл" width="25%" resizable="true" />
-                        <component Component="Colibri.UI.Grid.Column" name="ext" shown="true" value="Тип" width="10%" resizable="true"/>
-                        <component Component="Colibri.UI.Grid.Column" name="size" shown="true" value="Размер" width="10%" resizable="true" viewer="Colibri.UI.FileSizeViewer" />
-                        <component Component="Colibri.UI.Grid.Column" name="md5" shown="true" value="Хэш" width="10%" resizable="true" />
-                        <component Component="Colibri.UI.Grid.Column" name="path" shown="true" value="Путь" width="10%" resizable="false" />
+                        <component Component="Colibri.UI.Grid.Column" name="datecreated" shown="true" value="#{manage-filemanager-remote-created;Создана}" width="10%" resizable="true" viewer="Colibri.UI.DateTimeViewer" />
+                        <component Component="Colibri.UI.Grid.Column" name="guid" shown="true" value="#{manage-filemanager-remote-key;Ключ}" width="20%" resizable="true"/>
+                        <component Component="Colibri.UI.Grid.Column" name="name" shown="true" value="#{manage-filemanager-remote-file;Файл}" width="25%" resizable="true" />
+                        <component Component="Colibri.UI.Grid.Column" name="ext" shown="true" value="#{manage-filemanager-remote-type;Тип}" width="10%" resizable="true"/>
+                        <component Component="Colibri.UI.Grid.Column" name="size" shown="true" value="#{manage-filemanager-remote-size;Размер}" width="10%" resizable="true" viewer="Colibri.UI.FileSizeViewer" />
+                        <component Component="Colibri.UI.Grid.Column" name="md5" shown="true" value="#{manage-filemanager-remote-hash;Хэш}" width="10%" resizable="true" />
+                        <component Component="Colibri.UI.Grid.Column" name="path" shown="true" value="#{manage-filemanager-remote-path;Путь}" width="10%" resizable="false" />
                     </component-columns>
                 </component-header>
             </component>
             <component Component="Colibri.UI.FlexBox" name="buttons-pane" shown="true">
-                <component Component="Colibri.UI.UploadButton" name="upload-file" multiple="true" shown="true" enabled="false" icon="Colibri.UI.ContextMenuAddIcon">Загрузить файлы</component>
-                <component Component="Colibri.UI.SuccessButton" name="delete-file" shown="true" enabled="false" icon="Colibri.UI.ContextMenuRemoveIcon">Удалить</component>
+                <component Component="Colibri.UI.UploadButton" name="upload-file" multiple="true" shown="true" enabled="false" icon="Colibri.UI.ContextMenuAddIcon">#{manage-filemanager-remote-buttons-upload;Загрузить файлы}</component>
+                <component Component="Colibri.UI.SuccessButton" name="delete-file" shown="true" enabled="false" icon="Colibri.UI.ContextMenuRemoveIcon">#{manage-filemanager-remote-buttons-remove;Удалить}</component>
             </component>
         </component>
     </component>  
