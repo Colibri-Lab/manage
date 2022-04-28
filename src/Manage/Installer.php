@@ -5,7 +5,45 @@ namespace App\Modules\Manage;
 
 class Installer
 {
+    private static function _loadConfig($file): array
+    {
+        return yaml_parse_file($file);
+    }
 
+    private static function _saveConfig($file, $config): void
+    {
+        yaml_emit_file($file, $config, \YAML_UTF8_ENCODING, \YAML_ANY_BREAK);
+    }
+
+    private static function _getMode($file): string
+    {
+        $appConfig = self::_loadConfig($file);
+        return $appConfig['mode'];
+    }
+
+    private static function _injectIntoModuleConfig($file): void
+    {
+
+        $modules = self::_loadConfig($file);
+        foreach($modules['entries'] as $entry) {
+            if($entry['name'] === 'MainFrame') {
+                return;
+            }
+        }
+
+        $modules['entries'][] = [
+            'name' => 'Manage',
+            'entry' => '\Manage\Module',
+            'desc' => 'Административный интерфейс',
+            'enabled' => true,
+            'visible' => false,
+            'for' => ['manage'],
+            'config' => 'include(/config/manage.yaml)'
+        ];
+
+        self::_saveConfig($file, $modules);
+
+    }
     private static function _copyOrSymlink($mode, $pathFrom, $pathTo, $fileFrom, $fileTo): void 
     {
         print_r('Копируем '.$mode.' '.$pathFrom.' '.$pathTo.' '.$fileFrom.' '.$fileTo."\n");
@@ -43,6 +81,11 @@ class Installer
         print_r('Установка и настройка модуля Colibri Manage Module'."\n");
 
         $vendorDir = $event->getComposer()->getConfig()->get('vendor-dir').'/';
+        $operation = $event->getOperation();
+        $installedPackage = $operation->getPackage();
+        $targetDir = $installedPackage->getName();
+        $path = $vendorDir.$targetDir;
+        $configPath = $path.'/src/Manage/config-template/';
         $configDir = './config/';
 
         if(!file_exists($configDir.'app.yaml')) {
@@ -50,58 +93,23 @@ class Installer
             return;
         }
 
-        $mode = 'dev';
-        $appYamlContent = file_get_contents($configDir.'app.yaml');
-        if(preg_match('/mode: (\w+)/', $appYamlContent, $matches) >=0 ) {
-            $mode = $matches[1];
-        }
+        $mode = self::_getMode($configDir.'app.yaml');
 
-        $operation = $event->getOperation();
-        $installedPackage = $operation->getPackage();
-        $targetDir = $installedPackage->getName();
-        $path = $vendorDir.$targetDir;
-        $configPath = $path.'/src/Manage/config-template/';
 
         // копируем конфиг
         print_r('Копируем файл конфигурации'."\n");
-        if(file_exists($configDir.'manage.yaml')) {
-            print_r('Файл конфигурации найден, пропускаем настройку'."\n");
-            return;
-        }
         self::_copyOrSymlink($mode, $configPath, $configDir, 'module-'.$mode.'.yaml', 'manage.yaml');
 
-        // нужно прописать в модули
-        $modulesTargetPath = $configDir.'modules.yaml';
-        $modulesConfigContent = file_get_contents($modulesTargetPath);
-        if(strstr($modulesConfigContent, '- name: Manage') !== false) {
-            print_r('Модуль сконфигурирован, пропускаем'."\n");
-            return;
-        }
-
-        $modulesConfigContent = $modulesConfigContent.'
-  - name: Manage
-    entry: \Manage\Module
-    enabled: true
-    desc: Административный интерфейс
-    visible: true
-    for:
-      - manage
-    config: include(/config/manage.yaml)';
-        file_put_contents($modulesTargetPath, $modulesConfigContent);
+        print_r('Встраиваем модуль'."\n");
+        self::_injectIntoModuleConfig($configDir.'modules.yaml');
 
         print_r('Установка скриптов'."\n");
-        $scriptsPath = $path.'/src/Manage/bin/';
-        $binDir = './bin/';
-
-        self::_copyOrSymlink($mode, $scriptsPath, $binDir, 'manage-migrate.sh', 'manage-migrate.sh');
-        self::_copyOrSymlink($mode, $scriptsPath, $binDir, 'manage-models-generate.sh', 'manage-models-generate.sh');
+        self::_copyOrSymlink($mode, $path.'/src/Manage/bin/', './bin/', 'manage-migrate.sh', 'manage-migrate.sh');
+        self::_copyOrSymlink($mode, $path.'/src/Manage/bin/', './bin/', 'manage-models-generate.sh', 'manage-models-generate.sh');
 
         print_r('Установка ресурсов'."\n");
-        $resPath = $path.'/src/Manage/web/res/';
-        $resDir = './web/res/';
-
-        self::_copyOrSymlink($mode, $resPath, $resDir, 'codemirror/', 'codemirror/');
-        self::_copyOrSymlink($mode, $resPath, $resDir, 'tinymce/', 'tinymce/');
+        self::_copyOrSymlink($mode, $path.'/src/Manage/web/res/', './web/res/', 'codemirror/', 'codemirror/');
+        self::_copyOrSymlink($mode, $path.'/src/Manage/web/res/', './web/res/', 'tinymce/', 'tinymce/');
         
         print_r('Установка завершена'."\n");
 
