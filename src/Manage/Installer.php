@@ -82,6 +82,10 @@ class Installer
   - name: Manage
     entry: \Manage\Module
     enabled: true
+    desc: Менеджеры
+    visible: true
+    for:
+      - manage
     config: include(/config/manage.yaml)';
         file_put_contents($modulesTargetPath, $modulesConfigContent);
 
