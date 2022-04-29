@@ -42,7 +42,7 @@ class LookupController extends WebController
             $filter = '';
             $params = ['page' => 1, 'pagesize' => 1000];
             if($term) {
-                $filter = '{'.$titleField.'} like [[term:string]]';
+                $filter = ' where {'.$titleField.'} like [[term:string]]';
                 $params['params'] = ['term' => '%'.$term.'%'];
             }
             $dataTable = DataTable::LoadByQuery($storage, 'select * from '.$storage->name.$filter, $params);
