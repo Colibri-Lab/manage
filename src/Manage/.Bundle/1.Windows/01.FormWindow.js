@@ -56,6 +56,7 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
         
                     this._form.fields = this._performChanges(storage).fields;
                     this._form.value = value;
+                    this._form.Focus();
                     
                     App.Loading.Hide();
 
