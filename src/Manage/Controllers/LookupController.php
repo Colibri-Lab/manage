@@ -31,8 +31,8 @@ class LookupController extends WebController
         if(isset($lookup['storage'])) {
             $storageLookup = $lookup['storage'];
             $storageName = $storageLookup['name'];
-            $titleField = $storageLookup['title'];
-            $valueField = $storageLookup['value'];
+            $titleField = $storageLookup['title'] ?? 'title';
+            $valueField = $storageLookup['value'] ?? 'value';
 
             $storage = Storages::Create()->Load($storageName);
             if(!$storage) {
@@ -49,7 +49,7 @@ class LookupController extends WebController
 
             $ret = [];
             foreach($dataTable as $row) {
-                $ret[] = ['title' => $row->$titleField, 'value' => $row->$valueField];
+                $ret[] = [$titleField => $row->$titleField, $valueField => $row->$valueField];
             }
         }
 

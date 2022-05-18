@@ -5,25 +5,9 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
         this._controlElementId = 'html' + Date.Mc();
         this._input.attr('id', this._controlElementId);
-
-        this.handleResize = true;
-        this.__initVisual();
-
         this._filepicker = null;
 
-        
-        // this.AddHandler('Resize', (event, args) => {
-        //     const height = this._element.bounds().height - 50;
-
-        //     if (tinymce.get(this._controlElementId)) {
-        //         tinymce.get(this._controlElementId).theme.resizeTo('100%', height - 100);
-        //     }
-        //     else if(this._codemirror) {
-        //         this._codemirror.setSize('100%', height);
-        //     }
-
-        // });
-
+        this._visualCreated = false;
 
     }
 
@@ -180,22 +164,15 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
     __initVisual() {
 
+        if(this._visualCreated || !this.shown) {
+            return;
+        }
+
         if (this._fieldData?.params?.visual == true) {
 
             if (tinymce.get(this._controlElementId)) {
                 tinymce.get(this._controlElementId).remove();
             }
-
-            // this.tinymceContentCss = '';
-            // this.tinymceContentStyle = '';
-            // this.tinymceContentFormats = {};
-            // this.tinymceContentStyleFormats = {};
-            // this.tinymceAditionalTools = [];
-            // this.tinymceCustomAutocomplete = {};
-            // this.tinymceAditionalToolbarButtons = '';
-            // if (window.app) {
-            //     window.app.raiseEvent('application.tinymce.settings', { control: this });
-            // }
 
             const additionalButtons = this._createAdditionalSnippetsButtons();
             const additionalTools = this._createAdditionalTools();
@@ -285,9 +262,12 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
                 },
             });
+            this._visualCreated = true;
 
         } else if (this._fieldData?.params?.code) {
-
+            if(this._codemirror) {
+                this._codemirror.getWrapperElement().remove();
+            }
             const requirements = Colibri.Common.MimeType.extrequirements(this._fieldData?.params.code ?? 'html');
             Colibri.UI.Require(requirements.css, requirements.js).then(() => {
                 
@@ -313,43 +293,41 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 const height = this._element.bounds().height - 50;
                 this._codemirror.setSize('100%', height);
 
-
-                // this._element.find('.ui-formfield-memo').append('<div class="ui-memo-resize-handler"></div>');
-                // this._input.next().resizable({
-                //     handleSelector: this._element.find('.ui-formfield-memo .ui-memo-resize-handler'),
-                //     resizeWidth: false,
-                //     onDrag: () => {
-                //         this._codemirror.setSize($(this).width(), $(this).height());
-                //     },
-                // });
             });
+            this._visualCreated = true;
 
         }
     }
 
     get value() {
-        if (this._fieldData?.params?.visual == true) {
-            try {
-                var html = tinymce.get(this._controlElementId).getContent();
-            } catch (e) {
-                var html = '';
+        
+        Colibri.Common.Delay(100).then(() => {
+
+            this.__initVisual();
+
+            if (this._fieldData?.params?.visual == true) {
+                try {
+                    var html = tinymce.get(this._controlElementId).getContent();
+                } catch (e) {
+                    var html = '';
+                }
+                var ret = html
+                    .replaceAll('<!DOCTYPE html>', '')
+                    .replaceAll('<html>', '')
+                    .replaceAll('</html>', '')
+                    .replaceAll('<head>', '')
+                    .replaceAll('</head>', '')
+                    .replaceAll('<body>', '')
+                    .replaceAll('</body>', '');
+                return ret;
+            } 
+            else if (this._fieldData?.params?.code) {
+                return this._codemirror && this._codemirror.getValue();
             }
-            var ret = html
-                .replaceAll('<!DOCTYPE html>', '')
-                .replaceAll('<html>', '')
-                .replaceAll('</html>', '')
-                .replaceAll('<head>', '')
-                .replaceAll('</head>', '')
-                .replaceAll('<body>', '')
-                .replaceAll('</body>', '');
-            return ret;
-        } 
-        else if (this._fieldData?.params?.code) {
-            return this._codemirror && this._codemirror.getValue();
-        }
-        else {
-            return this._input.value;
-        }
+            else {
+                return this._input.value;
+            }
+        });
     } 
     
     set value(val) {
@@ -417,6 +395,17 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 this._codemirror.setOption('readOnly', null);
             }
         }
+    }
+
+    get shown() {
+        return super.shown;
+    }
+
+    set shown(value) {
+        super.shown = value;
+        Colibri.Common.Delay(100).then(() => {
+            this.__initVisual();
+        });
     }
 
     Dispose() {
