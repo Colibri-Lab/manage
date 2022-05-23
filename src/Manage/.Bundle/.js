@@ -18,6 +18,8 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         this._store.AddPathLoader('manage.storages', () => this.Storages(true));
         this._store.AddPathLoader('manage.datapoints', () => this.DataPoints(true));
         this._store.AddPathLoader('manage.modules', () => this.Modules(true));
+        this._store.AddPathLoader('manage.templates', () => this.Templates(true));
+        this._store.AddPathLoader('manage.snippets', () => this.Snippets(true));
         this._store.AddPathLoader('manage.folders', () => this.Folders('', true));
         this._store.AddPathLoader('manage.files', () => this.Files('', '', true));
         this._store.AddPathLoader('manage.remotebuckets', () => this.RemoteBuckets(true));
@@ -69,6 +71,30 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         }
         promise.then((response) => {
             this._store.Set('manage.storages', response.result);
+        }).catch((response) => {
+            App.Notices.Add(new Colibri.UI.Notice(response.result));
+        });
+    }
+
+    Templates(returnPromise = false) {
+        const promise = this.Call('Templates', 'Config');
+        if(returnPromise) {
+            return promise;
+        }
+        promise.then((response) => {
+            this._store.Set('manage.templates', response.result);
+        }).catch((response) => {
+            App.Notices.Add(new Colibri.UI.Notice(response.result));
+        });
+    }
+
+    Snippets(returnPromise = false) {
+        const promise = this.Call('Templates', 'Snippets');
+        if(returnPromise) {
+            return promise;
+        }
+        promise.then((response) => {
+            this._store.Set('manage.snippets', response.result);
         }).catch((response) => {
             App.Notices.Add(new Colibri.UI.Notice(response.result));
         });

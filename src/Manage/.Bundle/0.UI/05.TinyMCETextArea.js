@@ -45,7 +45,16 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     this.Dispatch('Changed');
                 }
 
-                Manage.Store.AsyncQuery('manage.modules').then((modules) => {
+                Promise.all([
+                    Manage.Store.AsyncQuery('manage.modules'),
+                    Manage.Store.AsyncQuery('manage.snippets')
+                ]).then((responses) => {
+                    const modules = responses[0];
+                    const phpsnippets = responses[1];
+
+                    const snippets = {};
+                    const comboList = [];
+
                     for(const module of modules) {
 
                         const snippetsObject = eval('App.Modules.' + module.name + '.Snippets');
@@ -57,8 +66,6 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                             continue;
                         }
                         
-                        const snippets = {};
-                        const comboList = [];
                         for(const snippet of snippetsList) {
                             const name = 'App.Modules.' + module.name + '.Snippets.' + snippet;
                             const snippetObject = eval(name);
@@ -66,38 +73,47 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                             comboList.push({text: snippets[snippet].options?.title ?? snippet, value: snippet});
                         }
 
-                        button.settings.editor.windowManager.open({
-                            title: 'Выбрать снипет',
-                            data: {},
-                            body: {
-                                name: 'snippet',
-                                type: 'listbox',
-                                label: 'Снипет',
-                                values: comboList
-                            },
-                            onsubmit: (e1) => {
-                                const snippet = snippets[e1.data.snippet];
-                                const fields = snippet.fields;
-                                if(fields.length > 0) {
-                                    button.settings.editor.windowManager.open({
-                                        title: 'Параметры ' + snippet.text,
-                                        data: {},
-                                        body: fields,
-                                        minWidth: button.settings.editor.getParam("code_dialog_width", 600),
-                                        onsubmit: (e2)  => {
-                                            button.settings.editor.focus();
-                                            _addSnippet(button, snippet, e2.data);
-                                        }
-                                    });
-                                }
-                                else {
-                                    button.settings.editor.focus();
-                                    _addSnippet(button, snippet, {});
-                                }
-
-                            }
-                        });
                     }
+                    
+                    Object.forEach(phpsnippets, (module, snippetsList) => {
+                        for(const snippet of snippetsList) {
+                            snippets[snippet.text] = snippet;
+                            comboList.push({text: snippet.options?.title ?? snippet.text, value: snippet.text});
+                        }
+                    });
+
+                    button.settings.editor.windowManager.open({
+                        title: 'Выбрать снипет',
+                        data: {},
+                        body: {
+                            name: 'snippet',
+                            type: 'listbox',
+                            label: 'Снипет',
+                            values: comboList
+                        },
+                        onsubmit: (e1) => {
+                            const snippet = snippets[e1.data.snippet];
+                            const fields = snippet.fields;
+                            if(fields.length > 0) {
+                                button.settings.editor.windowManager.open({
+                                    title: 'Параметры ' + snippet.text,
+                                    data: {},
+                                    body: fields,
+                                    minWidth: button.settings.editor.getParam("code_dialog_width", 600),
+                                    onsubmit: (e2)  => {
+                                        button.settings.editor.focus();
+                                        _addSnippet(button, snippet, e2.data);
+                                    }
+                                });
+                            }
+                            else {
+                                button.settings.editor.focus();
+                                _addSnippet(button, snippet, {});
+                            }
+
+                        }
+                    });
+
                 });
 
             }
@@ -132,25 +148,70 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     }
 
 
-                    const snippetObject = eval(snippetName);
-                    const snippet = {text: snippetName, name: snippetName, options: snippetObject.Options(), fields: snippetObject.Params(snippetParams)};
-                    const fields = snippet.fields;
-                    if(fields.length > 0) {
-                        button.settings.editor.windowManager.open({
-                            title: 'Параметры ' + snippet.text,
-                            data: {},
-                            body: fields,
-                            minWidth: button.settings.editor.getParam("code_dialog_width", 600),
-                            onsubmit: (e2)  => {
+                    let snippetObject = null;
+                    try {
+                        snippetObject = eval(snippetName);
+                    }
+                    catch(e) {}
+                    
+                    let snippet = null;
+                    let fields = [];
+                    if(snippetObject) {
+                        snippet = {text: snippetName, name: snippetName, options: snippetObject.Options(), fields: snippetObject.Params(snippetParams)};
+                        fields = snippet.fields;
+                        if(fields.length > 0) {
+                            button.settings.editor.windowManager.open({
+                                title: 'Параметры ' + snippet.text,
+                                data: {},
+                                body: fields,
+                                minWidth: button.settings.editor.getParam("code_dialog_width", 600),
+                                onsubmit: (e2)  => {
+                                    button.settings.editor.focus();
+                                    _updateSnippet(button, node, snippet, e2.data);
+                                }
+                            });
+                        }
+                        else {
+                            button.settings.editor.focus();
+                            _updateSnippet(button, node, snippet, e2.data);
+                        }
+                    }
+                    else {
+                        Manage.Store.AsyncQuery('manage.snippets').then((snippets) => {
+
+                            Object.forEach(snippets, (module, snippetsList) => {
+                                for(const sn of snippetsList) {
+                                    if(snippetName === sn.text) {
+                                        snippetObject = sn;
+                                        return false;
+                                    }
+                                }
+                                return true;
+                            });
+
+                            snippet = {text: snippetName, name: snippetName, options: snippetObject.options, fields: snippetObject.fields.map((f) => {f.value = snippetParams[f.name]; return f;})};
+                            fields = snippet.fields;
+                            if(fields.length > 0) {
+                                button.settings.editor.windowManager.open({
+                                    title: 'Параметры ' + snippet.text,
+                                    data: {},
+                                    body: fields,
+                                    minWidth: button.settings.editor.getParam("code_dialog_width", 600),
+                                    onsubmit: (e2)  => {
+                                        button.settings.editor.focus();
+                                        _updateSnippet(button, node, snippet, e2.data);
+                                    }
+                                });
+                            }
+                            else {
                                 button.settings.editor.focus();
                                 _updateSnippet(button, node, snippet, e2.data);
                             }
-                        });
+
+                        })
                     }
-                    else {
-                        button.settings.editor.focus();
-                        _updateSnippet(button, node, snippet, e2.data);
-                    }
+
+                    
 
                 }
                 
@@ -301,47 +362,50 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
     get value() {
         
-        Colibri.Common.Delay(100).then(() => {
 
-            this.__initVisual();
-
-            if (this._fieldData?.params?.visual == true) {
-                try {
-                    var html = tinymce.get(this._controlElementId).getContent();
-                } catch (e) {
-                    var html = '';
-                }
-                var ret = html
-                    .replaceAll('<!DOCTYPE html>', '')
-                    .replaceAll('<html>', '')
-                    .replaceAll('</html>', '')
-                    .replaceAll('<head>', '')
-                    .replaceAll('</head>', '')
-                    .replaceAll('<body>', '')
-                    .replaceAll('</body>', '');
-                return ret;
-            } 
-            else if (this._fieldData?.params?.code) {
-                return this._codemirror && this._codemirror.getValue();
+        if (this._fieldData?.params?.visual == true) {
+            try {
+                var html = tinymce.get(this._controlElementId).getContent();
+            } catch (e) {
+                var html = '';
             }
-            else {
-                return this._input.value;
-            }
-        });
+            var ret = html
+                .replaceAll('<!DOCTYPE html>', '')
+                .replaceAll('<html>', '')
+                .replaceAll('</html>', '')
+                .replaceAll('<head>', '')
+                .replaceAll('</head>', '')
+                .replaceAll('<body>', '')
+                .replaceAll('</body>', '');
+            return ret;
+        } 
+        else if (this._fieldData?.params?.code) {
+            return this._codemirror && this._codemirror.getValue();
+        }
+        else {
+            return this._input.value;
+        }
     } 
     
     set value(val) {
-        if (this._fieldData?.params?.visual == true) {
-            try {
-                tinymce.get(this._controlElementId).setContent(val ? val : '', { format: 'raw' });
-            } catch (e) {
+        
+        Colibri.Common.Delay(100).then(() => {
+
+            this.__initVisual();
+            if (this._fieldData?.params?.visual == true) {
+                try {
+                    tinymce.get(this._controlElementId).setContent(val ? val : '', { format: 'raw' });
+                } catch (e) {
+                    this._input.value = val ? val : '';
+                }
+            } else if (this._fieldData?.params?.code) {
+                this._codemirror ? this._codemirror.setValue(val) : (this._input.value = val);
+            } else {
                 this._input.value = val ? val : '';
             }
-        } else if (this._fieldData?.params?.code) {
-            this._codemirror ? this._codemirror.setValue(val) : (this._input.value = val);
-        } else {
-            this._input.value = val ? val : '';
-        }
+            
+        });
+        
     }
 
     
