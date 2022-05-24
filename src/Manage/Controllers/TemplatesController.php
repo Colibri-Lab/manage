@@ -36,7 +36,7 @@ class TemplatesController extends WebController
                 $files = $finder->FilesRecursive($path, '/.*\.php/');
                 $ff = [];
                 foreach($files as $file) {
-                    if(strstr($f['path'], '/snippets') !== false) {
+                    if(strstr($file->path, '/snippets') !== false) {
                         continue;
                     }
                     $f = $file->ToArray();
