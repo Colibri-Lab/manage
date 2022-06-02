@@ -9,6 +9,7 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
     }
 
     InitializeModule() {
+        super.InitializeModule();
 
         console.log('Initializing module Manage');
 
