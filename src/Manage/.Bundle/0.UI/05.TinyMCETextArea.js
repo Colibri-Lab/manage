@@ -415,24 +415,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
     set readonly(value) {
         super.readonly = value;
-        if (this._fieldData?.params?.visual == true) {
-            try {
-                if(value) {
-                    tinymce.activeEditor.setMode('readonly');
-                }
-                else {
-                    tinymce.activeEditor.setMode('design');
-                }
-            } catch (e) {
-            }
-        } else if (this._fieldData?.params?.code && this._codemirror) {
-            if(value) {
-                this._codemirror.setOption('readOnly', 'nocursor');
-            }
-            else {
-                this._codemirror.setOption('readOnly', null);
-            }
-        }
+        
     }
 
     get enabled() {
@@ -444,19 +427,19 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         if (this._fieldData?.params?.visual == true) {
             try {
                 if(value) {
-                    tinymce.activeEditor.setMode('readonly');
+                    tinymce.activeEditor.mode.set('design');
                 }
                 else {
-                    tinymce.activeEditor.setMode('design');
+                    tinymce.activeEditor.mode.set('readonly');
                 }
             } catch (e) {
             }
         } else if (this._fieldData?.params?.code && this._codemirror) {
             if(value) {
-                this._codemirror.setOption('readOnly', 'nocursor');
+                this._codemirror.setOption('readOnly', null);
             }
             else {
-                this._codemirror.setOption('readOnly', null);
+                this._codemirror.setOption('readOnly', 'nocursor');
             }
         }
     }
