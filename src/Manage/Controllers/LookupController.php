@@ -14,6 +14,7 @@ use Colibri\Common\DateHelper;
 use App\Modules\Manage\Models\Fields\RemoteFileField;
 use Colibri\Data\Storages\Storages;
 use Colibri\Data\Storages\Models\DataTable;
+use Colibri\Data\DataAccessPoint;
 
 class LookupController extends WebController
 {
@@ -40,7 +41,7 @@ class LookupController extends WebController
             }
 
             $filter = '';
-            $params = ['page' => 1, 'pagesize' => 1000];
+            $params = ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => 1000];
             if($term) {
                 $filter = ' where {'.$titleField.'} like [[term:string]]';
                 $params['params'] = ['term' => '%'.$term.'%'];
