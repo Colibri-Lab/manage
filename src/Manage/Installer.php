@@ -104,6 +104,7 @@ class Installer
         // копируем конфиг
         print_r('Копируем файл конфигурации'."\n");
         self::_copyOrSymlink($mode, $configPath, $configDir, 'module-'.$mode.'.yaml', 'manage.yaml');
+        self::_copyOrSymlink($mode, $configPath, $configDir, 'module-langtexts.yaml', 'manage-langtexts.yaml');
 
         print_r('Встраиваем модуль'."\n");
         self::_injectIntoModuleConfig($configDir.'modules.yaml');

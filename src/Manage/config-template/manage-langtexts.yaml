@@ -1,0 +1,56 @@
+---
+manage-filemanager-folders:
+  ru: Структура
+manage-filemanager-files:
+  ru: Файлы
+manage-filemanager-search:
+  ru: Поиск
+manage-filemanager-filesempty:
+  ru: Файлов не найдено
+manage-filemanager-files-file:
+  ru: Файл
+manage-filemanager-files-type:
+  ru: Тип
+manage-filemanager-files-size:
+  ru: Размер
+manage-filemanager-files-created:
+  ru: Создан
+manage-filemanager-files-changed:
+  ru: Изменен
+manage-filemanager-buttons-upload:
+  ru: Загрузить файлы
+manage-filemanager-buttons-editname:
+  ru: Редактировать название
+manage-filemanager-buttons-delete:
+  ru: Удалить файлы
+manage-filemanager-remote-buckets:
+  ru: Корзины
+manage-filemanager-remote-files:
+  ru: Файлы
+manage-filemanager-remote-search:
+  ru: Поиск
+manage-filemanager-remote-filesempty:
+  ru: Файлов в корзине не найдено
+manage-filemanager-remote-created:
+  ru: Создана
+manage-filemanager-remote-key:
+  ru: Ключ
+manage-filemanager-remote-file:
+  ru: Файл
+manage-filemanager-remote-type:
+  ru: Тип
+manage-filemanager-remote-size:
+  ru: Размер
+manage-filemanager-remote-hash:
+  ru: Хэш
+manage-filemanager-remote-path:
+  ru: Путь
+manage-filemanager-remote-buttons-upload:
+  ru: Загрузить файлы
+manage-filemanager-remote-buttons-remove:
+  ru: Удалить
+manage-tabs-resources:
+  ru: Ресурсы
+manage-tabs-remote:
+  ru: Удаленная медиатека
+...
