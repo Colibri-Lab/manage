@@ -38,7 +38,11 @@ class StoragesController extends WebController
         $storages = Storages::Create();
         $list = $storages->GetStorages();
         foreach($list as $name => $storage) {
-            $result[$name] = $storage->ToArray();
+            $storageArray = $storage->ToArray();
+            if(App::$moduleManager->lang) {
+                $storageArray = App::$moduleManager->lang->ParseArray($storageArray);
+            }
+            $result[$name] = $storageArray;
         }
         
         return $this->Finish(200, 'ok', $result);
