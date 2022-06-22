@@ -1,56 +1,134 @@
 ---
 manage-filemanager-folders:
   ru: Структура
+  en: Structure
+  hy: Կառուցվածքը
 manage-filemanager-files:
   ru: Файлы
+  en: Files
+  hy: Ֆայլեր
 manage-filemanager-search:
   ru: Поиск
+  en: Search
+  hy: '"ՍԻՍ" ՍՊԸ'
 manage-filemanager-filesempty:
   ru: Файлов не найдено
+  en: No files found
+  hy: Ֆայլեր չեն գտնվել
 manage-filemanager-files-file:
   ru: Файл
+  en: File
+  hy: Ֆայլ
 manage-filemanager-files-type:
   ru: Тип
+  en: Type
+  hy: Տիպ
 manage-filemanager-files-size:
   ru: Размер
+  en: Size
+  hy: Չափ
 manage-filemanager-files-created:
   ru: Создан
+  en: Generated
+  hy: Ստեղծվել է
 manage-filemanager-files-changed:
   ru: Изменен
+  en: Changed
+  hy: Փոփոխված
 manage-filemanager-buttons-upload:
   ru: Загрузить файлы
+  en: Upload files
+  hy: Բեռնել ֆայլեր
 manage-filemanager-buttons-editname:
   ru: Редактировать название
+  en: Edit the name
+  hy: Խմբագրել անունը
 manage-filemanager-buttons-delete:
   ru: Удалить файлы
+  en: Delete Files
+  hy: Ջնջել ֆայլեր
 manage-filemanager-remote-buckets:
   ru: Корзины
+  en: Baskets
+  hy: Զամբյուղներ
 manage-filemanager-remote-files:
   ru: Файлы
+  en: Files
+  hy: Ֆայլեր
 manage-filemanager-remote-search:
   ru: Поиск
+  en: Search
+  hy: '"ՍԻՍ" ՍՊԸ'
 manage-filemanager-remote-filesempty:
   ru: Файлов в корзине не найдено
+  en: No files found in the trash
+  hy: Զամբյուղում ֆայլեր չեն հայտնաբերվել
 manage-filemanager-remote-created:
   ru: Создана
+  en: Created
+  hy: Ստեղծվել է
 manage-filemanager-remote-key:
   ru: Ключ
+  en: Key
+  hy: Բանալին
 manage-filemanager-remote-file:
   ru: Файл
+  en: File
+  hy: Ֆայլ
 manage-filemanager-remote-type:
   ru: Тип
+  en: Type
+  hy: Տիպ
 manage-filemanager-remote-size:
   ru: Размер
+  en: Size
+  hy: Չափ
 manage-filemanager-remote-hash:
   ru: Хэш
+  en: Hash
+  hy: Հաշ
 manage-filemanager-remote-path:
   ru: Путь
+  en: Way
+  hy: Ճանապարհ
 manage-filemanager-remote-buttons-upload:
   ru: Загрузить файлы
+  en: Upload files
+  hy: Բեռնել ֆայլեր
 manage-filemanager-remote-buttons-remove:
   ru: Удалить
+  en: Remove
+  hy: Ջնջել
 manage-tabs-resources:
   ru: Ресурсы
+  en: Resources
+  hy: Ռեսուրսներ
 manage-tabs-remote:
   ru: Удаленная медиатека
+  en: Remote Media Library
+  hy: Հեռավոր Մեդիա
+manage-components-tinymce-add-snippet:
+  hy: Տեղադրեք կոդի հատված
+  ru: Вставить снипет
+  en: Insert a snippet
+manage-components-tinymce-choose-snippet:
+  hy: Ընտրեք կոդի հատված
+  ru: Выбрать снипет
+  en: Choose a snippet
+manage-components-tinymce-snippet:
+  hy: Հատված
+  ru: Снипет
+  en: Snippet
+manage-components-tinymce-edit-snippet:
+  hy: Խմբագրել կոդի հատված
+  ru: Редактировать снипет
+  en: Edit Snippet
+manage-components-tinymce-params:
+  hy: Պարամետրեր
+  ru: Параметры
+  en: Parameters
+manage-components-tinymce-flexblock:
+  hy: Flexbox (սկիզբ, անցում միջեւ բլոկների)
+  ru: Флексбокс (в начало, правительство между блоками)
+  en: Flexbox (to the beginning, government between blocks)
 ...
