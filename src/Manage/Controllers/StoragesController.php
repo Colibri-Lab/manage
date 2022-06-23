@@ -22,6 +22,7 @@ use ReflectionClass;
 use Colibri\Utils\Config\Config;
 use Colibri\Utils\Config\ConfigException;
 use App\Modules\Security\Module as SecurityModule;
+use Colibri\Common\NoLangHelper;
 
 class StoragesController extends WebController
 {
@@ -41,6 +42,9 @@ class StoragesController extends WebController
             $storageArray = $storage->ToArray();
             if(App::$moduleManager->lang) {
                 $storageArray = App::$moduleManager->lang->ParseArray($storageArray);
+            }
+            else {
+                $storageArray = NoLangHelper::ParseArray($storageArray);
             }
             $result[$name] = $storageArray;
         }

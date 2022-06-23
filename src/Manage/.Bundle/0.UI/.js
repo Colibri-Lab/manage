@@ -1,1 +1,1 @@
-App.Modules.Manage.UI = class {}
+App.Modules.Manage.UI = class {}  
