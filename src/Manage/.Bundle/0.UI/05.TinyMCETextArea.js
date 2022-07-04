@@ -279,7 +279,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 },
                 menubar: false,
                 plugins: [
-                    "advlist link image lists charmap print preview hr anchor pagebreak spellchecker",
+                    "autoresize advlist link image lists charmap print preview hr anchor pagebreak spellchecker",
                     "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
                     "table contextmenu directionality emoticons template textcolor paste textcolor codemirror" // customautocomplete
                 ],
@@ -321,9 +321,10 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
                     // window.app.raiseEvent('application.tinymce.setup', { control: self, editor: ed });
 
-                },
+                }
             });
             this._visualCreated = true;
+
 
         } else if (this._fieldData?.params?.code) {
             if(this._codemirror) {
@@ -351,13 +352,23 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 this._codemirror = CodeMirror.fromTextArea(this._input, defaultPros);
                 this._codemirror.setValue(this._input.value);
 
-                const height = this._element.bounds().height - 50;
+                const height = this._element.bounds().height;
                 this._codemirror.setSize('100%', height);
 
             });
             this._visualCreated = true;
 
         }
+
+        this.handleResize = true;
+        this.AddHandler('Resize', (event, args) => {
+            if (this._fieldData?.params?.visual == true) {
+
+            } else if (this._fieldData?.params?.code) {
+                const height = this._element.bounds().height;
+                this._codemirror.setSize('100%', height);
+            }
+        });
     }
 
     get value() {

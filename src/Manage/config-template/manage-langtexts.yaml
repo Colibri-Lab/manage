@@ -108,27 +108,27 @@ manage-tabs-remote:
   en: Remote Media Library
   hy: Հեռավոր Մեդիա
 manage-components-tinymce-add-snippet:
-  hy: Տեղադրեք կոդի հատված
   ru: Вставить снипет
   en: Insert a snippet
+  hy: Տեղադրեք snipet
 manage-components-tinymce-choose-snippet:
-  hy: Ընտրեք կոդի հատված
   ru: Выбрать снипет
   en: Choose a snippet
+  hy: Ընտրել snipet
 manage-components-tinymce-snippet:
-  hy: Հատված
   ru: Снипет
   en: Snippet
+  hy: Սնիպետ
 manage-components-tinymce-edit-snippet:
-  hy: Խմբագրել կոդի հատված
   ru: Редактировать снипет
   en: Edit Snippet
+  hy: Խմբագրել snipet
 manage-components-tinymce-params:
-  hy: Պարամետրեր
   ru: Параметры
   en: Parameters
+  hy: Պարամետրեր
 manage-components-tinymce-flexblock:
-  hy: Flexbox (սկիզբ, անցում միջեւ բլոկների)
-  ru: Флексбокс (в начало, правительство между блоками)
-  en: Flexbox (to the beginning, government between blocks)
+  ru: Флексбокс (в начало, пространство между блоками)
+  en: Flexbox (to the beginning, the space between the blocks)
+  hy: Flexbox (ի սկզբանե, տարածք միջեւ բլոկների)
 ...

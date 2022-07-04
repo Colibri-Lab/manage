@@ -18,6 +18,7 @@ use Colibri\Utils\Menu\Item;
 use Colibri\Events\EventsContainer;
 use Colibri\IO\FileSystem\File;
 use Colibri\Common\NoLangHelper;
+use Colibri\Utils\Logs\Logger;
 
 /**
  * Описание модуля
@@ -78,4 +79,7 @@ class Module extends BaseModule
         return $permissions;
     }
 
+    public function Backup(Logger $logger, string $path) {
+        // Do nothing        
+    }
 }

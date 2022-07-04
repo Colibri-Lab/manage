@@ -7,6 +7,7 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
 
         this._form = this.Children('form');
         this._validator = new Colibri.UI.FormValidator(this._form);
+        this._fieldEvents = {};
 
         this._cancel = this.Children('cancel');
         this._save = this.Children('save');
@@ -32,7 +33,7 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
         return storage;
     }
 
-    Show(title, width, fieldBinding, dataBinding, className = '') {
+    Show(title, width, fieldBinding, dataBinding, className = '', fieldEvents = {}) {
 
         this.title = title;
         this.width = width;
@@ -42,6 +43,8 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
  
         this.shown = true;   
         this._save.enabled = false;
+        this._fieldEvents = fieldEvents;
+
         App.Loading.Show();
         return new Promise((resolve, reject) => {
 
@@ -54,9 +57,7 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
                     const storage = response[0];
                     const value = response[1];
         
-                    this._form.fields = this._performChanges(storage).fields;
-                    this._form.value = value;
-                    this._form.Focus();
+                    this.ReCreateForm(this._performChanges(storage).fields, value);
                     
                     App.Loading.Hide();
 
@@ -76,6 +77,21 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
     
         });
 
+    }
+
+    ReCreateForm(fields, value) {
+        this._form.fields = fields;
+
+        Object.forEach(this._fieldEvents, (name, eventData) => { 
+            const component = this._form.Children(name);
+            if(component) {
+                component.AddHandler(eventData.event, eventData.handler);
+            }
+        });
+
+        this._form.Focus();
+        this._form.value = value;
+        
     }
 
 }
