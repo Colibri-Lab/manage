@@ -199,7 +199,7 @@ class RemoteFileField
      * @param Size $size размер
      * @return string наименование и путь файла кэша
      */
-    public function CacheName(Size $size = null): string
+    public function CacheName(?Size $size = null): string
     {
         if (!$size) {
             $size = new Size(0, 0);
@@ -216,7 +216,7 @@ class RemoteFileField
      * @param Size $size размер
      * @return bool да, если файл существует
      */
-    public function CacheExists(Size $size): bool
+    public function CacheExists(?Size $size = null): bool
     {
         return File::Exists($this->CacheName($size));
     }
@@ -231,8 +231,8 @@ class RemoteFileField
         $cachePath = $this->CacheName($size);
 
         $data = $this->data;
-        if ($this->isValid && $this->mimetype->isImage) {
-            if ($size && $size instanceof Size && ($size->width != 0 || $size->height != 0)) {
+        if ($this->isValid) {
+            if ($this->mimetype->isImage && $size && $size instanceof Size && ($size->width != 0 || $size->height != 0)) {
                 $s = $this->size->TransformTo($size);
                 $img = Graphics::Create(App::$webRoot . $this->_path);
                 $img->Resize($s);
@@ -261,7 +261,7 @@ class RemoteFileField
                 $this->Cache($size);
             }
             
-            return str_replace(App::$webRoot, '/', $this->CacheName($size));
+            return '/' . $this->CacheName($size);
 
         }
         else {

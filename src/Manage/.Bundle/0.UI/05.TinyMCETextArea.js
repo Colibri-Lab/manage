@@ -474,3 +474,4 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     }
 
 }
+Colibri.UI.Forms.Field.RegisterFieldComponent('TinyMCETextArea', 'App.Modules.Manage.UI.TinyMCETextArea', 'Визуальный редактор')

@@ -42,15 +42,21 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         console.log('Registering event handlers for Manage');
     }
 
-    FilesByGuid(guid, storage, field, name, mimetype) {
+    FileByGuid(name, guid, bucket, type) {
         return new Promise((resolve, reject) => {
-            this.Call('Files', 'ByGuid', {guid: guid, storage: storage, field: field}).then((response) => {
+            this.Call('Files', 'ByGuid', {guid: guid, bucket: bucket, type: type}).then((response) => {
                 if(response.status === 200) {
-                    const file = Base2File(response.result, name, mimetype)
+                    // response.result - base64 of file
+                    const mimetype = Colibri.Common.MimeType.ext2type(type);
+                    const file = Base2File(response.result, name, mimetype, false)
                     resolve(file);
                 }
             });
         });
+    }
+
+    OpenFileByGuid(guid, bucket, type) {
+        window.open('/modules/manage/files/by-guid.stream?guid=' + guid + '&bucket=' + bucket + '&type=' + type);
     }
 
     Storages(returnPromise = false) {

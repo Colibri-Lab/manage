@@ -36,16 +36,17 @@ class FilesController extends WebController
             return $this->Finish(403, 'Permission denied');
         }
 
-        $bucket = $get->bucket;
-        $guid = $get->guid;
-        $type = $get->type;
+        $bucket = $get->bucket ?? $post->bucket;
+        $guid = $get->guid ?? $post->guid;
+        $type = $get->type ?? $post->type;
 
         $file = new RemoteFileField(['bucket' => $bucket, 'guid' => $guid, 'ext' => $type]);
         $path = $file->Source();
         if(!$path) {
             return $this->Finish(404, 'File not exists');
         }
-        return $this->Finish(200, $file->name, File::Read(App::$webRoot.$path), 'utf-8', ['Cache-Control' => 'Public', 'Expires' => DateHelper::ToDbString(time())]);
+        $content = File::Read(App::$webRoot.$path);
+        return $this->Finish(200, $file->name, $content, 'utf-8', ['Cache-Control' => 'Public', 'Expires' => DateHelper::ToDbString(time())]);
 
     }
 

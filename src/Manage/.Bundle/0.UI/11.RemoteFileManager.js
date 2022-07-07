@@ -158,6 +158,8 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         let contextmenu = [];
         
         contextmenu.push({name: 'remove-file', title: 'Удалить', icon: Colibri.UI.ContextMenuRemoveIcon});
+        contextmenu.push({name: 'separator'});
+        contextmenu.push({name: 'download-file', title: '#{manage-contextmenu-downloadfile;Скачать файл}', icon: Colibri.UI.ContextMenuDownloadIcon});
 
         args.item.contextmenu = contextmenu;
         args.item.ShowContextMenu(args.isContextMenuEvent ? [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.RB] : [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.LB], '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
@@ -174,6 +176,9 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         
         if(menuData.name == 'remove-file') {
             this._deleteFile.Dispatch('Clicked');
+        }
+        else if(menuData.name == 'download-file') {
+            Manage.OpenFileByGuid(item.value.guid, item.value.bucket, item.value.ext);  
         }
     }
 
