@@ -1,97 +1,193 @@
 ---
 manage-filemanager-folders:
   ru: Структура
+  en: Structure
+  hy: Կառուցվածքը
 manage-filemanager-files:
   ru: Файлы
+  en: Files
+  hy: Ֆայլեր
 manage-filemanager-search:
   ru: Поиск
+  en: Search
+  hy: '"ՍԻՍ" ՍՊԸ'
 manage-filemanager-filesempty:
   ru: Файлов не найдено
+  en: No files found
+  hy: Ֆայլեր չեն գտնվել
 manage-filemanager-files-file:
   ru: Файл
+  en: File
+  hy: Ֆայլ
 manage-filemanager-files-type:
   ru: Тип
+  en: Type
+  hy: Տիպ
 manage-filemanager-files-size:
   ru: Размер
+  en: Size
+  hy: Չափ
 manage-filemanager-files-created:
   ru: Создан
+  en: Generated
+  hy: Ստեղծվել է
 manage-filemanager-files-changed:
   ru: Изменен
+  en: Changed
+  hy: Փոփոխված
 manage-filemanager-buttons-upload:
   ru: Загрузить файлы
+  en: Upload files
+  hy: Բեռնել ֆայլեր
 manage-filemanager-buttons-editname:
   ru: Редактировать название
+  en: Edit the name
+  hy: Խմբագրել անունը
 manage-filemanager-buttons-delete:
   ru: Удалить файлы
+  en: Delete Files
+  hy: Ջնջել ֆայլեր
 manage-filemanager-remote-buckets:
   ru: Корзины
+  en: Baskets
+  hy: Զամբյուղներ
 manage-filemanager-remote-files:
   ru: Файлы
+  en: Files
+  hy: Ֆայլեր
 manage-filemanager-remote-search:
   ru: Поиск
+  en: Search
+  hy: '"ՍԻՍ" ՍՊԸ'
 manage-filemanager-remote-filesempty:
   ru: Файлов в корзине не найдено
+  en: No files found in the trash
+  hy: Զամբյուղում ֆայլեր չեն հայտնաբերվել
 manage-filemanager-remote-created:
   ru: Создана
+  en: Created
+  hy: Ստեղծվել է
 manage-filemanager-remote-key:
   ru: Ключ
+  en: Key
+  hy: Բանալին
 manage-filemanager-remote-file:
   ru: Файл
+  en: File
+  hy: Ֆայլ
 manage-filemanager-remote-type:
   ru: Тип
+  en: Type
+  hy: Տիպ
 manage-filemanager-remote-size:
   ru: Размер
+  en: Size
+  hy: Չափ
 manage-filemanager-remote-hash:
   ru: Хэш
+  en: Hash
+  hy: Հաշ
 manage-filemanager-remote-path:
   ru: Путь
+  en: Way
+  hy: Ճանապարհ
 manage-filemanager-remote-buttons-upload:
   ru: Загрузить файлы
+  en: Upload files
+  hy: Բեռնել ֆայլեր
 manage-filemanager-remote-buttons-remove:
   ru: Удалить
+  en: Remove
+  hy: Ջնջել
 manage-tabs-resources:
   ru: Ресурсы
+  en: Resources
+  hy: Ռեսուրսներ
 manage-tabs-remote:
   ru: Удаленная медиатека
+  en: Remote Media Library
+  hy: Հեռավոր Մեդիա
 manage-components-tinymce-add-snippet:
   ru: Вставить снипет
+  en: Insert a snippet
+  hy: Տեղադրեք snipet
 manage-components-tinymce-choose-snippet:
   ru: Выбрать снипет
+  en: Choose a snippet
+  hy: Ընտրել snipet
 manage-components-tinymce-snippet:
   ru: Снипет
+  en: Snippet
+  hy: Սնիպետ
 manage-components-tinymce-edit-snippet:
   ru: Редактировать снипет
+  en: Edit Snippet
+  hy: Խմբագրել snipet
 manage-components-tinymce-params:
   ru: Параметры
+  en: Parameters
+  hy: Պարամետրեր
 manage-components-tinymce-flexblock:
   ru: Флексбокс (в начало, пространство между блоками)
+  en: Flexbox (to the beginning, the space between the blocks)
+  hy: Flexbox (ի սկզբանե, տարածք միջեւ բլոկների)
 manage-contextmenu-newfolder:
   ru: Новый раздел
+  en: New section
+  hy: Նոր բաժին
 manage-contextmenu-editfolder:
   ru: Редактировать раздел
+  en: Edit a section
+  hy: Խմբագրել բաժինը
 manage-contextmenu-deletefolder:
   ru: Удалить раздел
+  en: Delete a section
+  hy: Ջնջել բաժինը
 manage-folders-messages-removefolder:
   ru: Удаление папки
+  en: Deleting a folder
+  hy: Ջնջել թղթապանակը
 manage-folders-messages-removefoldermessage:
   ru: Вы уверены, что хотите удалить папку? Внимание! Вместе с папкой будет удалено
     все ее содержание!
+  en: Are you sure you want to delete the folder? Attention! All its contents will
+    be deleted along with the folder!
+  hy: 'Համոզված եք, որ ցանկանում եք ջնջել թղթապանակը: Ուշադրություն! Թղթապանակի հետ
+    միասին ջնջվում է բոլոր բովանդակությունը:'
 manage-contextmenu-editfile:
   ru: Редактировать файл
+  en: Edit a file
+  hy: Խմբագրել ֆայլը
 manage-contextmenu-deletefile:
   ru: Удалить файл
+  en: Delete a file
+  hy: Ջնջել ֆայլը
 manage-contextmenu-downloadfile:
   ru: Скачать файл
+  en: Download file
+  hy: Բեռնել ֆայլը
 manage-files-messages-editfile:
   ru: Редактирование названия файла
+  en: Editing the file name
+  hy: Խմբագրել ֆայլի անունը
 manage-files-fields-name-desc:
   ru: Название файла
+  en: File name
+  hy: Ֆայլի անունը
 manage-files-fields-name-note:
   ru: Введите название файла
+  en: Enter the file name
+  hy: Մուտքագրեք ֆայլի անունը
 manage-files-fields-name-validation1:
   ru: Пожалуйста, введите название файла!
+  en: Please enter the file name!
+  hy: Խնդրում ենք մուտքագրել ֆայլի անունը!
 manage-files-messages-removefile:
   ru: Удаление файла
+  en: Deleting a file
+  hy: Ջնջել ֆայլը
 manage-files-messages-removefilemessage:
   ru: Вы уверены, что хотите удалить файл?
+  en: Are you sure you want to delete the file?
+  hy: 'Վստահ եք, որ ցանկանում եք ջնջել ֆայլը:'
 ...
