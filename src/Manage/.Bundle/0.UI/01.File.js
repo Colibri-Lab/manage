@@ -95,25 +95,30 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     }
 
     _showIcon() {
-        const value = this._value;
-        const pi = value.pathinfo();
-        if(!pi?.ext) {
-            this._icon.icon = null;
-            this._icon.value = null;
-        }
-        else {
-            const MimeType = Colibri.Common.MimeType;
-            if(MimeType.isImage(pi.ext)) {
-                this._icon.icon = 'url(\'' + value + '\')';
-            }
-            else if(Colibri.UI.Files[pi.ext] !== undefined) {
+        try {
+            const value = this._value;
+            const pi = value.pathinfo();
+            if(!pi?.ext) {
                 this._icon.icon = null;
-                this._icon.value = Colibri.UI.Files[pi.ext];
+                this._icon.value = null;
             }
+            else {
+                const MimeType = Colibri.Common.MimeType;
+                if(MimeType.isImage(pi.ext)) {
+                    this._icon.icon = 'url(\'' + value + '\')';
+                }
+                else if(Colibri.UI.Files[pi.ext] !== undefined) {
+                    this._icon.icon = null;
+                    this._icon.value = Colibri.UI.Files[pi.ext];
+                }
+            }
+    
         }
+        catch(e) {
 
+        }
         
     }
 
 }
-Colibri.UI.Forms.Field.RegisterFieldComponent('File', 'App.Modules.Manage.UI.File', '#{app-fields-localfile;Поле типа Файл}');
+Colibri.UI.Forms.Field.RegisterFieldComponent('LocalFile', 'App.Modules.Manage.UI.File', '#{app-fields-localfile;Поле типа Файл}');
