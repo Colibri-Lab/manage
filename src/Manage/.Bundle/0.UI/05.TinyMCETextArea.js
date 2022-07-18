@@ -189,7 +189,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                                 return true;
                             });
 
-                            snippet = {text: snippetName, name: snippetName, options: snippetObject.options, fields: snippetObject.fields.map((f) => {f.value = snippetParams[f.name]; return f;})};
+                            snippet = {text: snippetName, name: snippetName, options: snippetObject.options, fields: snippetObject.fields.map((f) => {f.value = snippetParams[f.name] === undefined ? '' : snippetParams[f.name]; return f;})};
                             fields = snippet.fields;
                             if(fields.length > 0) {
                                 button.settings.editor.windowManager.open({
