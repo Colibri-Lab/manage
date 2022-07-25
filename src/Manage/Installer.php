@@ -103,6 +103,10 @@ class Installer
         if(!$webRoot) {
             $webRoot = 'web'; 
         }
+        $permanent = \getenv('COLIBRI_PERMANENT');
+        if(!$permanent) {
+            $permanent = 'res/'; 
+        }
         $mode = self::_getMode($configDir.'app.yaml');
 
 
@@ -119,8 +123,8 @@ class Installer
         self::_copyOrSymlink($mode, $path.'/src/Manage/bin/', './bin/', 'manage-models-generate.sh', 'manage-models-generate.sh');
 
         print_r('Установка ресурсов'."\n");
-        self::_copyOrSymlink($mode, $path.'/src/Manage/web/res/', './'.$webRoot.'/res/', 'codemirror/', 'codemirror/');
-        self::_copyOrSymlink($mode, $path.'/src/Manage/web/res/', './'.$webRoot.'/res/', 'tinymce/', 'tinymce/');
+        self::_copyOrSymlink($mode, $path.'/src/Manage/web/res/', './'.$webRoot.'/'.$permanent, 'codemirror/', 'codemirror/');
+        self::_copyOrSymlink($mode, $path.'/src/Manage/web/res/', './'.$webRoot.'/'.$permanent, 'tinymce/', 'tinymce/');
         
         print_r('Установка завершена'."\n");
 
