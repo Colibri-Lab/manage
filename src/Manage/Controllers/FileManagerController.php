@@ -112,8 +112,8 @@ class FileManagerController extends WebController
 
         $di = new Directory($rootPath.$folderPath);
         $diArray = $di->ToArray();
-        $diArray['path'] = '/'.str_replace($rootPath, '', $diArray['path']);
-        $diArray['parent'] = '/'.str_replace($rootPath, '', $diArray['parent']);
+        $diArray['path'] = str_replace($rootPath, '', $diArray['path']);
+        $diArray['parent'] = str_replace($rootPath, '', $diArray['parent']);
 
         return $this->Finish(200, 'ok', $diArray);
     }
