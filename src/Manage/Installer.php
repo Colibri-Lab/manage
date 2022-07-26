@@ -119,8 +119,8 @@ class Installer
         self::_copyOrSymlink($mode, $path.'/src/Manage/bin/', './bin/', 'manage-models-generate.sh', 'manage-models-generate.sh');
 
         print_r('Установка ресурсов'."\n");
-        self::_copyOrSymlink($mode, $path.'/src/Manage/web/res/', './'.$webRoot.'/'.$permanent, 'codemirror/', 'codemirror/');
-        self::_copyOrSymlink($mode, $path.'/src/Manage/web/res/', './'.$webRoot.'/'.$permanent, 'tinymce/', 'tinymce/');
+        self::_copyOrSymlink($mode, $path.'/src/Manage/web/res/', './'.$webRoot.'/res/', 'codemirror/', 'codemirror/');
+        self::_copyOrSymlink($mode, $path.'/src/Manage/web/res/', './'.$webRoot.'/res/', 'tinymce/', 'tinymce/');
         
         print_r('Установка завершена'."\n");
 
