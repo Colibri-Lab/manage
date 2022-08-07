@@ -4,25 +4,11 @@
 namespace App\Modules\Manage\Controllers;
 
 
-use Colibri\App;
-use Colibri\Events\EventsContainer;
-use Colibri\IO\FileSystem\File;
-use Colibri\Utils\Cache\Bundle;
-use Colibri\Utils\Debug;
-use Colibri\Utils\ExtendedObject;
 use Colibri\Web\RequestCollection;
 use Colibri\Web\Controller as WebController;
-use Colibri\Web\Templates\PhpTemplate;
-use Colibri\Web\View;
-use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\OutputStyle;
 use Colibri\Web\PayloadCopy;
 use Colibri\Data\Storages\Storages;
-use ReflectionClass;
-use Colibri\Utils\Config\Config;
-use Colibri\Utils\Config\ConfigException;
 use App\Modules\Security\Module as SecurityModule;
-use Colibri\Common\NoLangHelper;
 
 class StoragesController extends WebController
 {
@@ -39,14 +25,7 @@ class StoragesController extends WebController
         $storages = Storages::Create();
         $list = $storages->GetStorages();
         foreach($list as $name => $storage) {
-            $storageArray = $storage->ToArray();
-            if(App::$moduleManager->lang) {
-                $storageArray = App::$moduleManager->lang->ParseArray($storageArray);
-            }
-            else {
-                $storageArray = NoLangHelper::ParseArray($storageArray);
-            }
-            $result[$name] = $storageArray;
+            $result[$name] = $storage->ToArray();
         }
         
         return $this->Finish(200, 'ok', $result);
