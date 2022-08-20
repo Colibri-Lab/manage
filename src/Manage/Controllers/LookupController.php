@@ -29,28 +29,46 @@ class LookupController extends WebController
         
         $lookup = $post->lookup;
         $term = $post->term;
+        $paramField = $post->param;
         if(isset($lookup['storage'])) {
             $storageLookup = $lookup['storage'];
             $storageName = $storageLookup['name'];
+            $selectField = $storageLookup['select'] ?? '*';
             $titleField = $storageLookup['title'] ?? 'title';
             $valueField = $storageLookup['value'] ?? 'value';
+            $groupField = $storageLookup['group'] ?? null;
+            $dependsField = $storageLookup['depends'] ?? null;
+            $orderField = $storageLookup['order'] ?? '{'.$titleField.'}';
+            if(!$orderField) {
+                $orderField = '{'.$titleField.'}';
+            }
+
 
             $storage = Storages::Create()->Load($storageName);
             if(!$storage) {
                 return $this->Finish(404, 'Not found');
             }
 
-            $filter = '';
-            $params = ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => 1000];
+            $filter = [];
+            $params = ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => 1000, 'params' => []];
             if($term) {
-                $filter = ' where {'.$titleField.'} like [[term:string]]';
-                $params['params'] = ['term' => '%'.$term.'%'];
+                $filter[] = '{'.$titleField.'} like [[term:string]]';
+                $params['params']['term'] = '%'.$term.'%';
             }
-            $dataTable = DataTable::LoadByQuery($storage, 'select * from '.$storage->name.$filter, $params);
+            if($dependsField && $paramField) {
+                $filter[] = '{'.$dependsField.'}=[[depends:string]]';
+                $params['params']['depends'] = $paramField;
+            }
+            $filter = !empty($filter) ? ' where '.implode(' and ', $filter) : '';
+            $dataTable = DataTable::LoadByQuery($storage, 'select '.$selectField.' from '.$storage->name.$filter.' order by '.$orderField, $params);
 
             $ret = [];
             foreach($dataTable as $row) {
-                $ret[] = [$titleField => $row->$titleField, $valueField => $row->$valueField];
+                $r = [$titleField => $row->$titleField, $valueField => $row->$valueField];
+                if($groupField) {
+                    $r[$groupField] = $row->$groupField;
+                }
+                $ret[] = $r;
             }
         }
 
