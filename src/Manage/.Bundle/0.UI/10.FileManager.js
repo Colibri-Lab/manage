@@ -385,3 +385,4 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
     }
 
 }
+
