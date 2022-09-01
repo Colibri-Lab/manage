@@ -140,4 +140,4 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
     }
 
 }
-Colibri.UI.Forms.Field.RegisterFieldComponent('RemoteFile', 'App.Modules.Manage.UI.RemoteFile', '#{app-fields-remotefile;Файл из удаленного хранилища}')
+Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.RemoteFile', 'App.Modules.Manage.UI.RemoteFile', '#{app-fields-remotefile;Файл из удаленного хранилища}')

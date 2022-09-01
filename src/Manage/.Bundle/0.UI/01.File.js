@@ -121,4 +121,4 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     }
 
 }
-Colibri.UI.Forms.Field.RegisterFieldComponent('LocalFile', 'App.Modules.Manage.UI.File', '#{app-fields-localfile;Поле типа Файл}');
+Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.File', 'App.Modules.Manage.UI.File', '#{app-fields-localfile;Поле типа Файл}');
