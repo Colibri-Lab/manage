@@ -38,7 +38,7 @@ class LookupController extends WebController
             $valueField = $storageLookup['value'] ?? 'value';
             $groupField = $storageLookup['group'] ?? null;
             $dependsField = $storageLookup['depends'] ?? null;
-            $orderField = $storageLookup['order'] ?? '{'.$titleField.'}';
+            $orderField = '{'.($storageLookup['order'] ?? $titleField).'}';
             if(!$orderField) {
                 $orderField = '{'.$titleField.'}';
             }
@@ -61,14 +61,18 @@ class LookupController extends WebController
             }
             $filter = !empty($filter) ? ' where '.implode(' and ', $filter) : '';
             $dataTable = DataTable::LoadByQuery($storage, 'select '.$selectField.' from '.$storage->name.$filter.' order by '.$orderField, $params);
-
-            $ret = [];
-            foreach($dataTable as $row) {
-                $r = [$titleField => $row->$titleField, $valueField => $row->$valueField];
-                if($groupField) {
-                    $r[$groupField] = $row->$groupField;
+            if(!$dataTable) {
+                $ret = [];
+            }
+            else {
+                $ret = [];
+                foreach($dataTable as $row) {
+                    $r = [$titleField => $row->$titleField, $valueField => $row->$valueField];
+                    if($groupField) {
+                        $r[$groupField] = $row->$groupField;
+                    }
+                    $ret[] = $r;
                 }
-                $ret[] = $r;
             }
         }
 
