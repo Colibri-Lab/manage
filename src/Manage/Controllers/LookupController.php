@@ -38,11 +38,7 @@ class LookupController extends WebController
             $valueField = $storageLookup['value'] ?? 'value';
             $groupField = $storageLookup['group'] ?? null;
             $dependsField = $storageLookup['depends'] ?? null;
-            $orderField = '{'.($storageLookup['order'] ?? $titleField).'}';
-            if(!$orderField) {
-                $orderField = '{'.$titleField.'}';
-            }
-
+            $orderField = strstr(($storageLookup['order'] ?? $titleField), '{') === false ? '{'.($storageLookup['order'] ?? $titleField).'}' : ($storageLookup['order'] ?? $titleField);
 
             $storage = Storages::Create()->Load($storageName);
             if(!$storage) {
