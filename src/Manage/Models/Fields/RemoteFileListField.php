@@ -21,6 +21,11 @@ use Colibri\Data\Storages\Fields\Field;
 class RemoteFileListField extends ArrayList
 {
 
+    public const JsonSchema = [
+        'type' => 'array',
+        'items' => RemoteFileField::JsonSchema
+    ];
+
     /**
      * Конструктор
      * @param string $data данные из поля

@@ -42,6 +42,16 @@ use Colibri\AppException;
  */
 class RemoteFileField
 {
+
+    public const JsonSchema = [
+        'type' => 'object',
+        'patternProperties' => [
+            '.*' => [
+                'type' => 'string'
+            ]
+        ]
+    ];
+    
     /**
      * Данные файла
      * @var string
