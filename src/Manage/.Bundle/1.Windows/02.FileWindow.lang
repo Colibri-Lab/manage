@@ -4,3 +4,9 @@ manage-tabs-resources:
 manage-tabs-remote:
   ru: Удаленная медиатека
   en: Удаленная медиатека
+manage-filewindow-buttons-choose:
+  ru: Выбрать
+  en: Select
+manage-filewindow-buttons-cancel:
+  ru: Отмена
+  en: Cancel

@@ -77,7 +77,7 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
             item.Edit();
         }
         else if(menuData.name == 'remove-folder') {
-            App.Confirm.Show('#{manage-folders-messages-removefolder}', '#{manage-folders-messages-removefoldermessage}', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
+            App.Confirm.Show('#{manage-folders-messages-removefolder}', '#{manage-folders-messages-removefoldermessage}', '#{manage-folders-messages-removefoldermessage-delete}').then(() => {
                 Manage.RemoveFolder(item.tag.path);
                 this._folders.selected = item.parentNode;
             });
@@ -129,14 +129,14 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
                         }]
                     }
                 }
-            }, '#{app-buttons-save;Сохранить}').then((data) => {
+            }, '#{manage-files-messages-editfile-save}').then((data) => {
                 Manage.RenameFile(selection.tag.path, item.value.name, data.name);
                 item.Dispose();
             });
 
         }
         else if(menuData.name == 'remove-file') {
-            App.Confirm.Show('#{manage-files-messages-removefile}', '#{manage-files-messages-removefilemessage}', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
+            App.Confirm.Show('#{manage-files-messages-removefile}', '#{manage-files-messages-removefilemessage}', '#{manage-files-messages-removefilemessage-delete}').then(() => {
                 Manage.RemoveFile(item.value.path);
                 item.Dispose();
             });
@@ -316,7 +316,7 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
                     }]
                 }
             }
-        }, '#{app-buttons-save;Сохранить}').then((data) => {
+        }, '#{manage-files-messages-editfile-save}').then((data) => {
             Manage.RenameFile(selection.tag.path, item.value.name, data.name);
             item.Dispose();
         }).catch(e => console.log(e));
@@ -335,7 +335,7 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
         }
 
         let paths = files.map(f => f.path);
-        App.Confirm.Show('#{manage-files-messages-removefile}', '#{manage-files-messages-removefilemessage}', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
+        App.Confirm.Show('#{manage-files-messages-removefile}', '#{manage-files-messages-removefilemessage}', '#{manage-files-messages-removefilemessage-delete}').then(() => {
             Manage.RemoveFile(paths);
             if(this._files.selected) {
                 this._files.selected.Dispose();

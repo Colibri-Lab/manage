@@ -77,3 +77,17 @@ manage-remotefiles-messages-deletebucket-message:
     удалены физически!
   en: Are you sure you want to delete the trash? All files inside the trash will
     be physically deleted!
+manage-remotefiles-messages-removefile-message-delete:
+  ru: Удалить!
+manage-remotefiles-messages-removefiles:
+  ru: Удаление файлов из удаленного хранилища
+  en: Deleting files from remote storage
+manage-remotefiles-messages-removefiles-message:
+  ru: Вы уверены, что хотите удалить выбранный файлы?
+  en: Are you sure you want to delete the selected files?
+manage-remotefiles-messages-removefiles-message-delete:
+  ru: Удалить!
+  en: Delete
+manage-remotefiles-messages-deletebucket-delete:
+  ru: Удалить!
+  en: Delete

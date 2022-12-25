@@ -78,3 +78,16 @@ manage-files-messages-removefile:
 manage-files-messages-removefilemessage:
   ru: Вы уверены, что хотите удалить файл?
   en: Are you sure you want to delete the file?
+manage-folders-messages-removefoldermessage-delete:
+  ru: Удалить!
+  en: Delete
+manage-buttons-save:
+  ru: Сохранить
+manage-confirm-buttons-delete:
+  ru: Удалить!
+manage-files-messages-editfile-save:
+  ru: Сохранить
+  en: Save
+manage-files-messages-removefilemessage-delete:
+  ru: Удалить!
+  en: Delete

@@ -40,4 +40,4 @@ App.Modules.Manage.UI.RemoteFileViewer = class extends Colibri.UI.Viewer {
 
 
 }
-Colibri.UI.Viewer.Register('App.Modules.Manage.UI.RemoteFileViewer', '#{app-viewers-remotefile;Удаленный файл}');
+Colibri.UI.Viewer.Register('App.Modules.Manage.UI.RemoteFileViewer', '#{manage-viewers-remotefile}');
