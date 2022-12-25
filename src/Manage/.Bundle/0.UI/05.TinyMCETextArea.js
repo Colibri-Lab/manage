@@ -35,7 +35,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         tools.push({
             name: "add-snippet",
             icon: false,
-            text: "#{manage-components-tinymce-add-snippet;Вставить снипет}",
+            text: "#{manage-components-tinymce-add-snippet}",
             onclick: (e) => {
                 const button = e.control;
 
@@ -83,12 +83,12 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     });
 
                     button.settings.editor.windowManager.open({
-                        title: '#{manage-components-tinymce-choose-snippet;Выбрать снипет}',
+                        title: '#{manage-components-tinymce-choose-snippet}',
                         data: {},
                         body: {
                             name: 'snippet',
                             type: 'listbox',
-                            label: '#{manage-components-tinymce-snippet;Снипет}',
+                            label: '#{manage-components-tinymce-snippet}',
                             values: comboList
                         },
                         onsubmit: (e1) => {
@@ -123,7 +123,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         tools.push({
             name: "edit-snippet",
             icon: false,
-            text: "#{manage-components-tinymce-edit-snippet;Редактировать снипет}",
+            text: "#{manage-components-tinymce-edit-snippet}",
             onclick: (e) => {
                 const button = e.control;
                 const editor = button.settings.editor;
@@ -193,7 +193,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                             fields = snippet.fields;
                             if(fields.length > 0) {
                                 button.settings.editor.windowManager.open({
-                                    title: '#{manage-components-tinymce-params;Параметры} ' + snippet.text,
+                                    title: '#{manage-components-tinymce-params} ' + snippet.text,
                                     data: {},
                                     body: fields,
                                     minWidth: button.settings.editor.getParam("code_dialog_width", 600),
@@ -259,7 +259,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     '.app-component-flexbox { display: flex; align-items: flex-start; justify-content: space-between; border: 1px dashed #c0c0c0; padding: 10px; margin: 10px 0px; }' + 
                     '.app-component-flexbox > * { margin: 10px; }',
                 style_formats: [
-                    { title: '#{manage-components-tinymce-flexblock;Флексбокс (в начало, пространство между блоками)}', format: 'flexBoxAlignStartSpaceBetween' }
+                    { title: '#{manage-components-tinymce-flexblock}', format: 'flexBoxAlignStartSpaceBetween' }
                 ],
                 codemirror: {
                     indentOnInit: true, // Whether or not to indent code on init.

@@ -1,0 +1,79 @@
+manage-filemanager-remote-buckets:
+  ru: Корзины
+  en: Buckets
+manage-filemanager-remote-files:
+  ru: Файлы
+  en: Files
+manage-filemanager-remote-search:
+  ru: Поиск
+  en: Search
+manage-filemanager-remote-filesempty:
+  ru: Файлов в корзине не найдено
+  en: No files in bucket
+manage-filemanager-remote-created:
+  ru: Создана
+  en: Created
+manage-filemanager-remote-key:
+  ru: Ключ
+  en: Key
+manage-filemanager-remote-file:
+  ru: Файл
+  en: File
+manage-filemanager-remote-type:
+  ru: Тип
+  en: Type
+manage-filemanager-remote-size:
+  ru: Размер
+  en: Size
+manage-filemanager-remote-hash:
+  ru: Хэш
+  en: Hash
+manage-filemanager-remote-path:
+  ru: Путь
+  en: Path
+manage-filemanager-remote-buttons-upload:
+  ru: Загрузить файлы
+  en: Upload files
+manage-filemanager-remote-buttons-remove:
+  ru: Удалить
+  en: Delete
+manage-contextmenu-downloadfile:
+  ru: Скачать файл
+  en: Download file
+manage-files-messages-removefile: {}
+manage-remotefiles-messages-removefile:
+  ru: Удаление файлов из удаленного хранилища
+  en: Deleting files from remote storage
+manage-remotefiles-messages-removefile-message:
+  ru: Вы уверены, что хотите удалить выбранный файл?
+  en: Are you sure you want to delete the selected file?
+manage-contextmenu-deletefile:
+  ru: Удалить
+  en: Delete
+manage-contextmenu-createbucket:
+  ru: Новая корзина
+  en: Create bucket
+manage-contextmenu-deletebucket:
+  ru: Удалить корзину
+  en: Delete bucket
+manage-remotefiles-messages-createbucket:
+  ru: Создание корзины
+  en: Bucket creation
+manage-remotefiles-messages-createbucket-: {}
+manage-remotefiles-messages-createbucket-desc:
+  ru: Название корзины
+  en: Bucket name
+manage-remotefiles-messages-createbucket-validate1:
+  ru: Пожалуйста, введите название корзины!
+  en: "Please enter the bucket name "
+manage-remotefiles-messages-createbucket-button:
+  ru: Сохранить
+  en: Save
+manage-remotefiles-messages-deletebucket:
+  ru: Удаление корзины
+  en: Delete bucket
+manage-remotefiles-messages-deletebucket-message:
+  ru: Вы уверены, что хотите удалить корзину? Все файлы внутри корзины будут
+    удалены физически!
+  en: Are you sure you want to delete the trash? All files inside the trash will
+    be physically deleted!

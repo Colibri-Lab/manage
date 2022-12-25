@@ -1,0 +1,18 @@
+manage-components-tinymce-add-snippet:
+  ru: Вставить снипет
+  en: Insert a snippet
+manage-components-tinymce-choose-snippet:
+  ru: Выбрать снипет
+  en: Choose snippet
+manage-components-tinymce-snippet:
+  ru: Снипет
+  en: Snippet
+manage-components-tinymce-edit-snippet:
+  ru: Редактировать снипет
+  en: Edit snippet
+manage-components-tinymce-params:
+  ru: Параметры
+  en: Parameters of
+manage-components-tinymce-flexblock:
+  ru: Флексбокс (в начало, пространство между блоками)
+  en: Flexbox (to the beginning, space between blocks)

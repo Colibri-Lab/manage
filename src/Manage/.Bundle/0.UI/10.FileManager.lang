@@ -1,0 +1,80 @@
+manage-filemanager-folders:
+  ru: Структура
+  en: Structure
+manage-filemanager-files:
+  ru: Файлы
+  en: Files
+manage-filemanager-search:
+  ru: Поиск
+  en: Search
+manage-filemanager-filesempty:
+  ru: Файлов не найдено
+  en: No files found
+manage-filemanager-files-file:
+  ru: Файл
+  en: File
+manage-filemanager-files-type:
+  ru: Тип
+  en: Type
+manage-filemanager-files-size:
+  ru: Размер
+  en: Size
+manage-filemanager-files-created:
+  ru: Создан
+  en: Created
+manage-filemanager-files-changed:
+  ru: Изменен
+  en: Modified
+manage-filemanager-buttons-upload:
+  ru: Загрузить файлы
+  en: Upload files
+manage-filemanager-buttons-editname:
+  ru: Редактировать название
+  en: Edit file name
+manage-filemanager-buttons-delete:
+  ru: Удалить файлы
+  en: Delete files
+manage-contextmenu-newfolder:
+  ru: Новый раздел
+  en: New folder
+manage-contextmenu-editfolder:
+  ru: Редактировать раздел
+  en: Edit folder
+manage-contextmenu-deletefolder:
+  ru: Удалить раздел
+  en: Delete folder
+manage-folders-messages-removefolder:
+  ru: Удаление папки
+  en: Delete folder
+manage-folders-messages-removefoldermessage:
+  ru: Вы уверены, что хотите удалить папку? Внимание! Вместе с папкой будет
+    удалено все ее содержание!
+  en: Are you sure you want to delete the folder? Attention! Together with the
+    folder, all its contents will be deleted!
+manage-contextmenu-editfile:
+  ru: Редактировать файл
+  en: Edit file
+manage-contextmenu-deletefile:
+  ru: Удалить файл
+  en: Delete file
+manage-contextmenu-downloadfile:
+  ru: Скачать файл
+  en: Download file
+manage-files-messages-editfile:
+  ru: Редактирование названия файла
+  en: Edit the file name
+manage-files-fields-name-desc:
+  ru: Название файла
+  en: File name
+manage-files-fields-name-note:
+  ru: Введите название файла
+  en: Enter the file name
+manage-files-fields-name-validation1:
+  ru: Пожалуйста, введите название файла!
+  en: Please enter a file name!
+manage-files-messages-removefile:
+  ru: Удаление файла
+  en: Delete file
+manage-files-messages-removefilemessage:
+  ru: Вы уверены, что хотите удалить файл?
+  en: Are you sure you want to delete the file?

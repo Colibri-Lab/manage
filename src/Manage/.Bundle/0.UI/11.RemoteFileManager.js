@@ -94,12 +94,12 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
             return;
         }
         if(this._files.checked.length == 0) {
-            App.Confirm.Show('Удаление файлов из удаленного хранилища', 'Вы уверены, что хотите удалить выбранный файл?', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
+            App.Confirm.Show('#{manage-remotefiles-messages-removefile}', '#{manage-remotefiles-messages-removefile-message}', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
                 Manage.DeleteFilesFromRemote(bucket, [this._files.selected.value.guid]);
             });
         }
         else {
-            App.Confirm.Show('Удаление файлов из удаленного хранилища', 'Вы уверены, что хотите удалить выбранные файлы?', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
+            App.Confirm.Show('#{manage-remotefiles-messages-removefile}', '#{manage-remotefiles-messages-removefile-message}', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
                 let ids = [];
                 this._files.checked.forEach((row) => {
                     ids.push(row.value.guid);
@@ -157,9 +157,9 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     __renderDataContextMenu(event, args) {
         let contextmenu = [];
         
-        contextmenu.push({name: 'remove-file', title: 'Удалить', icon: Colibri.UI.ContextMenuRemoveIcon});
+        contextmenu.push({name: 'remove-file', title: '#{manage-contextmenu-deletefile}', icon: Colibri.UI.ContextMenuRemoveIcon});
         contextmenu.push({name: 'separator'});
-        contextmenu.push({name: 'download-file', title: '#{manage-contextmenu-downloadfile;Скачать файл}', icon: Colibri.UI.ContextMenuDownloadIcon});
+        contextmenu.push({name: 'download-file', title: '#{manage-contextmenu-downloadfile}', icon: Colibri.UI.ContextMenuDownloadIcon});
 
         args.item.contextmenu = contextmenu;
         args.item.ShowContextMenu(args.isContextMenuEvent ? [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.RB] : [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.LB], '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
@@ -188,14 +188,14 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         
         const itemData = args.item?.value;
         if(!itemData) {
-            contextmenu.push({name: 'new-bucket', title: 'Новая корзина', icon: Colibri.UI.ContextMenuAddIcon});
+            contextmenu.push({name: 'new-bucket', title: '#{manage-contextmenu-createbucket}', icon: Colibri.UI.ContextMenuAddIcon});
 
             this._buckets.contextmenu = contextmenu;
             this._buckets.ShowContextMenu(args.isContextMenuEvent ? 'right bottom' : 'left top', '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
 
         }
         else {
-            contextmenu.push({name: 'remove-bucket', title: 'Удалить корзину', icon: Colibri.UI.ContextMenuRemoveIcon});
+            contextmenu.push({name: 'remove-bucket', title: '#{manage-contextmenu-deletebucket}', icon: Colibri.UI.ContextMenuRemoveIcon});
 
             args.item.contextmenu = contextmenu;
             args.item.ShowContextMenu(args.isContextMenuEvent ? [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.RB] : [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.LB], '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
@@ -211,26 +211,26 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         }
         
         if(menuData.name == 'new-bucket') {
-            App.Prompt.Show('Создание корзины', {
+            App.Prompt.Show('#{manage-remotefiles-messages-createbucket}', {
                 name: {
                     type: 'varchar',
                     component: 'Text',
                     default: item.value.name,
-                    desc: 'Название корзины',
+                    desc: '#{manage-remotefiles-messages-createbucket-desc}',
                     note: 'Введите название корзины',
                     params: {
                         validate: [{
-                            message: 'Пожалуйста, введите название корзины!',
+                            message: '#{manage-remotefiles-messages-createbucket-validate1}',
                             method: '(field, validator) => !!field.value'
                         }]
                     }
                 }
-            }, 'Сохранить').then((data) => {
+            }, '#{manage-remotefiles-messages-createbucket-button}').then((data) => {
                 Manage.CreateBucket(data.name);
             }).catch(e => console.log(e));
         }
         else if(menuData.name == 'remove-bucket') {
-            App.Confirm.Show('Удаление корзины', 'Вы уверены, что хотите удалить корзину? Все файлы внутри корзины будут удалены физически!', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
+            App.Confirm.Show('#{manage-remotefiles-messages-deletebucket}', '#{manage-remotefiles-messages-deletebucket-message}', '#{app-confirm-buttons-delete;Удалить!}').then(() => {
                 Manage.RemoveBucket(item.tag);
                 this._buckets.selected = null;
             });
