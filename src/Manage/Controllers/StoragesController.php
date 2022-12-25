@@ -4,6 +4,7 @@
 namespace App\Modules\Manage\Controllers;
 
 
+use Colibri\App;
 use Colibri\Web\RequestCollection;
 use Colibri\Web\Controller as WebController;
 use Colibri\Web\PayloadCopy;
@@ -13,23 +14,96 @@ use App\Modules\Security\Module as SecurityModule;
 class StoragesController extends WebController
 {
 
-    
-    public function Config(RequestCollection $get, RequestCollection $post, ?PayloadCopy $payload): object
+    private function _convertFields($fields) {
+        /** @var \App\Modules\Lang\Module $langModule */
+        $langModule = App::$moduleManager->lang;
+
+        foreach ($fields as $fieldName => $fieldArray) {
+
+            if (isset($fieldArray['desc']) && is_string($fieldArray['desc']) && strstr($fieldArray['desc'], '#{') !== false) {
+                // надо сконвертить
+                $keys = $langModule->ParseAndGetKeys($fieldArray['desc']);
+                $fieldArray['desc'] = $langModule->GetAsObject($keys[0]);
+            }
+            if (isset($fieldArray['group']) && is_string($fieldArray['group']) && strstr($fieldArray['group'], '#{') !== false) {
+                // надо сконвертить
+                $keys = $langModule->ParseAndGetKeys($fieldArray['group']);
+                $fieldArray['group'] = $langModule->GetAsObject($keys[0]);
+            }
+            if (isset($fieldArray['note']) && is_string($fieldArray['note']) && strstr($fieldArray['note'], '#{') !== false) {
+                // надо сконвертить
+                $keys = $langModule->ParseAndGetKeys($fieldArray['note']);
+                $fieldArray['note'] = $langModule->GetAsObject($keys[0]);
+            }
+            if (isset($fieldArray['values']) && is_array($fieldArray['values'])) {
+                foreach ($fieldArray['values'] as $index => $val) {
+
+                    if (!isset($val['type'])) {
+                        $val['type'] = is_string($val['title']) ? 'text' : 'number';
+                    }
+
+                    if ($val['type'] === 'text' && isset($val['title']) && is_string($val['title']) && strstr($val['title'], '#{') !== false) {
+                        // надо сконвертить
+                        $keys = $langModule->ParseAndGetKeys($val['title']);
+                        $val['title'] = $langModule->GetAsObject($keys[0]);
+                    }
+
+                    $fieldArray['values'][$index] = $val;
+                }
+            }
+
+            if (isset($fieldArray['params']) && isset($fieldArray['params']['addlink']) && is_string($fieldArray['params']['addlink']) && strstr($fieldArray['params']['addlink'], '#{') !== false) {
+                $keys = $langModule->ParseAndGetKeys($fieldArray['params']['addlink']);
+                $fieldArray['params']['addlink'] = $langModule->GetAsObject($keys[0]);
+            }
+
+            if(isset($fieldArray['fields']) && is_array($fieldArray['fields']) && !empty($fieldArray['fields'])) {
+                $fieldArray['fields'] = $this->_convertFields($fieldArray['fields']);
+            }
+
+            $fields[$fieldName] = $fieldArray;
+        }
+        return $fields;
+    }
+
+    public function Config(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
-        
-        if(!SecurityModule::$instance->current) {
+        /** @var \App\Modules\Lang\Module $langModule */
+        $langModule = App::$moduleManager->lang;
+
+        if (!SecurityModule::$instance->current) {
             return $this->Finish(403, 'Permission denied');
         }
 
         $result = [];
         $storages = Storages::Create();
         $list = $storages->GetStorages();
-        foreach($list as $name => $storage) {
-            $result[$name] = $storage->ToArray();
+        foreach ($list as $name => $storage) {
+            $storageArray = $storage->ToArray();
+            if ($langModule) {
+                if (isset($storageArray['desc']) && is_string($storageArray['desc']) && strstr($storageArray['desc'], '#{') !== false) {
+                    // надо сконвертить
+                    $keys = $langModule->ParseAndGetKeys($storageArray['desc']);
+                    $storageArray['desc'] = $langModule->GetAsObject($keys[0]);
+                }
+                if (isset($storageArray['group']) && is_string($storageArray['group']) && strstr($storageArray['group'], '#{') !== false) {
+                    // надо сконвертить
+                    $keys = $langModule->ParseAndGetKeys($storageArray['group']);
+                    $storageArray['group'] = $langModule->GetAsObject($keys[0]);
+                }
+
+                $storageArray['fields'] = $this->_convertFields($storageArray['fields']);
+
+            }
+
+            // TODO: когда будем уверены
+            // TODO: $storage->Save($storageArray)
+
+            $result[$name] = $storageArray;
         }
-        
+
         return $this->Finish(200, 'ok', $result);
-        
+
     }
 
 }
