@@ -75,7 +75,7 @@ App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
         if(!newNode) {
             newNode = this.nodes.Add('root');
         }
-        newNode.text = 'Ресурсы';
+        newNode.text = '#{manage-folderstree-resources}';
         newNode.isLeaf = false;
         newNode.icon = App.Modules.Tools.Icons.FolderIcon;
         newNode.tag = {path: this._startPath, name: ''};

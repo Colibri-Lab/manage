@@ -1,7 +1,7 @@
 App.Modules.Manage.Windows.FileWindow = class extends Colibri.UI.Window {
 
     constructor(name, container) {
-        super(name, container, Colibri.UI.Templates['App.Modules.Manage.Windows.FileWindow'], 'Выбор файлов');
+        super(name, container, Colibri.UI.Templates['App.Modules.Manage.Windows.FileWindow'], '#{manage-filewindow-title}');
 
         this.AddClass('app-file-window-component');
 
