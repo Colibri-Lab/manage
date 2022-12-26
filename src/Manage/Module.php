@@ -70,11 +70,7 @@ class Module extends BaseModule
 
         $permissions = parent::GetPermissions();
 
-        $permissions['manage'] = 'Инструменты';
-        $permissions['manage.backup'] = 'Доступ к системе восстановления';
-        $permissions['manage.backup.create'] = 'Создание точки восстановления';
-        $permissions['manage.backup.restore'] = 'Восстановление из точки';
-        $permissions['manage.execute'] = 'Выполнение скриптов';
+        $permissions['manage'] = '#{manage-permissions}';
 
         return $permissions;
     }

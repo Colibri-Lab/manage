@@ -1,4 +1,3 @@
----
 manage-filemanager-folders:
   ru: Структура
   en: Structure
@@ -148,12 +147,12 @@ manage-folders-messages-removefolder:
   en: Deleting a folder
   hy: Ջնջել թղթապանակը
 manage-folders-messages-removefoldermessage:
-  ru: Вы уверены, что хотите удалить папку? Внимание! Вместе с папкой будет удалено
-    все ее содержание!
+  ru: Вы уверены, что хотите удалить папку? Внимание! Вместе с папкой будет
+    удалено все ее содержание!
   en: Are you sure you want to delete the folder? Attention! All its contents will
     be deleted along with the folder!
-  hy: 'Համոզված եք, որ ցանկանում եք ջնջել թղթապանակը: Ուշադրություն! Թղթապանակի հետ
-    միասին ջնջվում է բոլոր բովանդակությունը:'
+  hy: "Համոզված եք, որ ցանկանում եք ջնջել թղթապանակը: Ուշադրություն! Թղթապանակի
+    հետ միասին ջնջվում է բոլոր բովանդակությունը:"
 manage-contextmenu-editfile:
   ru: Редактировать файл
   en: Edit a file
@@ -189,5 +188,19 @@ manage-files-messages-removefile:
 manage-files-messages-removefilemessage:
   ru: Вы уверены, что хотите удалить файл?
   en: Are you sure you want to delete the file?
-  hy: 'Վստահ եք, որ ցանկանում եք ջնջել ֆայլը:'
-...
+  hy: "Վստահ եք, որ ցանկանում եք ջնջել ֆայլը:"
+manage-permissions:
+  ru: Доступ к модулю Manage
+  en: Access to Manage module
+manage-backups-permissions:
+  ru: Доступ к системе восстановления
+  en: Access to the recovery system
+manage-backups-create-permissions:
+  ru: Создание точки восстановления
+  en: Create a restore point
+manage-backups-restore-permissions:
+  ru: Восстановление из точки
+  en: Recovery from a point
+manage-execute-permissions:
+  ru: Выполнение скриптов
+  en: Executing scripts
