@@ -40,7 +40,6 @@ manage-filemanager-remote-buttons-remove:
 manage-contextmenu-downloadfile:
   ru: Скачать файл
   en: Download file
-manage-files-messages-removefile: {}
 manage-remotefiles-messages-removefile:
   ru: Удаление файлов из удаленного хранилища
   en: Deleting files from remote storage
@@ -59,7 +58,6 @@ manage-contextmenu-deletebucket:
 manage-remotefiles-messages-createbucket:
   ru: Создание корзины
   en: Bucket creation
-manage-remotefiles-messages-createbucket-: {}
 manage-remotefiles-messages-createbucket-desc:
   ru: Название корзины
   en: Bucket name
