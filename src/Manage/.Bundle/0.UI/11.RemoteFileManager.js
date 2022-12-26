@@ -94,7 +94,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
             return;
         }
         if(this._files.checked.length == 0) {
-            App.Confirm.Show('#{manage-remotefiles-messages-removefile}', '#{manage-remotefiles-messages-removefile-message}', '#{manage-remotefiles-messages-removefile-message-delete;Удалить!}').then(() => {
+            App.Confirm.Show('#{manage-remotefiles-messages-removefile}', '#{manage-remotefiles-messages-removefile-message}', '#{manage-remotefiles-messages-removefile-message-delete}').then(() => {
                 Manage.DeleteFilesFromRemote(bucket, [this._files.selected.value.guid]);
             });
         }

@@ -79,6 +79,7 @@ manage-remotefiles-messages-deletebucket-message:
     be physically deleted!
 manage-remotefiles-messages-removefile-message-delete:
   ru: Удалить!
+  en: Delete
 manage-remotefiles-messages-removefiles:
   ru: Удаление файлов из удаленного хранилища
   en: Deleting files from remote storage
