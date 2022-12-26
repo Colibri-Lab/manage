@@ -17,7 +17,6 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
 
         this._store = App.Store.AddChild('app.manage');
         this._store.AddPathLoader('manage.storages', () => this.Storages(true));
-        this._store.AddPathLoader('manage.rawstorages', () => this.RawStorages(true));
         this._store.AddPathLoader('manage.datapoints', () => this.DataPoints(true));
         this._store.AddPathLoader('manage.modules', () => this.Modules(true));
         this._store.AddPathLoader('manage.templates', () => this.Templates(true));
@@ -61,18 +60,6 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
     }
 
     Storages(returnPromise = false) {
-        const promise = this.Call('Storages', 'Config');
-        if(returnPromise) {
-            return promise;
-        }
-        promise.then((response) => {
-            this._store.Set('manage.storages', response.result);
-        }).catch((response) => {
-            App.Notices.Add(new Colibri.UI.Notice(response.result));
-        });
-    }
-
-    RawStorages(returnPromise = false) {
         const promise = this.Call('Storages', 'Config', {__raw: 1});
         if(returnPromise) {
             return promise;
