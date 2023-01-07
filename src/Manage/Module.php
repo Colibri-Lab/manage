@@ -13,7 +13,6 @@ namespace App\Modules\Manage;
 use Colibri\App;
 use Colibri\Modules\Module as BaseModule;
 use Colibri\Utils\Debug;
-use App\Modules\Manage\Controllers\Controller;
 use Colibri\Utils\Menu\Item;
 use Colibri\Events\EventsContainer;
 use Colibri\IO\FileSystem\File;
@@ -53,19 +52,20 @@ class Module extends BaseModule
             }
             return true;
         });
-        
+
     }
 
-	/**
-	 * Вызывается для получения Меню болванкой
-	 */
-    public function GetTopmostMenu(): Item|array|null {
+    /**
+     * Вызывается для получения Меню болванкой
+     */
+    public function GetTopmostMenu(): Item|array |null
+    {
 
         return null;
 
     }
 
-	public function GetPermissions(): array
+    public function GetPermissions(): array
     {
 
         $permissions = parent::GetPermissions();
@@ -75,7 +75,8 @@ class Module extends BaseModule
         return $permissions;
     }
 
-    public function Backup(Logger $logger, string $path) {
+    public function Backup(Logger $logger, string $path)
+    {
         // Do nothing        
     }
 }

@@ -25,14 +25,13 @@ class Installer
     {
 
         $modules = self::_loadConfig($file);
-        if(is_array($modules['entries'])) {
-            foreach($modules['entries'] as $entry) {
-                if($entry['name'] === 'Manage') {
+        if (is_array($modules['entries'])) {
+            foreach ($modules['entries'] as $entry) {
+                if ($entry['name'] === 'Manage') {
                     return;
                 }
             }
-        }
-        else {
+        } else {
             $modules['entries'] = [];
         }
 
@@ -49,80 +48,79 @@ class Installer
         self::_saveConfig($file, $modules);
 
     }
-    private static function _copyOrSymlink($mode, $pathFrom, $pathTo, $fileFrom, $fileTo): void 
+    private static function _copyOrSymlink($mode, $pathFrom, $pathTo, $fileFrom, $fileTo): void
     {
-        print_r('Копируем '.$mode.' '.$pathFrom.' '.$pathTo.' '.$fileFrom.' '.$fileTo."\n");
-        if(!file_exists($pathFrom.$fileFrom)) {
-            print_r('Файл '.$pathFrom.$fileFrom.' не существует'."\n");
+        print_r('Копируем ' . $mode . ' ' . $pathFrom . ' ' . $pathTo . ' ' . $fileFrom . ' ' . $fileTo . "\n");
+        if (!file_exists($pathFrom . $fileFrom)) {
+            print_r('Файл ' . $pathFrom . $fileFrom . ' не существует' . "\n");
             return;
         }
 
-        if(file_exists($pathTo.$fileTo)) {
-            print_r('Файл '.$pathTo.$fileTo.' существует'."\n");
+        if (file_exists($pathTo . $fileTo)) {
+            print_r('Файл ' . $pathTo . $fileTo . ' существует' . "\n");
             return;
         }
 
-        if($mode === 'local') {
-            shell_exec('ln -s '.realpath($pathFrom.$fileFrom).' '.$pathTo.($fileTo != $fileFrom ? $fileTo : ''));
-        }
-        else {
-            shell_exec('cp -R '.realpath($pathFrom.$fileFrom).' '.$pathTo.$fileTo);
+        if ($mode === 'local') {
+            shell_exec('ln -s ' . realpath($pathFrom . $fileFrom) . ' ' . $pathTo . ($fileTo != $fileFrom ? $fileTo : ''));
+        } else {
+            shell_exec('cp -R ' . realpath($pathFrom . $fileFrom) . ' ' . $pathTo . $fileTo);
         }
 
         // если это исполняемый скрипт
-        if(strstr($pathTo.$fileTo, '/bin/') !== false) {
-            chmod($pathTo.$fileTo, 0777);
+        if (strstr($pathTo . $fileTo, '/bin/') !== false) {
+            chmod($pathTo . $fileTo, 0777);
         }
     }
 
     /**
      *
-     * @param PackageEvent $event
+     * @param \Composer\Installer\PackageEvent $event
      * @return void
      */
     public static function PostPackageInstall($event)
     {
 
-        print_r('Установка и настройка модуля Colibri Manage Module'."\n");
+        print_r('Установка и настройка модуля Colibri Manage Module' . "\n");
 
-        $vendorDir = $event->getComposer()->getConfig()->get('vendor-dir').'/';
+        $vendorDir = $event->getComposer()->getConfig()->get('vendor-dir') . '/';
         $operation = $event->getOperation();
         $installedPackage = $operation->getPackage();
         $targetDir = $installedPackage->getName();
-        $path = $vendorDir.$targetDir;
-        $configPath = $path.'/src/Manage/config-template/';
+        $path = $vendorDir . $targetDir;
+        $configPath = $path . '/src/Manage/config-template/';
         $configDir = './config/';
 
-        if(!file_exists($configDir.'app.yaml')) {
-            print_r('Не найден файл конфигурации app.yaml'."\n");
+        if (!file_exists($configDir . 'app.yaml')) {
+            print_r('Не найден файл конфигурации app.yaml' . "\n");
             return;
         }
 
         // берем точку входа
         $webRoot = \getenv('COLIBRI_WEBROOT');
-        if(!$webRoot) {
-            $webRoot = 'web'; 
+        if (!$webRoot) {
+            $webRoot = 'web';
         }
-        $mode = self::_getMode($configDir.'app.yaml');
+        $mode = self::_getMode($configDir . 'app.yaml');
 
 
         // копируем конфиг
-        print_r('Копируем файл конфигурации'."\n");
-        self::_copyOrSymlink($mode, $configPath, $configDir, 'module-'.$mode.'.yaml', 'manage.yaml');
+        print_r('Копируем файл конфигурации' . "\n");
+        self::_copyOrSymlink($mode, $configPath, $configDir, 'module-' . $mode . '.yaml', 'manage.yaml');
         self::_copyOrSymlink($mode, $configPath, $configDir, 'module-langtexts.yaml', 'manage-langtexts.yaml');
 
-        print_r('Встраиваем модуль'."\n");
-        self::_injectIntoModuleConfig($configDir.'modules.yaml');
+        print_r('Встраиваем модуль' . "\n");
+        self::_injectIntoModuleConfig($configDir . 'modules.yaml');
 
-        print_r('Установка скриптов'."\n");
-        self::_copyOrSymlink($mode, $path.'/src/Manage/bin/', './bin/', 'manage-migrate.sh', 'manage-migrate.sh');
-        self::_copyOrSymlink($mode, $path.'/src/Manage/bin/', './bin/', 'manage-models-generate.sh', 'manage-models-generate.sh');
+        print_r('Установка скриптов' . "\n");
+        self::_copyOrSymlink($mode, $path . '/src/Manage/bin/', './bin/', 'manage-migrate.sh', 'manage-migrate.sh');
+        self::_copyOrSymlink($mode, $path . '/src/Manage/bin/', './bin/', 'manage-models-generate.sh', 'manage-models-generate.sh');
 
-        print_r('Установка ресурсов'."\n");
-        self::_copyOrSymlink($mode, $path.'/src/Manage/web/res/', './'.$webRoot.'/res/', 'codemirror/', 'codemirror/');
-        self::_copyOrSymlink($mode, $path.'/src/Manage/web/res/', './'.$webRoot.'/res/', 'tinymce/', 'tinymce/');
-        
-        print_r('Установка завершена'."\n");
+        print_r('Установка ресурсов' . "\n");
+        self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/', './' . $webRoot . '/res/', 'codemirror/', 'codemirror/');
+        self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/', './' . $webRoot . '/res/', 'tinymce/', 'tinymce/');
+
+        print_r('Установка завершена' . "\n");
 
     }
 }

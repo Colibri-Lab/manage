@@ -31,10 +31,10 @@ class RemoteFileListField extends ArrayList
      * @param string $data данные из поля
      * @return void
      */
-    public function __construct(array|string $sources, ?Storage $storage = null, ?Field $field = null)
+    public function __construct(array |string $sources, ? Storage $storage = null, ? Field $field = null)
     {
         parent::__construct([]);
-        if(is_string($sources)) {
+        if (is_string($sources)) {
             $sources = json_decode($sources);
         }
         foreach ($sources as $remoteFileData) {
@@ -45,7 +45,7 @@ class RemoteFileListField extends ArrayList
     public function ToArray(): array
     {
         $ret = [];
-        foreach($this->data as $f) {
+        foreach ($this->data as $f) {
             $ret[] = $f->ToArray();
         }
         return $ret;
@@ -59,7 +59,7 @@ class RemoteFileListField extends ArrayList
     public function ToString($splitter = ';'): string
     {
         $sources = [];
-        foreach($this as $remoteFile) {
+        foreach ($this as $remoteFile) {
             $sources[] = $remoteFile->ToArray();
         }
         return json_encode($sources);

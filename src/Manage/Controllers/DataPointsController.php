@@ -27,21 +27,21 @@ use App\Modules\Security\Module as SecurityModule;
 class DataPointsController extends WebController
 {
 
-    
-    public function Config(RequestCollection $get, RequestCollection $post, ?PayloadCopy $payload): object
+
+    public function Config(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
-        if(!SecurityModule::$instance->current) {
+        if (!SecurityModule::$instance->current) {
             return $this->Finish(403, 'Permission denied');
         }
 
         $result = [];
-        foreach(App::$dataAccessPoints->accessPoints->points as $name => $point) {
+        foreach (App::$dataAccessPoints->accessPoints->points as $name => $point) {
             /** @var $point DataAccessPoint */
             $result[$name] = $point;
         }
-        
+
         return $this->Finish(200, 'ok', $result);
-        
+
     }
 
 }

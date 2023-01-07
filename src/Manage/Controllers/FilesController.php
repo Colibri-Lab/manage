@@ -29,10 +29,10 @@ use App\Modules\Manage\Models\Fields\RemoteFileField;
 class FilesController extends WebController
 {
 
-    
-    public function ByGuid(RequestCollection $get, RequestCollection $post, ?PayloadCopy $payload): object
+
+    public function ByGuid(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
-        if(!SecurityModule::$instance->current) {
+        if (!SecurityModule::$instance->current) {
             return $this->Finish(403, 'Permission denied');
         }
 
@@ -42,10 +42,10 @@ class FilesController extends WebController
 
         $file = new RemoteFileField(['bucket' => $bucket, 'guid' => $guid, 'ext' => $type]);
         $path = $file->Source();
-        if(!$path) {
+        if (!$path) {
             return $this->Finish(404, 'File not exists');
         }
-        $content = File::Read(App::$webRoot.$path);
+        $content = File::Read(App::$webRoot . $path);
         return $this->Finish(200, $file->name, $content, 'utf-8', ['Cache-Control' => 'Public', 'Expires' => DateHelper::ToDbString(time())]);
 
     }

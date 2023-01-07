@@ -30,34 +30,34 @@ class RemoteFileServerController extends WebController
     public function ListBuckets(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
-        if(!SecurityModule::$instance->current) {
+        if (!SecurityModule::$instance->current) {
             return $this->Finish(403, 'Permission denied');
         }
 
-        if(!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
+        if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
             return $this->Finish(403, 'Permission denied');
         }
 
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
-        $fs = new AdminClient($fsServerDomain, '');
+        $fs = new AdminClient($fsServerDomain);
         $list = $fs->ListBuckets();
-        
+
         return $this->Finish(200, 'ok', $list);
     }
 
     public function ListFiles(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
-        if(!SecurityModule::$instance->current) {
+        if (!SecurityModule::$instance->current) {
             return $this->Finish(403, 'Permission denied');
         }
 
-        if(!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
+        if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
             return $this->Finish(403, 'Permission denied');
         }
 
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
-        $fs = new AdminClient($fsServerDomain, '');
+        $fs = new AdminClient($fsServerDomain);
         $list = $fs->SearchInBucket($post->bucket, $post->term, $post->page, $post->pagesize);
 
         return $this->Finish(200, 'ok', $list);
@@ -66,17 +66,17 @@ class RemoteFileServerController extends WebController
     public function CreateBucket(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
-        if(!SecurityModule::$instance->current) {
+        if (!SecurityModule::$instance->current) {
             return $this->Finish(403, 'Permission denied');
         }
 
-        if(!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
+        if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
             return $this->Finish(403, 'Permission denied');
         }
 
-        
+
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
-        $fs = new AdminClient($fsServerDomain, '');
+        $fs = new AdminClient($fsServerDomain);
         $bucket = $fs->CreateBucket($post->bucket);
 
         return $this->Finish(200, 'ok', $bucket);
@@ -85,16 +85,16 @@ class RemoteFileServerController extends WebController
     public function RemoveBucket(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
-        if(!SecurityModule::$instance->current) {
+        if (!SecurityModule::$instance->current) {
             return $this->Finish(403, 'Permission denied');
         }
 
-        if(!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
+        if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
             return $this->Finish(403, 'Permission denied');
         }
 
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
-        $fs = new AdminClient($fsServerDomain, '');
+        $fs = new AdminClient($fsServerDomain);
         $fs->DeleteBucket($post->bucket);
 
         $list = $fs->ListBuckets();
@@ -106,11 +106,11 @@ class RemoteFileServerController extends WebController
     public function RemoveFile(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
-        if(!SecurityModule::$instance->current) {
+        if (!SecurityModule::$instance->current) {
             return $this->Finish(403, 'Permission denied');
         }
 
-        if(!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
+        if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
             return $this->Finish(403, 'Permission denied');
         }
 
@@ -119,22 +119,22 @@ class RemoteFileServerController extends WebController
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
         $fs = new Client($fsServerDomain, $bucket);
 
-        foreach($post->files as $file) {
+        foreach ($post->files as $file) {
             $fs->DeleteObject($file);
         }
 
         return $this->Finish(200, 'ok', []);
 
     }
-    
+
     public function UploadFiles(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
-        if(!SecurityModule::$instance->current) {
+        if (!SecurityModule::$instance->current) {
             return $this->Finish(403, 'Permission denied');
         }
 
-        if(!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
+        if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
             return $this->Finish(403, 'Permission denied');
         }
 
@@ -142,15 +142,15 @@ class RemoteFileServerController extends WebController
         $bucketname = $post->bucketname;
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
         $fs = new Client($fsServerDomain, $bucket);
-        $fsAdmin = new AdminClient($fsServerDomain, '');
+        $fsAdmin = new AdminClient($fsServerDomain);
 
         $files = App::$request->files;
-        foreach($files as $file) {
+        foreach ($files as $file) {
             $ff = $fs->PutObject($file->binary, $file->name);
             $ffa = $fsAdmin->SearchInBucket($bucketname, $ff->guid);
             $filesArray[] = reset($ffa);
         }
-        
+
 
         return $this->Finish(200, 'ok', $filesArray);
 

@@ -14,7 +14,8 @@ use App\Modules\Security\Module as SecurityModule;
 class StoragesController extends WebController
 {
 
-    private function _convertFields($fields) {
+    private function _convertFields($fields)
+    {
         /** @var \App\Modules\Lang\Module $langModule */
         $langModule = App::$moduleManager->lang;
 
@@ -57,7 +58,7 @@ class StoragesController extends WebController
                 $fieldArray['params']['addlink'] = $langModule->GetAsObject($keys[0]);
             }
 
-            if(isset($fieldArray['fields']) && is_array($fieldArray['fields']) && !empty($fieldArray['fields'])) {
+            if (isset($fieldArray['fields']) && is_array($fieldArray['fields']) && !empty($fieldArray['fields'])) {
                 $fieldArray['fields'] = $this->_convertFields($fieldArray['fields']);
             }
 

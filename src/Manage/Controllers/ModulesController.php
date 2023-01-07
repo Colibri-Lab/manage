@@ -26,31 +26,31 @@ use App\Modules\Security\Module as SecurityModule;
 class ModulesController extends WebController
 {
 
-    
-    public function Config(RequestCollection $get, RequestCollection $post, ?PayloadCopy $payload): object
+
+    public function Config(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
 
-        if(!SecurityModule::$instance->current) {
+        if (!SecurityModule::$instance->current) {
             return $this->Finish(403, 'Permission denied');
         }
-        
+
         $result = [];
-        foreach(App::$moduleManager->list as $module) {
+        foreach (App::$moduleManager->list as $module) {
             $config = $module->Config()->AsObject();
-            if(!($config->visible ?? true)) {
+            if (!($config->visible ?? true)) {
                 continue;
             }
-            $result[] = (object)[
-                'name' => $config->name, 
-                'desc' => $config->desc ?? '', 
+            $result[] = (object) [
+                'name' => $config->name,
+                'desc' => $config->desc ?? '',
                 'config' => $module->moduleConfigPath,
                 'storages' => $module->moduleStoragesPath,
                 'visible' => $config->visible ?? true
             ];
         }
-        
+
         return $this->Finish(200, 'ok', $result);
-        
+
     }
 
 }
