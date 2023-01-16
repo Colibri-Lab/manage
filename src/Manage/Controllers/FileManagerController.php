@@ -4,28 +4,23 @@ namespace App\Modules\Manage\Controllers;
 
 
 use Colibri\App;
-use Colibri\Events\EventsContainer;
 use Colibri\IO\FileSystem\File;
-use Colibri\Utils\Cache\Bundle;
-use Colibri\Utils\Debug;
-use Colibri\Utils\ExtendedObject;
 use Colibri\Web\RequestCollection;
 use Colibri\Web\Controller as WebController;
-use Colibri\Web\Templates\PhpTemplate;
-use Colibri\Web\View;
-use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\OutputStyle;
-use App\Modules\Sites\Models\Pages;
 use App\Modules\Security\Module as SecurityModule;
-use App\Modules\Sites\Module;
-use Colibri\Data\Models\DataModelException;
-use App\Modules\Tools\Models\Settings;
 use Colibri\IO\FileSystem\Finder;
 use Colibri\IO\FileSystem\Directory;
 
+/**
+ * File manager controller
+ */
 class FileManagerController extends WebController
 {
-
+    /**
+     * Returns a list of directories in given path
+     * @param mixed $path
+     * @return array
+     */
     private function _listAllDirectories($path)
     {
         $path = str_replace('//', '/', $path);
@@ -42,6 +37,12 @@ class FileManagerController extends WebController
         return $foldersArray;
     }
 
+    /**
+     * Returns a list of files in given path
+     * @param mixed $path
+     * @param mixed $term
+     * @return array
+     */
     private function _listAllFiles($path, $term = '')
     {
         $path = str_replace('//', '/', $path);
@@ -58,6 +59,13 @@ class FileManagerController extends WebController
         return $filesArray;
     }
 
+    /**
+     * Returns a list of folders recursively
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function Folders(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -77,6 +85,13 @@ class FileManagerController extends WebController
         return $this->Finish(200, 'ok', $foldersArray);
     }
 
+    /**
+     * Returns a list of files
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function Files(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -96,6 +111,13 @@ class FileManagerController extends WebController
         return $this->Finish(200, 'ok', $filesArray);
     }
 
+    /**
+     * Creates a folder
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function CreateFolder(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -120,6 +142,13 @@ class FileManagerController extends WebController
         return $this->Finish(200, 'ok', $diArray);
     }
 
+    /**
+     * Renames a folder
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function RenameFolder(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -143,6 +172,13 @@ class FileManagerController extends WebController
 
     }
 
+    /**
+     * Removes a folder
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function RemoveFolder(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -165,7 +201,13 @@ class FileManagerController extends WebController
 
     }
 
-
+    /**
+     * Renames a file
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function RenameFile(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -189,6 +231,13 @@ class FileManagerController extends WebController
 
     }
 
+    /**
+     * Removes a file
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function RemoveFile(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -220,6 +269,14 @@ class FileManagerController extends WebController
         return $this->Finish(200, 'ok', $filesArray);
 
     }
+
+    /**
+     * Uploads a file from request
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function UploadFiles(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 

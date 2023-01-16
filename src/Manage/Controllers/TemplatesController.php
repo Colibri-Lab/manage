@@ -3,25 +3,28 @@
 
 namespace App\Modules\Manage\Controllers;
 
-
 use Colibri\App;
-use Colibri\IO\FileSystem\File;
 use Colibri\Web\RequestCollection;
 use Colibri\Web\Controller as WebController;
 use Colibri\Web\PayloadCopy;
 use App\Modules\Security\Module as SecurityModule;
-use Colibri\Common\DateHelper;
-use App\Modules\Manage\Models\Fields\RemoteFileField;
-use Colibri\Data\Storages\Storages;
-use Colibri\Data\Storages\Models\DataTable;
 use Colibri\IO\FileSystem\Finder;
 use Colibri\IO\FileSystem\Directory;
 use Colibri\Web\Templates\PhpTemplate;
 
+/**
+ * Templates controller
+ */
 class TemplatesController extends WebController
 {
 
-
+    /**
+     * Returns a templates config
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param PayloadCopy|null $payload
+     * @return object
+     */
     public function Config(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
         if (!SecurityModule::$instance->current) {
@@ -52,6 +55,13 @@ class TemplatesController extends WebController
 
     }
 
+    /**
+     * Returns a snippets from project
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param PayloadCopy|null $payload
+     * @return object
+     */
     public function Snippets(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
         if (!SecurityModule::$instance->current) {

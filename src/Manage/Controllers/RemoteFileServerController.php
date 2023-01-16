@@ -2,31 +2,25 @@
 
 namespace App\Modules\Manage\Controllers;
 
-
 use Colibri\App;
-use Colibri\Events\EventsContainer;
-use Colibri\IO\FileSystem\File;
-use Colibri\Utils\Cache\Bundle;
-use Colibri\Utils\Debug;
-use Colibri\Utils\ExtendedObject;
 use Colibri\Web\RequestCollection;
 use Colibri\Web\Controller as WebController;
-use Colibri\Web\Templates\PhpTemplate;
-use Colibri\Web\View;
-use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\OutputStyle;
-use App\Modules\Sites\Models\Pages;
 use App\Modules\Security\Module as SecurityModule;
-use App\Modules\Sites\Module;
-use Colibri\Data\Models\DataModelException;
-use App\Modules\Tools\Models\Settings;
-use Colibri\IO\FileSystem\Finder;
-use Colibri\IO\FileSystem\Directory;
 use FileServerApiClient\Client;
 use FileServerApiClient\AdminClient;
 
+/**
+ * Remote media files controller
+ */
 class RemoteFileServerController extends WebController
 {
+    /**
+     * Returns a list of remove media library buckets
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function ListBuckets(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -45,6 +39,13 @@ class RemoteFileServerController extends WebController
         return $this->Finish(200, 'ok', $list);
     }
 
+    /**
+     * Returns a list of files in bucket
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function ListFiles(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -63,6 +64,13 @@ class RemoteFileServerController extends WebController
         return $this->Finish(200, 'ok', $list);
     }
 
+    /**
+     * Creates a bucket
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function CreateBucket(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -82,6 +90,13 @@ class RemoteFileServerController extends WebController
         return $this->Finish(200, 'ok', $bucket);
     }
 
+    /**
+     * Removes a bucket
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function RemoveBucket(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -102,7 +117,13 @@ class RemoteFileServerController extends WebController
 
     }
 
-
+    /**
+     * Removes a file
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function RemoveFile(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -127,6 +148,13 @@ class RemoteFileServerController extends WebController
 
     }
 
+    /**
+     * Uploads a file to bucket from request
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param mixed|null $payload
+     * @return object
+     */
     public function UploadFiles(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
@@ -155,7 +183,5 @@ class RemoteFileServerController extends WebController
         return $this->Finish(200, 'ok', $filesArray);
 
     }
-
-
 
 }

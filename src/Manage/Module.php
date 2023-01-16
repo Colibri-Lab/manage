@@ -2,7 +2,7 @@
 
 
 /**
- * Search
+ * Backend manage module package
  *
  * @author Author Name <author.name@action-media.ru>
  * @copyright 2019 Colibri
@@ -20,10 +20,8 @@ use Colibri\Common\NoLangHelper;
 use Colibri\Utils\Logs\Logger;
 
 /**
- * Описание модуля
+ * Backend manage module
  * @package App\Modules\Manage
- * 
- * 
  */
 class Module extends BaseModule
 {
@@ -37,7 +35,7 @@ class Module extends BaseModule
 
 
     /**
-     * Инициализация модуля
+     * Initializes the module
      * @return void
      */
     public function InitializeModule(): void
@@ -56,7 +54,7 @@ class Module extends BaseModule
     }
 
     /**
-     * Вызывается для получения Меню болванкой
+     * Returns a topmost menu for backend
      */
     public function GetTopmostMenu(): Item|array |null
     {
@@ -65,6 +63,10 @@ class Module extends BaseModule
 
     }
 
+    /**
+     * Returns a permissions for module
+     * @return array
+     */
     public function GetPermissions(): array
     {
 
@@ -75,6 +77,12 @@ class Module extends BaseModule
         return $permissions;
     }
 
+    /**
+     * Backups module data
+     * @param Logger $logger
+     * @param string $path
+     * @return void
+     */
     public function Backup(Logger $logger, string $path)
     {
         // Do nothing        

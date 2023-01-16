@@ -3,7 +3,6 @@
 
 namespace App\Modules\Manage\Controllers;
 
-
 use Colibri\App;
 use Colibri\Web\RequestCollection;
 use Colibri\Web\Controller as WebController;
@@ -11,9 +10,17 @@ use Colibri\Web\PayloadCopy;
 use Colibri\Data\Storages\Storages;
 use App\Modules\Security\Module as SecurityModule;
 
+/**
+ * Storages controller
+ */
 class StoragesController extends WebController
 {
 
+    /**
+     * Translates a field config
+     * @param mixed $fields
+     * @return mixed
+     */
     private function _convertFields($fields)
     {
         /** @var \App\Modules\Lang\Module $langModule */
@@ -67,6 +74,13 @@ class StoragesController extends WebController
         return $fields;
     }
 
+    /**
+     * Returns a configuration of storages
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param PayloadCopy|null $payload
+     * @return object
+     */
     public function Config(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
         /** @var \App\Modules\Lang\Module $langModule */

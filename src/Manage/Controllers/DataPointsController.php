@@ -24,10 +24,19 @@ use Colibri\Utils\Config\ConfigException;
 use Colibri\Data\DataAccessPoint;
 use App\Modules\Security\Module as SecurityModule;
 
+/**
+ * Datapoint access controller
+ */
 class DataPointsController extends WebController
 {
 
-
+    /**
+     * Returns an access points
+     * @param RequestCollection $get
+     * @param RequestCollection $post
+     * @param PayloadCopy|null $payload
+     * @return object
+     */
     public function Config(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
         if (!SecurityModule::$instance->current) {
