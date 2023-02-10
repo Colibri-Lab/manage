@@ -1,0 +1,115 @@
+.rte-autocomplete{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: block;
+    z-index: 1000;
+    float: left;
+    min-width: 160px;
+
+    margin: 0;
+    padding: 5px;
+  
+    list-style: none;
+    
+    -webkit-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+    -moz-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+    box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+    border-radius: 3px;
+    border: 1px solid silver;
+
+    background: #fff;
+    font-family: monospace;
+    font-size: 14px;
+    overflow-y: auto;
+    max-height: 20em;
+}
+
+.rte-autocomplete > li.loading {
+	background: url("/project/manage/res/img/loading.gif") center no-repeat;
+	height: 50px;
+}
+
+.rte-autocomplete > li > a {
+    display: block;
+    clear: both;
+    text-decoration: none;
+
+    margin: 0;
+    padding: 3px 5px;
+    border-radius: 2px;
+    white-space: pre;
+    color: black;
+    cursor: pointer;
+
+}
+
+.rte-autocomplete >li > a:hover, .rte-autocomplete > li > a:focus, .rte-autocomplete:hover > a, .rte-autocomplete:focus > a {
+    color: #fff;
+    text-decoration: none;
+    background-color: #08f;
+}
+
+.rte-autocomplete >.active > a, .rte-autocomplete > .active > a:hover, .rte-autocomplete > .active > a:focus {
+    color: #fff;
+    text-decoration: none;
+    background-color: #08f;
+}
+
+
+.msi-ui-operator {
+
+    padding: 2px 4px;
+    font-family: monospace;
+    font-size: inherit;
+    display: inline-block;
+
+}
+
+.msi-ui-operator.block {
+    display: block;
+    text-align: center;
+}
+tr.msi-ui-operator.block {
+    display: table-row;
+}
+.msi-ui-operator.inline {
+    display: inline-block;
+    border-radius: 5px;
+}
+tr.msi-ui-operator.inline {
+    display: table-row;
+}
+
+.msi-ui-operator .var {
+    background: white;
+    min-width: 100px;
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.msi-ui-operator.variable {
+    background: lightpink;
+    color: black;
+    border: 1px solid purple;
+}
+.msi-ui-operator.template {
+    background: lightgreen;
+    color: black;
+    border: 1px solid green;
+}
+.msi-ui-operator.condition {
+    background: lightskyblue;
+    color: black;
+    border: 1px solid blue;
+}
+.msi-ui-operator.cycle {
+    background: lightgoldenrodyellow;
+    color: black;
+    border: 1px solid yellowgreen;
+}
+
+.mce-i-shown {
+    display: block;
+}
