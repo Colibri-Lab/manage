@@ -73,6 +73,8 @@ class RemoteFileField
     private string $_host = '';
     private string $_cache = '';
 
+    private string $_path = '';
+
     private ? AdminClient $_adminClient = null;
     private ? Client $_client = null;
 
