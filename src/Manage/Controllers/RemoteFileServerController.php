@@ -59,7 +59,7 @@ class RemoteFileServerController extends WebController
 
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
         $fs = new AdminClient($fsServerDomain);
-        $list = $fs->SearchInBucket($post->bucket, $post->term, $post->page, $post->pagesize);
+        $list = $fs->SearchInBucket($post->{'bucket'}, $post->{'term'}, $post->{'page'}, $post->{''});
 
         return $this->Finish(200, 'ok', $list);
     }
@@ -85,7 +85,7 @@ class RemoteFileServerController extends WebController
 
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
         $fs = new AdminClient($fsServerDomain);
-        $bucket = $fs->CreateBucket($post->bucket);
+        $bucket = $fs->CreateBucket($post->{'bucket'});
 
         return $this->Finish(200, 'ok', $bucket);
     }
@@ -110,7 +110,7 @@ class RemoteFileServerController extends WebController
 
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
         $fs = new AdminClient($fsServerDomain);
-        $fs->DeleteBucket($post->bucket);
+        $fs->DeleteBucket($post->{'bucket'});
 
         $list = $fs->ListBuckets();
         return $this->Finish(200, 'ok', $list);
@@ -136,11 +136,11 @@ class RemoteFileServerController extends WebController
         }
 
 
-        $bucket = $post->bucket;
+        $bucket = $post->{'bucket'};
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
         $fs = new Client($fsServerDomain, $bucket);
 
-        foreach ($post->files as $file) {
+        foreach ($post->{'files'} as $file) {
             $fs->DeleteObject($file);
         }
 
@@ -166,8 +166,8 @@ class RemoteFileServerController extends WebController
             return $this->Finish(403, 'Permission denied');
         }
 
-        $bucket = $post->bucket;
-        $bucketname = $post->bucketname;
+        $bucket = $post->{'bucket'};
+        $bucketname = $post->{'bucketname'};
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
         $fs = new Client($fsServerDomain, $bucket);
         $fsAdmin = new AdminClient($fsServerDomain);

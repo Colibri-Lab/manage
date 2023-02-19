@@ -30,9 +30,9 @@ class LookupController extends WebController
         }
 
 
-        $lookup = $post->lookup;
-        $term = $post->term;
-        $paramField = $post->param;
+        $lookup = $post->{'lookup'};
+        $term = $post->{'term'};
+        $paramField = $post->{'param'};
         if (isset($lookup['storage'])) {
             $storageLookup = $lookup['storage'];
             $storageName = $storageLookup['name'];

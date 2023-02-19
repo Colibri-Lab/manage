@@ -77,7 +77,7 @@ class FileManagerController extends WebController
             return $this->Finish(403, 'Permission denied');
         }
 
-        $parentPath = $post->path;
+        $parentPath = $post->{'path'};
         $rootPath = App::$webRoot;
         $resPath = $rootPath . App::$config->Query('res')->GetValue();
 
@@ -103,8 +103,8 @@ class FileManagerController extends WebController
             return $this->Finish(403, 'Permission denied');
         }
 
-        $term = $post->term;
-        $parentPath = $post->path;
+        $term = $post->{'term'};
+        $parentPath = $post->{'path'};
         $rootPath = App::$webRoot;
 
         $filesArray = $this->_listAllFiles($rootPath . $parentPath, $term);
@@ -129,7 +129,7 @@ class FileManagerController extends WebController
             return $this->Finish(403, 'Permission denied');
         }
 
-        $folderPath = $post->path;
+        $folderPath = $post->{'path'};
         $rootPath = App::$webRoot;
 
         Directory::Create($rootPath . $folderPath, true);
@@ -160,8 +160,8 @@ class FileManagerController extends WebController
             return $this->Finish(403, 'Permission denied');
         }
 
-        $folderPathFrom = $post->pathFrom;
-        $folderPathTo = $post->pathTo;
+        $folderPathFrom = $post->{'pathFrom'};
+        $folderPathTo = $post->{'pathTo'};
         $rootPath = App::$webRoot;
         $resPath = $rootPath . App::$config->Query('res')->GetValue();
 
@@ -190,7 +190,7 @@ class FileManagerController extends WebController
             return $this->Finish(403, 'Permission denied');
         }
 
-        $folderPath = $post->path;
+        $folderPath = $post->{'path'};
         $rootPath = App::$webRoot;
         $resPath = $rootPath . App::$config->Query('res')->GetValue();
 
@@ -219,9 +219,9 @@ class FileManagerController extends WebController
             return $this->Finish(403, 'Permission denied');
         }
 
-        $path = $post->path;
-        $nameFrom = $post->nameFrom;
-        $nameTo = $post->nameTo;
+        $path = $post->{'path'};
+        $nameFrom = $post->{'nameFrom'};
+        $nameTo = $post->{'nameTo'};
         $rootPath = App::$webRoot;
 
         File::Move($rootPath . $path . $nameFrom, $rootPath . $path . $nameTo);
@@ -251,7 +251,7 @@ class FileManagerController extends WebController
 
         $rootPath = App::$webRoot;
 
-        $filePath = $post->path;
+        $filePath = $post->{'path'};
         if (is_array($filePath)) {
             $folderPath = null;
             foreach ($filePath as $f) {
@@ -289,7 +289,7 @@ class FileManagerController extends WebController
         }
 
         $rootPath = App::$webRoot;
-        $path = $post->path;
+        $path = $post->{'path'};
         $filesArray = [];
 
         $files = App::$request->files;

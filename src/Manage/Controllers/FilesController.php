@@ -30,9 +30,9 @@ class FilesController extends WebController
             return $this->Finish(403, 'Permission denied');
         }
 
-        $bucket = $get->bucket ?? $post->bucket;
-        $guid = $get->guid ?? $post->guid;
-        $type = $get->type ?? $post->type;
+        $bucket = $get->{'bucket'} ?? $post->{'bucket'};
+        $guid = $get->{'guid'} ?? $post->{'guid'};
+        $type = $get->{'type'} ?? $post->{'type'};
 
         $file = new RemoteFileField(['bucket' => $bucket, 'guid' => $guid, 'ext' => $type]);
         $path = $file->Source();
