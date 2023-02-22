@@ -455,7 +455,7 @@
 
             this.$dropdown = this.renderDropdown();
             document.querySelector('body').append(this.$dropdown);
-            this.$dropdown.css({ 'top': offset.top + 'px', 'left': offset.left + 'px', zIndex: Colibri.UI.zIndex() });
+            this.$dropdown.css({ 'top': offset.top + 'px', 'left': offset.left + 'px', zIndex: Colibri.UI.maxZIndex });
 
             this.$dropdown.addEventListener('click', (e) => this.autoCompleteClick(e));
         },

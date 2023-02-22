@@ -267,7 +267,7 @@
             var offset = this.editor.inline ? this.offsetInline() : this.offset();
 
             this.$dropdown = $(this.renderDropdown())
-                .css({ 'top': offset.top, 'left': offset.left, zIndex: Colibri.UI.zIndex() });
+                .css({ 'top': offset.top, 'left': offset.left, zIndex: Colibri.UI.maxZIndex });
 
             $('body').append(this.$dropdown);
 
