@@ -1,7 +1,7 @@
 App.Modules.Manage.UI.RemoteFileViewer = class extends Colibri.UI.Viewer {
     
-    constructor(name, container, element = '<span />', root = null) {
-        super(name, container, element, root);
+    constructor(name, container, element = null, root = null) {
+        super(name, container, element || Element.create('span'), root);
         this.AddClass('app-remotefile-viewer-component');
         this._icon = new Colibri.UI.Icon(this._name + '_image', this);
         this._icon.shown = true;
