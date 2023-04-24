@@ -27,7 +27,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         this._files.AddHandler('ContextMenuItemClicked', (event, args) => this.__clickOnDataContextMenu(event, args));        
 
         this._deleteFile.AddHandler('Clicked', (event, args) => this.__deleteDataButtonClicked(event, args));
-        this._uploadFiles.AddHandler('FileChoosen', (event, args) => this.__addDataButtonClicked(event, args));
+        this._uploadFiles.AddHandler('Changed', (event, args) => this.__addDataButtonClicked(event, args));
 
         this._searchInput.AddHandler(['Filled', 'Cleared'], (event, args) => this.__searchInputFilled(event, args));
         this._drop.AddHandler('FileDropped', (event, args) => this.__dropContainerFileDropped(event, args));

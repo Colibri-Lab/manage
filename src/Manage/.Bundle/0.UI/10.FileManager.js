@@ -28,7 +28,7 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
         this._files.AddHandler('ContextMenuItemClicked', (event, args) => this.__clickOnFilesContextMenu(event, args));        
         this._files.AddHandler('DoubleClicked', (event, args) => this.__filesDoubleClicked(event, args));
 
-        this._uploadFile.AddHandler('FileChoosen', (event, args) => this.__addDataButtonClicked(event, args));
+        this._uploadFile.AddHandler('Changed', (event, args) => this.__addDataButtonClicked(event, args));
         this._editFile.AddHandler('Clicked', (event, args) => this.__editDataButtonClicked(event, args));
         this._deleteFile.AddHandler('Clicked', (event, args) => this.__deleteDataButtonClicked(event, args));
 
