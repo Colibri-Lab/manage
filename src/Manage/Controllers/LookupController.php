@@ -59,7 +59,7 @@ class LookupController extends WebController
                 $params['params']['depends'] = $paramField;
             }
             $filter = !empty($filter) ? ' where ' . implode(' and ', $filter) : '';
-            $dataTable = DataTable::LoadByQuery($storage, 'select ' . $selectField . ' from ' . $storage->name . $filter . ' order by ' . $orderField, $params);
+            $dataTable = DataTable::LoadByQuery($storage, 'select ' . $selectField . ' from ' . $storage->table . $filter . ' order by ' . $orderField, $params);
             if (!$dataTable) {
                 $ret = [];
             } else {
