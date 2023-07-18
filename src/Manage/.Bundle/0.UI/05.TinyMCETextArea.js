@@ -466,6 +466,16 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         });
     }
 
+    get params() {
+        return this._fieldData?.params ?? {};
+    }
+    set params(value) {
+        if(!this._fieldData) {
+            this._fieldData = {};
+        }
+        this._fieldData.params = value;
+    }
+
     Dispose() {
         if(this._filepicker) {
             this._filepicker.Dispose();
