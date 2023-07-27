@@ -355,6 +355,8 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 const height = this._element.bounds().height;
                 this._codemirror.setSize('100%', height);
 
+                this._codemirror.on('change', (args) => this.Dispatch('Changed'));
+
             });
             this._visualCreated = true;
 
