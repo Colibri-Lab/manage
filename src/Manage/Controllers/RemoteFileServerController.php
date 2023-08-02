@@ -59,7 +59,7 @@ class RemoteFileServerController extends WebController
 
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
         $fs = new AdminClient($fsServerDomain);
-        $list = $fs->SearchInBucket($post->{'bucket'}, $post->{'term'}, $post->{'page'}, $post->{''});
+        $list = $fs->SearchInBucket($post->{'bucket'}, $post->{'term'}, $post->{'page'} ?? 1, $post->{'pagesize'} ?? 20);
 
         return $this->Finish(200, 'ok', $list);
     }
