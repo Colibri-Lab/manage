@@ -3,6 +3,7 @@
 namespace App\Modules\Manage\Controllers;
 
 use Colibri\App;
+use Colibri\Exceptions\PermissionDeniedException;
 use Colibri\IO\FileSystem\File;
 use Colibri\Web\RequestCollection;
 use Colibri\Web\Controller as WebController;
@@ -27,7 +28,7 @@ class FilesController extends WebController
     public function ByGuid(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
         if (!SecurityModule::$instance->current) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
         $bucket = $get->{'bucket'} ?? $post->{'bucket'};

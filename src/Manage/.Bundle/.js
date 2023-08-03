@@ -25,6 +25,12 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         this._store.AddPathLoader('manage.files', () => this.Files('', '', true));
         this._store.AddPathLoader('manage.remotebuckets', () => this.RemoteBuckets(true));
         this._store.AddPathLoader('manage.remotefiles', () => this.RemoteFiles(null, '', 1, 1, true));
+        
+        this.AddHandler('CallError', (event, args) => {
+            if(args.status === 403) {
+                location.reload();
+            }
+        });
 
     }
 

@@ -3,6 +3,7 @@
 namespace App\Modules\Manage\Controllers;
 
 use Colibri\App;
+use Colibri\Exceptions\PermissionDeniedException;
 use Colibri\Web\RequestCollection;
 use Colibri\Web\Controller as WebController;
 use App\Modules\Security\Module as SecurityModule;
@@ -25,11 +26,11 @@ class RemoteFileServerController extends WebController
     {
 
         if (!SecurityModule::$instance->current) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
         if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
@@ -50,11 +51,11 @@ class RemoteFileServerController extends WebController
     {
 
         if (!SecurityModule::$instance->current) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
         if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
@@ -75,11 +76,11 @@ class RemoteFileServerController extends WebController
     {
 
         if (!SecurityModule::$instance->current) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
         if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
 
@@ -101,11 +102,11 @@ class RemoteFileServerController extends WebController
     {
 
         if (!SecurityModule::$instance->current) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
         if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
         $fsServerDomain = App::$config->Query('hosts.services.fs')->GetValue();
@@ -128,11 +129,11 @@ class RemoteFileServerController extends WebController
     {
 
         if (!SecurityModule::$instance->current) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
         if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
 
@@ -159,11 +160,11 @@ class RemoteFileServerController extends WebController
     {
 
         if (!SecurityModule::$instance->current) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
         if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
         $bucket = $post->{'bucket'};

@@ -6,6 +6,7 @@ namespace App\Modules\Manage\Controllers;
 
 use Colibri\App;
 use Colibri\Events\EventsContainer;
+use Colibri\Exceptions\PermissionDeniedException;
 use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Cache\Bundle;
 use Colibri\Utils\Debug;
@@ -40,7 +41,7 @@ class DataPointsController extends WebController
     public function Config(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
         if (!SecurityModule::$instance->current) {
-            return $this->Finish(403, 'Permission denied');
+            throw new PermissionDeniedException('Permission denied', 403);
         }
 
         $result = [];
