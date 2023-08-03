@@ -15,7 +15,7 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
 
         this._formWindow = null;
 
-        this._store = App.Store.AddChild('app.manage');
+        this._store = App.Store.AddChild('app.manage', {}, this);
         this._store.AddPathLoader('manage.storages', () => this.Storages(true));
         this._store.AddPathLoader('manage.datapoints', () => this.DataPoints(true));
         this._store.AddPathLoader('manage.modules', () => this.Modules(true));
@@ -25,7 +25,11 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         this._store.AddPathLoader('manage.files', () => this.Files('', '', true));
         this._store.AddPathLoader('manage.remotebuckets', () => this.RemoteBuckets(true));
         this._store.AddPathLoader('manage.remotefiles', () => this.RemoteFiles(null, '', 1, 1, true));
-        
+        this._store.AddHandler('StoreLoaderCrushed', (event, args) => {
+            if(args.status === 403) {
+                location.reload();
+            }
+        });
         this.AddHandler('CallError', (event, args) => {
             if(args.status === 403) {
                 location.reload();
