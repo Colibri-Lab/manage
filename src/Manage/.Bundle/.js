@@ -319,6 +319,20 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         return this._formWindow;
     }
 
+    get FilterWindow() {
+        if(this._filterWindow) {
+            return this._filterWindow;
+        }
+
+        this._filterWindow = new App.Modules.Manage.Windows.FilterWindow('filter-window', document.body);
+        if(!this._filterWindow.isConnected) {
+            this._filterWindow.ConnectTo(document.body);
+        }
+
+        return this._filterWindow;
+    }
+
+
     get Store() {
         return this._store;
     }
