@@ -4,3 +4,12 @@ manage-formwindow-buttons-save:
 manage-formwindow-buttons-cancel:
   ru: Отмена
   en: Cancel
+manage-formwindow-buttons-no:
+  ru: Нет
+  en: No
+manage-formwindow-buttons-yes:
+  ru: Да
+  en: Yes
+manage-formwindow-buttons-nometter:
+  ru: Не важно
+  en: None

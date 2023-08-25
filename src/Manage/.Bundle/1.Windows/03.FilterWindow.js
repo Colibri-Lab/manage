@@ -6,14 +6,11 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
         this.AddClass('app-filter-window-component');
 
         this._form = this.Children('form');
-        this._validator = new Colibri.UI.FormValidator(this._form);
         this._fieldEvents = {};
 
         this._cancel = this.Children('cancel');
         this._save = this.Children('save');
         this.movable = true;
-
-        this._validator.AddHandler('Validated', () => this._save.enabled = this._validator.Validate());
         
     }
 
@@ -28,7 +25,29 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
                 field.component = field.component == 'Colibri.UI.Forms.DateTime' ? 'Colibri.UI.Forms.DateTimeRange' : 'DateRangeTime';
             } else if(field.component == 'Select' || field.component == 'Colibri.UI.Forms.Select') {
                 field.params.multiple = true;
+            } else if(field.component === 'Array' || field.component === 'Colibri.UI.Forms.Array') {
+                field.params.addlink = null;
+            } else if(field.component === 'Checkbox' || field.component === 'Colibri.UI.Forms.Checkbox') {
+                field.component = 'Colibri.UI.Forms.Radio';
+                field.values = [{
+                    value: '',
+                    title: '#{manage-formwindow-buttons-nometter}'
+                }, {
+                    value: 0,
+                    title: '#{manage-formwindow-buttons-no}'
+                }, {
+                    value: 1,
+                    title: '#{manage-formwindow-buttons-yes}'
+                }];
+                field.params.default = null;
             }
+            field.params.readonly = false;
+            field.params.enabled = true;
+            delete field.default;
+            delete field.params.default;
+            delete field.params.valuegenerator;
+            delete field.params.fieldgenerator;
+            delete field.params.onchangehandler;
 
             if(
                 field.component === 'File' || 
@@ -46,7 +65,6 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
                     field[name] = Security.IsCommandAllowed(value);
                 });
             }
-            console.log(field);
             if(field.fields) {
                 this._performChanges(field, storage, field.field);
             }
@@ -80,7 +98,7 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
                     newFormData[name] = value;
                 }
             } else {
-                if(value != null && value != '') {
+                if(value !== null && value !== '') {
                     newFormData[name] = value;
                 }
             }
@@ -97,7 +115,6 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
         }
  
         this.shown = true;   
-        this._save.enabled = false;
         this._fieldEvents = fieldEvents;
 
         App.Loading.Show();
