@@ -230,6 +230,9 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
     }
 
     RemoteFiles(bucket, term = null, page = 1, pagesize = 20, returnPromise = false) {
+        if(!bucket) {
+            return;
+        }
         const promise = this.Call('RemoteFileServer', 'ListFiles', {bucket: bucket.name, term: term, page: page, pagesize: pagesize})
         if(returnPromise) {
             return promise;
