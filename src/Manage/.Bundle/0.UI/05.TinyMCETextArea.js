@@ -9,11 +9,14 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
         this._visualCreated = false;
 
+        this.autocomplete = this._fieldData.autocomplete;
+
+
     }
 
     _createSnippetTag(snippet, data, type = 'tag') {
-        if(type === 'tag') {
-            return Element.create('component', Object.assign({Component: snippet.name, contentEditable: 'false'}, data, {shown: 'true', style: snippet.options.styles}));
+        if (type === 'tag') {
+            return Element.create('component', Object.assign({ Component: snippet.name, contentEditable: 'false' }, data, { shown: 'true', style: snippet.options.styles }));
         }
         else {
             let html = ['<component Component="' + snippet.name + '" contentEditable="false" shown="true"'];
@@ -55,30 +58,30 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     const snippets = {};
                     const comboList = [];
 
-                    for(const module of modules) {
+                    for (const module of modules) {
 
                         const snippetsObject = eval('App.Modules.' + module.name + '.Snippets');
-                        if(!snippetsObject) {
+                        if (!snippetsObject) {
                             continue;
                         }
                         const snippetsList = Object.keys(snippetsObject);
-                        if(snippetsList.length == 0) {
+                        if (snippetsList.length == 0) {
                             continue;
                         }
-                        
-                        for(const snippet of snippetsList) {
+
+                        for (const snippet of snippetsList) {
                             const name = 'App.Modules.' + module.name + '.Snippets.' + snippet;
                             const snippetObject = eval(name);
-                            snippets[snippet] = {text: snippet, name: name, options: snippetObject.Options(), fields: snippetObject.Params()};
-                            comboList.push({text: snippets[snippet].options?.title ?? snippet, value: snippet});
+                            snippets[snippet] = { text: snippet, name: name, options: snippetObject.Options(), fields: snippetObject.Params() };
+                            comboList.push({ text: snippets[snippet].options?.title ?? snippet, value: snippet });
                         }
 
                     }
-                    
+
                     Object.forEach(phpsnippets, (module, snippetsList) => {
-                        for(const snippet of snippetsList) {
+                        for (const snippet of snippetsList) {
                             snippets[snippet.text] = snippet;
-                            comboList.push({text: snippet.options?.title ?? snippet.text, value: snippet.text});
+                            comboList.push({ text: snippet.options?.title ?? snippet.text, value: snippet.text });
                         }
                     });
 
@@ -94,13 +97,13 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                         onsubmit: (e1) => {
                             const snippet = snippets[e1.data.snippet];
                             const fields = snippet.fields;
-                            if(fields.length > 0) {
+                            if (fields.length > 0) {
                                 button.settings.editor.windowManager.open({
                                     title: 'Параметры ' + snippet.text,
                                     data: {},
                                     body: fields,
                                     minWidth: button.settings.editor.getParam("code_dialog_width", 600),
-                                    onsubmit: (e2)  => {
+                                    onsubmit: (e2) => {
                                         button.settings.editor.focus();
                                         _addSnippet(button, snippet, e2.data);
                                     }
@@ -133,14 +136,14 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 if (node.matches('component')) {
 
                     let attrs = {};
-                    for(const attr of node.attributes) {
+                    for (const attr of node.attributes) {
                         attrs[attr.name] = attr.value;
                     }
 
                     const snippetName = attrs.component;
                     delete attrs.Component;
                     const snippetParams = attrs;
-                    
+
                     const _updateSnippet = (button, node, snippet, data) => {
                         node.replaceWith(this._createSnippetTag(snippet, data));
                         button.settings.editor.nodeChanged();
@@ -152,20 +155,20 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     try {
                         snippetObject = eval(snippetName);
                     }
-                    catch(e) {}
-                    
+                    catch (e) { }
+
                     let snippet = null;
                     let fields = [];
-                    if(snippetObject) {
-                        snippet = {text: snippetName, name: snippetName, options: snippetObject.Options(), fields: snippetObject.Params(snippetParams)};
+                    if (snippetObject) {
+                        snippet = { text: snippetName, name: snippetName, options: snippetObject.Options(), fields: snippetObject.Params(snippetParams) };
                         fields = snippet.fields;
-                        if(fields.length > 0) {
+                        if (fields.length > 0) {
                             button.settings.editor.windowManager.open({
                                 title: 'Параметры ' + snippet.text,
                                 data: {},
                                 body: fields,
                                 minWidth: button.settings.editor.getParam("code_dialog_width", 600),
-                                onsubmit: (e2)  => {
+                                onsubmit: (e2) => {
                                     button.settings.editor.focus();
                                     _updateSnippet(button, node, snippet, e2.data);
                                 }
@@ -180,8 +183,8 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                         Manage.Store.AsyncQuery('manage.snippets').then((snippets) => {
 
                             Object.forEach(snippets, (module, snippetsList) => {
-                                for(const sn of snippetsList) {
-                                    if(snippetName === sn.text) {
+                                for (const sn of snippetsList) {
+                                    if (snippetName === sn.text) {
                                         snippetObject = sn;
                                         return false;
                                     }
@@ -189,15 +192,15 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                                 return true;
                             });
 
-                            snippet = {text: snippetName, name: snippetName, options: snippetObject.options, fields: snippetObject.fields.map((f) => {f.value = snippetParams[f.name] === undefined ? '' : snippetParams[f.name]; return f;})};
+                            snippet = { text: snippetName, name: snippetName, options: snippetObject.options, fields: snippetObject.fields.map((f) => { f.value = snippetParams[f.name] === undefined ? '' : snippetParams[f.name]; return f; }) };
                             fields = snippet.fields;
-                            if(fields.length > 0) {
+                            if (fields.length > 0) {
                                 button.settings.editor.windowManager.open({
                                     title: '#{manage-components-tinymce-params} ' + snippet.text,
                                     data: {},
                                     body: fields,
                                     minWidth: button.settings.editor.getParam("code_dialog_width", 600),
-                                    onsubmit: (e2)  => {
+                                    onsubmit: (e2) => {
                                         button.settings.editor.focus();
                                         _updateSnippet(button, node, snippet, e2.data);
                                     }
@@ -211,10 +214,10 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                         })
                     }
 
-                    
+
 
                 }
-                
+
 
             }
 
@@ -225,7 +228,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
     __initVisual() {
 
-        if(this._visualCreated || !this.shown) {
+        if (this._visualCreated || !this.shown) {
             return;
         }
 
@@ -237,7 +240,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
             const additionalButtons = this._createAdditionalSnippetsButtons();
             const additionalTools = this._createAdditionalTools();
-            
+
             tinymce.init({
                 selector: '#' + this._controlElementId,
                 skin: 'nulla',
@@ -255,8 +258,8 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 formats: {
                     flexBoxAlignStartSpaceBetween: { block: 'div', classes: 'app-ui-component app-component-flexbox app-component-shown -nowrap' },
                 },
-                content_style: 
-                    '.app-component-flexbox { display: flex; align-items: flex-start; justify-content: space-between; border: 1px dashed #c0c0c0; padding: 10px; margin: 10px 0px; }' + 
+                content_style:
+                    '.app-component-flexbox { display: flex; align-items: flex-start; justify-content: space-between; border: 1px dashed #c0c0c0; padding: 10px; margin: 10px 0px; }' +
                     '.app-component-flexbox > * { margin: 10px; }',
                 style_formats: [
                     { title: '#{manage-components-tinymce-flexblock}', format: 'flexBoxAlignStartSpaceBetween' }
@@ -281,24 +284,27 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 plugins: [
                     "autoresize advlist link image lists charmap print preview hr anchor pagebreak spellchecker",
                     "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                    "table contextmenu directionality emoticons template textcolor paste textcolor codemirror" // customautocomplete
+                    "table contextmenu directionality emoticons template textcolor paste textcolor codemirror customautocomplete"
                 ],
                 toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
                 toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media embed code | pastetext | forecolor backcolor",
                 toolbar3: "grid_insert | table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
                 toolbar4: additionalButtons,
-                // customautocomplete: this.tinymceCustomAutocomplete,
-                
+                customautocomplete: {
+                    insertFrom: 'text',
+                    source: (query, callback) => this._getAutocomplete('tinymce', callback, null, query)
+                },
+
                 file_picker_callback: (callback, value, meta) => {
                     const element = document.querySelector('.mce-open:hover');
 
                     const position = element.bounds();
                     position.top += position.height;
 
-                    this._filepicker = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
+                    this._filepicker = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body);
                     this._filepicker.Show(false).then((data) => {
                         const file = data[0];
-                        if(file?.bucket) {
+                        if (file?.bucket) {
                             // Это удаленный файл
                             callback('/modules/manage/files/by-guid.stream?bucket=' + file.bucket + '&guid=' + file.guid + '&type=' + file.ext);
                         }
@@ -327,12 +333,12 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
 
         } else if (this._fieldData?.params?.code) {
-            if(this._codemirror) {
+            if (this._codemirror) {
                 this._codemirror.getWrapperElement().remove();
             }
             const requirements = Colibri.Common.MimeType.extrequirements(this._fieldData?.params.code ?? 'html');
             Colibri.UI.Require(requirements.css, requirements.js).then(() => {
-                
+
                 let defaultPros = {
                     mode: Colibri.Common.MimeType.ext2mode(this._fieldData?.params?.code),
                     indentOnInit: true,
@@ -343,9 +349,10 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     foldGutter: true,
                     saveCursorPosition: true,
                     gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-                    extraKeys: {"Ctrl-/": (cm) => { cm.foldCode(cm.getCursor()); }},
+                    extraKeys: { "Ctrl-/": (cm) => { cm.foldCode(cm.getCursor()); }, "Ctrl-Space": "autocomplete" },
+                    hintOptions: { hint: (cm, option) => new Promise((resolve) => this._getAutocomplete('cm', resolve, cm, option)) }
                 };
-            
+
 
                 // TODO проблема с таб индексом, не берет
                 // props.tabindex = this._input.css('tab-index');
@@ -374,7 +381,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     }
 
     get value() {
-        
+
 
         if (this._fieldData?.params?.visual == true) {
             try {
@@ -391,18 +398,21 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 .replaceAll('<body>', '')
                 .replaceAll('</body>', '');
             return ret;
-        } 
+        }
         else if (this._fieldData?.params?.code) {
             return this._codemirror && this._codemirror.getValue();
         }
         else {
             return this._input.value;
         }
-    } 
-    
+    }
+
     set value(val) {
-        
-        Colibri.Common.Delay(100).then(() => {
+
+        this._setLookup().then(autoCompleteResult => {
+
+            this.snippets = autoCompleteResult.result.snippets;
+            this.autocomplete = autoCompleteResult.result.autocomplete;
 
             this.__initVisual();
             if (this._fieldData?.params?.visual == true) {
@@ -416,19 +426,19 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
             } else {
                 this._input.value = val ? val : '';
             }
-            
+
         });
-        
+
     }
 
-    
+
     get readonly() {
         return super.readonly;
     }
 
     set readonly(value) {
         super.readonly = value;
-        
+
     }
 
     get enabled() {
@@ -439,7 +449,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         super.enabled = value;
         if (this._fieldData?.params?.visual == true) {
             try {
-                if(value) {
+                if (value) {
                     tinymce.activeEditor.mode.set('design');
                 }
                 else {
@@ -448,7 +458,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
             } catch (e) {
             }
         } else if (this._fieldData?.params?.code && this._codemirror) {
-            if(value) {
+            if (value) {
                 this._codemirror.setOption('readOnly', null);
             }
             else {
@@ -472,18 +482,100 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         return this._fieldData?.params ?? {};
     }
     set params(value) {
-        if(!this._fieldData) {
+        if (!this._fieldData) {
             this._fieldData = {};
         }
         this._fieldData.params = value;
     }
 
+    _getAutocomplete(type, resolve, cm, option) {
+
+        if (type === 'cm') {
+            let cursor = cm.getCursor(), line = cm.getLine(cursor.line);
+            let start = cursor.ch, end = cursor.ch;
+
+            while (start && /[A-zА-я]/.test(line.charAt(start - 1))) --start;
+            while (end < line.length && /[A-zА-я]/.test(line.charAt(end))) ++end;
+
+            const word = line.slice(start, end);
+
+            let res = [];
+            Object.forEach(this._autocomplete, (text, displayText) => {
+                if (!word || text.indexOf(word) != -1 || displayText.indexOf(word) != -1) {
+                    res.push({text: '"' + text + '"', displayText: text + ' (' + displayText + ')'});
+                }
+            }); 
+
+            res = res.splice(0, 20);
+
+            resolve({
+                list: res,
+                from: CodeMirror.Pos(cursor.line, start),
+                to: CodeMirror.Pos(cursor.line, end)
+            });
+
+        } else if (type === 'tinymce') {
+            let res = [];
+
+            Object.forEach(this._autocomplete, (text, displayText) => {
+                if (!option || text.indexOf(option) != -1 || displayText.indexOf(option) != -1) {
+                    res.push({text: '"' + text + '"', displayText: text + ' (' + displayText + ')'});
+                }
+            }); 
+            res = res.splice(0, 20);
+            resolve(res);
+        }
+
+    }
+
+    /**
+     * Autocomplete list
+     * @type {Array}
+     */
+    get autocomplete() {
+        return this._autocomplete;
+    }
+    /**
+     * Autocomplete list
+     * @type {Array}
+     */
+    set autocomplete(value) {
+        this._autocomplete = value;
+    }
+
+    /**
+     * Snippets used
+     * @type {Object}
+     */
+    get snippets() {
+        return this._snippets;
+    }
+    /**
+     * Snippets used
+     * @type {Object}
+     */
+    set snippets(value) {
+        this._snippets = value;
+    }
+
+
     Dispose() {
-        if(this._filepicker) {
+        if (this._filepicker) {
             this._filepicker.Dispose();
         }
         super.Dispose();
     }
 
+    _setLookup() {
+        if (this._fieldData?.lookup?.controller) {
+            let controller = this._fieldData.lookup.controller;
+            let module = eval(controller.module);
+            return module.Call(controller.class, controller.method);
+        } else {
+            return Promise.resolve({});
+        }
+    }
+
 }
+
 Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.TinyMCETextArea', 'App.Modules.Manage.UI.TinyMCETextArea', 'Визуальный редактор')

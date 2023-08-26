@@ -44,14 +44,28 @@
         link.media = 'all';
         head.appendChild(link);
     }
+
+    function position(el) {
+        const rect = el.getBoundingClientRect();
+        const win = el.ownerDocument.defaultView;
+
+        const offsetX = win.scrollX;
+        const offsetY = win.scrollY;
+
+        return {
+            top: rect.top + offsetY,
+            left: rect.left + offsetX,
+        };
+
+    };
     
     var AutoComplete = function (ed, options) {
         this.editor = ed;
 
-        this.options = $.extend({}, {
+        this.options = Object.assign({}, {
             source: [],
             delay: 500,
-            queryBy: 'name',
+            queryBy: 'text',
             items: 100,
             text: ''
         }, options);
@@ -110,13 +124,13 @@
         },
 
         bindEvents: function () {
-            this.editor.on('keyup', this.editorKeyUpProxy = $.proxy(this.rteKeyUp, this));
-            this.editor.on('keydown', this.editorKeyDownProxy = $.proxy(this.rteKeyDown, this), true);
-            this.editor.on('click', this.editorClickProxy = $.proxy(this.rteClicked, this));
+            this.editor.on('keyup', this.editorKeyUpProxy = this.rteKeyUp.bind(this));
+            this.editor.on('keydown', this.editorKeyDownProxy = this.rteKeyDown.bind(this), true);
+            this.editor.on('click', this.editorClickProxy = this.rteClicked.bind(this));
 
-            $('body').on('click', this.bodyClickProxy = $.proxy(this.rteLostFocus, this));
+            document.body.addEventListener('click', this.bodyClickProxy = this.rteLostFocus.bind(this));
 
-            $(this.editor.getWin()).on('scroll', this.rteScroll = $.proxy(function () { this.cleanUp(true); }, this));
+            this.editor.getWin().addEventListener('scroll', this.rteScroll = function () { this.cleanUp(true); }.bind(this));
         },
 
         unbindEvents: function () {
@@ -124,9 +138,9 @@
             this.editor.off('keydown', this.editorKeyDownProxy);
             this.editor.off('click', this.editorClickProxy);
 
-            $('body').off('click', this.bodyClickProxy);
+            document.body.removeEventListener('click', this.bodyClickProxy);
 
-            $(this.editor.getWin()).off('scroll', this.rteScroll);
+            this.editor.getWin().removeEventListener('scroll', this.rteScroll);
         },
 
         rteKeyUp: function (e) {
@@ -156,9 +170,9 @@
                 case 9:
                 //ENTER
                 case 13:
-                    var item = (this.$dropdown !== undefined) ? this.$dropdown.find('li.active') : [];
-                    if (item.length) {
-                        this.select(item.data());
+                    var item = (this.dropdown !== undefined) ? this.dropdown.querySelector('li.active') : [];
+                    if (item) {
+                        this.select(Object.assign({}, item.data()));
                         this.cleanUp(false);
                     } else {
                         this.cleanUp(true);
@@ -189,14 +203,14 @@
                 //UP ARROW
                 case 38:
                     e.preventDefault();
-                    if (this.$dropdown !== undefined) {
+                    if (this.dropdown !== undefined) {
                         this.highlightPreviousResult();
                     }
                     break;
                 //DOWN ARROW
                 case 40:
                     e.preventDefault();
-                    if (this.$dropdown !== undefined) {
+                    if (this.dropdown !== undefined) {
                         this.highlightNextResult();
                     }
                     break;
@@ -206,9 +220,9 @@
         },
 
         rteClicked: function (e) {
-            var $target = $(e.target);
+            var target = e.target;
 
-            if (this.hasFocus && $target.parent().attr('id') !== 'autocomplete-searchtext') {
+            if (this.hasFocus && target.parentElement?.id !== 'autocomplete-searchtext') {
                 this.cleanUp(true);
             }
         },
@@ -220,18 +234,18 @@
         },
 
         lookup: function () {
-            this.query = $.trim($(this.editor.getBody()).find('#autocomplete-delimiter').text());
-            if (this.$dropdown === undefined) {
+            this.query = this.editor.getBody()?.querySelector('#autocomplete-delimiter')?.innerText?.trim() ?? '';
+            if (this.dropdown === undefined) {
                 this.show();
             }
 
             clearTimeout(this.searchTimeout);
-            this.searchTimeout = setTimeout($.proxy(function () {
-                var items = $.isFunction(this.options.source) ? this.options.source(this.query, $.proxy(this.process, this)) : this.options.source;
+            this.searchTimeout = setTimeout(function () {
+                var items = typeof this.options.source === 'function' ? this.options.source(this.query, this.process.bind(this)) : this.options.source;
                 if (items) {
                     this.process(items);
                 }
-            }, this), this.options.delay);
+            }.bind(this), this.options.delay);
         },
 
         matcher: function (item) {
@@ -266,12 +280,12 @@
         show: function () {
             var offset = this.editor.inline ? this.offsetInline() : this.offset();
 
-            this.$dropdown = $(this.renderDropdown())
-                .css({ 'top': offset.top, 'left': offset.left, zIndex: Colibri.UI.maxZIndex });
+            this.dropdown = Element.fromHtml(this.renderDropdown())[0]
+                .css({ 'top': offset.top + 'px', 'left': offset.left + 'px', zIndex: Colibri.UI.maxZIndex });
 
-            $('body').append(this.$dropdown);
+            document.body.append(this.dropdown);
 
-            this.$dropdown.on('click', $.proxy(this.autoCompleteClick, this));
+            this.dropdown.addEventListener('click', this.autoCompleteClick.bind(this));
         },
 
         process: function (data) {
@@ -281,7 +295,7 @@
 
             var _this = this,
                 result = [],
-                items = $.grep(data, function (item) {
+                items = data.filter(function (item) {
                     return _this.matcher(item);
                 });
 
@@ -289,23 +303,23 @@
 
             items = items.slice(0, this.options.items);
 
-            $.each(items, function (i, item) {
-                var $element = $(_this.render(item, i));
+            Object.forEach(items, function (i, item) {
+                var element = Element.fromHtml(_this.render(item, i))[0];
 
-                $element.html($element.html().replace($element.text(), _this.highlighter($element.text())));
+                element.html(element.html().replace(element.innerText, _this.highlighter(element.innerText)));
 
-                $.each(items[i], function (key, val) {
-                    $element.attr('data-' + key, val);
+                Object.forEach(items[i], function (key, val) {
+                    element.data(key, val);
                 });
 
-                result.push($element[0].outerHTML);
+                result.push(element.outerHTML);
             });
 
             if (result.length) {
-                this.$dropdown.html(result.join('')).show();
+                this.dropdown.html(result.join('')).showElement();
             } else {
-                this.$dropdown.hide();
-                this.$dropdown.find('li').removeClass('active');
+                this.dropdown.hideElement();
+                this.dropdown.querySelectorAll('li').forEach(li => li.classList.remove('active'));
             }
         },
 
@@ -320,8 +334,8 @@
         },
 
         autoCompleteClick: function (e) {
-            var item = $(e.target).closest('li').data();
-            if (!$.isEmptyObject(item)) {
+            var item = Object.assign({}, e.target.closest('li')?.dataset ?? {});
+            if (Object.countKeys(item) > 0) {
                 this.select(item);
                 this.cleanUp(false);
             }
@@ -330,17 +344,29 @@
         },
 
         highlightPreviousResult: function () {
-            var currentIndex = this.$dropdown.find('li.active').index(),
-                index = (currentIndex === 0) ? this.$dropdown.find('li').length - 1 : --currentIndex;
+            var currentIndex = this.dropdown.querySelector('li.active')?.index() ?? 0,
+                index = (currentIndex === 0) ? this.dropdown.querySelectorAll('li').length - 1 : --currentIndex;
 
-            this.$dropdown.find('li').removeClass('active').eq(index).addClass('active');
+            this.dropdown.querySelectorAll('li').forEach((li, i) => {
+                if(i != index) {
+                    li.classList.remove('active');
+                } else {
+                    li.classList.add('active');
+                }
+            });
         },
 
         highlightNextResult: function () {
-            var currentIndex = this.$dropdown.find('li.active').index(),
-                index = (currentIndex === this.$dropdown.find('li').length - 1) ? 0 : ++currentIndex;
+            var currentIndex = this.dropdown.querySelector('li.active')?.index() ?? 0,
+                index = (currentIndex === this.dropdown.querySelectorAll('li').length - 1) ? 0 : ++currentIndex;
 
-            this.$dropdown.find('li').removeClass('active').eq(index).addClass('active');
+            this.dropdown.querySelectorAll('li').forEach((li, i) => {
+                if(i != index) {
+                    li.classList.remove('active');
+                } else {
+                    li.classList.add('active');
+                }
+            });
         },
 
         select: function (item) {
@@ -351,64 +377,54 @@
         },
 
         insert: function (item) {
-            return '' + item[this.options.insertFrom] + ' ';
+            return '' + (item[this.options.insertFrom] ?? '') + ' ';
         },
 
         cleanUp: function (rollback) {
             this.unbindEvents();
             this.hasFocus = false;
 
-            if (this.$dropdown !== undefined) {
-                this.$dropdown.remove();
-                delete this.$dropdown;
+            if (this.dropdown !== undefined) {
+                this.dropdown.remove();
+                delete this.dropdown;
             }
 
             if (rollback) {
                 var text = this.query,
-                    $selection = $(this.editor.dom.select('span#autocomplete'));
+                    selection = this.editor.dom.select('span#autocomplete');
 
-                if (!$selection.length) {
+                if (!selection.length) {
                     return;
                 }
 
                 var selection = this.editor.dom.select('span#autocomplete')[0];
                 this.editor.dom.remove(selection);
-                this.editor.execCommand('mceInsertContent', false, this.query);
+                this.editor.execCommand('mceInsertContent', false, this.query ?? '');
                 
-                // var replacement = $('<p>' + text + '</p>')[0].firstChild,
-                //     focus = $(this.editor.selection.getNode()).offset().top === ($selection.offset().top + (($selection.outerHeight() - $selection.height()) / 2));
-                // try {
-                //     if(replacement) {
-                //         this.editor.dom.replace(replacement, $selection[0]);
-                //     }
-                // }
-                // catch(e) {
-
-                // }
-
-                // if (focus) {
-                //     this.editor.selection.select(replacement);
-                //     this.editor.selection.collapse();
-                // }
             }
         },
 
         offset: function () {
-            var rtePosition = $(this.editor.getContainer()).offset(),
-                contentAreaPosition = $(this.editor.getContentAreaContainer()).position(),
-                nodePosition = $(this.editor.dom.select('span#autocomplete')).position();
-
+            var rtePosition = this.editor.getContainer().offset(),
+            contentAreaPosition = position(this.editor.getContentAreaContainer()),
+            node = this.editor.dom.select('span#autocomplete')[0],
+            nodePosition = position(node);
             return {
-                top: rtePosition.top + contentAreaPosition.top + nodePosition.top + $(this.editor.selection.getNode()).innerHeight() - $(this.editor.getDoc()).scrollTop() + 5,
-                left: rtePosition.left + contentAreaPosition.left + nodePosition.left
+                top: // rtePosition.top +
+                    contentAreaPosition.top +
+                    nodePosition.top +
+                    node.offsetHeight + 5,
+                left: // rtePosition.left +
+                    contentAreaPosition.left +
+                    nodePosition.left 
             };
         },
 
         offsetInline: function () {
-            var nodePosition = $(this.editor.dom.select('span#autocomplete')).offset();
+            var nodePosition = this.editor.dom.select('span#autocomplete')[0].offset();
 
             return {
-                top: nodePosition.top + $(this.editor.selection.getNode()).innerHeight() + 5,
+                top: nodePosition.top + this.editor.selection.getNode().innerHeight + 5,
                 left: nodePosition.left
             };
         }
@@ -422,13 +438,13 @@
             var autoComplete,
                 autoCompleteData = ed.getParam('customautocomplete');
 
-            loadCss('//' + document.domain + '/project/manage/res/tinymce/plugins/customautocomplete/autocomplete.css');
+            loadCss('//' + location.host + '/res/tinymce/plugins/customautocomplete/autocomplete.css');
 
             ed.on('keydown', function (e) {
                 if(e.keyCode == 32 && e.ctrlKey) {
                     if (autoComplete === undefined || (autoComplete.hasFocus !== undefined && !autoComplete.hasFocus)) {
                         e.preventDefault();
-                        autoComplete = new AutoComplete(ed, $.extend({}, autoCompleteData, { 'selection': ed.selection }));
+                        autoComplete = new AutoComplete(ed, Object.assign({}, autoCompleteData, { 'selection': ed.selection }));
                     }
                 }
             });
