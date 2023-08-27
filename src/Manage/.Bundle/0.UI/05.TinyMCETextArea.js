@@ -30,11 +30,12 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     }
 
     _createAdditionalSnippetsButtons() {
-        return 'add-snippet edit-snippet';
+        console.log((this._tools ?? []).map(tool => tool.name).join(' | '));
+        return 'add-snippet edit-snippet ' + (this._tools ?? []).map(tool => tool.name).join(' | ');
     }
 
     _createAdditionalTools() {
-        const tools = [];
+        let tools = [];
         tools.push({
             name: "add-snippet",
             icon: false,
@@ -223,6 +224,12 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
         });
 
+        if(this._tools) {
+            tools = tools.concat(this._tools);
+        }
+
+        console.log(tools);
+
         return tools;
     }
 
@@ -251,19 +258,16 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 extended_valid_elements: "script[*],style[*]",
                 valid_children: "+body[script],pre[script|div|p|br|span|img|style|h1|h2|h3|h4|h5],*[*]",
                 valid_elements: "*[*]",
-                // content_css: this.tinymceContentCss,
-                // content_style: this.tinymceContentStyle,
-                // formats: this.tinymceContentFormats,
-                // style_formats: this.tinymceContentStyleFormats,
-                formats: {
+                content_css: this._contentCss ?? '',
+                formats: Object.assign({
                     flexBoxAlignStartSpaceBetween: { block: 'div', classes: 'app-ui-component app-component-flexbox app-component-shown -nowrap' },
-                },
+                }, this._contentFormats ?? {}),
                 content_style:
                     '.app-component-flexbox { display: flex; align-items: flex-start; justify-content: space-between; border: 1px dashed #c0c0c0; padding: 10px; margin: 10px 0px; }' +
-                    '.app-component-flexbox > * { margin: 10px; }',
+                    '.app-component-flexbox > * { margin: 10px; }' + (this._contentStyle ?? ''),
                 style_formats: [
                     { title: '#{manage-components-tinymce-flexblock}', format: 'flexBoxAlignStartSpaceBetween' }
-                ],
+                ].concat(this._styleFormats ?? {}),
                 codemirror: {
                     indentOnInit: true, // Whether or not to indent code on init.
                     fullscreen: false, // Default setting is false
@@ -408,13 +412,35 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     }
 
     set value(val) {
+        let promise;
+        if (this._autocompleteLoaded) {
+            promise = Promise.resolve({
+                result: {
+                    snippets: this.snippets, 
+                    autocomplete: this.autocomplete, 
+                    contentCss: this.contentCss, 
+                    contentStyle: this.contentStyle,
+                    contntFormats: this.contentFormats,
+                    styleFormats: this.styleFormats
+                }
+            });
+        } else {
+            promise = this._setLookup();
+        }
 
-        this._setLookup().then(autoCompleteResult => {
+        promise.then(autoCompleteResult => {
 
+            this._autocompleteLoaded = true;
             this.snippets = autoCompleteResult.result.snippets;
             this.autocomplete = autoCompleteResult.result.autocomplete;
+            this.contentCss = autoCompleteResult.result.contentCss; 
+            this.contentStyle = autoCompleteResult.result.contentStyle;
+            this.contentFormats = autoCompleteResult.result.contentFormats;
+            this.styleFormats = autoCompleteResult.result.styleFormats;
+            this.tools = autoCompleteResult.result.tools;
 
             this.__initVisual();
+
             if (this._fieldData?.params?.visual == true) {
                 try {
                     tinymce.get(this._controlElementId).setContent(val ? val : '', { format: 'raw' });
@@ -473,9 +499,6 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
     set shown(value) {
         super.shown = value;
-        Colibri.Common.Delay(100).then(() => {
-            this.__initVisual();
-        });
     }
 
     get params() {
@@ -502,9 +525,9 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
             let res = [];
             Object.forEach(this._autocomplete, (text, displayText) => {
                 if (!word || text.indexOf(word) != -1 || displayText.indexOf(word) != -1) {
-                    res.push({text: '"' + text + '"', displayText: text + ' (' + displayText + ')'});
+                    res.push({ text: '"' + text + '"', displayText: text + ' (' + displayText + ')' });
                 }
-            }); 
+            });
 
             res = res.splice(0, 20);
 
@@ -519,9 +542,9 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
             Object.forEach(this._autocomplete, (text, displayText) => {
                 if (!option || text.indexOf(option) != -1 || displayText.indexOf(option) != -1) {
-                    res.push({text: '"' + text + '"', displayText: text + ' (' + displayText + ')'});
+                    res.push({ text: '"' + text + '"', displayText: text + ' (' + displayText + ')' });
                 }
-            }); 
+            });
             res = res.splice(0, 20);
             resolve(res);
         }
@@ -558,6 +581,103 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         this._snippets = value;
     }
 
+    /**
+     * Style formats for TinyMCE
+     * @type {Object}
+     */
+    get styleFormats() {
+        return this._styleFormats;
+    }
+    /**
+     * Style formats for TinyMCE
+     * @type {Object}
+     */
+    set styleFormats(value) {
+        this._styleFormats = value;
+    }
+
+    /**
+     * String array of content style for TinyMCE
+     * @type {String}
+     */
+    get contentStyle() {
+        return this._contentStyle;
+    }
+    /**
+     * String array of content style for TinyMCE
+     * @type {String}
+     */
+    set contentStyle(value) {
+        this._contentStyle = value;
+    }
+
+    /**
+     * Content formats for TinyMCE
+     * @type {Object}
+     */
+    get contentFormats() {
+        return this._contentFormats;
+    }
+    /**
+     * Content formats for TinyMCE
+     * @type {Object}
+     */
+    set contentFormats(value) {
+        this._contentFormats = value;
+    }
+
+    /**
+     * Content css style for TinyMCE
+     * @type {String}
+     */
+    get contentCss() {
+        return this._contentCss;
+    }
+    /**
+     * Content css style for TinyMCE
+     * @type {String}
+     */
+    set contentCss(value) {
+        this._contentCss = value;
+    }
+
+    /**
+     * Tools object
+     * @type {Object}
+     */
+    get tools() {
+        return this._tools;
+    }
+    /**
+     * Tools object
+     * @type {Object}
+     */
+    set tools(value) {
+        // onclick must be evaled
+        this._tools = this._convertObject(value);
+    }
+
+    _convertObject(array) {
+
+        let ret = [];
+        if(!Array.isArray(array)) {
+            return array;
+        }
+
+        for(const o of array) {
+            let oo = Object.cloneRecursive(o);
+            Object.forEach(oo, (name, v) => {
+                if(name === 'onclick') {
+                    oo[name] = typeof v === 'string' ? eval(v) : v;
+                } else {
+                    oo[name] = this._convertObject(v);
+                }
+            });
+            ret.push(oo);
+        }
+
+        return ret;
+    }
 
     Dispose() {
         if (this._filepicker) {
@@ -570,9 +690,19 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         if (this._fieldData?.lookup?.controller) {
             let controller = this._fieldData.lookup.controller;
             let module = eval(controller.module);
-            return module.Call(controller.class, controller.method);
+            return module.Call(controller.class, controller.method, { _requestCache: true });
         } else {
-            return Promise.resolve({});
+            return Promise.resolve({
+                result: {
+                    snippets: [], 
+                    autocomplete: [], 
+                    contentCss: '', 
+                    contentStyle: {},
+                    contntFormats: {},
+                    styleFormats: {},
+                    tools: {}
+                }
+            });
         }
     }
 
