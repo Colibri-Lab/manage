@@ -30,7 +30,6 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     }
 
     _createAdditionalSnippetsButtons() {
-        console.log((this._tools ?? []).map(tool => tool.name).join(' | '));
         return 'add-snippet edit-snippet ' + (this._tools ?? []).map(tool => tool.name).join(' | ');
     }
 
@@ -653,6 +652,9 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
      * @type {Object}
      */
     set tools(value) {
+        if(!Array.isArray(value)) {
+            value = [];
+        }
         // onclick must be evaled
         this._tools = this._convertObject(value);
     }
