@@ -78,7 +78,7 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
             if(Array.isArray(value)) {
                 let newValue = [];
                 value.forEach((v, index) => {
-                    if(v instanceof Object) {
+                    if(Object.isObject(v)) {
                         v = this._cleanFilters(v);
                         if(Object.countKeys(v) > 0) {
                             newValue.push(v);
@@ -92,7 +92,7 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
                 if(newValue.length > 0) {
                     newFormData[name] = newValue;
                 }
-            } else if(value instanceof Object) {
+            } else if(Object.isObject(value)) {
                 value = this._cleanFilters(value);
                 if(Object.countKeys(value) > 0) {
                     newFormData[name] = value;

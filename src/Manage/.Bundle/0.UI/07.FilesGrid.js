@@ -5,7 +5,7 @@ App.Modules.Manage.UI.FilesGrid = class extends Colibri.UI.Grid {
         if(!data) {
             data = [];
         }
-        else if(!Array.isArray(data) && data instanceof Object) {
+        else if(Object.isObject(data)) {
             data = Object.values(data);
         }
 

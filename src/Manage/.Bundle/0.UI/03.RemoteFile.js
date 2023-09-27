@@ -102,7 +102,7 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
     }
 
     _isValue(value) {
-        return !Array.isArray(value) && value instanceof Object;
+        return Object.isObject(value);
     }
 
     _showValue() {
