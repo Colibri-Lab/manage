@@ -10,7 +10,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         this._visualCreated = false;
 
         this.autocomplete = this._fieldData.autocomplete;
-
+        this.__shownHandler = (event, args) => this.__initVisual();
 
     }
 
@@ -235,8 +235,12 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     __initVisual() {
 
         if (this._visualCreated || !this.shown) {
+            this.AddHandler('Shown', this.__shownHandler);
             return;
         }
+
+        this._visualCreated = true;
+        this.RemoveHandler('Shown', this.__shownHandler);
 
         if (this._fieldData?.params?.visual == true) {
 
@@ -325,14 +329,13 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     });
 
                     ed.on('change', (e) => {
+                        this._savedValue = this._getValue();
                         this.Dispatch('Changed');
                     });
 
-                    // window.app.raiseEvent('application.tinymce.setup', { control: self, editor: ed });
-
                 }
             });
-            this._visualCreated = true;
+            
 
 
         } else if (this._fieldData?.params?.code) {
@@ -356,7 +359,6 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     hintOptions: { hint: (cm, option) => new Promise((resolve) => this._getAutocomplete('cm', resolve, cm, option)) }
                 };
 
-
                 // TODO проблема с таб индексом, не берет
                 // props.tabindex = this._input.css('tab-index');
                 this._codemirror = CodeMirror.fromTextArea(this._input, defaultPros);
@@ -365,11 +367,13 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 const height = this._element.bounds().height;
                 this._codemirror.setSize('100%', height);
 
-                this._codemirror.on('change', (args) => this.Dispatch('Changed'));
+                this._codemirror.on('change', (args) => {
+                    this._getValue();
+                    this._savedValue = this._getValue();
+                    this.Dispatch('Changed');
+                });
 
             });
-            this._visualCreated = true;
-
         }
 
         this.handleResize = true;
@@ -383,8 +387,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         });
     }
 
-    get value() {
-
+    _getValue() {
 
         if (this._fieldData?.params?.visual == true) {
             try {
@@ -410,8 +413,15 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         }
     }
 
+    get value() {
+        return this._savedValue;
+    }
+
     set value(val) {
         let promise;
+
+        this._savedValue = val;
+        
         if (this._autocompleteLoaded) {
             promise = Promise.resolve({
                 result: {
