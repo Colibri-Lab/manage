@@ -16,3 +16,6 @@ manage-components-tinymce-params:
 manage-components-tinymce-flexblock:
   ru: Флексбокс (в начало, пространство между блоками)
   en: Flexbox (to the beginning, space between blocks)
+manage-components-tinymce-add-component:
+  ru: Вставить компонент
+  en: Add component

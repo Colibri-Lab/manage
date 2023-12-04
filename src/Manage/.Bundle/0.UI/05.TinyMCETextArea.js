@@ -120,7 +120,6 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 });
 
             }
-
         });
 
         tools.push({
