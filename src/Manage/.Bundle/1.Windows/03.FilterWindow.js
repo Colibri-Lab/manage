@@ -10,11 +10,14 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
 
         this._cancel = this.Children('cancel');
         this._save = this.Children('save');
+        this._clear = this.Children('clear');
+        
         this.movable = true;
         
     }
 
     _performChanges(storage, s, p) {
+
         Object.forEach(storage.fields, (name, field) => {
             
             if(field.component === 'Number' || field.component === 'Colibri.UI.Forms.Number') {
@@ -144,6 +147,12 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
                         reject();
                         this.Hide();
                     });
+
+                    this._clear.ClearHandlers();
+                    this._clear.AddHandler('Clicked', () => {
+                        resolve({});
+                        this.Hide();
+                    });
         
                 });
     
@@ -152,8 +161,25 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
     }
 
     ReCreateForm(fields, value) {
+
+        let newFields = Object.assign({
+            id: {
+                component: 'NumberRange',
+                desc: '#{manage-formwindow-id-desc}'
+            },
+            datecreated: {
+                component: 'DateTimeRange',
+                desc: '#{manage-formwindow-datecreated-desc}'
+            },
+            datemodified: {
+                component: 'DateTimeRange',
+                desc: '#{manage-formwindow-datemodified-desc}'
+            },
+        }, fields);
+        
+
         this._form.Clear();
-        this._form.fields = fields;
+        this._form.fields = newFields;
 
         Object.forEach(this._fieldEvents, (name, eventData) => { 
             const component = this._form.Children(name);

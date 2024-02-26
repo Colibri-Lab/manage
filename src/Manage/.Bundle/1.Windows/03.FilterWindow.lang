@@ -13,3 +13,16 @@ manage-formwindow-buttons-yes:
 manage-formwindow-buttons-nometter:
   ru: Не важно
   en: None
+manage-formwindow-buttons-clear:
+  ru: Очистить фильтр
+  en: Clear filters
+manage-formwindow-id-desc:
+  ru: ID
+  en: ID
+  hy: ID
+manage-formwindow-datecreated-desc:
+  ru: Дата создания
+  en: Creation date
+manage-formwindow-datemodified-desc:
+  ru: Дата изменения
+  en: Modification date
