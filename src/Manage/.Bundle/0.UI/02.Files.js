@@ -99,11 +99,21 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
 
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __clearClicked(event, args) {
         this.value = '';
         this.Dispatch('Changed', args);
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __chooseClicked(event, args) {
         const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
         files.Show(true).then((data) => {
@@ -114,6 +124,11 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
         });
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __downloadClicked(event, args) {
         DownloadFileByPath(this.value);
     }

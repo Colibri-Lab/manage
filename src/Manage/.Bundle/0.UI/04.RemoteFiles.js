@@ -92,11 +92,21 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
         this._choose.AddHandler('Clicked', (event, args) => this.__chooseClicked(event, args));
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __clearClicked(event, args) {
         this.value = null;
         this.Dispatch('Changed', args);
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __chooseClicked(event, args) {
         const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
         files.Show(true, true, false).then((data) => {

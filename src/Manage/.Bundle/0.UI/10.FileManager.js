@@ -38,10 +38,16 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
 
     }
     
+    /** @protected */
     _registerEvents() {
         this.RegisterEvent('SelectionChanged', false, 'Когда выбор файлов изменился');
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __renderFoldersContextMenu(event, args) {
         let contextmenu = [];
         
@@ -59,6 +65,11 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
         }
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __clickOnFoldersContextMenu(event, args) {
         const item = args?.item;
         const menuData = args.menuData;
@@ -85,6 +96,11 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
 
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __renderFilesContextMenu(event, args) {
         
         const itemData = args.item?.value;
@@ -101,6 +117,11 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
         args.item.ShowContextMenu(args.isContextMenuEvent ? [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.RB] : [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.LB], '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __clickOnFilesContextMenu(event, args) {
         const selection = this._folders.selected;
         if(!selection) {
@@ -147,6 +168,11 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
 
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __foldersNodeEditCompleted(event, args) {
         
         const node = args.node;
@@ -242,16 +268,31 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
 
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __checkChangedOnFiles(event, args) {
         this._enableFilesPane();
         this.Dispatch('SelectionChanged', {});
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __filesSelectionChanged(event, args) {
         this._enableFilesPane();
         this.Dispatch('SelectionChanged', {});
     }
     
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __foldersSelectionChanged(event, args) {
 
         this._enableFilesPane();
@@ -270,6 +311,11 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
 
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __addDataButtonClicked(event, args) {
         const selected = this._folders.selected;
         if(!selected) {
@@ -290,6 +336,11 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
         }
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __editDataButtonClicked(event, args) {
 
         if(!this.editable) {
@@ -323,6 +374,11 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
 
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __deleteDataButtonClicked(event, args) {
 
         const folder = this._folders.selected;
@@ -347,10 +403,20 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
 
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __filesDoubleClicked(event, args) {
         this.__editDataButtonClicked(event, args);
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __searchInputFilled(event, args) {
 
         const selected = this._folders.selected;
@@ -363,6 +429,11 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
 
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __dropContainerFileDropped(event, args) {
         const selected = this._folders.selected;
         if(!selected) {

@@ -34,6 +34,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
 
     }
 
+    /** @protected */
     _registerEvents() {
         this.RegisterEvent('SelectionChanged', false, 'Когда выбор файлов изменился');
     }
@@ -44,6 +45,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
     
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __searchInputFilled(event, args) {
         const selected = this._buckets.selected;
         if(!selected) {
@@ -54,6 +60,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         this._loadDataPage(selected?.tag, this._searchInput.value, 1);
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __bucketsSelectionChanged(event, args) {
         const selection = this._buckets.selected;
         
@@ -68,11 +79,21 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __dataScrolledToBottom(event, args) {
         const selected = this._buckets.selected;
         this._loadDataPage(selected?.tag, this._searchInput.value, this._filesCurrentPage + 1);
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __dataSelectionChanged(event, args) {
         const checked = this._files.checked;
         const selected = this._files.selected;
@@ -80,6 +101,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         this.Dispatch('SelectionChanged', {});
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __checkChangedOnData(event, args) { 
         const checked = this._files.checked;
         const selected = this._files.selected;
@@ -87,6 +113,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         this.Dispatch('SelectionChanged', {});
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __deleteDataButtonClicked(event, args) {
         const selection = this._buckets.selected;
         const bucket = selection?.tag;
@@ -109,6 +140,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         }
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __addDataButtonClicked(event, args) {
 
         const selected = this._buckets.selected;
@@ -132,6 +168,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
 
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __dropContainerFileDropped(event, args) {
         const selected = this._buckets.selected;
         if(!selected) {
@@ -154,6 +195,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __renderDataContextMenu(event, args) {
         let contextmenu = [];
         
@@ -166,6 +212,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __clickOnDataContextMenu(event, args) {
 
         const item = args?.item;
@@ -182,6 +233,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         }
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __renderBucketsContextMenu(event, args) {
         
         let contextmenu = [];
@@ -202,6 +258,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         }
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __clickOnBucketsContextMenu(event, args) {
 
         const item = args?.item;

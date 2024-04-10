@@ -53,16 +53,31 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
 
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __pathChanged(event, args) {
         this.value = this._path.value;
         this.Dispatch('Changed', args);
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __clearClicked(event, args) {
         this.value = null;
         this.Dispatch('Changed', args);
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __chooseClicked(event, args) {
         const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
         files.Show(false, true, false).then((data) => {
@@ -73,6 +88,11 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
         });
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __downloadClicked(event, args) {
         if(!this._isValue(this._value)) {
             return;

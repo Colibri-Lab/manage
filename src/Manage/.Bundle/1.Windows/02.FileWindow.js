@@ -30,16 +30,31 @@ App.Modules.Manage.Windows.FileWindow = class extends Colibri.UI.Window {
         return this._manager.multiple;
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __tabChanged(event, args) {
         this._save.enabled = false;
         this._manager.ClearSelection();
         this._remotemanager.ClearSelection();
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __selectionChangedOnManager(event, args) {
         this._save.enabled = !!this._manager.selected || this._manager.checked.length > 0;
     }
 
+    /**
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */ 
     __selectionChangedOnRemoteManager(event, args) {
         this._save.enabled = !!this._remotemanager.selected || this._remotemanager.checked.length > 0;
     }
