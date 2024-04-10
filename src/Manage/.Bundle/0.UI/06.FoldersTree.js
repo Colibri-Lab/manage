@@ -56,9 +56,15 @@ App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
                 node.Dispose();
             }
         });
-    }
+    } 
 
-    __renderBoundedValues(data) {
+    /**
+     * Render bounded to component data
+     * @protected
+     * @param {*} data 
+     * @param {String} path 
+     */
+    __renderBoundedValues(data, path) {
 
         if(!data) {
             return;
