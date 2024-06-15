@@ -1276,7 +1276,9 @@ var splitLinesAuto = "\n\nb".split(/\n/).length != 3 ? function (string) {
     }
   }
   return result
-} : function (string) { return string.split(/\r\n?|\n/); }
+} : function (string) { 
+  return string?.split(/\r\n?|\n/) ?? []; 
+}
 
 var hasSelection = window.getSelection ? function (te) {
   try { return te.selectionStart != te.selectionEnd }

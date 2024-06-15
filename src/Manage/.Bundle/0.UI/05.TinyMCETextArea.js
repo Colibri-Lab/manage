@@ -2,6 +2,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
     RenderFieldContainer() {
         super.RenderFieldContainer();
+        this.AddClass('app-tinymcetextarea-component');
 
         this._controlElementId = 'html' + Date.Mc();
         this._input.attr('id', this._controlElementId);
@@ -10,7 +11,9 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         this._visualCreated = false;
 
         this.autocomplete = this._fieldData.autocomplete;
-        this.__shownHandler = (event, args) => this.__initVisual();
+        this.__shownHandler = (event, args) => {
+            this.__initVisual();
+        }
 
     }
 
@@ -363,8 +366,8 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 this._codemirror = CodeMirror.fromTextArea(this._input, defaultPros);
                 this._codemirror.setValue(this._input.value);
 
-                const height = this._element.bounds().height;
-                this._codemirror.setSize('100%', height);
+                this._codemirror.setSize('100%', '100%');
+                this._codemirror.refresh();
 
                 this._codemirror.on('change', (args) => {
                     this._getValue();
@@ -375,15 +378,15 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
             });
         }
 
-        this.handleResize = true;
-        this.AddHandler('Resize', (event, args) => {
-            if (this._fieldData?.params?.visual == true) {
+        // this.handleResize = true;
+        // this.AddHandler('Resize', (event, args) => {
+        //     if (this._fieldData?.params?.visual == true) {
 
-            } else if (this._fieldData?.params?.code) {
-                const height = this._element.bounds().height;
-                this._codemirror.setSize('100%', height);
-            }
-        });
+        //     } else if (this._fieldData?.params?.code) {
+        //         const height = this._element.bounds().height;
+        //         this._codemirror.setSize('100%', height - 20);
+        //     }
+        // });
     }
 
     _getValue() {
@@ -456,7 +459,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     this._input.value = val ? val : '';
                 }
             } else if (this._fieldData?.params?.code) {
-                this._codemirror ? this._codemirror.setValue(val) : (this._input.value = val);
+                this._codemirror ? this._codemirror.setValue(val ? val : '') : (this._input.value = (val ? val : ''));
             } else {
                 this._input.value = val ? val : '';
             }

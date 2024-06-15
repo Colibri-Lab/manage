@@ -1,4 +1,11 @@
-
+.app-tinymcetextarea-component {
+    [data-object-name$="-container"] {
+        height: 100%;
+    }
+    [data-object-name$="-content"] {
+        height: calc(100% - 40px);
+    }
+}
 .mce-tinymce {
     // This prevents the bottom border being clipped
     // May work with just 100%, I may have interference with other styles
