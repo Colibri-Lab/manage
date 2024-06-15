@@ -370,6 +370,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 this._codemirror.refresh();
 
                 this._codemirror.on('change', (args) => {
+                    this._codemirror.refresh();
                     this._getValue();
                     this._savedValue = this._getValue();
                     this.Dispatch('Changed');
