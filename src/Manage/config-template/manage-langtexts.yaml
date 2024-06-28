@@ -192,6 +192,7 @@ manage-files-messages-removefilemessage:
 manage-permissions:
   ru: Доступ к модулю Manage
   en: Access to Manage module
+  hy: Մուտք դեպի Կառավարում մոդուլ
 manage-backups-permissions:
   ru: Доступ к системе восстановления
   en: Access to the recovery system

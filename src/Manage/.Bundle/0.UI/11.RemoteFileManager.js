@@ -125,12 +125,20 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
             return;
         }
         if(this._files.checked.length == 0) {
-            App.Confirm.Show('#{manage-remotefiles-messages-removefile}', '#{manage-remotefiles-messages-removefile-message}', '#{manage-remotefiles-messages-removefile-message-delete}').then(() => {
+            App.Confirm.Show(
+                '#{manage-remotefiles-messages-removefile}', 
+                '#{manage-remotefiles-messages-removefile-message}', 
+                '#{manage-remotefiles-messages-removefile-message-delete}'
+            ).then(() => {
                 Manage.DeleteFilesFromRemote(bucket, [this._files.selected.value.guid]);
             });
         }
         else {
-            App.Confirm.Show('#{manage-remotefiles-messages-removefiles}', '#{manage-remotefiles-messages-removefiles-message}', '#{manage-remotefiles-messages-removefiles-message-delete}').then(() => {
+            App.Confirm.Show(
+                '#{manage-remotefiles-messages-removefiles}', 
+                '#{manage-remotefiles-messages-removefiles-message}', 
+                '#{manage-remotefiles-messages-removefiles-message-delete}'
+            ).then(() => {
                 let ids = [];
                 this._files.checked.forEach((row) => {
                     ids.push(row.value.guid);
@@ -291,7 +299,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
             }).catch(e => console.log(e));
         }
         else if(menuData.name == 'remove-bucket') {
-            App.Confirm.Show('#{manage-remotefiles-messages-deletebucket}', '#{manage-remotefiles-messages-deletebucket-message}', '#{manage-remotefiles-messages-deletebucket-delete}').then(() => {
+            App.Confirm.Show(
+                '#{manage-remotefiles-messages-deletebucket}', 
+                '#{manage-remotefiles-messages-deletebucket-message}', 
+                '#{manage-remotefiles-messages-deletebucket-delete}'
+            ).then(() => {
                 Manage.RemoveBucket(item.tag);
                 this._buckets.selected = null;
             });

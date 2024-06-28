@@ -32,7 +32,7 @@ App.Modules.Manage.UI.RemoteFileListViewer = class extends Colibri.UI.Viewer {
             }
             else if(Colibri.UI.Files[value.ext] !== undefined) {
                 icon.icon = null;
-                icon.value = Colibri.UI.Files[value.ext];
+                icon.value = Colibri.UI.Files[value.ext]; 
             }
         }   
     }

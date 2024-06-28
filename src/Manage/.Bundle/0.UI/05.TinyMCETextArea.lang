@@ -1,21 +1,32 @@
 manage-components-tinymce-add-snippet:
   ru: Вставить снипет
   en: Insert a snippet
+  hy: Տեղադրեք հատված
 manage-components-tinymce-choose-snippet:
   ru: Выбрать снипет
   en: Choose snippet
+  hy: Ընտրեք հատված
 manage-components-tinymce-snippet:
   ru: Снипет
   en: Snippet
+  hy: Հատված
 manage-components-tinymce-edit-snippet:
   ru: Редактировать снипет
   en: Edit snippet
+  hy: Խմբագրել հատվածը
 manage-components-tinymce-params:
   ru: Параметры
   en: Parameters of
+  hy: Ընտրանքներ
 manage-components-tinymce-flexblock:
   ru: Флексбокс (в начало, пространство между блоками)
   en: Flexbox (to the beginning, space between blocks)
+  hy: Flexbox (ետ վերև, բլոկների միջև տարածություն)
 manage-components-tinymce-add-component:
   ru: Вставить компонент
   en: Add component
+manage-fields-remotefiles: {}
+manage-fields-tinymcetext:
+  ru: Визуальный редактор
+  en: Visual TinyMCE editor
+  hy: TinyMCE խմբագիր

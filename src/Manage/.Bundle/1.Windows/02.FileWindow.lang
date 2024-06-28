@@ -1,15 +1,19 @@
 manage-tabs-resources:
   ru: Ресурсы
   en: Resources
+  hy: Ռեսուրսներ
 manage-tabs-remote:
   ru: Удаленная медиатека
   en: Remote library
+  hy: Հեռավոր մեդիա գրադարան
 manage-filewindow-buttons-choose:
   ru: Выбрать
   en: Select
+  hy: Ընտրեք
 manage-filewindow-buttons-cancel:
   ru: Отмена
   en: Cancel
+  hy: Չեղարկել
 manage-filewindow-title:
   ru: Выбор файлов
   en: Browse for files
