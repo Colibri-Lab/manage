@@ -111,6 +111,7 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
         const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
         files.Show(true, true, false).then((data) => {
             files.Dispose();
+
             this.value = this.value.concat(data);
             this.Dispatch('Changed', args);
         });
@@ -157,7 +158,8 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
                 continue;
             }
 
-            const id = 'file' + String.MD5(file.path);
+            const id = String.MD5(file.path);
+            file.id = id;
             let item = this._group.Children(id);
             if(item) {
                 item.value = file;
@@ -165,7 +167,7 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
             else {
                 this._group.AddItem(file, id);
             }
-            found.push(id);
+            found.push('item-' + id);
         }
 
         this._group.ForEach((name, item) => {

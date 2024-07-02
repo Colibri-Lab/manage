@@ -24,7 +24,7 @@ class RemoteFileServerController extends WebController
      */
     public function ListBuckets(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
-
+        
         if (!SecurityModule::$instance->current) {
             throw new PermissionDeniedException('Permission denied', 403);
         }

@@ -39,8 +39,10 @@ App.Modules.Manage.UI.RemoteFileListViewer = class extends Colibri.UI.Viewer {
 
     _showList() {
         this._group.Clear();
-        for(const v of this._value) {
-            this._group.AddItem(v);
+        if(isIterable(this._value)) {
+            for(const v of this._value) {
+                this._group.AddItem(v);
+            }
         }
     }
 

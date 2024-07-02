@@ -284,7 +284,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
                 name: {
                     type: 'varchar',
                     component: 'Text',
-                    default: item.value.name,
+                    default: item?.value?.name ?? '',
                     desc: '#{manage-remotefiles-messages-createbucket-desc}',
                     note: 'Введите название корзины',
                     params: {
