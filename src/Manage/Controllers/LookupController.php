@@ -2,6 +2,7 @@
 
 namespace App\Modules\Manage\Controllers;
 
+use Colibri\Common\StringHelper;
 use Colibri\Exceptions\PermissionDeniedException;
 use Colibri\Web\RequestCollection;
 use Colibri\Web\Controller as WebController;
@@ -52,8 +53,8 @@ class LookupController extends WebController
             $filter = [];
             $params = ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => 1000, 'params' => []];
             if ($term) {
-                $filter[] = '{' . $titleField . '} like [[term:string]]';
-                $params['params']['term'] = '%' . $term . '%';
+                $filter[] = 'lower({' . $titleField . '}) like [[term:string]]';
+                $params['params']['term'] = '%' . StringHelper::ToLower($term) . '%';
             }
             if ($dependsField && $paramField) {
                 $filter[] = '{' . $dependsField . '}=[[depends:string]]';
