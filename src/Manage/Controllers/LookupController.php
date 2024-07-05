@@ -43,6 +43,7 @@ class LookupController extends WebController
             $valueField = $storageLookup['value'] ?? 'value';
             $groupField = $storageLookup['group'] ?? null;
             $dependsField = $storageLookup['depends'] ?? null;
+            $limit = $storageLookup['limit'] ?? null;
             $orderField = strstr(($storageLookup['order'] ?: $titleField), '{') === false ? '{' . ($storageLookup['order'] ?: $titleField) . '}' : ($storageLookup['order'] ?? $titleField);
 
             $storage = Storages::Create()->Load($storageName);
@@ -61,6 +62,10 @@ class LookupController extends WebController
                 $params['params']['depends'] = $paramField;
             }
             $filter = !empty($filter) ? ' where ' . implode(' and ', $filter) : '';
+            if($limit) {
+                $params['page'] = 1;
+                $params['pagesize'] = $limit;
+            }
             $dataTable = DataTable::LoadByQuery($storage, 'select ' . $selectField . ' from ' . $storage->table . $filter . ' order by ' . $orderField, $params);
             if (!$dataTable) {
                 $ret = [];
