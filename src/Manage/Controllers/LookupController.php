@@ -51,8 +51,10 @@ class LookupController extends WebController
                 return $this->Finish(404, 'Not found');
             }
 
+            [$tableClass, $rowClass] = $storage->GetModelClasses();
+
             $filter = [];
-            $params = ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => 1000, 'params' => []];
+            $params = ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => 10000, 'params' => []];
             if ($term) {
                 $filter[] = 'lower({' . $titleField . '}) like [[term:string]]';
                 $params['params']['term'] = '%' . StringHelper::ToLower($term) . '%';
@@ -66,17 +68,21 @@ class LookupController extends WebController
                 $params['page'] = 1;
                 $params['pagesize'] = $limit;
             }
-            $dataTable = DataTable::LoadByQuery($storage, 'select ' . $selectField . ' from ' . $storage->table . $filter . ' order by ' . $orderField, $params);
+            $dataTable = $tableClass::LoadByQuery($storage, 'select ' . $selectField . ' from ' . $storage->table . $filter . ' order by ' . $orderField, $params);
             if (!$dataTable) {
                 $ret = [];
             } else {
                 $ret = [];
                 foreach ($dataTable as $row) {
-                    $r = [$titleField => $row->$titleField, $valueField => $row->$valueField];
-                    if ($groupField) {
-                        $r[$groupField] = $row->$groupField;
+                    if($selectField === '*') {
+                        $ret[] = $row->ToArray(true);
+                    } else {
+                        $r = [$titleField => $row->$titleField, $valueField => $row->$valueField];
+                        if ($groupField) {
+                            $r[$groupField] = $row->$groupField;
+                        }
+                        $ret[] = $r;
                     }
-                    $ret[] = $r;
                 }
             }
         }
