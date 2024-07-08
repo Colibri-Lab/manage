@@ -18,6 +18,13 @@ use Colibri\Data\DataAccessPoint;
 class LookupController extends WebController
 {
 
+    public function __construct(string|null $type = null)
+    {
+        parent::__construct($type);
+        $this->_cache = true;
+        $this->_lifetime = 600;
+    }
+
     /**
      * Returns a looked up data
      * @param RequestCollection $get
