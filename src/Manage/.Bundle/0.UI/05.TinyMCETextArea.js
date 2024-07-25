@@ -250,12 +250,12 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 tinymce.get(this._controlElementId).remove();
             }
 
-            const additionalButtons = this._createAdditionalSnippetsButtons();
-            const additionalTools = this._createAdditionalTools();
+            const additionalButtons = (this._fieldData?.params['has-snippets'] ?? true) ? this._createAdditionalSnippetsButtons() : null;
+            const additionalTools = (this._fieldData?.params['has-snippets'] ?? true) ? this._createAdditionalTools() : null;
 
             tinymce.init({
                 selector: '#' + this._controlElementId,
-                skin: 'nulla',
+                skin: this._fieldData?.params['tinymce-skin'] || 'nulla',
                 relative_urls: false,
                 remove_script_host: true,
                 allow_script_urls: true,
@@ -295,9 +295,9 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
                     "table contextmenu directionality emoticons template textcolor paste textcolor codemirror customautocomplete"
                 ],
-                toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
-                toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media embed code | pastetext | forecolor backcolor",
-                toolbar3: "grid_insert | table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
+                toolbar1: this._fieldData?.params['tinymce-toolbar1'] ? (this._fieldData?.params['tinymce-toolbar1'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar1']) : "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+                toolbar2: this._fieldData?.params['tinymce-toolbar2'] ? (this._fieldData?.params['tinymce-toolbar2'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar2']) : "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media embed code | pastetext | forecolor backcolor",
+                toolbar3: this._fieldData?.params['tinymce-toolbar3'] ? (this._fieldData?.params['tinymce-toolbar3'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar3']) :  "grid_insert | table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
                 toolbar4: additionalButtons,
                 customautocomplete: {
                     insertFrom: 'text',
@@ -324,12 +324,12 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
                 },
                 setup: (ed) => {
-
-                    additionalTools.forEach((button) => {
-                        button.editor = ed;
-                        ed.addButton(button.name, button);
-                    });
-
+                    if(additionalTools) {
+                        additionalTools.forEach((button) => {
+                            button.editor = ed;
+                            ed.addButton(button.name, button);
+                        });
+                    }
                     ed.on('change', (e) => {
                         this._savedValue = this._getValue();
                         this.Dispatch('Changed');
@@ -451,19 +451,22 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
             this.styleFormats = autoCompleteResult.result.styleFormats;
             this.tools = autoCompleteResult.result.tools;
 
-            this.__initVisual();
+            Colibri.Common.Delay(100).then(() => {
 
-            if (this._fieldData?.params?.visual == true) {
-                try {
-                    tinymce.get(this._controlElementId).setContent(val ? val : '', { format: 'raw' });
-                } catch (e) {
+                this.__initVisual();
+    
+                if (this._fieldData?.params?.visual == true) {
+                    try {
+                        tinymce.get(this._controlElementId).setContent(val ? val : '', { format: 'raw' });
+                    } catch (e) {
+                        this._input.value = val ? val : '';
+                    }
+                } else if (this._fieldData?.params?.code) {
+                    this._codemirror ? this._codemirror.setValue(val ? val : '') : (this._input.value = (val ? val : ''));
+                } else {
                     this._input.value = val ? val : '';
                 }
-            } else if (this._fieldData?.params?.code) {
-                this._codemirror ? this._codemirror.setValue(val ? val : '') : (this._input.value = (val ? val : ''));
-            } else {
-                this._input.value = val ? val : '';
-            }
+            })
 
         });
 
