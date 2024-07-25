@@ -726,6 +726,14 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         }
     }
 
+    Focus() {
+        if(this._fieldData?.params?.visual == true) {
+            tinymce.get(this._controlElementId)?.focus();
+        } else if(this._fieldData?.params?.code) {
+
+        }     
+    }
+
 }
 
 Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.TinyMCETextArea', 'App.Modules.Manage.UI.TinyMCETextArea', '#{manage-fields-tinymcetext}')

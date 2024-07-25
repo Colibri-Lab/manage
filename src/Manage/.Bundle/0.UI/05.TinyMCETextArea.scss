@@ -5,6 +5,9 @@
     [data-object-name$="-content"] {
         height: calc(100% - 40px);
     }
+    [data-object-name$="-title"] {
+        display: none !important;
+    }
 }
 .mce-tinymce {
     // This prevents the bottom border being clipped
