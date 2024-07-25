@@ -90,8 +90,10 @@ App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
         newNode.Expand();
 
         this._removeUnexistent();
-        if(!selected) {
-            this.selected = newNode;
+        if(selected) {
+            this.selected = selected;
+        } else {
+            this.selected = null;
         }
 
     }

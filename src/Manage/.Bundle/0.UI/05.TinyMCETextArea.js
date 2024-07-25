@@ -310,7 +310,9 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     const position = element.bounds();
                     position.top += position.height;
 
-                    this._filepicker = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body);
+                    if(!this._filepicker) {
+                        this._filepicker = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body);
+                    }
                     this._filepicker.Show(false).then((data) => {
                         const file = data[0];
                         if (file?.bucket) {

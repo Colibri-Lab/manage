@@ -79,6 +79,7 @@ App.Modules.Manage.Windows.FileWindow = class extends Colibri.UI.Window {
             this._tabs.headerContainer = true;
         }
 
+
         App.Loading.Show();
         return new Promise((resolve, reject) => {
             App.Loading.Hide();
