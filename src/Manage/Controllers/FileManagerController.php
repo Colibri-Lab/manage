@@ -298,8 +298,8 @@ class FileManagerController extends WebController
             $file->MoveTo($rootPath . $path . $file->name);
             $f = new File($rootPath . $path . $file->name);
             $ff = $f->ToArray();
-            $ff['path'] = '/' . str_replace($rootPath, '', $ff['path']);
-            $ff['parent'] = '/' . $path;
+            $ff['path'] = str_replace($rootPath, '', $ff['path']);
+            $ff['parent'] = $path;
             $filesArray[] = $ff;
         }
 
