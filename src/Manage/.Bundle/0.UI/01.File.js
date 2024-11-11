@@ -110,13 +110,13 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     }
 
     _showValue() {
-        this._path.value = this._value;
+        this._path.value = this._value?.path ?? this._value;
         this._showIcon();
     }
 
     _showIcon() {
         try {
-            const value = this._value;
+            const value = this._value?.path ?? this._value;
             const pi = value.pathinfo();
             if(!pi?.ext) {
                 this._icon.icon = null;
@@ -135,7 +135,7 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     
         }
         catch(e) {
-
+            console.log(e);
         }
         
     }
