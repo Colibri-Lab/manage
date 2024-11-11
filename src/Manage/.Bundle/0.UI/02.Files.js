@@ -181,7 +181,7 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
             else {
                 this._group.AddItem(file, id);
             }
-            found.push(id);
+            found.push('item-' + id);
         }
 
         this._group.ForEach((name, item) => {
