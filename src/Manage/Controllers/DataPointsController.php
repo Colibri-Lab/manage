@@ -46,7 +46,9 @@ class DataPointsController extends WebController
 
         $result = [];
         foreach (App::$dataAccessPoints->accessPoints->points as $name => $point) {
-            /** @var $point DataAccessPoint */
+            $dtp = App::$dataAccessPoints->Get($name);
+            $point->allowedTypes = $dtp->allowedTypes;
+            $point->dbms = $dtp->dbms;
             $result[$name] = $point;
         }
 

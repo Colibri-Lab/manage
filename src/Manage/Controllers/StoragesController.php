@@ -111,10 +111,8 @@ class StoragesController extends WebController
                 $storageArray['fields'] = $this->_convertFields($storageArray['fields']);
 
             }
-
-            // TODO: когда будем уверены
-            // TODO: $storage->Save($storageArray)
-
+            $storageArray['dbms'] = $storage->accessPoint->dbms;
+            $storageArray['allowedTypes'] = $storage->accessPoint->allowedTypes;
             $result[$name] = $storageArray;
         }
 
