@@ -52,6 +52,8 @@ class DataPointsController extends WebController
             $point->fieldsHasPrefix = $dtp->fieldsHasPrefix;
             $point->hasVirtual = $dtp->hasVirtual;
             $point->hasMultiFieldIndexes = $dtp->hasMultiFieldIndexes;
+            $point->indexTypes = $dtp->indexTypes;
+            $point->indexMethods = $dtp->indexMethods;
             $point->dbms = $dtp->dbms;
             $result[$name] = $point;
         }

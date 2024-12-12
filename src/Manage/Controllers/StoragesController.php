@@ -117,6 +117,8 @@ class StoragesController extends WebController
             $storageArray['hasVirtual'] = $storage->accessPoint->hasVirtual;
             $storageArray['hasMultiFieldIndexes'] = $storage->accessPoint->hasMultiFieldIndexes;
             $storageArray['fieldsHasPrefix'] = $storage->accessPoint->fieldsHasPrefix;
+            $storageArray['indexTypes'] = $storage->accessPoint->indexTypes;
+            $storageArray['indexMethods'] = $storage->accessPoint->indexMethods;
             $result[$name] = $storageArray;
         }
 
