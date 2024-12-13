@@ -85,6 +85,7 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
     }
 
     ReCreateForm(fields, value) {
+
         this._form.Clear();
         this._form.fields = fields;
 

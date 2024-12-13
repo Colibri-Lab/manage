@@ -54,6 +54,7 @@ class DataPointsController extends WebController
             $point->hasMultiFieldIndexes = $dtp->hasMultiFieldIndexes;
             $point->indexTypes = $dtp->indexTypes;
             $point->indexMethods = $dtp->indexMethods;
+            $point->jsonIndexes = $dtp->jsonIndexes;
             $point->dbms = $dtp->dbms;
             $result[$name] = $point;
         }
