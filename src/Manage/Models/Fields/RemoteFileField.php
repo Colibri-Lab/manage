@@ -54,9 +54,9 @@ class RemoteFileField
 
     /**
      * Данные файла
-     * @var string
+     * @var array|object
      */
-    private $_data;
+    private array|object|null $_data = null;
 
     /**
      * Поле
