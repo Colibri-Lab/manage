@@ -8,9 +8,11 @@ use Colibri\Web\RequestCollection;
 use Colibri\Web\Controller as WebController;
 use Colibri\Web\PayloadCopy;
 use App\Modules\Security\Module as SecurityModule;
+use Colibri\App;
 use Colibri\Data\Storages\Storages;
-use Colibri\Data\Storages\Models\DataTable;
 use Colibri\Data\DataAccessPoint;
+use Colibri\Data\Models\DataRow;
+use Colibri\Data\Models\DataTable;
 
 /**
  * Lookup data controller
@@ -23,6 +25,23 @@ class LookupController extends WebController
         parent::__construct($type);
         $this->_cache = true;
         $this->_lifetime = 600;
+    }
+
+    protected static function _replaceFields(string $value, string $table, DataAccessPoint $point): string
+    {
+        $res = preg_match_all('/\{([^\}]+)\}/', $value, $matches, \PREG_SET_ORDER);
+        if ($res > 0) {
+            foreach ($matches as $match) {
+                if(preg_match('/[\s\":;]/', $match[0]) === 0) {
+                    $value = str_replace(
+                        $match[0],
+                        $point->symbol . $table . '_' . $match[1] . $point->symbol,
+                        $value
+                    );
+                }
+            }
+        }
+        return $value;
     }
 
     /**
@@ -38,7 +57,7 @@ class LookupController extends WebController
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
-
+        $ret = [];
         $lookup = $post->{'lookup'};
         $term = $post->{'term'};
         $paramField = $post->{'param'};
@@ -60,26 +79,16 @@ class LookupController extends WebController
 
             [$tableClass, $rowClass] = $storage->GetModelClasses();
 
-            $filter = [];
-            $params = ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => 10000, 'params' => []];
-            if ($term) {
-                $filter[] = 'lower({' . $titleField . '}) like [[term:string]]';
-                $params['params']['term'] = '%' . StringHelper::ToLower($term) . '%';
+            $filters = [];
+           if ($dependsField && $paramField) {
+                $filters[$dependsField] = $paramField;
             }
-            if ($dependsField && $paramField) {
-                $filter[] = '{' . $dependsField . '}=[[depends:string]]';
-                $params['params']['depends'] = $paramField;
-            }
-            $filter = !empty($filter) ? ' where ' . implode(' and ', $filter) : '';
-            if($limit) {
-                $params['page'] = 1;
-                $params['pagesize'] = $limit;
-            }
-            $dataTable = $tableClass::LoadByQuery($storage, 'select ' . $selectField . ' from ' . $storage->table . $filter . ' order by ' . $orderField, $params);
+            $orderField = str_replace('{', '', $orderField);
+            $orderField = str_replace('}', '', $orderField);
+            $dataTable = $tableClass::LoadBy($limit ? 1 : -1, $limit ?: 1000, $term, $filters, $orderField, 'asc');
             if (!$dataTable) {
                 $ret = [];
             } else {
-                $ret = [];
                 foreach ($dataTable as $row) {
                     if($selectField === '*') {
                         $ret[] = $row->ToArray(true);
@@ -92,6 +101,24 @@ class LookupController extends WebController
                     }
                 }
             }
+        } elseif (isset($lookup['accesspoint'])) {
+
+            $pointData = $lookup['accesspoint'];
+            $point = App::$dataAccessPoints->Get($pointData['point']);
+            $table = $pointData['table'];
+            $fields = $pointData['fields'];
+            $filter = $pointData['filter'];
+            $order = $pointData['order'];
+            $limit = $pointData['limit'];
+
+            $sqlQuery = $point->CreateQuery('CreateSelect', [$table, $fields, $filter, $order]);
+            $sqlQuery = self::_replaceFields($sqlQuery, $table, $point);
+            $reader = $point->Query($sqlQuery, ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => $limit ?: 1000]);
+            $t = new DataTable($point, $reader);
+            foreach($t as $d) {
+                $ret[] = $d->ToArray(true);
+            }
+
         }
 
         return $this->Finish(200, 'ok', $ret);
