@@ -68,6 +68,7 @@ class LookupController extends WebController
             $titleField = $storageLookup['title'] ?? 'title';
             $valueField = $storageLookup['value'] ?? 'value';
             $groupField = $storageLookup['group'] ?? null;
+            $filter = $storageLookup['filter'] ?? null;
             $dependsField = $storageLookup['depends'] ?? null;
             $limit = $storageLookup['limit'] ?? null;
             $orderField = strstr(($storageLookup['order'] ?: $titleField), '{') === false ? '{' . ($storageLookup['order'] ?: $titleField) . '}' : ($storageLookup['order'] ?? $titleField);
@@ -80,8 +81,11 @@ class LookupController extends WebController
             [$tableClass, $rowClass] = $storage->GetModelClasses();
 
             $filters = [];
-           if ($dependsField && $paramField) {
+            if ($dependsField && $paramField) {
                 $filters[$dependsField] = $paramField;
+            }
+            if($filter) {
+                $filters['_'] = $filter;
             }
             $orderField = str_replace('{', '', $orderField);
             $orderField = str_replace('}', '', $orderField);
