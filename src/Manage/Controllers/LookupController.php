@@ -87,9 +87,10 @@ class LookupController extends WebController
             if($filter) {
                 $filters['_'] = $filter;
             }
+
             $orderField = str_replace('{', '', $orderField);
             $orderField = str_replace('}', '', $orderField);
-            $dataTable = $tableClass::LoadBy($limit ? 1 : -1, $limit ?: 1000, $term, $filters, $orderField, 'asc');
+            $dataTable = $tableClass::LoadBy($limit ? 1 : -1, $limit ?: 1000, $term, $filters, $orderField, '');
             if (!$dataTable) {
                 $ret = [];
             } else {
