@@ -61,7 +61,7 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
             contextmenu.push({name: 'remove-folder', title: '#{manage-contextmenu-deletefolder}', icon: Colibri.UI.ContextMenuRemoveIcon});
 
             args.item.contextmenu = contextmenu;
-            args.item.ShowContextMenu(args.isContextMenuEvent ? [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.RB] : [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.LB], '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
+            args.item.ShowContextMenu(args.isContextMenuEvent ? [Colibri.UI.ContextMenu.LB, Colibri.UI.ContextMenu.LT] : [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.RT], '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
         }
     }
 
@@ -114,7 +114,7 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
         contextmenu.push({name: 'separator'});
         contextmenu.push({name: 'download-file', title: '#{manage-contextmenu-downloadfile}', icon: Colibri.UI.ContextMenuDownloadIcon});
         args.item.contextmenu = contextmenu;
-        args.item.ShowContextMenu(args.isContextMenuEvent ? [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.RB] : [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.LB], '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
+        args.item.ShowContextMenu(args.isContextMenuEvent ? [Colibri.UI.ContextMenu.LB, Colibri.UI.ContextMenu.LT] : [Colibri.UI.ContextMenu.RB, Colibri.UI.ContextMenu.RT], '', args.isContextMenuEvent ? {left: args.domEvent.clientX, top: args.domEvent.clientY} : null);
     }
 
     /**
