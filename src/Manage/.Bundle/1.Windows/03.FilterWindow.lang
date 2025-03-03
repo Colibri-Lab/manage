@@ -2,35 +2,53 @@ manage-formwindow-buttons-save:
   ru: Сохранить
   en: Save
   hy: Պահպանել
+  it: Salva
+  es: Guardar
 manage-formwindow-buttons-cancel:
   ru: Отмена
   en: Cancel
   hy: Չեղարկել
+  it: Annulla
+  es: Cancelar
 manage-formwindow-buttons-no:
   ru: Нет
   en: No
   hy: Ոչ
+  it: No
+  es: No
 manage-formwindow-buttons-yes:
   ru: Да
   en: Yes
   hy: Այո՛
+  it: Sì
+  es: Sí
 manage-formwindow-buttons-nometter:
   ru: Не важно
   en: None
   hy: Կարևոր չէ
+  it: Nessuno
+  es: Ninguno
 manage-formwindow-buttons-clear:
   ru: Очистить фильтр
   en: Clear filters
   hy: Մաքրել ֆիլտրը
+  it: Pulisci filtri
+  es: Limpiar filtros
 manage-formwindow-id-desc:
   ru: ID
   en: ID
   hy: ID
+  it: ID
+  es: ID
 manage-formwindow-datecreated-desc:
   ru: Дата создания
   en: Creation date
   hy: Ստեղծման ամսաթիվը
+  it: Data di creazione
+  es: Fecha de creación
 manage-formwindow-datemodified-desc:
   ru: Дата изменения
   en: Modification date
   hy: Փոփոխության ամսաթիվը
+  it: Data di modifica
+  es: Fecha de modificación

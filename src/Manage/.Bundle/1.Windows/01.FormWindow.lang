@@ -2,7 +2,11 @@ manage-formwindow-buttons-save:
   ru: Сохранить
   en: Save
   hy: Պահպանել
+  it: Salva
+  es: Guardar
 manage-formwindow-buttons-cancel:
   ru: Отмена
   en: Cancel
   hy: Չեղարկել
+  it: Annulla
+  es: Cancelar

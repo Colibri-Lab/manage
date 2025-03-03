@@ -2,3 +2,5 @@ manage-fields-remotefile:
   ru: Файл из удаленного хранилища
   en: Remote file property
   hy: Ֆայլ հեռավոր պահեստից
+  it: Campo di tipo File remoto
+  es: Campo de tipo Archivo remoto

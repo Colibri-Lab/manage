@@ -2,150 +2,224 @@ manage-filemanager-folders:
   ru: Структура
   en: Structure
   hy: Կառուցվածքը
+  it: Struttura
+  es: Estructura
 manage-filemanager-files:
   ru: Файлы
   en: Files
   hy: Ֆայլեր
+  it: File
+  es: Archivos
 manage-filemanager-search:
   ru: Поиск
   en: Search
   hy: '"ՍԻՍ" ՍՊԸ'
+  it: Ricerca
+  es: Buscar
 manage-filemanager-filesempty:
   ru: Файлов не найдено
   en: No files found
   hy: Ֆայլեր չեն գտնվել
+  it: Nessun file trovato
+  es: No se encontraron archivos
 manage-filemanager-files-file:
   ru: Файл
   en: File
   hy: Ֆայլ
+  it: File
+  es: Archivo
 manage-filemanager-files-type:
   ru: Тип
   en: Type
   hy: Տիպ
+  it: Tipo
+  es: Tipo
 manage-filemanager-files-size:
   ru: Размер
   en: Size
   hy: Չափ
+  it: Dimensione
+  es: Tamaño
 manage-filemanager-files-created:
   ru: Создан
   en: Generated
   hy: Ստեղծվել է
+  it: Creato
+  es: Creado
 manage-filemanager-files-changed:
   ru: Изменен
   en: Changed
   hy: Փոփոխված
+  it: Modificato
+  es: Modificado
 manage-filemanager-buttons-upload:
   ru: Загрузить файлы
   en: Upload files
   hy: Բեռնել ֆայլեր
+  it: Carica file
+  es: Subir archivos
 manage-filemanager-buttons-editname:
   ru: Редактировать название
   en: Edit the name
   hy: Խմբագրել անունը
+  it: Modifica nome
+  es: Editar el nombre
 manage-filemanager-buttons-delete:
   ru: Удалить файлы
   en: Delete Files
   hy: Ջնջել ֆայլեր
+  it: Elimina file
+  es: Eliminar archivos
 manage-filemanager-remote-buckets:
   ru: Корзины
   en: Baskets
   hy: Զամբյուղներ
+  it: Cestini
+  es: Cestas
 manage-filemanager-remote-files:
   ru: Файлы
   en: Files
   hy: Ֆայլեր
+  it: File
+  es: Archivos
 manage-filemanager-remote-search:
   ru: Поиск
   en: Search
   hy: '"ՍԻՍ" ՍՊԸ'
+  it: Ricerca
+  es: Buscar
 manage-filemanager-remote-filesempty:
   ru: Файлов в корзине не найдено
   en: No files found in the trash
   hy: Զամբյուղում ֆայլեր չեն հայտնաբերվել
+  it: Nessun file trovato nel cestino
+  es: No se encontraron archivos en la papelera
 manage-filemanager-remote-created:
   ru: Создана
   en: Created
   hy: Ստեղծվել է
+  it: Creato
+  es: Creado
 manage-filemanager-remote-key:
   ru: Ключ
   en: Key
   hy: Բանալին
+  it: Chiave
+  es: Clave
 manage-filemanager-remote-file:
   ru: Файл
   en: File
   hy: Ֆայլ
+  it: File
+  es: Archivo
 manage-filemanager-remote-type:
   ru: Тип
   en: Type
   hy: Տիպ
+  it: Tipo
+  es: Tipo
 manage-filemanager-remote-size:
   ru: Размер
   en: Size
   hy: Չափ
+  it: Dimensione
+  es: Tamaño
 manage-filemanager-remote-hash:
   ru: Хэш
   en: Hash
   hy: Հաշ
+  it: Hash
+  es: Hash
 manage-filemanager-remote-path:
   ru: Путь
   en: Way
   hy: Ճանապարհ
+  it: Percorso
+  es: Ruta
 manage-filemanager-remote-buttons-upload:
   ru: Загрузить файлы
   en: Upload files
   hy: Բեռնել ֆայլեր
+  it: Carica file
+  es: Subir archivos
 manage-filemanager-remote-buttons-remove:
   ru: Удалить
   en: Remove
   hy: Ջնջել
+  it: Rimuovi
+  es: Eliminar
 manage-tabs-resources:
   ru: Ресурсы
   en: Resources
   hy: Ռեսուրսներ
+  it: Risorse
+  es: Recursos
 manage-tabs-remote:
   ru: Удаленная медиатека
   en: Remote Media Library
   hy: Հեռավոր Մեդիա
+  it: Libreria multimediale remota
+  es: Biblioteca de medios remota
 manage-components-tinymce-add-snippet:
   ru: Вставить снипет
   en: Insert a snippet
   hy: Տեղադրեք snipet
+  it: Inserisci snippet
+  es: Insertar un fragmento
 manage-components-tinymce-choose-snippet:
   ru: Выбрать снипет
   en: Choose a snippet
   hy: Ընտրել snipet
+  it: Scegli snippet
+  es: Elegir un fragmento
 manage-components-tinymce-snippet:
   ru: Снипет
   en: Snippet
   hy: Սնիպետ
+  it: Snippet
+  es: Fragmento
 manage-components-tinymce-edit-snippet:
   ru: Редактировать снипет
   en: Edit Snippet
   hy: Խմբագրել snipet
+  it: Modifica snippet
+  es: Editar fragmento
 manage-components-tinymce-params:
   ru: Параметры
   en: Parameters
   hy: Պարամետրեր
+  it: Parametri
+  es: Parámetros
 manage-components-tinymce-flexblock:
   ru: Флексбокс (в начало, пространство между блоками)
   en: Flexbox (to the beginning, the space between the blocks)
   hy: Flexbox (ի սկզբանե, տարածք միջեւ բլոկների)
+  it: Flexbox (all'inizio, lo spazio tra i blocchi)
+  es: Flexbox (al principio, el espacio entre los bloques)
 manage-contextmenu-newfolder:
   ru: Новый раздел
   en: New section
   hy: Նոր բաժին
+  it: Nuova sezione
+  es: Nueva sección
 manage-contextmenu-editfolder:
   ru: Редактировать раздел
   en: Edit a section
   hy: Խմբագրել բաժինը
+  it: Modifica sezione
+  es: Editar una sección
 manage-contextmenu-deletefolder:
   ru: Удалить раздел
   en: Delete a section
   hy: Ջնջել բաժինը
+  it: Elimina sezione
+  es: Eliminar una sección
 manage-folders-messages-removefolder:
   ru: Удаление папки
   en: Deleting a folder
   hy: Ջնջել թղթապանակը
+  it: Eliminazione cartella
+  es: Eliminando una carpeta
 manage-folders-messages-removefoldermessage:
   ru: Вы уверены, что хотите удалить папку? Внимание! Вместе с папкой будет
     удалено все ее содержание!
@@ -153,55 +227,89 @@ manage-folders-messages-removefoldermessage:
     be deleted along with the folder!
   hy: "Համոզված եք, որ ցանկանում եք ջնջել թղթապանակը: Ուշադրություն! Թղթապանակի
     հետ միասին ջնջվում է բոլոր բովանդակությունը:"
+  it: Sei sicuro di voler eliminare la cartella? Attenzione! Tutti i suoi contenuti saranno eliminati insieme alla cartella!
+  es: ¿Estás seguro de que quieres eliminar la carpeta? ¡Atención! Todo su contenido será eliminado junto con la carpeta.
 manage-contextmenu-editfile:
   ru: Редактировать файл
   en: Edit a file
   hy: Խմբագրել ֆայլը
+  it: Modifica file
+  es: Editar un archivo
 manage-contextmenu-deletefile:
   ru: Удалить файл
   en: Delete a file
   hy: Ջնջել ֆայլը
+  it: Elimina file
+  es: Eliminar un archivo
 manage-contextmenu-downloadfile:
   ru: Скачать файл
   en: Download file
   hy: Բեռնել ֆայլը
+  it: Scarica file
+  es: Descargar archivo
 manage-files-messages-editfile:
   ru: Редактирование названия файла
   en: Editing the file name
   hy: Խմբագրել ֆայլի անունը
+  it: Modifica nome file
+  es: Editando el nombre del archivo
 manage-files-fields-name-desc:
   ru: Название файла
   en: File name
   hy: Ֆայլի անունը
+  it: Nome file
+  es: Nombre del archivo
 manage-files-fields-name-note:
   ru: Введите название файла
   en: Enter the file name
   hy: Մուտքագրեք ֆայլի անունը
+  it: Inserisci il nome del file
+  es: Introduzca el nombre del archivo
 manage-files-fields-name-validation1:
   ru: Пожалуйста, введите название файла!
   en: Please enter the file name!
   hy: Խնդրում ենք մուտքագրել ֆայլի անունը!
+  it: Per favore inserisci il nome del file!
+  es: Por favor, introduzca el nombre del archivo!
 manage-files-messages-removefile:
   ru: Удаление файла
   en: Deleting a file
   hy: Ջնջել ֆայլը
+  it: Eliminazione file
+  es: Eliminando un archivo
 manage-files-messages-removefilemessage:
   ru: Вы уверены, что хотите удалить файл?
   en: Are you sure you want to delete the file?
   hy: "Վստահ եք, որ ցանկանում եք ջնջել ֆայլը:"
+  it: Sei sicuro di voler eliminare il file?
+  es: ¿Estás seguro de que quieres eliminar el archivo?
 manage-permissions:
   ru: Доступ к модулю Manage
   en: Access to Manage module
   hy: Մուտք դեպի Կառավարում մոդուլ
+  it: Accesso al modulo Gestisci
+  es: Acceso al módulo de gestión
 manage-backups-permissions:
   ru: Доступ к системе восстановления
   en: Access to the recovery system
+  hy: Վերականգնման համակարգ
+  it: Accesso al sistema di recupero
+  es: Acceso al sistema de recuperación
 manage-backups-create-permissions:
   ru: Создание точки восстановления
   en: Create a restore point
+  hy: Վերականգնման կետի ստեղծում
+  it: Crea un punto di ripristino
+  es: Crear un punto de restauración
 manage-backups-restore-permissions:
   ru: Восстановление из точки
   en: Recovery from a point
+  hy: Վերականգնում կետից
+  it: Ripristino da un punto
+  es: Recuperación desde un punto
 manage-execute-permissions:
   ru: Выполнение скриптов
   en: Executing scripts
+  hy: Գործարկում սկրիպտներ
+  it: Esecuzione di script
+  es: Ejecución de scripts
