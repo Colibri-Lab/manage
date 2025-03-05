@@ -4,96 +4,128 @@ manage-filemanager-folders:
   hy: Կառուցվածք
   it: Struttura
   es: Estructura
+  kk: Құрылым
+  uz: Tuzilma
 manage-filemanager-files:
   ru: Файлы
   en: Files
   hy: Ֆայլեր
   it: File
   es: Archivos
+  kk: Файлдар
+  uz: Fayllar
 manage-filemanager-search:
   ru: Поиск
   en: Search
   hy: Որոնում
   it: Ricerca
   es: Buscar
+  kk: Іздеу
+  uz: Qidiruv
 manage-filemanager-filesempty:
   ru: Файлов не найдено
   en: No files found
   hy: Ֆայլեր չեն գտնվել
   it: Nessun file trovato
   es: No se encontraron archivos
+  kk: Файлдар табылмады
+  uz: Fayllar topilmadi
 manage-filemanager-files-file:
   ru: Файл
   en: File
   hy: Ֆայլ
   it: File
   es: Archivo
+  kk: Файл
+  uz: Fayl
 manage-filemanager-files-type:
   ru: Тип
   en: Type
   hy: Տիպ
   it: Tipo
   es: Tipo
+  kk: Түрі
+  uz: Turi
 manage-filemanager-files-size:
   ru: Размер
   en: Size
   hy: Չափը
   it: Dimensione
   es: Tamaño
+  kk: Өлшемі
+  uz: Hajmi
 manage-filemanager-files-created:
   ru: Создан
   en: Created
   hy: Ստեղծվել է
   it: Creato
   es: Creado
+  kk: Жасалған
+  uz: Yaratilgan
 manage-filemanager-files-changed:
   ru: Изменен
   en: Modified
   hy: Փոխվել է
   it: Modificato
   es: Modificado
+  kk: Өзгертілген
+  uz: O'zgartirilgan
 manage-filemanager-buttons-upload:
   ru: Загрузить файлы
   en: Upload files
   hy: Բեռնել ֆայլեր
   it: Carica file
   es: Subir archivos
+  kk: Файлдарды жүктеу
+  uz: Fayllarni yuklash
 manage-filemanager-buttons-editname:
   ru: Редактировать название
   en: Edit file name
   hy: Խմբագրել վերնագիրը
   it: Modifica nome file
   es: Editar nombre del archivo
+  kk: Атын өзгерту
+  uz: Nomini tahrirlash
 manage-filemanager-buttons-delete:
   ru: Удалить файлы
   en: Delete files
   hy: Ջնջել ֆայլերը
   it: Elimina file
   es: Eliminar archivos
+  kk: Файлдарды жою
+  uz: Fayllarni o'chirish
 manage-contextmenu-newfolder:
   ru: Новый раздел
   en: New folder
   hy: Նոր բաժին
   it: Nuova cartella
   es: Nueva carpeta
+  kk: Жаңа қалта
+  uz: Yangi papka
 manage-contextmenu-editfolder:
   ru: Редактировать раздел
   en: Edit folder
   hy: Խմբագրել բաժինը
   it: Modifica cartella
   es: Editar carpeta
+  kk: Қалтаны өңдеу
+  uz: Papkani tahrirlash
 manage-contextmenu-deletefolder:
   ru: Удалить раздел
   en: Delete folder
   hy: Ջնջել բաժանումը
   it: Elimina cartella
   es: Eliminar carpeta
+  kk: Қалтаны жою
+  uz: Papkani o'chirish
 manage-folders-messages-removefolder:
   ru: Удаление папки
   en: Delete folder
   hy: Թղթապանակ ջնջելը
   it: Elimina cartella
   es: Eliminar carpeta
+  kk: Қалтаны жою
+  uz: Papkani o'chirish
 manage-folders-messages-removefoldermessage:
   ru: Вы уверены, что хотите удалить папку? Внимание! Вместе с папкой будет
     удалено все ее содержание!
@@ -103,75 +135,101 @@ manage-folders-messages-removefoldermessage:
     բովանդակությունը կջնջվի թղթապանակի հետ միասին:"
   it: Sei sicuro di voler eliminare la cartella? Attenzione! Insieme alla cartella verranno eliminati tutti i suoi contenuti!
   es: ¿Estás seguro de que quieres eliminar la carpeta? ¡Atención! Junto con la carpeta, se eliminarán todos sus contenidos.
+  kk: Қалтаны жойғыңыз келетініне сенімдісіз бе? Назар аударыңыз! Қалтамен бірге оның барлық мазмұны жойылады!
+  uz: Papkani o'chirmoqchimisiz? Diqqat! Papka bilan birga uning barcha mazmuni o'chiriladi!
 manage-contextmenu-editfile:
   ru: Редактировать файл
   en: Edit file
   hy: Խմբագրել ֆայլը
   it: Modifica file
   es: Editar archivo
+  kk: Файлды өңдеу
+  uz: Faylni tahrirlash
 manage-contextmenu-deletefile:
   ru: Удалить файл
   en: Delete file
   hy: Ջնջել ֆայլը
   it: Elimina file
   es: Eliminar archivo
+  kk: Файлды жою
+  uz: Faylni o'chirish
 manage-contextmenu-downloadfile:
   ru: Скачать файл
   en: Download file
   hy: Ներբեռնել ֆայլը
   it: Scarica file
   es: Descargar archivo
+  kk: Файлды жүктеу
+  uz: Faylni yuklab olish
 manage-files-messages-editfile:
   ru: Редактирование названия файла
   en: Edit the file name
   hy: Ֆայլի անունը խմբագրելը
   it: Modifica il nome del file
   es: Editar el nombre del archivo
+  kk: Файлдың атын өңдеу
+  uz: Fayl nomini tahrirlash
 manage-files-fields-name-desc:
   ru: Название файла
   en: File name
   hy: Ֆայլի անունը
   it: Nome del file
   es: Nombre del archivo
+  kk: Файлдың аты
+  uz: Fayl nomi
 manage-files-fields-name-note:
   ru: Введите название файла
   en: Enter the file name
   hy: Մուտքագրեք ֆայլի անունը
   it: Inserisci il nome del file
   es: Introduzca el nombre del archivo
+  kk: Файлдың атын енгізіңіз
+  uz: Fayl nomini kiriting
 manage-files-fields-name-validation1:
   ru: Пожалуйста, введите название файла!
   en: Please enter a file name!
   hy: "Խնդրում ենք մուտքագրել ֆայլի անունը:"
   it: Per favore inserisci il nome del file!
   es: ¡Por favor, introduzca un nombre de archivo!
+  kk: Файлдың атын енгізіңіз!
+  uz: Iltimos, fayl nomini kiriting!
 manage-files-messages-removefile:
   ru: Удаление файла
   en: Delete file
   hy: Ֆայլի ջնջում
   it: Elimina file
   es: Eliminar archivo
+  kk: Файлды жою
+  uz: Faylni o'chirish
 manage-files-messages-removefilemessage:
   ru: Вы уверены, что хотите удалить файл?
   en: Are you sure you want to delete the file?
   hy: "Իսկապե՞ս ուզում եք ջնջել ֆայլը:"
   it: Sei sicuro di voler eliminare il file?
   es: ¿Estás seguro de que quieres eliminar el archivo?
+  kk: Файлды жойғыңыз келетініне сенімдісіз бе?
+  uz: Faylni o'chirmoqchimisiz?
 manage-folders-messages-removefoldermessage-delete:
   ru: Удалить!
   en: Delete
   hy: Ջնջել!
   it: Elimina!
   es: ¡Eliminar!
+  kk: Жою!
+  uz: O'chirish!
 manage-files-messages-editfile-save:
   ru: Сохранить
   en: Save
   hy: Պահպանել
   it: Salva
   es: Guardar
+  kk: Сақтау
+  uz: Saqlash
 manage-files-messages-removefilemessage-delete:
   ru: Удалить!
   en: Delete
   hy: Ջնջել!
   it: Elimina!
   es: ¡Eliminar!
+  kk: Жою!
+  uz: O'chirish!

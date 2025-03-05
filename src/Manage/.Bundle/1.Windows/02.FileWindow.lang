@@ -4,27 +4,37 @@ manage-tabs-resources:
   hy: Ռեսուրսներ
   it: Risorse
   es: Recursos
+  kk: Ресурстар
+  uz: Resurslar
 manage-tabs-remote:
   ru: Удаленная медиатека
   en: Remote library
   hy: Հեռավոր մեդիա գրադարան
   it: Libreria remota
   es: Biblioteca remota
+  kk: Қашықтағы кітапхана
+  uz: Uzoqdagi kutubxona
 manage-filewindow-buttons-choose:
   ru: Выбрать
   en: Select
   hy: Ընտրեք
   it: Seleziona
   es: Seleccionar
+  kk: Таңдау
+  uz: Tanlash
 manage-filewindow-buttons-cancel:
   ru: Отмена
   en: Cancel
   hy: Չեղարկել
   it: Annulla
   es: Cancelar
+  kk: Болдырмау
+  uz: Bekor qilish
 manage-filewindow-title:
   ru: Выбор файлов
   en: Browse for files
   hy: Ֆայլերի ընտրություն
   it: Sfoglia i file
   es: Buscar archivos
+  kk: Файлдарды қарау
+  uz: Fayllarni ko'rib chiqish

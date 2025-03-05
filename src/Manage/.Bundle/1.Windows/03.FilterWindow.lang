@@ -4,51 +4,69 @@ manage-formwindow-buttons-save:
   hy: Պահպանել
   it: Salva
   es: Guardar
+  kk: Сақтау
+  uz: Saqlash
 manage-formwindow-buttons-cancel:
   ru: Отмена
   en: Cancel
   hy: Չեղարկել
   it: Annulla
   es: Cancelar
+  kk: Болдырмау
+  uz: Bekor qilish
 manage-formwindow-buttons-no:
   ru: Нет
   en: No
   hy: Ոչ
   it: No
   es: No
+  kk: Жоқ
+  uz: Yo'q
 manage-formwindow-buttons-yes:
   ru: Да
   en: Yes
   hy: Այո՛
   it: Sì
   es: Sí
+  kk: Иә
+  uz: Ha
 manage-formwindow-buttons-nometter:
   ru: Не важно
   en: None
   hy: Կարևոր չէ
   it: Nessuno
   es: Ninguno
+  kk: Маңызды емес
+  uz: Muhim emas
 manage-formwindow-buttons-clear:
   ru: Очистить фильтр
   en: Clear filters
   hy: Մաքրել ֆիլտրը
   it: Pulisci filtri
   es: Limpiar filtros
+  kk: Сүзгіні тазалау
+  uz: Filtrlarni tozalash
 manage-formwindow-id-desc:
   ru: ID
   en: ID
   hy: ID
   it: ID
   es: ID
+  kk: ID
+  uz: ID
 manage-formwindow-datecreated-desc:
   ru: Дата создания
   en: Creation date
   hy: Ստեղծման ամսաթիվը
   it: Data di creazione
   es: Fecha de creación
+  kk: Жасалған күні
+  uz: Yaratilgan sana
 manage-formwindow-datemodified-desc:
   ru: Дата изменения
   en: Modification date
   hy: Փոփոխության ամսաթիվը
   it: Data di modifica
   es: Fecha de modificación
+  kk: Өзгертілген күні
+  uz: O'zgartirilgan sana

@@ -4,144 +4,192 @@ manage-filemanager-remote-buckets:
   hy: Զամբյուղներ
   it: Cestini
   es: Cubos
+  kk: Шелек
+  uz: Savatlar
 manage-filemanager-remote-files:
   ru: Файлы
   en: Files
   hy: Ֆայլեր
   it: File
   es: Archivos
+  kk: Файлдар
+  uz: Fayllar
 manage-filemanager-remote-search:
   ru: Поиск
   en: Search
   hy: Որոնում
   it: Cerca
   es: Buscar
+  kk: Іздеу
+  uz: Qidiruv
 manage-filemanager-remote-filesempty:
   ru: Файлов в корзине не найдено
   en: No files in bucket
   hy: Զամբյուղում ֆայլեր չեն գտնվել
   it: Nessun file nel cestino
   es: No hay archivos en el cubo
+  kk: Шелекте файлдар табылмады
+  uz: Savatda fayllar topilmadi
 manage-filemanager-remote-created:
   ru: Создана
   en: Created
   hy: Ստեղծվել է
   it: Creato
   es: Creado
+  kk: Жасалды
+  uz: Yaratilgan
 manage-filemanager-remote-key:
   ru: Ключ
   en: Key
   hy: Բանալի
   it: Chiave
   es: Clave
+  kk: Кілт
+  uz: Kalit
 manage-filemanager-remote-file:
   ru: Файл
   en: File
   hy: Ֆայլ
   it: File
   es: Archivo
+  kk: Файл
+  uz: Fayl
 manage-filemanager-remote-type:
   ru: Тип
   en: Type
   hy: Տիպ
   it: Tipo
   es: Tipo
+  kk: Түрі
+  uz: Turi
 manage-filemanager-remote-size:
   ru: Размер
   en: Size
   hy: Չափը
   it: Dimensione
   es: Tamaño
+  kk: Өлшемі
+  uz: Hajmi
 manage-filemanager-remote-hash:
   ru: Хэш
   en: Hash
   hy: Հեշ
   it: Hash
   es: Hash
+  kk: Хэш
+  uz: Xesh
 manage-filemanager-remote-path:
   ru: Путь
   en: Path
   hy: Ճանապարհ
   it: Percorso
   es: Ruta
+  kk: Жол
+  uz: Yo'l
 manage-filemanager-remote-buttons-upload:
   ru: Загрузить файлы
   en: Upload files
   hy: Բեռնել ֆայլեր
   it: Carica file
   es: Subir archivos
+  kk: Файлдарды жүктеу
+  uz: Fayllarni yuklash
 manage-filemanager-remote-buttons-remove:
   ru: Удалить
   en: Delete
   hy: Ջնջել
   it: Elimina
   es: Eliminar
+  kk: Жою
+  uz: O'chirish
 manage-contextmenu-downloadfile:
   ru: Скачать файл
   en: Download file
   hy: Ներբեռնել ֆայլը
   it: Scarica file
   es: Descargar archivo
+  kk: Файлды жүктеу
+  uz: Faylni yuklab olish
 manage-remotefiles-messages-removefile:
   ru: Удаление файлов из удаленного хранилища
   en: Deleting files from remote storage
   hy: Հեռավոր պահեստից ֆայլերի ջնջում
   it: Eliminazione file dall'archivio remoto
   es: Eliminando archivos del almacenamiento remoto
+  kk: Қашықтағы қоймадан файлдарды жою
+  uz: Uzoqdagi ombordan fayllarni o'chirish
 manage-remotefiles-messages-removefile-message:
   ru: Вы уверены, что хотите удалить выбранный файл?
   en: Are you sure you want to delete the selected file?
   hy: "Իսկապե՞ս ուզում եք ջնջել ընտրված ֆայլը:"
   it: Sei sicuro di voler eliminare il file selezionato?
   es: ¿Estás seguro de que quieres eliminar el archivo seleccionado?
+  kk: Таңдалған файлды жойғыңыз келетініне сенімдісіз бе?
+  uz: Tanlangan faylni o'chirmoqchimisiz?
 manage-contextmenu-deletefile:
   ru: Удалить
   en: Delete
   hy: Ջնջել
   it: Elimina
   es: Eliminar
+  kk: Жою
+  uz: O'chirish
 manage-contextmenu-createbucket:
   ru: Новая корзина
   en: Create bucket
   hy: Նոր սայլ
   it: Crea cestino
   es: Crear cubo
+  kk: Жаңа шелек
+  uz: Yangi savat yaratish
 manage-contextmenu-deletebucket:
   ru: Удалить корзину
   en: Delete bucket
   hy: Հեռացնել զամբյուղը
   it: Elimina cestino
   es: Eliminar cubo
+  kk: Шелекті жою
+  uz: Savatni o'chirish
 manage-remotefiles-messages-createbucket:
   ru: Создание корзины
   en: Bucket creation
   hy: Սայլի ստեղծում
   it: Creazione cestino
   es: Creación de cubo
+  kk: Шелек жасау
+  uz: Savat yaratish
 manage-remotefiles-messages-createbucket-desc:
   ru: Название корзины
   en: Bucket name
   hy: Զամբյուղի անվանումը
   it: Nome del cestino
   es: Nombre del cubo
+  kk: Шелек атауы
+  uz: Savat nomi
 manage-remotefiles-messages-createbucket-validate1:
   ru: Пожалуйста, введите название корзины!
   en: "Please enter the bucket name "
   hy: "Խնդրում ենք մուտքագրել զամբյուղի անունը:"
   it: "Per favore inserisci il nome del cestino"
   es: "Por favor ingrese el nombre del cubo"
+  kk: "Шелек атауын енгізіңіз"
+  uz: "Savat nomini kiriting"
 manage-remotefiles-messages-createbucket-button:
   ru: Сохранить
   en: Save
   hy: Պահպանել
   it: Salva
   es: Guardar
+  kk: Сақтау
+  uz: Saqlash
 manage-remotefiles-messages-deletebucket:
   ru: Удаление корзины
   en: Delete bucket
   hy: Վերամշակման աղբարկղը հեռացնելը
   it: Eliminazione cestino
   es: Eliminación de cubo
+  kk: Шелекті жою
+  uz: Savatni o'chirish
 manage-remotefiles-messages-deletebucket-message:
   ru: Вы уверены, что хотите удалить корзину? Все файлы внутри корзины будут
     удалены физически!
@@ -151,33 +199,45 @@ manage-remotefiles-messages-deletebucket-message:
     կջնջվեն:"
   it: "Sei sicuro di voler eliminare il cestino? Tutti i file all'interno del cestino saranno eliminati fisicamente!"
   es: "¿Estás seguro de que quieres eliminar el cubo? ¡Todos los archivos dentro del cubo serán eliminados físicamente!"
+  kk: "Шелекті жойғыңыз келетініне сенімдісіз бе? Шелектегі барлық файлдар физикалық түрде жойылады!"
+  uz: "Savatni o'chirmoqchimisiz? Savat ichidagi barcha fayllar jismonan o'chiriladi!"
 manage-remotefiles-messages-removefile-message-delete:
   ru: Удалить!
   en: Delete
   hy: Ջնջել!
   it: Elimina!
   es: ¡Eliminar!
+  kk: Жою!
+  uz: O'chirish!
 manage-remotefiles-messages-removefiles:
   ru: Удаление файлов из удаленного хранилища
   en: Deleting files from remote storage
   hy: Հեռավոր պահեստից ֆայլերի ջնջում
   it: Eliminazione file dall'archivio remoto
   es: Eliminando archivos del almacenamiento remoto
+  kk: Қашықтағы қоймадан файлдарды жою
+  uz: Uzoqdagi ombordan fayllarni o'chirish
 manage-remotefiles-messages-removefiles-message:
   ru: Вы уверены, что хотите удалить выбранный файлы?
   en: Are you sure you want to delete the selected files?
   hy: "Իսկապե՞ս ուզում եք ջնջել ընտրված ֆայլերը:"
   it: Sei sicuro di voler eliminare i file selezionati?
   es: ¿Estás seguro de que quieres eliminar los archivos seleccionados?
+  kk: Таңдалған файлдарды жойғыңыз келетініне сенімдісіз бе?
+  uz: Tanlangan fayllarni o'chirmoqchimisiz?
 manage-remotefiles-messages-removefiles-message-delete:
   ru: Удалить!
   en: Delete
   hy: Ջնջել!
   it: Elimina!
   es: ¡Eliminar!
+  kk: Жою!
+  uz: O'chirish!
 manage-remotefiles-messages-deletebucket-delete:
   ru: Удалить!
   en: Delete
   hy: Ջնջել!
   it: Elimina!
   es: ¡Eliminar!
+  kk: Жою!
+  uz: O'chirish!

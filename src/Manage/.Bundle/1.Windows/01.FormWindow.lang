@@ -4,9 +4,13 @@ manage-formwindow-buttons-save:
   hy: Պահպանել
   it: Salva
   es: Guardar
+  kk: Сақтау
+  uz: Saqlash
 manage-formwindow-buttons-cancel:
   ru: Отмена
   en: Cancel
   hy: Չեղարկել
   it: Annulla
   es: Cancelar
+  kk: Болдырмау
+  uz: Bekor qilish

@@ -4,45 +4,61 @@ manage-components-tinymce-add-snippet:
   hy: Տեղադրեք հատված
   it: Inserisci snippet
   es: Insertar fragmento
+  kk: Сниппет қосу
+  uz: Snippet qo'shish
 manage-components-tinymce-choose-snippet:
   ru: Выбрать снипет
   en: Choose snippet
   hy: Ընտրեք հատված
   it: Scegli snippet
   es: Elegir fragmento
+  kk: Сниппетті таңдау
+  uz: Snippetni tanlash
 manage-components-tinymce-snippet:
   ru: Снипет
   en: Snippet
   hy: Հատված
   it: Snippet
   es: Fragmento
+  kk: Сниппет
+  uz: Snippet
 manage-components-tinymce-edit-snippet:
   ru: Редактировать снипет
   en: Edit snippet
   hy: Խմբագրել հատվածը
   it: Modifica snippet
   es: Editar fragmento
+  kk: Сниппетті өңдеу
+  uz: Snippetni tahrirlash
 manage-components-tinymce-params:
   ru: Параметры
   en: Parameters of
   hy: Ընտրանքներ
   it: Parametri
   es: Parámetros
+  kk: Параметрлер
+  uz: Parametrlar
 manage-components-tinymce-flexblock:
   ru: Флексбокс (в начало, пространство между блоками)
   en: Flexbox (to the beginning, space between blocks)
   hy: Flexbox (ետ վերև, բլոկների միջև տարածություն)
   it: Flexbox (all'inizio, spazio tra i blocchi)
   es: Flexbox (al principio, espacio entre bloques)
+  kk: Flexbox (бастапқыға, блоктар арасындағы кеңістік)
+  uz: Flexbox (boshida, bloklar orasidagi bo'shliq)
 manage-components-tinymce-add-component:
   ru: Вставить компонент
   en: Add component
   hy: Ավելացնել կոմպոնենտ
   it: Aggiungi componente
   es: Añadir componente
+  kk: Компонент қосу
+  uz: Komponent qo'shish
 manage-fields-tinymcetext:
   ru: Визуальный редактор
   en: Visual TinyMCE editor
   hy: TinyMCE խմբագիր
   it: Editor TinyMCE visuale
   es: Editor visual TinyMCE
+  kk: Визуалды TinyMCE редакторы
+  uz: Vizual TinyMCE muharriri
