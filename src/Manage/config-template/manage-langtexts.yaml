@@ -301,10 +301,14 @@ manage-folders-messages-removefoldermessage:
     be deleted along with the folder!
   hy: "Համոզված եք, որ ցանկանում եք ջնջել թղթապանակը: Ուշադրություն! Թղթապանակի
     հետ միասին ջնջվում է բոլոր բովանդակությունը:"
-  it: Sei sicuro di voler eliminare la cartella? Attenzione! Tutti i suoi contenuti saranno eliminati insieme alla cartella!
-  es: ¿Estás seguro de que quieres eliminar la carpeta? ¡Atención! Todo su contenido será eliminado junto con la carpeta.
-  kk: Қалтаны жойғыңыз келетініне сенімдісіз бе? Назар аударыңыз! Қалтадағы барлық мазмұн жойылады!
-  uz: Papkani o'chirmoqchimisiz? Diqqat! Papka bilan birga uning barcha mazmuni o'chiriladi!
+  it: Sei sicuro di voler eliminare la cartella? Attenzione! Tutti i suoi
+    contenuti saranno eliminati insieme alla cartella!
+  es: ¿Estás seguro de que quieres eliminar la carpeta? ¡Atención! Todo su
+    contenido será eliminado junto con la carpeta.
+  kk: Қалтаны жойғыңыз келетініне сенімдісіз бе? Назар аударыңыз! Қалтадағы барлық
+    мазмұн жойылады!
+  uz: Papkani o'chirmoqchimisiz? Diqqat! Papka bilan birga uning barcha mazmuni
+    o'chiriladi!
 manage-contextmenu-editfile:
   ru: Редактировать файл
   en: Edit a file
