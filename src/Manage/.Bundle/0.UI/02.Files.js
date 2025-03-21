@@ -214,4 +214,4 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
     }
 
 }
-Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.Files', 'App.Modules.Manage.UI.Files', '#{manage-fields-localfiles}');
+Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.Files', 'App.Modules.Manage.UI.Files', '#{manage-fields-localfiles}', null, ['required','enabled','canbeempty','readonly','list','template','greed','viewer','fieldgenerator','generator','noteClass','validate','valuegenerator','onchangehandler','allow','size']);

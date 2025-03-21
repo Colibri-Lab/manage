@@ -736,4 +736,4 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
 }
 
-Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.TinyMCETextArea', 'App.Modules.Manage.UI.TinyMCETextArea', '#{manage-fields-tinymcetext}')
+Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.TinyMCETextArea', 'App.Modules.Manage.UI.TinyMCETextArea', '#{manage-fields-tinymcetext}', null, ['required','enabled','canbeempty','readonly','list','template','greed','viewer','fieldgenerator','generator','noteClass','validate','valuegenerator','onchangehandler','visual','code'])
