@@ -1,3 +1,13 @@
 .app-form-window-component {
     
+    .app-component-window-title {
+        span {
+            display: block;
+            width: 95%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
 }
