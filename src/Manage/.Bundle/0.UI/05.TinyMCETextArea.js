@@ -291,7 +291,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 },
                 menubar: false,
                 plugins: [
-                    "autoresize advlist link image lists charmap print preview hr anchor pagebreak spellchecker",
+                    "advlist link image lists charmap print preview hr anchor pagebreak spellchecker",
                     "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
                     "table contextmenu directionality emoticons template textcolor paste textcolor codemirror customautocomplete"
                 ],
