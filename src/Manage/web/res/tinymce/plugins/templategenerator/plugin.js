@@ -127,7 +127,7 @@
             class: 'template',
             icon: 'template',
             params: [
-                {content: '{? echo Template::Exec(\'', type: 'placeholder'},
+                {content: '{? echo Templates::Execute(\'', type: 'placeholder'},
                 {type: 'var', name: 'template'},
                 {content: '\', ', type: 'placeholder'},
                 {type: 'var', name: 'params'},
