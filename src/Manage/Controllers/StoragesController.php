@@ -87,12 +87,12 @@ class StoragesController extends WebController
         /** @var \App\Modules\Lang\Module $langModule */
         $langModule = App::$moduleManager->Get('lang');
 
-        if (!SecurityModule::$instance->current) {
+        if (!SecurityModule::Instance()->current) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
         $result = [];
-        $storages = Storages::Create();
+        $storages = Storages::Instance();
         $list = $storages->GetStorages();
         foreach ($list as $name => $storage) {
             $storageArray = $storage->ToArray();

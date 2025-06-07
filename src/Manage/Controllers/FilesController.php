@@ -27,7 +27,7 @@ class FilesController extends WebController
      */
     public function ByGuid(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
-        if (!SecurityModule::$instance->current) {
+        if (!SecurityModule::Instance()->current) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 

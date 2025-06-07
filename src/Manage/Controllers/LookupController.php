@@ -53,7 +53,7 @@ class LookupController extends WebController
      */
     public function Get(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
-        if (!SecurityModule::$instance->current) {
+        if (!SecurityModule::Instance()->current) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
@@ -73,7 +73,7 @@ class LookupController extends WebController
             $limit = $storageLookup['limit'] ?? null;
             $orderField = strstr(($storageLookup['order'] ?: $titleField), '{') === false ? '{' . ($storageLookup['order'] ?: $titleField) . '}' : ($storageLookup['order'] ?? $titleField);
 
-            $storage = Storages::Create()->Load($storageName);
+            $storage = Storages::Instance()->Load($storageName);
             if (!$storage) {
                 return $this->Finish(404, 'Not found');
             }

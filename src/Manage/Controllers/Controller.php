@@ -83,7 +83,7 @@ class Controller extends WebController
     public function Bundle(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload = null): object
     {
 
-        App::$instance->HandleEvent(EventsContainer::BundleComplete, function ($event, $args) {
+        App::Instance()->HandleEvent(EventsContainer::BundleComplete, function ($event, $args) {
             if (in_array('scss', $args->exts)) {
                 try {
                     $scss = new Compiler();
@@ -96,7 +96,7 @@ class Controller extends WebController
             return true;
         });
 
-        App::$instance->HandleEvent(EventsContainer::BundleFile, function ($event, $args) {
+        App::Instance()->HandleEvent(EventsContainer::BundleFile, function ($event, $args) {
 
             $file = new File($args->file);
             if ($file->extension == 'html') {

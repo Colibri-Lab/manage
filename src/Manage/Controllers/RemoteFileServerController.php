@@ -25,11 +25,11 @@ class RemoteFileServerController extends WebController
     public function ListBuckets(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
         
-        if (!SecurityModule::$instance->current) {
+        if (!SecurityModule::Instance()->current) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
-        if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
+        if (!SecurityModule::Instance()->current->IsCommandAllowed('tools.files')) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
@@ -50,11 +50,11 @@ class RemoteFileServerController extends WebController
     public function ListFiles(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
-        if (!SecurityModule::$instance->current) {
+        if (!SecurityModule::Instance()->current) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
-        if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
+        if (!SecurityModule::Instance()->current->IsCommandAllowed('tools.files')) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
@@ -75,11 +75,11 @@ class RemoteFileServerController extends WebController
     public function CreateBucket(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
-        if (!SecurityModule::$instance->current) {
+        if (!SecurityModule::Instance()->current) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
-        if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
+        if (!SecurityModule::Instance()->current->IsCommandAllowed('tools.files')) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
@@ -101,11 +101,11 @@ class RemoteFileServerController extends WebController
     public function RemoveBucket(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
-        if (!SecurityModule::$instance->current) {
+        if (!SecurityModule::Instance()->current) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
-        if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
+        if (!SecurityModule::Instance()->current->IsCommandAllowed('tools.files')) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
@@ -128,11 +128,11 @@ class RemoteFileServerController extends WebController
     public function RemoveFile(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
-        if (!SecurityModule::$instance->current) {
+        if (!SecurityModule::Instance()->current) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
-        if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
+        if (!SecurityModule::Instance()->current->IsCommandAllowed('tools.files')) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
@@ -159,11 +159,11 @@ class RemoteFileServerController extends WebController
     public function UploadFiles(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
     {
 
-        if (!SecurityModule::$instance->current) {
+        if (!SecurityModule::Instance()->current) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
-        if (!SecurityModule::$instance->current->IsCommandAllowed('tools.files')) {
+        if (!SecurityModule::Instance()->current->IsCommandAllowed('tools.files')) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 

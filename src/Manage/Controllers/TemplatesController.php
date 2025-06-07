@@ -28,7 +28,7 @@ class TemplatesController extends WebController
      */
     public function Config(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
-        if (!SecurityModule::$instance->current) {
+        if (!SecurityModule::Instance()->current) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 
@@ -65,7 +65,7 @@ class TemplatesController extends WebController
      */
     public function Snippets(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
-        if (!SecurityModule::$instance->current) {
+        if (!SecurityModule::Instance()->current) {
             throw new PermissionDeniedException('Permission denied', 403);
         }
 

@@ -26,13 +26,6 @@ use Colibri\Utils\Logs\Logger;
 class Module extends BaseModule
 {
 
-    /**
-     * Синглтон
-     *
-     * @var Module
-     */
-    public static $instance = null;
-
 
     /**
      * Initializes the module
@@ -40,9 +33,8 @@ class Module extends BaseModule
      */
     public function InitializeModule(): void
     {
-        self::$instance = $this;
 
-        App::$instance->HandleEvent(EventsContainer::BundleFile, function ($event, $args) {
+        App::Instance()->HandleEvent(EventsContainer::BundleFile, function ($event, $args) {
             $file = new File($args->file);
             if (in_array($file->extension, ['html', 'js'])) {
                 // компилируем html в javascript
