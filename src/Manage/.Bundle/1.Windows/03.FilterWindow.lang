@@ -16,15 +16,15 @@ manage-formwindow-buttons-cancel:
   uz: Bekor qilish
 manage-formwindow-buttons-no:
   ru: Нет
-  en: No
+  en: "No"
   hy: Ոչ
-  it: No
-  es: No
+  it: "No"
+  es: "No"
   kk: Жоқ
   uz: Yo'q
 manage-formwindow-buttons-yes:
   ru: Да
-  en: Yes
+  en: "Yes"
   hy: Այո՛
   it: Sì
   es: Sí
