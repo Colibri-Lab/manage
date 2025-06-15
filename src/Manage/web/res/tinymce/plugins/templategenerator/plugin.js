@@ -276,7 +276,7 @@
 
             let tagToInsert = Element.fromHtml('<' + tag + ' class="msi-ui-operator ' + o.name + ' ' + type + ' ' + o.class + '" contenteditable="false"></' + tag + '>')[0];
             if(tag == 'tr') {
-                tagToInsert.append('<td colspan="' + p.querySelectorAll('td').length + '"></td>');
+                tagToInsert.append(Element.fromHtml('<td colspan="' + p.querySelectorAll('td').length + '"></td>')[0]);
             }
             o.params.forEach((param) => {
                 if(param.type == 'placeholder') {
