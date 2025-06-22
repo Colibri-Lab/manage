@@ -101,9 +101,9 @@
             icon: 'args',
             class: 'variable',
             params: [
-                {content: '{? echo $args->', type: 'placeholder'},
+                {content: '{?&nbsp;echo&nbsp;$args->', type: 'placeholder'},
                 {type: 'var', name: 'var'},
-                {content: '?}', type: 'placeholder'}
+                {content: '&nbsp;?}', type: 'placeholder'}
             ]
         },
         {
@@ -114,9 +114,22 @@
             class: 'variable',
             icon: 'var',
             params: [
-                {content: '{? echo ', type: 'placeholder'},
+                {content: '{?&nbsp;echo&nbsp;', type: 'placeholder'},
                 {type: 'var', name: 'var'},
-                {content: '?}', type: 'placeholder'}
+                {content: '&nbsp;?}', type: 'placeholder'}
+            ]
+        },
+        {
+            name: 'cmd',
+            item: '$cmd',
+            type: ['inline'],
+            create: 'after',
+            class: 'variable',
+            icon: 'var',
+            params: [
+                {content: '{?&nbsp;', type: 'placeholder'},
+                {type: 'var', name: 'var'},
+                {content: '&nbsp;?}', type: 'placeholder'}
             ]
         },
         {
@@ -127,11 +140,11 @@
             class: 'template',
             icon: 'template',
             params: [
-                {content: '{? echo Templates::Execute(\'', type: 'placeholder'},
+                {content: '{?&nbsp;echo&nbsp;Templates::Execute(\'', type: 'placeholder'},
                 {type: 'var', name: 'template'},
                 {content: '\', ', type: 'placeholder'},
                 {type: 'var', name: 'params'},
-                {content: ' ); ?}', type: 'placeholder'},
+                {content: '&nbsp;);&nbsp;?}', type: 'placeholder'},
             ]
         },
         {
@@ -142,9 +155,9 @@
             class: 'condition',
             icon: 'if',
             params: [
-                {content: '{? if( ', type: 'placeholder'},
+                {content: '{?&nbsp;if(&nbsp;', type: 'placeholder'},
                 {type: 'var', name: 'condition'},
-                {content: ' ): ?}', type: 'placeholder'},
+                {content: '&nbsp;): ?}', type: 'placeholder'},
             ],
         },
         {
@@ -155,9 +168,9 @@
             class: 'condition',
             icon: 'if',
             params: [
-                {content: '{? elseif( ', type: 'placeholder'},
+                {content: '{?&nbsp;elseif(&nbsp;', type: 'placeholder'},
                 {type: 'var', name: 'condition'},
-                {content: ' ): ?}', type: 'placeholder'},
+                {content: '&nbsp;):&nbsp;?}', type: 'placeholder'},
             ],
         },
         {
@@ -168,7 +181,7 @@
             class: 'condition',
             icon: 'if',
             params: [
-                {content: '{? else: ?} ', type: 'placeholder'},
+                {content: '{?&nbsp;else:&nbsp;?} ', type: 'placeholder'},
             ],
         },
         {
@@ -179,7 +192,7 @@
             class: 'condition',
             icon: 'if',
             params: [
-                {content: '{? endif; ?} ', type: 'placeholder'},
+                {content: '{?&nbsp;endif;&nbsp;?} ', type: 'placeholder'},
             ],
         },
         {
@@ -190,9 +203,9 @@
             class: 'cycle',
             icon: 'while',
             params: [
-                {content: '{? while( ', type: 'placeholder'},
+                {content: '{?&nbsp;while(&nbsp;', type: 'placeholder'},
                 {type: 'var', name: 'condition'},
-                {content: ' ): ?}', type: 'placeholder'},
+                {content: '&nbsp;):&nbsp;?}', type: 'placeholder'},
             ],
         },
         {
@@ -203,7 +216,7 @@
             class: 'cycle',
             icon: 'while',
             params: [
-                {content: '{? endwhile; ?}', type: 'placeholder'},
+                {content: '{?&nbsp;endwhile;&nbsp;?}', type: 'placeholder'},
             ],
         },
         {
@@ -214,11 +227,11 @@
             class: 'cycle',
             icon: 'foreach',
             params: [
-                {content: '{? foreach( ', type: 'placeholder'},
+                {content: '{?&nbsp;foreach(&nbsp;', type: 'placeholder'},
                 {type: 'var', name: 'list'},
-                {content: ' as ', type: 'placeholder'},
+                {content: '&nbsp;as&nbsp;', type: 'placeholder'},
                 {type: 'var', name: 'item'},
-                {content: ' ): ?}', type: 'placeholder'},
+                {content: '&nbsp;):&nbsp;?}', type: 'placeholder'},
             ],
         },
         {
@@ -229,7 +242,7 @@
             class: 'cycle',
             icon: 'foreach',
             params: [
-                {content: '{? endforeach; ?}', type: 'placeholder'},
+                {content: '{?&nbsp;endforeach;&nbsp;?}', type: 'placeholder'},
             ],
         },
         
