@@ -121,6 +121,9 @@ class RemoteFileField
             case "type": {
                     return $this->_data->ext;
                 }
+            case "guid": {
+                    return $this->_data->guid;
+                }
             case "data": {
                     return $this->_getContent();
                 }
