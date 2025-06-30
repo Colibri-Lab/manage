@@ -16,21 +16,21 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         this._deleteFile = this.Children('split/data-pane/buttons-pane/delete-file');
 
         this._buckets.AddHandler('ContextMenuIconClicked', (event, args) => this.__renderBucketsContextMenu(event, args))
-        this._buckets.AddHandler('ContextMenuItemClicked', (event, args) => this.__clickOnBucketsContextMenu(event, args));        
+        this._buckets.AddHandler('ContextMenuItemClicked', this.__clickOnBucketsContextMenu, false, this);        
 
-        this._buckets.AddHandler('SelectionChanged', (event, args) => this.__bucketsSelectionChanged(event, args));
+        this._buckets.AddHandler('SelectionChanged', this.__bucketsSelectionChanged, false, this);
 
-        this._files.AddHandler('ScrolledToBottom', (event, args) => this.__dataScrolledToBottom(event, args));
-        this._files.AddHandler('SelectionChanged', (event, args) => this.__dataSelectionChanged(event, args));
-        this._files.AddHandler('CheckChanged', (event, args) => this.__checkChangedOnData(event, args));
-        this._files.AddHandler('ContextMenuIconClicked', (event, args) => this.__renderDataContextMenu(event, args));
-        this._files.AddHandler('ContextMenuItemClicked', (event, args) => this.__clickOnDataContextMenu(event, args));        
+        this._files.AddHandler('ScrolledToBottom', this.__dataScrolledToBottom, false, this);
+        this._files.AddHandler('SelectionChanged', this.__dataSelectionChanged, false, this);
+        this._files.AddHandler('CheckChanged', this.__checkChangedOnData, false, this);
+        this._files.AddHandler('ContextMenuIconClicked', this.__renderDataContextMenu, false, this);
+        this._files.AddHandler('ContextMenuItemClicked', this.__clickOnDataContextMenu, false, this);        
 
-        this._deleteFile.AddHandler('Clicked', (event, args) => this.__deleteDataButtonClicked(event, args));
-        this._uploadFiles.AddHandler('Changed', (event, args) => this.__addDataButtonClicked(event, args));
+        this._deleteFile.AddHandler('Clicked', this.__deleteDataButtonClicked, false, this);
+        this._uploadFiles.AddHandler('Changed', this.__addDataButtonClicked, false, this);
 
-        this._searchInput.AddHandler(['Filled', 'Cleared'], (event, args) => this.__searchInputFilled(event, args));
-        this._drop.AddHandler('FileDropped', (event, args) => this.__dropContainerFileDropped(event, args));
+        this._searchInput.AddHandler(['Filled', 'Cleared'], this.__searchInputFilled, false, this);
+        this._drop.AddHandler('FileDropped', this.__dropContainerFileDropped, false, this);
 
     }
 

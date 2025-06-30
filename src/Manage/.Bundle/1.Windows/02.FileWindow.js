@@ -6,13 +6,13 @@ App.Modules.Manage.Windows.FileWindow = class extends Colibri.UI.Window {
         this.AddClass('app-file-window-component');
 
         this._tabs = this.Children('tabs');
-        this._tabs.AddHandler('SelectionChanged', (event, args) => this.__tabChanged(event, args));
+        this._tabs.AddHandler('SelectionChanged', this.__tabChanged, false, this);
 
         this._manager = this.Children('tabs/manager');
-        this._manager.AddHandler('SelectionChanged', (event, args) => this.__selectionChangedOnManager(event, args));
+        this._manager.AddHandler('SelectionChanged', this.__selectionChangedOnManager, false, this);
 
         this._remotemanager = this.Children('tabs/remotemanager');
-        this._remotemanager.AddHandler('SelectionChanged', (event, args) => this.__selectionChangedOnRemoteManager(event, args));
+        this._remotemanager.AddHandler('SelectionChanged', this.__selectionChangedOnRemoteManager, false, this);
 
 
         this._cancel = this.Children('cancel');

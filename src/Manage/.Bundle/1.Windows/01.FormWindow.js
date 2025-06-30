@@ -13,7 +13,7 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
         this._save = this.Children('save');
         this.movable = true;
 
-        this.AddHandler('WindowClosed', (event, args) => this.__thisWindowClosed(event, args));
+        this.AddHandler('WindowClosed', this.__thisWindowClosed);
         this._validator.AddHandler('Validated', () => this._save.enabled = this._validator.Validate());
         
     }

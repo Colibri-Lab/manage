@@ -38,10 +38,10 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
 
     _handleEvents() {
 
-        this._path.AddHandler(['Filled', 'Cleared'], (event, args) => this.__pathChanged(event, args));
-        this._clear.AddHandler('Clicked', (event, args) => this.__clearClicked(event, args));
-        this._choose.AddHandler('Clicked', (event, args) => this.__chooseClicked(event, args));
-        this._download.AddHandler('Clicked', (event, args) => this.__downloadClicked(event, args));
+        this._path.AddHandler(['Filled', 'Cleared'], this.__pathChanged, false, this);
+        this._clear.AddHandler('Clicked', this.__clearClicked, false, this);
+        this._choose.AddHandler('Clicked', this.__chooseClicked, false, this);
+        this._download.AddHandler('Clicked', this.__downloadClicked, false, this);
 
     }
 

@@ -17,24 +17,24 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
         this._editFile = this.Children('split/files-pane/buttons-pane/edit-file');
         this._deleteFile = this.Children('split/files-pane/buttons-pane/delete-file');
 
-        this._folders.AddHandler('SelectionChanged', (event, args) => this.__foldersSelectionChanged(event, args));      
-        this._folders.AddHandler('NodeEditCompleted', (event, args) => this.__foldersNodeEditCompleted(event, args));
+        this._folders.AddHandler('SelectionChanged', this.__foldersSelectionChanged, false, this);      
+        this._folders.AddHandler('NodeEditCompleted', this.__foldersNodeEditCompleted, false, this);
         this._folders.AddHandler('ContextMenuIconClicked', (event, args) => this.__renderFoldersContextMenu(event, args))
-        this._folders.AddHandler('ContextMenuItemClicked', (event, args) => this.__clickOnFoldersContextMenu(event, args));        
+        this._folders.AddHandler('ContextMenuItemClicked', this.__clickOnFoldersContextMenu, false, this);        
 
-        this._files.AddHandler('SelectionChanged', (event, args) => this.__filesSelectionChanged(event, args));      
-        this._files.AddHandler('CheckChanged', (event, args) => this.__checkChangedOnFiles(event, args));
-        this._files.AddHandler('ContextMenuIconClicked', (event, args) => this.__renderFilesContextMenu(event, args));
-        this._files.AddHandler('ContextMenuItemClicked', (event, args) => this.__clickOnFilesContextMenu(event, args));        
-        this._files.AddHandler('DoubleClicked', (event, args) => this.__filesDoubleClicked(event, args));
+        this._files.AddHandler('SelectionChanged', this.__filesSelectionChanged, false, this);      
+        this._files.AddHandler('CheckChanged', this.__checkChangedOnFiles, false, this);
+        this._files.AddHandler('ContextMenuIconClicked', this.__renderFilesContextMenu, false, this);
+        this._files.AddHandler('ContextMenuItemClicked', this.__clickOnFilesContextMenu, false, this);        
+        this._files.AddHandler('DoubleClicked', this.__filesDoubleClicked, false, this);
 
-        this._uploadFile.AddHandler('Changed', (event, args) => this.__addDataButtonClicked(event, args));
-        this._editFile.AddHandler('Clicked', (event, args) => this.__editDataButtonClicked(event, args));
-        this._deleteFile.AddHandler('Clicked', (event, args) => this.__deleteDataButtonClicked(event, args));
+        this._uploadFile.AddHandler('Changed', this.__addDataButtonClicked, false, this);
+        this._editFile.AddHandler('Clicked', this.__editDataButtonClicked, false, this);
+        this._deleteFile.AddHandler('Clicked', this.__deleteDataButtonClicked, false, this);
 
-        this._searchInput.AddHandler(['Filled', 'Cleared'], (event, args) => this.__searchInputFilled(event, args));
+        this._searchInput.AddHandler(['Filled', 'Cleared'], this.__searchInputFilled, false, this);
 
-        this._drop.AddHandler('FileDropped', (event, args) => this.__dropContainerFileDropped(event, args));
+        this._drop.AddHandler('FileDropped', this.__dropContainerFileDropped, false, this);
 
     }
     
