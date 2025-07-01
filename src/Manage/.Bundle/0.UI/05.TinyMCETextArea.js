@@ -11,10 +11,11 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         this._visualCreated = false;
 
         this.autocomplete = this._fieldData.autocomplete;
-        this.__shownHandler = (event, args) => {
-            this.__initVisual();
-        }
 
+    }
+    
+    __shownHandler(event, args) {
+        this.__initVisual();
     }
 
     _createSnippetTag(snippet, data, type = 'tag') {
@@ -225,7 +226,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
         });
 
-        if(this._tools) {
+        if (this._tools) {
             tools = tools.concat(this._tools);
         }
 
@@ -297,7 +298,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 ],
                 toolbar1: this._fieldData?.params['tinymce-toolbar1'] ? (this._fieldData?.params['tinymce-toolbar1'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar1']) : "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
                 toolbar2: this._fieldData?.params['tinymce-toolbar2'] ? (this._fieldData?.params['tinymce-toolbar2'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar2']) : "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media embed code | pastetext | forecolor backcolor",
-                toolbar3: this._fieldData?.params['tinymce-toolbar3'] ? (this._fieldData?.params['tinymce-toolbar3'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar3']) :  "grid_insert | table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
+                toolbar3: this._fieldData?.params['tinymce-toolbar3'] ? (this._fieldData?.params['tinymce-toolbar3'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar3']) : "grid_insert | table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
                 toolbar4: additionalButtons,
                 customautocomplete: {
                     insertFrom: 'text',
@@ -310,7 +311,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     const position = element.bounds();
                     position.top += position.height;
 
-                    if(!this._filepicker) {
+                    if (!this._filepicker) {
                         this._filepicker = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body);
                     }
                     this._filepicker.Show(false).then((data) => {
@@ -326,7 +327,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
                 },
                 setup: (ed) => {
-                    if(additionalTools) {
+                    if (additionalTools) {
                         additionalTools.forEach((button) => {
                             button.editor = ed;
                             ed.addButton(button.name, button);
@@ -339,7 +340,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
                 }
             });
-            
+
 
 
         } else if (this._fieldData?.params?.code) {
@@ -380,16 +381,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
             });
         }
-
-        // this.handleResize = true;
-        // this.AddHandler('Resize', (event, args) => {
-        //     if (this._fieldData?.params?.visual == true) {
-
-        //     } else if (this._fieldData?.params?.code) {
-        //         const height = this._element.bounds().height;
-        //         this._codemirror.setSize('100%', height - 20);
-        //     }
-        // });
+        
     }
 
     _getValue() {
@@ -426,13 +418,13 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         let promise;
 
         this._savedValue = val;
-        
+
         if (this._autocompleteLoaded) {
             promise = Promise.resolve({
                 result: {
-                    snippets: this.snippets, 
-                    autocomplete: this.autocomplete, 
-                    contentCss: this.contentCss, 
+                    snippets: this.snippets,
+                    autocomplete: this.autocomplete,
+                    contentCss: this.contentCss,
                     contentStyle: this.contentStyle,
                     contntFormats: this.contentFormats,
                     styleFormats: this.styleFormats
@@ -447,7 +439,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
             this._autocompleteLoaded = true;
             this.snippets = autoCompleteResult.result.snippets;
             this.autocomplete = autoCompleteResult.result.autocomplete;
-            this.contentCss = autoCompleteResult.result.contentCss; 
+            this.contentCss = autoCompleteResult.result.contentCss;
             this.contentStyle = autoCompleteResult.result.contentStyle;
             this.contentFormats = autoCompleteResult.result.contentFormats;
             this.styleFormats = autoCompleteResult.result.styleFormats;
@@ -456,7 +448,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
             Colibri.Common.Delay(100).then(() => {
 
                 this.__initVisual();
-    
+
                 if (this._fieldData?.params?.visual == true) {
                     try {
                         tinymce.get(this._controlElementId).setContent(val ? val : '', { format: 'raw' });
@@ -670,7 +662,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
      * @type {Object}
      */
     set tools(value) {
-        if(!Array.isArray(value)) {
+        if (!Array.isArray(value)) {
             value = [];
         }
         // onclick must be evaled
@@ -680,14 +672,14 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     _convertObject(array) {
 
         let ret = [];
-        if(!Array.isArray(array)) {
+        if (!Array.isArray(array)) {
             return array;
         }
 
-        for(const o of array) {
+        for (const o of array) {
             let oo = Object.cloneRecursive(o);
             Object.forEach(oo, (name, v) => {
-                if(name === 'onclick') {
+                if (name === 'onclick') {
                     oo[name] = typeof v === 'string' ? eval(v) : v;
                 } else {
                     oo[name] = this._convertObject(v);
@@ -714,9 +706,9 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         } else {
             return Promise.resolve({
                 result: {
-                    snippets: [], 
-                    autocomplete: [], 
-                    contentCss: '', 
+                    snippets: [],
+                    autocomplete: [],
+                    contentCss: '',
                     contentStyle: {},
                     contntFormats: {},
                     styleFormats: {},
@@ -727,13 +719,13 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     }
 
     Focus() {
-        if(this._fieldData?.params?.visual == true) {
+        if (this._fieldData?.params?.visual == true) {
             tinymce.get(this._controlElementId)?.focus();
-        } else if(this._fieldData?.params?.code) {
+        } else if (this._fieldData?.params?.code) {
 
-        }     
+        }
     }
 
 }
 
-Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.TinyMCETextArea', 'App.Modules.Manage.UI.TinyMCETextArea', '#{manage-fields-tinymcetext}', null, ['required','enabled','canbeempty','readonly','list','template','greed','viewer','fieldgenerator','generator','noteClass','validate','valuegenerator','onchangehandler','visual','code'])
+Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.TinyMCETextArea', 'App.Modules.Manage.UI.TinyMCETextArea', '#{manage-fields-tinymcetext}', null, ['required', 'enabled', 'canbeempty', 'readonly', 'list', 'template', 'greed', 'viewer', 'fieldgenerator', 'generator', 'noteClass', 'validate', 'valuegenerator', 'onchangehandler', 'visual', 'code'])

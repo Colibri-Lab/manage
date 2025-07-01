@@ -48,30 +48,11 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
             path.value = itemData.path;
             this._showIcon(icon, path.value);
 
-            path.AddHandler(['Filled', 'Cleared'], (event, args) => {
-                this._value.splice(item.index, 1, path.value);
-                this.value = this._value;
-                this.Dispatch('Changed', args);
-            });
-
-            clear.AddHandler('Clicked', (event, args) => {
-                this._value.splice(item.index, 1);
-                this.value = this._value;
-                this.Dispatch('Changed', args);
-            });
-
-            choose.AddHandler('Clicked', (event, args) => {
-                const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
-                files.Show(false).then((data) => {
-                    const index = item.index;
-                    this._value.splice(index, 1, data[0].path);
-                    this.value = this._value;
-                    files.Dispose();
-                    this.Dispatch('Changed', args);
-                });
-            });
-
-            download.AddHandler('Clicked', (event, args) => DownloadFileByPath(item.value.path));
+            path.tag = clear.tag = choose.tag = download.tag = item;
+            path.AddHandler(['Filled', 'Cleared'], this.__pathFilledOrCleared, false, this);
+            clear.AddHandler('Clicked', this.__clearClicked, false, this);
+            choose.AddHandler('Clicked', this.__chooseClicked, false, this);
+            download.AddHandler('Clicked', this.__downloadClicked, false, this);
 
 
         };
@@ -88,6 +69,33 @@ App.Modules.Manage.UI.Files = class extends Colibri.UI.Forms.Field {
         
         this._handleEvents();
 
+    }
+
+    __pathFilledOrCleared(event, args) {
+        this._value.splice(event.sender.tag.index, 1, event.sender.value);
+        this.value = this._value;
+        this.Dispatch('Changed', args);
+    }
+
+    __clearClicked(event, args) {
+        this._value.splice(event.sender.tag.index, 1);
+        this.value = this._value;
+        this.Dispatch('Changed', args);
+    }
+
+    __chooseClicked(event, args) {
+        const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body);
+        files.Show(false).then((data) => {
+            const index = event.sender.tag.index;
+            this._value.splice(index, 1, data[0].path);
+            this.value = this._value;
+            files.Dispose();
+            this.Dispatch('Changed', args);
+        });
+    }
+
+    __downloadClicked(event, args) {
+        DownloadFileByPath(event.sender.tag.value.path);
     }
 
     _handleEvents() {

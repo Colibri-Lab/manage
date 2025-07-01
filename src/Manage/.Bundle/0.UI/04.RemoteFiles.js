@@ -48,30 +48,15 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
             path.value = itemData.name + ' (' + itemData.ext + ')';
             path.readonly = true;
             this._showIcon(icon, itemData);
-
-
-
-            clear.AddHandler('Clicked', (event, args) => {
-                this._value.splice(item.index, 1);
-                this.value = this._value;
-                this.Dispatch('Changed', args);
-            });
-
-            choose.AddHandler('Clicked', (event, args) => {
-                const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
-                files.Show(false, true, false).then((data) => {
-                    const index = item.index;
-                    this._value.splice(index, 1, data[0]);
-                    this.value = this._value;
-                    files.Dispose();
-                    this.Dispatch('Changed', args);
-                });
-            });
-
-            download.AddHandler('Clicked', (event, args) => DownloadFileByPath(this._getUrl(item.value)));
+            
+            clear.tag = choose.tag = download.tag = item;
+            clear.AddHandler('Clicked', this.__clearClicked, false, this);
+            choose.AddHandler('Clicked', this.__chooseClicked, false, this);
+            download.AddHandler('Clicked', this.__downloadClicked, false, this);
 
 
         };
+        
 
         this._buttons = new Colibri.UI.FlexBox(this._name + '_buttons', this.contentContainer);
         this._clear = new Colibri.UI.Icon(this._name + '_clear', this._buttons);
@@ -85,6 +70,28 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
         
         this._handleEvents();
 
+    }
+
+    
+    __clearClicked(event, args) {
+        this._value.splice(event.sender.tag.index, 1);
+        this.value = this._value;
+        this.Dispatch('Changed', args);
+    }
+
+    __chooseClicked(event, args) {
+        const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body);
+        files.Show(false).then((data) => {
+            const index = event.sender.tag.index;
+            this._value.splice(index, 1, data[0].path);
+            this.value = this._value;
+            files.Dispose();
+            this.Dispatch('Changed', args);
+        });
+    }
+
+    __downloadClicked(event, args) {
+        DownloadFileByPath(this._getUrl(event.sender.tag.value));
     }
 
     _handleEvents() {
