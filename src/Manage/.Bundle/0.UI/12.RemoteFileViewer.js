@@ -25,10 +25,12 @@ App.Modules.Manage.UI.RemoteFileViewer = class extends Colibri.UI.Viewer {
             const MimeType = Colibri.Common.MimeType;
             if(MimeType.isImage(value.ext)) {
                 this._icon.icon = 'url(\'' + this._getUrl(value) + '\')';
-            }
-            else if(Colibri.UI.Files[value.ext] !== undefined) {
+            } else if(Colibri.UI.Files[value.ext] !== undefined) {
                 this._icon.icon = null;
                 this._icon.value = Colibri.UI.Files[value.ext];
+            } else {
+                this._icon.icon = null;
+                this._icon.value = Colibri.UI.Forms.File;
             }
         }   
     }
