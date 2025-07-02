@@ -170,10 +170,10 @@ manage-remotefiles-messages-createbucket-validate1:
   ru: Пожалуйста, введите название корзины!
   en: "Please enter the bucket name "
   hy: "Խնդրում ենք մուտքագրել զամբյուղի անունը:"
-  it: "Per favore inserisci il nome del cestino"
-  es: "Por favor ingrese el nombre del cubo"
-  kk: "Шелек атауын енгізіңіз"
-  uz: "Savat nomini kiriting"
+  it: Per favore inserisci il nome del cestino
+  es: Por favor ingrese el nombre del cubo
+  kk: Шелек атауын енгізіңіз
+  uz: Savat nomini kiriting
 manage-remotefiles-messages-createbucket-button:
   ru: Сохранить
   en: Save
@@ -197,10 +197,14 @@ manage-remotefiles-messages-deletebucket-message:
     be physically deleted!
   hy: "Իսկապե՞ս ուզում եք ջնջել թափոնարկղը: Բոլոր ֆայլերը թափոնարկղում ֆիզիկապես
     կջնջվեն:"
-  it: "Sei sicuro di voler eliminare il cestino? Tutti i file all'interno del cestino saranno eliminati fisicamente!"
-  es: "¿Estás seguro de que quieres eliminar el cubo? ¡Todos los archivos dentro del cubo serán eliminados físicamente!"
-  kk: "Шелекті жойғыңыз келетініне сенімдісіз бе? Шелектегі барлық файлдар физикалық түрде жойылады!"
-  uz: "Savatni o'chirmoqchimisiz? Savat ichidagi barcha fayllar jismonan o'chiriladi!"
+  it: Sei sicuro di voler eliminare il cestino? Tutti i file all'interno del
+    cestino saranno eliminati fisicamente!
+  es: ¿Estás seguro de que quieres eliminar el cubo? ¡Todos los archivos dentro
+    del cubo serán eliminados físicamente!
+  kk: Шелекті жойғыңыз келетініне сенімдісіз бе? Шелектегі барлық файлдар
+    физикалық түрде жойылады!
+  uz: Savatni o'chirmoqchimisiz? Savat ichidagi barcha fayllar jismonan
+    o'chiriladi!
 manage-remotefiles-messages-removefile-message-delete:
   ru: Удалить!
   en: Delete

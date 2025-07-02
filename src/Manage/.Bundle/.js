@@ -142,14 +142,17 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
     }
 
     Files(path = '', searchTerm = '', returnPromise = false) {
-        const promise = this.Call('FileManager', 'Files', {path: path, term: searchTerm})
+        this.Requests('FileManager.Files')?.Abort();
+        const promise = this.Call('FileManager', 'Files', {path: path, term: searchTerm}, {}, true, 'FileManager.Files');
         if(returnPromise) {
             return promise;
         }
         promise.then((response) => {
             this._store.Set('manage.files', response.result);
         }).catch((response) => {
-            App.Notices.Add(new Colibri.UI.Notice(response.result));
+            if(response.status > 0) {
+                App.Notices.Add(new Colibri.UI.Notice(response.result));
+            }
         });
     }
 
@@ -233,7 +236,8 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         if(!bucket) {
             return;
         }
-        const promise = this.Call('RemoteFileServer', 'ListFiles', {bucket: bucket.name, term: term, page: page, pagesize: pagesize})
+        this.Requests('RemoteFileServer.ListFiles')?.Abort();
+        const promise = this.Call('RemoteFileServer', 'ListFiles', {bucket: bucket.name, term: term, page: page, pagesize: pagesize}, {}, true, 'RemoteFileServer.ListFiles');
         if(returnPromise) {
             return promise;
         }
@@ -250,7 +254,9 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
                 this._store.Set('manage.remotefiles', data);
             }
         }).catch((response) => {
-            App.Notices.Add(new Colibri.UI.Notice(response.result));
+            if(response.status > 0) {
+                App.Notices.Add(new Colibri.UI.Notice(response.result));
+            }
         });
     }
     
