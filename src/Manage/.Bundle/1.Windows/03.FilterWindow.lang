@@ -6,6 +6,7 @@ manage-formwindow-buttons-save:
   es: Guardar
   kk: Сақтау
   uz: Saqlash
+  cz: Uložit
 manage-formwindow-buttons-cancel:
   ru: Отмена
   en: Cancel
@@ -14,6 +15,7 @@ manage-formwindow-buttons-cancel:
   es: Cancelar
   kk: Болдырмау
   uz: Bekor qilish
+  cz: Zrušit
 manage-formwindow-buttons-no:
   ru: Нет
   en: "No"
@@ -22,6 +24,7 @@ manage-formwindow-buttons-no:
   es: "No"
   kk: Жоқ
   uz: Yo'q
+  cz: Ne
 manage-formwindow-buttons-yes:
   ru: Да
   en: "Yes"
@@ -30,6 +33,7 @@ manage-formwindow-buttons-yes:
   es: Sí
   kk: Иә
   uz: Ha
+  cz: Ano
 manage-formwindow-buttons-nometter:
   ru: Не важно
   en: None
@@ -38,6 +42,7 @@ manage-formwindow-buttons-nometter:
   es: Ninguno
   kk: Маңызды емес
   uz: Muhim emas
+  cz: Nezáleží
 manage-formwindow-buttons-clear:
   ru: Очистить фильтр
   en: Clear filters
@@ -46,6 +51,7 @@ manage-formwindow-buttons-clear:
   es: Limpiar filtros
   kk: Сүзгіні тазалау
   uz: Filtrlarni tozalash
+  cz: Vymazat filtry
 manage-formwindow-id-desc:
   ru: ID
   en: ID
@@ -54,6 +60,7 @@ manage-formwindow-id-desc:
   es: ID
   kk: ID
   uz: ID
+  cz: ID
 manage-formwindow-datecreated-desc:
   ru: Дата создания
   en: Creation date
@@ -62,6 +69,7 @@ manage-formwindow-datecreated-desc:
   es: Fecha de creación
   kk: Жасалған күні
   uz: Yaratilgan sana
+  cz: Datum vytvoření
 manage-formwindow-datemodified-desc:
   ru: Дата изменения
   en: Modification date
@@ -70,3 +78,4 @@ manage-formwindow-datemodified-desc:
   es: Fecha de modificación
   kk: Өзгертілген күні
   uz: O'zgartirilgan sana
+  cz: Datum změny

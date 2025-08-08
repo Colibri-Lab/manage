@@ -6,6 +6,7 @@ manage-formwindow-buttons-save:
   es: Guardar
   kk: Сақтау
   uz: Saqlash
+  cz: Uložit
 manage-formwindow-buttons-cancel:
   ru: Отмена
   en: Cancel
@@ -14,3 +15,4 @@ manage-formwindow-buttons-cancel:
   es: Cancelar
   kk: Болдырмау
   uz: Bekor qilish
+  cz: Zrušit

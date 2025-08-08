@@ -6,6 +6,7 @@ manage-filemanager-remote-buckets:
   es: Cubos
   kk: Шелек
   uz: Savatlar
+  cz: Koše
 manage-filemanager-remote-files:
   ru: Файлы
   en: Files
@@ -14,6 +15,7 @@ manage-filemanager-remote-files:
   es: Archivos
   kk: Файлдар
   uz: Fayllar
+  cz: Soubory
 manage-filemanager-remote-search:
   ru: Поиск
   en: Search
@@ -22,6 +24,7 @@ manage-filemanager-remote-search:
   es: Buscar
   kk: Іздеу
   uz: Qidiruv
+  cz: Hledat
 manage-filemanager-remote-filesempty:
   ru: Файлов в корзине не найдено
   en: No files in bucket
@@ -30,6 +33,7 @@ manage-filemanager-remote-filesempty:
   es: No hay archivos en el cubo
   kk: Шелекте файлдар табылмады
   uz: Savatda fayllar topilmadi
+  cz: V koši nejsou žádné soubory
 manage-filemanager-remote-created:
   ru: Создана
   en: Created
@@ -38,6 +42,7 @@ manage-filemanager-remote-created:
   es: Creado
   kk: Жасалды
   uz: Yaratilgan
+  cz: Vytvořeno
 manage-filemanager-remote-key:
   ru: Ключ
   en: Key
@@ -46,6 +51,7 @@ manage-filemanager-remote-key:
   es: Clave
   kk: Кілт
   uz: Kalit
+  cz: Klíč
 manage-filemanager-remote-file:
   ru: Файл
   en: File
@@ -54,6 +60,7 @@ manage-filemanager-remote-file:
   es: Archivo
   kk: Файл
   uz: Fayl
+  cz: Soubor
 manage-filemanager-remote-type:
   ru: Тип
   en: Type
@@ -62,6 +69,7 @@ manage-filemanager-remote-type:
   es: Tipo
   kk: Түрі
   uz: Turi
+  cz: Typ
 manage-filemanager-remote-size:
   ru: Размер
   en: Size
@@ -70,6 +78,7 @@ manage-filemanager-remote-size:
   es: Tamaño
   kk: Өлшемі
   uz: Hajmi
+  cz: Velikost
 manage-filemanager-remote-hash:
   ru: Хэш
   en: Hash
@@ -78,6 +87,7 @@ manage-filemanager-remote-hash:
   es: Hash
   kk: Хэш
   uz: Xesh
+  cz: Hash
 manage-filemanager-remote-path:
   ru: Путь
   en: Path
@@ -86,6 +96,7 @@ manage-filemanager-remote-path:
   es: Ruta
   kk: Жол
   uz: Yo'l
+  cz: Cesta
 manage-filemanager-remote-buttons-upload:
   ru: Загрузить файлы
   en: Upload files
@@ -94,6 +105,7 @@ manage-filemanager-remote-buttons-upload:
   es: Subir archivos
   kk: Файлдарды жүктеу
   uz: Fayllarni yuklash
+  cz: Nahrát soubory
 manage-filemanager-remote-buttons-remove:
   ru: Удалить
   en: Delete
@@ -102,6 +114,7 @@ manage-filemanager-remote-buttons-remove:
   es: Eliminar
   kk: Жою
   uz: O'chirish
+  cz: Smazat
 manage-contextmenu-downloadfile:
   ru: Скачать файл
   en: Download file
@@ -110,6 +123,7 @@ manage-contextmenu-downloadfile:
   es: Descargar archivo
   kk: Файлды жүктеу
   uz: Faylni yuklab olish
+  cz: Stáhnout soubor
 manage-remotefiles-messages-removefile:
   ru: Удаление файлов из удаленного хранилища
   en: Deleting files from remote storage
@@ -118,6 +132,7 @@ manage-remotefiles-messages-removefile:
   es: Eliminando archivos del almacenamiento remoto
   kk: Қашықтағы қоймадан файлдарды жою
   uz: Uzoqdagi ombordan fayllarni o'chirish
+  cz: Mazání souborů z vzdáleného úložiště
 manage-remotefiles-messages-removefile-message:
   ru: Вы уверены, что хотите удалить выбранный файл?
   en: Are you sure you want to delete the selected file?
@@ -126,6 +141,7 @@ manage-remotefiles-messages-removefile-message:
   es: ¿Estás seguro de que quieres eliminar el archivo seleccionado?
   kk: Таңдалған файлды жойғыңыз келетініне сенімдісіз бе?
   uz: Tanlangan faylni o'chirmoqchimisiz?
+  cz: Opravdu chcete smazat vybraný soubor?
 manage-contextmenu-deletefile:
   ru: Удалить
   en: Delete
@@ -134,6 +150,7 @@ manage-contextmenu-deletefile:
   es: Eliminar
   kk: Жою
   uz: O'chirish
+  cz: Smazat
 manage-contextmenu-createbucket:
   ru: Новая корзина
   en: Create bucket
@@ -142,6 +159,7 @@ manage-contextmenu-createbucket:
   es: Crear cubo
   kk: Жаңа шелек
   uz: Yangi savat yaratish
+  cz: Vytvořit koš
 manage-contextmenu-deletebucket:
   ru: Удалить корзину
   en: Delete bucket
@@ -150,6 +168,7 @@ manage-contextmenu-deletebucket:
   es: Eliminar cubo
   kk: Шелекті жою
   uz: Savatni o'chirish
+  cz: Smazat koš
 manage-remotefiles-messages-createbucket:
   ru: Создание корзины
   en: Bucket creation
@@ -158,6 +177,7 @@ manage-remotefiles-messages-createbucket:
   es: Creación de cubo
   kk: Шелек жасау
   uz: Savat yaratish
+  cz: Vytvoření koše
 manage-remotefiles-messages-createbucket-desc:
   ru: Название корзины
   en: Bucket name
@@ -166,6 +186,7 @@ manage-remotefiles-messages-createbucket-desc:
   es: Nombre del cubo
   kk: Шелек атауы
   uz: Savat nomi
+  cz: Název koše
 manage-remotefiles-messages-createbucket-validate1:
   ru: Пожалуйста, введите название корзины!
   en: "Please enter the bucket name "
@@ -174,6 +195,7 @@ manage-remotefiles-messages-createbucket-validate1:
   es: Por favor ingrese el nombre del cubo
   kk: Шелек атауын енгізіңіз
   uz: Savat nomini kiriting
+  cz: Zadejte prosím název koše!
 manage-remotefiles-messages-createbucket-button:
   ru: Сохранить
   en: Save
@@ -182,6 +204,7 @@ manage-remotefiles-messages-createbucket-button:
   es: Guardar
   kk: Сақтау
   uz: Saqlash
+  cz: Uložit
 manage-remotefiles-messages-deletebucket:
   ru: Удаление корзины
   en: Delete bucket
@@ -190,6 +213,7 @@ manage-remotefiles-messages-deletebucket:
   es: Eliminación de cubo
   kk: Шелекті жою
   uz: Savatni o'chirish
+  cz: Mazání koše
 manage-remotefiles-messages-deletebucket-message:
   ru: Вы уверены, что хотите удалить корзину? Все файлы внутри корзины будут
     удалены физически!
@@ -205,6 +229,7 @@ manage-remotefiles-messages-deletebucket-message:
     физикалық түрде жойылады!
   uz: Savatni o'chirmoqchimisiz? Savat ichidagi barcha fayllar jismonan
     o'chiriladi!
+  cz: Opravdu chcete smazat koš? Všechny soubory v koši budou fyzicky odstraněny!
 manage-remotefiles-messages-removefile-message-delete:
   ru: Удалить!
   en: Delete
@@ -213,6 +238,7 @@ manage-remotefiles-messages-removefile-message-delete:
   es: ¡Eliminar!
   kk: Жою!
   uz: O'chirish!
+  cz: Smazat!
 manage-remotefiles-messages-removefiles:
   ru: Удаление файлов из удаленного хранилища
   en: Deleting files from remote storage
@@ -221,6 +247,7 @@ manage-remotefiles-messages-removefiles:
   es: Eliminando archivos del almacenamiento remoto
   kk: Қашықтағы қоймадан файлдарды жою
   uz: Uzoqdagi ombordan fayllarni o'chirish
+  cz: Mazání souborů z vzdáleného úložiště
 manage-remotefiles-messages-removefiles-message:
   ru: Вы уверены, что хотите удалить выбранный файлы?
   en: Are you sure you want to delete the selected files?
@@ -229,6 +256,7 @@ manage-remotefiles-messages-removefiles-message:
   es: ¿Estás seguro de que quieres eliminar los archivos seleccionados?
   kk: Таңдалған файлдарды жойғыңыз келетініне сенімдісіз бе?
   uz: Tanlangan fayllarni o'chirmoqchimisiz?
+  cz: Opravdu chcete smazat vybrané soubory?
 manage-remotefiles-messages-removefiles-message-delete:
   ru: Удалить!
   en: Delete
@@ -237,6 +265,7 @@ manage-remotefiles-messages-removefiles-message-delete:
   es: ¡Eliminar!
   kk: Жою!
   uz: O'chirish!
+  cz: Smazat!
 manage-remotefiles-messages-deletebucket-delete:
   ru: Удалить!
   en: Delete
@@ -245,3 +274,4 @@ manage-remotefiles-messages-deletebucket-delete:
   es: ¡Eliminar!
   kk: Жою!
   uz: O'chirish!
+  cz: Smazat!

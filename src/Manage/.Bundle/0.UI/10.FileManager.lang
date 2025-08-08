@@ -6,6 +6,7 @@ manage-filemanager-folders:
   es: Estructura
   kk: Құрылым
   uz: Tuzilma
+  cz: Struktura
 manage-filemanager-files:
   ru: Файлы
   en: Files
@@ -14,6 +15,7 @@ manage-filemanager-files:
   es: Archivos
   kk: Файлдар
   uz: Fayllar
+  cz: Soubory
 manage-filemanager-search:
   ru: Поиск
   en: Search
@@ -22,6 +24,7 @@ manage-filemanager-search:
   es: Buscar
   kk: Іздеу
   uz: Qidiruv
+  cz: Hledat
 manage-filemanager-filesempty:
   ru: Файлов не найдено
   en: No files found
@@ -30,6 +33,7 @@ manage-filemanager-filesempty:
   es: No se encontraron archivos
   kk: Файлдар табылмады
   uz: Fayllar topilmadi
+  cz: Žádné soubory nenalezeny
 manage-filemanager-files-file:
   ru: Файл
   en: File
@@ -38,6 +42,7 @@ manage-filemanager-files-file:
   es: Archivo
   kk: Файл
   uz: Fayl
+  cz: Soubor
 manage-filemanager-files-type:
   ru: Тип
   en: Type
@@ -46,6 +51,7 @@ manage-filemanager-files-type:
   es: Tipo
   kk: Түрі
   uz: Turi
+  cz: Typ
 manage-filemanager-files-size:
   ru: Размер
   en: Size
@@ -54,6 +60,7 @@ manage-filemanager-files-size:
   es: Tamaño
   kk: Өлшемі
   uz: Hajmi
+  cz: Velikost
 manage-filemanager-files-created:
   ru: Создан
   en: Created
@@ -62,6 +69,7 @@ manage-filemanager-files-created:
   es: Creado
   kk: Жасалған
   uz: Yaratilgan
+  cz: Vytvořeno
 manage-filemanager-files-changed:
   ru: Изменен
   en: Modified
@@ -70,6 +78,7 @@ manage-filemanager-files-changed:
   es: Modificado
   kk: Өзгертілген
   uz: O'zgartirilgan
+  cz: Změněno
 manage-filemanager-buttons-upload:
   ru: Загрузить файлы
   en: Upload files
@@ -78,6 +87,7 @@ manage-filemanager-buttons-upload:
   es: Subir archivos
   kk: Файлдарды жүктеу
   uz: Fayllarni yuklash
+  cz: Nahrát soubory
 manage-filemanager-buttons-editname:
   ru: Редактировать название
   en: Edit file name
@@ -86,6 +96,7 @@ manage-filemanager-buttons-editname:
   es: Editar nombre del archivo
   kk: Атын өзгерту
   uz: Nomini tahrirlash
+  cz: Upravit název souboru
 manage-filemanager-buttons-delete:
   ru: Удалить файлы
   en: Delete files
@@ -94,6 +105,7 @@ manage-filemanager-buttons-delete:
   es: Eliminar archivos
   kk: Файлдарды жою
   uz: Fayllarni o'chirish
+  cz: Smazat soubory
 manage-contextmenu-newfolder:
   ru: Новый раздел
   en: New folder
@@ -102,6 +114,7 @@ manage-contextmenu-newfolder:
   es: Nueva carpeta
   kk: Жаңа қалта
   uz: Yangi papka
+  cz: Nová složka
 manage-contextmenu-editfolder:
   ru: Редактировать раздел
   en: Edit folder
@@ -110,6 +123,7 @@ manage-contextmenu-editfolder:
   es: Editar carpeta
   kk: Қалтаны өңдеу
   uz: Papkani tahrirlash
+  cz: Upravit složku
 manage-contextmenu-deletefolder:
   ru: Удалить раздел
   en: Delete folder
@@ -118,6 +132,7 @@ manage-contextmenu-deletefolder:
   es: Eliminar carpeta
   kk: Қалтаны жою
   uz: Papkani o'chirish
+  cz: Smazat složku
 manage-folders-messages-removefolder:
   ru: Удаление папки
   en: Delete folder
@@ -126,6 +141,7 @@ manage-folders-messages-removefolder:
   es: Eliminar carpeta
   kk: Қалтаны жою
   uz: Papkani o'chirish
+  cz: Smazání složky
 manage-folders-messages-removefoldermessage:
   ru: Вы уверены, что хотите удалить папку? Внимание! Вместе с папкой будет
     удалено все ее содержание!
@@ -137,6 +153,7 @@ manage-folders-messages-removefoldermessage:
   es: ¿Estás seguro de que quieres eliminar la carpeta? ¡Atención! Junto con la carpeta, se eliminarán todos sus contenidos.
   kk: Қалтаны жойғыңыз келетініне сенімдісіз бе? Назар аударыңыз! Қалтамен бірге оның барлық мазмұны жойылады!
   uz: Papkani o'chirmoqchimisiz? Diqqat! Papka bilan birga uning barcha mazmuni o'chiriladi!
+  cz: Opravdu chcete složku smazat? Pozor! Spolu se složkou budou smazány všechny její soubory!
 manage-contextmenu-editfile:
   ru: Редактировать файл
   en: Edit file
@@ -145,6 +162,7 @@ manage-contextmenu-editfile:
   es: Editar archivo
   kk: Файлды өңдеу
   uz: Faylni tahrirlash
+  cz: Upravit soubor
 manage-contextmenu-deletefile:
   ru: Удалить файл
   en: Delete file
@@ -153,6 +171,7 @@ manage-contextmenu-deletefile:
   es: Eliminar archivo
   kk: Файлды жою
   uz: Faylni o'chirish
+  cz: Smazat soubor
 manage-contextmenu-downloadfile:
   ru: Скачать файл
   en: Download file
@@ -161,6 +180,7 @@ manage-contextmenu-downloadfile:
   es: Descargar archivo
   kk: Файлды жүктеу
   uz: Faylni yuklab olish
+  cz: Stáhnout soubor
 manage-files-messages-editfile:
   ru: Редактирование названия файла
   en: Edit the file name
@@ -169,6 +189,7 @@ manage-files-messages-editfile:
   es: Editar el nombre del archivo
   kk: Файлдың атын өңдеу
   uz: Fayl nomini tahrirlash
+  cz: Úprava názvu souboru
 manage-files-fields-name-desc:
   ru: Название файла
   en: File name
@@ -177,6 +198,7 @@ manage-files-fields-name-desc:
   es: Nombre del archivo
   kk: Файлдың аты
   uz: Fayl nomi
+  cz: Název souboru
 manage-files-fields-name-note:
   ru: Введите название файла
   en: Enter the file name
@@ -185,6 +207,7 @@ manage-files-fields-name-note:
   es: Introduzca el nombre del archivo
   kk: Файлдың атын енгізіңіз
   uz: Fayl nomini kiriting
+  cz: Zadejte název souboru
 manage-files-fields-name-validation1:
   ru: Пожалуйста, введите название файла!
   en: Please enter a file name!
@@ -193,6 +216,7 @@ manage-files-fields-name-validation1:
   es: ¡Por favor, introduzca un nombre de archivo!
   kk: Файлдың атын енгізіңіз!
   uz: Iltimos, fayl nomini kiriting!
+  cz: Zadejte prosím název souboru!
 manage-files-messages-removefile:
   ru: Удаление файла
   en: Delete file
@@ -201,6 +225,7 @@ manage-files-messages-removefile:
   es: Eliminar archivo
   kk: Файлды жою
   uz: Faylni o'chirish
+  cz: Smazání souboru
 manage-files-messages-removefilemessage:
   ru: Вы уверены, что хотите удалить файл?
   en: Are you sure you want to delete the file?
@@ -209,6 +234,7 @@ manage-files-messages-removefilemessage:
   es: ¿Estás seguro de que quieres eliminar el archivo?
   kk: Файлды жойғыңыз келетініне сенімдісіз бе?
   uz: Faylni o'chirmoqchimisiz?
+  cz: Opravdu chcete soubor smazat?
 manage-folders-messages-removefoldermessage-delete:
   ru: Удалить!
   en: Delete
@@ -217,6 +243,7 @@ manage-folders-messages-removefoldermessage-delete:
   es: ¡Eliminar!
   kk: Жою!
   uz: O'chirish!
+  cz: Smazat!
 manage-files-messages-editfile-save:
   ru: Сохранить
   en: Save
@@ -225,6 +252,7 @@ manage-files-messages-editfile-save:
   es: Guardar
   kk: Сақтау
   uz: Saqlash
+  cz: Uložit
 manage-files-messages-removefilemessage-delete:
   ru: Удалить!
   en: Delete
@@ -233,3 +261,4 @@ manage-files-messages-removefilemessage-delete:
   es: ¡Eliminar!
   kk: Жою!
   uz: O'chirish!
+  cz: Smazat!
