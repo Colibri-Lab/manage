@@ -8,6 +8,8 @@ manage-formwindow-buttons-save:
   uz: Saqlash
   cz: Uložit
   de: Speichern
+  tr: Kaydet
+  zh: 保存
 manage-formwindow-buttons-cancel:
   ru: Отмена
   en: Cancel
@@ -18,3 +20,5 @@ manage-formwindow-buttons-cancel:
   uz: Bekor qilish
   cz: Zrušit
   de: Abbrechen
+  tr: İptal
+  zh: 取消

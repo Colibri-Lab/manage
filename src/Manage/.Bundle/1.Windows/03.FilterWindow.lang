@@ -8,6 +8,8 @@ manage-formwindow-buttons-save:
   uz: Saqlash
   cz: Uložit
   de: Speichern
+  tr: Kaydet
+  zh: 保存
 manage-formwindow-buttons-cancel:
   ru: Отмена
   en: Cancel
@@ -18,6 +20,8 @@ manage-formwindow-buttons-cancel:
   uz: Bekor qilish
   cz: Zrušit
   de: Abbrechen
+  tr: İptal
+  zh: 取消
 manage-formwindow-buttons-no:
   ru: Нет
   en: "No"
@@ -28,6 +32,8 @@ manage-formwindow-buttons-no:
   uz: Yo'q
   cz: Ne
   de: Nein
+  tr: Hayır
+  zh: 否
 manage-formwindow-buttons-yes:
   ru: Да
   en: "Yes"
@@ -38,6 +44,8 @@ manage-formwindow-buttons-yes:
   uz: Ha
   cz: Ano
   de: Ja
+  tr: Evet
+  zh: 是
 manage-formwindow-buttons-nometter:
   ru: Не важно
   en: None
@@ -48,6 +56,8 @@ manage-formwindow-buttons-nometter:
   uz: Muhim emas
   cz: Nezáleží
   de: Keine
+  tr: Hiçbiri
+  zh: 无
 manage-formwindow-buttons-clear:
   ru: Очистить фильтр
   en: Clear filters
@@ -58,6 +68,8 @@ manage-formwindow-buttons-clear:
   uz: Filtrlarni tozalash
   cz: Vymazat filtry
   de: Filter löschen
+  tr: Filtreleri temizle
+  zh: 清除筛选
 manage-formwindow-id-desc:
   ru: ID
   en: ID
@@ -68,6 +80,8 @@ manage-formwindow-id-desc:
   uz: ID
   cz: ID
   de: ID
+  tr: Kimlik
+  zh: ID
 manage-formwindow-datecreated-desc:
   ru: Дата создания
   en: Creation date
@@ -78,6 +92,8 @@ manage-formwindow-datecreated-desc:
   uz: Yaratilgan sana
   cz: Datum vytvoření
   de: Erstellungsdatum
+  tr: Oluşturulma tarihi
+  zh: 创建日期
 manage-formwindow-datemodified-desc:
   ru: Дата изменения
   en: Modification date
@@ -88,3 +104,5 @@ manage-formwindow-datemodified-desc:
   uz: O'zgartirilgan sana
   cz: Datum změny
   de: Änderungsdatum
+  tr: Değiştirilme tarihi
+  zh: 修改日期

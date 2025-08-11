@@ -8,6 +8,8 @@ manage-components-tinymce-add-snippet:
   uz: Snippet qo'shish
   cz: Vložit úryvek
   de: Snippet einfügen
+  tr: Parça ekle
+  zh: 插入片段
 manage-components-tinymce-choose-snippet:
   ru: Выбрать снипет
   en: Choose snippet
@@ -18,6 +20,8 @@ manage-components-tinymce-choose-snippet:
   uz: Snippetni tanlash
   cz: Vybrat úryvek
   de: Snippet auswählen
+  tr: Parça seç
+  zh: 选择片段
 manage-components-tinymce-snippet:
   ru: Снипет
   en: Snippet
@@ -28,6 +32,8 @@ manage-components-tinymce-snippet:
   uz: Snippet
   cz: Úryvek
   de: Snippet
+  tr: Parça
+  zh: 片段
 manage-components-tinymce-edit-snippet:
   ru: Редактировать снипет
   en: Edit snippet
@@ -38,6 +44,8 @@ manage-components-tinymce-edit-snippet:
   uz: Snippetni tahrirlash
   cz: Upravit úryvek
   de: Snippet bearbeiten
+  tr: Parçayı düzenle
+  zh: 编辑片段
 manage-components-tinymce-params:
   ru: Параметры
   en: Parameters of
@@ -48,6 +56,8 @@ manage-components-tinymce-params:
   uz: Parametrlar
   cz: Parametry
   de: Parameter von
+  tr: Parametreleri
+  zh: 参数
 manage-components-tinymce-flexblock:
   ru: Флексбокс (в начало, пространство между блоками)
   en: Flexbox (to the beginning, space between blocks)
@@ -58,6 +68,8 @@ manage-components-tinymce-flexblock:
   uz: Flexbox (boshida, bloklar orasidagi bo'shliq)
   cz: Flexbox (na začátek, mezera mezi bloky)
   de: Flexbox (zum Anfang, Abstand zwischen Blöcken)
+  tr: Flexbox (başa, bloklar arası boşluk)
+  zh: 弹性盒（靠前，块之间留空）
 manage-components-tinymce-add-component:
   ru: Вставить компонент
   en: Add component
@@ -68,6 +80,8 @@ manage-components-tinymce-add-component:
   uz: Komponent qo'shish
   cz: Přidat komponentu
   de: Komponente hinzufügen
+  tr: Bileşen ekle
+  zh: 添加组件
 manage-fields-tinymcetext:
   ru: Визуальный редактор
   en: Visual TinyMCE editor
@@ -78,3 +92,5 @@ manage-fields-tinymcetext:
   uz: Vizual TinyMCE muharriri
   cz: Vizuální editor TinyMCE
   de: Visueller TinyMCE-Editor
+  tr: Görsel TinyMCE editörü
+  zh: 可视化 TinyMCE 编辑器
