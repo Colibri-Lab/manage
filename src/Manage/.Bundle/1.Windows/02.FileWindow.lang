@@ -7,6 +7,7 @@ manage-tabs-resources:
   kk: Ресурстар
   uz: Resurslar
   cz: Zdroje
+  de: Ressourcen
 manage-tabs-remote:
   ru: Удаленная медиатека
   en: Remote library
@@ -16,6 +17,7 @@ manage-tabs-remote:
   kk: Қашықтағы кітапхана
   uz: Uzoqdagi kutubxona
   cz: Vzdálená knihovna
+  de: Remote-Bibliothek
 manage-filewindow-buttons-choose:
   ru: Выбрать
   en: Select
@@ -25,6 +27,7 @@ manage-filewindow-buttons-choose:
   kk: Таңдау
   uz: Tanlash
   cz: Vybrat
+  de: Auswählen
 manage-filewindow-buttons-cancel:
   ru: Отмена
   en: Cancel
@@ -34,6 +37,7 @@ manage-filewindow-buttons-cancel:
   kk: Болдырмау
   uz: Bekor qilish
   cz: Zrušit
+  de: Abbrechen
 manage-filewindow-title:
   ru: Выбор файлов
   en: Browse for files
@@ -43,3 +47,4 @@ manage-filewindow-title:
   kk: Файлдарды қарау
   uz: Fayllarni ko'rib chiqish
   cz: Výběr souborů
+  de: Dateien durchsuchen
