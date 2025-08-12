@@ -18,6 +18,8 @@ use Colibri\Events\EventsContainer;
 use Colibri\IO\FileSystem\File;
 use Colibri\Common\NoLangHelper;
 use Colibri\Utils\Logs\Logger;
+use OpenAI;
+use OpenAI\Client;
 
 /**
  * Backend manage module
@@ -78,6 +80,38 @@ class Module extends BaseModule
     public function Backup(Logger $logger, string $path)
     {
         // Do nothing        
+    }
+
+    public function translateMultiLang(string $openaiApiKey, string $text, $language) {
+        $client = OpenAI::client($openaiApiKey);
+        
+        // Преобразуем язык(и) в строку через запятую
+        if (is_array($language)) {
+            $languages = implode(',', $language);
+        } else {
+            $languages = $language;
+        }
+
+        try {
+            $response = $client->chat()->create([
+                'model' => 'gpt-5',
+                'messages' => [
+                    ['role' => 'system', 'content' => 'You are a helpful translator.'],
+                    ['role' => 'user', 'content' =>
+                        "Translate {$text} to language {$languages}. Answer in JSON format, where key is the language, value is a translation. " .
+                        "For example: {\"en\": \"...\", \"hy\": \"...\"}."
+                    ]
+                ],
+            ]);
+
+            $content = $response->choices[0]->message->content;
+
+            return json_decode($content, true);
+        } catch (Exception $e) {
+            // Логируем ошибку
+            error_log('Error during translation: ' . $e->getMessage());
+            return null;
+        }
     }
     
 }
