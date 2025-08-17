@@ -34,7 +34,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     }
 
     _createAdditionalSnippetsButtons() {
-        return 'add-snippet edit-snippet ' + (this._tools ?? []).map(tool => tool.name).join(' | ');
+        return 'add-snippet edit-snippet translate' + (this._tools ?? []).map(tool => tool.name).join(' | ');
     }
 
     _createAdditionalTools() {
@@ -226,11 +226,40 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
         });
 
+        if(Lang != undefined) {
+            const langs = Lang.Store.Query('lang.langs');
+            
+            tools.push({
+                type: 'menubutton',
+                name: "translate",
+                icon: false,
+                text: "#{manage-components-tinymce-translate}",
+                menu: Object.values(Object.map(langs, (key, v) => ({
+                    text: v.desc, 
+                    value: key, 
+                    type: 'menuitem',
+                    menu: Object.values(Object.map(langs, (k, vv) => (key != k ? {
+                        text: vv.desc,
+                        value: key + '-' + k
+                    } : null)))
+                }))),
+                onclick: (e) => {
+                    const langKey = e?.control?.settings?.value
+                    if(langKey) {
+                        const l = langKey.split('-');
+                        Lang.OpenAITranslate(this._getValue(), l[0], l[1]).then(result => {
+                            this.value = result;
+                        });
+                    }
+
+                }
+    
+            });
+        }
+
         if (this._tools) {
             tools = tools.concat(this._tools);
         }
-
-        console.log(tools);
 
         return tools;
     }

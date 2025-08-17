@@ -94,3 +94,15 @@ manage-fields-tinymcetext:
   de: Visueller TinyMCE-Editor
   tr: Görsel TinyMCE editörü
   zh: 可视化 TinyMCE 编辑器
+manage-components-tinymce-translate:
+  ru: Перевести
+  en: Translate
+  hy: Թարգմանել
+  it: Tradurre
+  es: Traducir
+  kk: Аударма
+  uz: Tarjima
+  cz: Přeložit
+  de: Übersetzen
+  tr: Çeviri
+  zh: 翻译
