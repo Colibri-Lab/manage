@@ -64,8 +64,6 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
         
                     this.ReCreateForm(this._performChanges(storage).fields, value);
                     
-                    App.Loading.Hide();
-
                     this._save.ClearHandlers();
                     this._save.AddHandler('Clicked', () => {
                         resolve(this._form.value);
@@ -78,6 +76,8 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
                         this.Hide();
                     });
         
+                }).finally(() => {
+                    App.Loading.Hide();
                 });
     
         });
