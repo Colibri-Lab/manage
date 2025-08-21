@@ -12,6 +12,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
         this.autocomplete = this._fieldData.autocomplete;
 
+        
     }
     
     __shownHandler(event, args) {
@@ -265,14 +266,14 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     }
 
     __initVisual() {
-
-        if (this._visualCreated || !this.shown) {
-            this.AddHandler('Shown', this.__shownHandler);
+        
+        if (this._visualCreated || !this.isConnected) {
+            this.AddHandler('ConnectedTo', this.__shownHandler);
             return;
         }
 
         this._visualCreated = true;
-        this.RemoveHandler('Shown', this.__shownHandler);
+        this.RemoveHandler('ConnectedTo', this.__shownHandler);
 
         if (this._fieldData?.params?.visual == true) {
 
