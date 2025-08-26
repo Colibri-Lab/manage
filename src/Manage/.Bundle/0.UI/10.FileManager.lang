@@ -10,6 +10,7 @@ manage-filemanager-folders:
   de: Struktur
   tr: Yapı
   zh: 结构
+  fa: ساختار
 manage-filemanager-files:
   ru: Файлы
   en: Files
@@ -22,6 +23,7 @@ manage-filemanager-files:
   de: Dateien
   tr: Dosyalar
   zh: 文件
+  fa: فایل‌ها
 manage-filemanager-search:
   ru: Поиск
   en: Search
@@ -34,6 +36,7 @@ manage-filemanager-search:
   de: Suchen
   tr: Ara
   zh: 搜索
+  fa: جستجو
 manage-filemanager-filesempty:
   ru: Файлов не найдено
   en: No files found
@@ -46,6 +49,7 @@ manage-filemanager-filesempty:
   de: Keine Dateien gefunden
   tr: Dosya bulunamadı
   zh: 未找到文件
+  fa: هیچ فایلی یافت نشد
 manage-filemanager-files-file:
   ru: Файл
   en: File
@@ -58,6 +62,7 @@ manage-filemanager-files-file:
   de: Datei
   tr: Dosya
   zh: 文件
+  fa: فایل
 manage-filemanager-files-type:
   ru: Тип
   en: Type
@@ -70,6 +75,7 @@ manage-filemanager-files-type:
   de: Typ
   tr: Tür
   zh: 类型
+  fa: نوع
 manage-filemanager-files-size:
   ru: Размер
   en: Size
@@ -82,6 +88,7 @@ manage-filemanager-files-size:
   de: Größe
   tr: Boyut
   zh: 大小
+  fa: اندازه
 manage-filemanager-files-created:
   ru: Создан
   en: Created
@@ -94,6 +101,7 @@ manage-filemanager-files-created:
   de: Erstellt
   tr: Oluşturulma tarihi
   zh: 创建时间
+  fa: ایجاد شده
 manage-filemanager-files-changed:
   ru: Изменен
   en: Modified
@@ -106,6 +114,7 @@ manage-filemanager-files-changed:
   de: Geändert
   tr: Değiştirilme tarihi
   zh: 修改时间
+  fa: تغییر یافته
 manage-filemanager-buttons-upload:
   ru: Загрузить файлы
   en: Upload files
@@ -118,6 +127,7 @@ manage-filemanager-buttons-upload:
   de: Dateien hochladen
   tr: Dosya yükle
   zh: 上传文件
+  fa: بارگذاری فایل‌ها
 manage-filemanager-buttons-editname:
   ru: Редактировать название
   en: Edit file name
@@ -130,6 +140,7 @@ manage-filemanager-buttons-editname:
   de: Dateinamen bearbeiten
   tr: Dosya adını düzenle
   zh: 编辑文件名
+  fa: ویرایش نام فایل
 manage-filemanager-buttons-delete:
   ru: Удалить файлы
   en: Delete files
@@ -142,6 +153,7 @@ manage-filemanager-buttons-delete:
   de: Dateien löschen
   tr: Dosyaları sil
   zh: 删除文件
+  fa: حذف فایل‌ها
 manage-contextmenu-newfolder:
   ru: Новый раздел
   en: New folder
@@ -154,6 +166,7 @@ manage-contextmenu-newfolder:
   de: Neuer Ordner
   tr: Yeni klasör
   zh: 新建文件夹
+  fa: پوشه جدید
 manage-contextmenu-editfolder:
   ru: Редактировать раздел
   en: Edit folder
@@ -166,6 +179,7 @@ manage-contextmenu-editfolder:
   de: Ordner bearbeiten
   tr: Klasörü düzenle
   zh: 编辑文件夹
+  fa: ویرایش پوشه
 manage-contextmenu-deletefolder:
   ru: Удалить раздел
   en: Delete folder
@@ -178,6 +192,7 @@ manage-contextmenu-deletefolder:
   de: Ordner löschen
   tr: Klasörü sil
   zh: 删除文件夹
+  fa: حذف پوشه
 manage-folders-messages-removefolder:
   ru: Удаление папки
   en: Delete folder
@@ -190,6 +205,7 @@ manage-folders-messages-removefolder:
   de: Ordner löschen
   tr: Klasörü sil
   zh: 删除文件夹
+  fa: حذف پوشه
 manage-folders-messages-removefoldermessage:
   ru: Вы уверены, что хотите удалить папку? Внимание! Вместе с папкой будет
     удалено все ее содержание!
@@ -212,6 +228,7 @@ manage-folders-messages-removefoldermessage:
   tr: Klasörü silmek istediğinizden emin misiniz? Dikkat! Klasörle birlikte tüm
     içeriği de silinecek!
   zh: 确定要删除该文件夹吗？注意！文件夹及其所有内容将被删除！
+  fa: آیا مطمئن هستید که می‌خواهید پوشه را حذف کنید؟ توجه! با حذف پوشه، تمام محتویات آن نیز حذف خواهد شد!
 manage-contextmenu-editfile:
   ru: Редактировать файл
   en: Edit file
@@ -224,6 +241,7 @@ manage-contextmenu-editfile:
   de: Datei bearbeiten
   tr: Dosyayı düzenle
   zh: 编辑文件
+  fa: ویرایش فایل
 manage-contextmenu-deletefile:
   ru: Удалить файл
   en: Delete file
@@ -236,6 +254,7 @@ manage-contextmenu-deletefile:
   de: Datei löschen
   tr: Dosyayı sil
   zh: 删除文件
+  fa: حذف فایل
 manage-contextmenu-downloadfile:
   ru: Скачать файл
   en: Download file
@@ -248,6 +267,7 @@ manage-contextmenu-downloadfile:
   de: Datei herunterladen
   tr: Dosyayı indir
   zh: 下载文件
+  fa: دانلود فایل
 manage-files-messages-editfile:
   ru: Редактирование названия файла
   en: Edit the file name
@@ -260,6 +280,7 @@ manage-files-messages-editfile:
   de: Dateinamen bearbeiten
   tr: Dosya adını düzenle
   zh: 编辑文件名
+  fa: ویرایش نام فایل
 manage-files-fields-name-desc:
   ru: Название файла
   en: File name
@@ -272,6 +293,7 @@ manage-files-fields-name-desc:
   de: Dateiname
   tr: Dosya adı
   zh: 文件名
+  fa: نام فایل
 manage-files-fields-name-note:
   ru: Введите название файла
   en: Enter the file name
@@ -284,6 +306,7 @@ manage-files-fields-name-note:
   de: Dateinamen eingeben
   tr: Dosya adını girin
   zh: 输入文件名
+  fa: نام فایل را وارد کنید
 manage-files-fields-name-validation1:
   ru: Пожалуйста, введите название файла!
   en: Please enter a file name!
@@ -296,6 +319,7 @@ manage-files-fields-name-validation1:
   de: Bitte geben Sie einen Dateinamen ein!
   tr: Lütfen bir dosya adı girin!
   zh: 请输入文件名！
+  fa: لطفاً نام فایل را وارد کنید!
 manage-files-messages-removefile:
   ru: Удаление файла
   en: Delete file
@@ -308,6 +332,7 @@ manage-files-messages-removefile:
   de: Datei löschen
   tr: Dosyayı sil
   zh: 删除文件
+  fa: حذف فایل
 manage-files-messages-removefilemessage:
   ru: Вы уверены, что хотите удалить файл?
   en: Are you sure you want to delete the file?
@@ -320,6 +345,7 @@ manage-files-messages-removefilemessage:
   de: Sind Sie sicher, dass Sie die Datei löschen möchten?
   tr: Dosyayı silmek istediğinizden emin misiniz?
   zh: 确定要删除该文件吗？
+  fa: آیا مطمئن هستید که می‌خواهید فایل را حذف کنید؟
 manage-folders-messages-removefoldermessage-delete:
   ru: Удалить!
   en: Delete
@@ -332,6 +358,7 @@ manage-folders-messages-removefoldermessage-delete:
   de: Löschen
   tr: Sil
   zh: 删除
+  fa: حذف!
 manage-files-messages-editfile-save:
   ru: Сохранить
   en: Save
@@ -344,6 +371,7 @@ manage-files-messages-editfile-save:
   de: Speichern
   tr: Kaydet
   zh: 保存
+  fa: ذخیره
 manage-files-messages-removefilemessage-delete:
   ru: Удалить!
   en: Delete
@@ -356,3 +384,4 @@ manage-files-messages-removefilemessage-delete:
   de: Löschen
   tr: Sil
   zh: 删除
+  fa: حذف!

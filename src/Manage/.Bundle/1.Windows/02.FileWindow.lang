@@ -10,6 +10,7 @@ manage-tabs-resources:
   de: Ressourcen
   tr: Kaynaklar
   zh: 资源
+  fa: منابع
 manage-tabs-remote:
   ru: Удаленная медиатека
   en: Remote library
@@ -22,6 +23,7 @@ manage-tabs-remote:
   de: Remote-Bibliothek
   tr: Uzaktan kütüphane
   zh: 远程库
+  fa: کتابخانه راه دور
 manage-filewindow-buttons-choose:
   ru: Выбрать
   en: Select
@@ -34,6 +36,7 @@ manage-filewindow-buttons-choose:
   de: Auswählen
   tr: Seç
   zh: 选择
+  fa: انتخاب
 manage-filewindow-buttons-cancel:
   ru: Отмена
   en: Cancel
@@ -46,6 +49,7 @@ manage-filewindow-buttons-cancel:
   de: Abbrechen
   tr: İptal
   zh: 取消
+  fa: لغو
 manage-filewindow-title:
   ru: Выбор файлов
   en: Browse for files
@@ -58,3 +62,4 @@ manage-filewindow-title:
   de: Dateien durchsuchen
   tr: Dosya ara
   zh: 浏览文件
+  fa: انتخاب فایل‌ها

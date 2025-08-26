@@ -10,6 +10,7 @@ manage-formwindow-buttons-save:
   de: Speichern
   tr: Kaydet
   zh: 保存
+  fa: ذخیره
 manage-formwindow-buttons-cancel:
   ru: Отмена
   en: Cancel
@@ -22,3 +23,4 @@ manage-formwindow-buttons-cancel:
   de: Abbrechen
   tr: İptal
   zh: 取消
+  fa: لغو

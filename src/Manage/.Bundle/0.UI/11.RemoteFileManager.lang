@@ -10,6 +10,7 @@ manage-filemanager-remote-buckets:
   de: Eimer
   tr: Kovalar
   zh: 存储桶
+  fa: سطل‌ها
 manage-filemanager-remote-files:
   ru: Файлы
   en: Files
@@ -22,6 +23,7 @@ manage-filemanager-remote-files:
   de: Dateien
   tr: Dosyalar
   zh: 文件
+  fa: فایل‌ها
 manage-filemanager-remote-search:
   ru: Поиск
   en: Search
@@ -34,6 +36,7 @@ manage-filemanager-remote-search:
   de: Suche
   tr: Ara
   zh: 搜索
+  fa: جستجو
 manage-filemanager-remote-filesempty:
   ru: Файлов в корзине не найдено
   en: No files in bucket
@@ -46,6 +49,7 @@ manage-filemanager-remote-filesempty:
   de: Keine Dateien im Eimer
   tr: Kovada dosya yok
   zh: 存储桶中没有文件
+  fa: هیچ فایلی در سطل یافت نشد
 manage-filemanager-remote-created:
   ru: Создана
   en: Created
@@ -58,6 +62,7 @@ manage-filemanager-remote-created:
   de: Erstellt
   tr: Oluşturulma tarihi
   zh: 创建时间
+  fa: ایجاد شده
 manage-filemanager-remote-key:
   ru: Ключ
   en: Key
@@ -70,6 +75,7 @@ manage-filemanager-remote-key:
   de: Schlüssel
   tr: Anahtar
   zh: 键
+  fa: کلید
 manage-filemanager-remote-file:
   ru: Файл
   en: File
@@ -82,6 +88,7 @@ manage-filemanager-remote-file:
   de: Datei
   tr: Dosya
   zh: 文件
+  fa: فایل
 manage-filemanager-remote-type:
   ru: Тип
   en: Type
@@ -94,6 +101,7 @@ manage-filemanager-remote-type:
   de: Typ
   tr: Tür
   zh: 类型
+  fa: نوع
 manage-filemanager-remote-size:
   ru: Размер
   en: Size
@@ -106,6 +114,7 @@ manage-filemanager-remote-size:
   de: Größe
   tr: Boyut
   zh: 大小
+  fa: اندازه
 manage-filemanager-remote-hash:
   ru: Хэш
   en: Hash
@@ -118,6 +127,7 @@ manage-filemanager-remote-hash:
   de: Hash
   tr: Hash
   zh: 哈希
+  fa: هش
 manage-filemanager-remote-path:
   ru: Путь
   en: Path
@@ -130,6 +140,7 @@ manage-filemanager-remote-path:
   de: Pfad
   tr: Yol
   zh: 路径
+  fa: مسیر
 manage-filemanager-remote-buttons-upload:
   ru: Загрузить файлы
   en: Upload files
@@ -142,6 +153,7 @@ manage-filemanager-remote-buttons-upload:
   de: Dateien hochladen
   tr: Dosya yükle
   zh: 上传文件
+  fa: بارگذاری فایل‌ها
 manage-filemanager-remote-buttons-remove:
   ru: Удалить
   en: Delete
@@ -154,6 +166,7 @@ manage-filemanager-remote-buttons-remove:
   de: Löschen
   tr: Sil
   zh: 删除
+  fa: حذف
 manage-contextmenu-downloadfile:
   ru: Скачать файл
   en: Download file
@@ -166,6 +179,7 @@ manage-contextmenu-downloadfile:
   de: Datei herunterladen
   tr: Dosyayı indir
   zh: 下载文件
+  fa: دانلود فایل
 manage-remotefiles-messages-removefile:
   ru: Удаление файлов из удаленного хранилища
   en: Deleting files from remote storage
@@ -178,6 +192,7 @@ manage-remotefiles-messages-removefile:
   de: Dateien aus dem Remote-Speicher löschen
   tr: Uzaktan depodan dosya siliniyor
   zh: 从远程存储删除文件
+  fa: حذف فایل‌ها از فضای ذخیره‌سازی راه دور
 manage-remotefiles-messages-removefile-message:
   ru: Вы уверены, что хотите удалить выбранный файл?
   en: Are you sure you want to delete the selected file?
@@ -190,6 +205,7 @@ manage-remotefiles-messages-removefile-message:
   de: Sind Sie sicher, dass Sie die ausgewählte Datei löschen möchten?
   tr: Seçili dosyayı silmek istediğinizden emin misiniz?
   zh: 确定要删除所选文件吗？
+  fa: آیا مطمئن هستید که می‌خواهید فایل انتخاب شده را حذف کنید؟
 manage-contextmenu-deletefile:
   ru: Удалить
   en: Delete
@@ -202,6 +218,7 @@ manage-contextmenu-deletefile:
   de: Löschen
   tr: Sil
   zh: 删除
+  fa: حذف
 manage-contextmenu-createbucket:
   ru: Новая корзина
   en: Create bucket
@@ -214,6 +231,7 @@ manage-contextmenu-createbucket:
   de: Eimer erstellen
   tr: Kova oluştur
   zh: 创建存储桶
+  fa: ایجاد سطل جدید
 manage-contextmenu-deletebucket:
   ru: Удалить корзину
   en: Delete bucket
@@ -226,6 +244,7 @@ manage-contextmenu-deletebucket:
   de: Eimer löschen
   tr: Kovayı sil
   zh: 删除存储桶
+  fa: حذف سطل
 manage-remotefiles-messages-createbucket:
   ru: Создание корзины
   en: Bucket creation
@@ -238,6 +257,7 @@ manage-remotefiles-messages-createbucket:
   de: Eimer erstellen
   tr: Kova oluşturma
   zh: 创建存储桶
+  fa: ایجاد سطل
 manage-remotefiles-messages-createbucket-desc:
   ru: Название корзины
   en: Bucket name
@@ -250,6 +270,7 @@ manage-remotefiles-messages-createbucket-desc:
   de: Eimername
   tr: Kova adı
   zh: 存储桶名称
+  fa: نام سطل
 manage-remotefiles-messages-createbucket-validate1:
   ru: Пожалуйста, введите название корзины!
   en: "Please enter the bucket name "
@@ -262,6 +283,7 @@ manage-remotefiles-messages-createbucket-validate1:
   de: "Bitte geben Sie den Eimernamen ein "
   tr: Lütfen kova adını girin
   zh: 请输入存储桶名称
+  fa: لطفاً نام سطل را وارد کنید!
 manage-remotefiles-messages-createbucket-button:
   ru: Сохранить
   en: Save
@@ -274,6 +296,7 @@ manage-remotefiles-messages-createbucket-button:
   de: Speichern
   tr: Kaydet
   zh: 保存
+  fa: ذخیره
 manage-remotefiles-messages-deletebucket:
   ru: Удаление корзины
   en: Delete bucket
@@ -286,6 +309,7 @@ manage-remotefiles-messages-deletebucket:
   de: Eimer löschen
   tr: Kovayı sil
   zh: 删除存储桶
+  fa: حذف سطل
 manage-remotefiles-messages-deletebucket-message:
   ru: Вы уверены, что хотите удалить корзину? Все файлы внутри корзины будут
     удалены физически!
@@ -307,6 +331,7 @@ manage-remotefiles-messages-deletebucket-message:
   tr: Çöpü silmek istediğinizden emin misiniz? İçindeki tüm dosyalar kalıcı olarak
     silinecek!
   zh: 确定要删除该存储桶吗？桶内所有文件将被物理删除！
+  fa: آیا مطمئن هستید که می‌خواهید سطل را حذف کنید؟ تمام فایل‌های داخل سطل به صورت فیزیکی حذف خواهند شد!
 manage-remotefiles-messages-removefile-message-delete:
   ru: Удалить!
   en: Delete
@@ -319,6 +344,7 @@ manage-remotefiles-messages-removefile-message-delete:
   de: Löschen
   tr: Sil
   zh: 删除
+  fa: حذف!
 manage-remotefiles-messages-removefiles:
   ru: Удаление файлов из удаленного хранилища
   en: Deleting files from remote storage
@@ -331,6 +357,7 @@ manage-remotefiles-messages-removefiles:
   de: Dateien aus dem Remote-Speicher löschen
   tr: Uzaktan depodan dosyalar siliniyor
   zh: 从远程存储删除文件
+  fa: حذف فایل‌ها از فضای ذخیره‌سازی راه دور
 manage-remotefiles-messages-removefiles-message:
   ru: Вы уверены, что хотите удалить выбранный файлы?
   en: Are you sure you want to delete the selected files?
@@ -343,6 +370,7 @@ manage-remotefiles-messages-removefiles-message:
   de: Sind Sie sicher, dass Sie die ausgewählten Dateien löschen möchten?
   tr: Seçili dosyaları silmek istediğinizden emin misiniz?
   zh: 确定要删除所选文件吗？
+  fa: آیا مطمئن هستید که می‌خواهید فایل‌های انتخاب شده را حذف کنید؟
 manage-remotefiles-messages-removefiles-message-delete:
   ru: Удалить!
   en: Delete
@@ -355,6 +383,7 @@ manage-remotefiles-messages-removefiles-message-delete:
   de: Löschen
   tr: Sil
   zh: 删除
+  fa: حذف!
 manage-remotefiles-messages-deletebucket-delete:
   ru: Удалить!
   en: Delete
@@ -367,3 +396,4 @@ manage-remotefiles-messages-deletebucket-delete:
   de: Löschen
   tr: Sil
   zh: 删除
+  fa: حذف!
