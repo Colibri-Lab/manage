@@ -28,6 +28,13 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
                 field.component = field.component == 'Colibri.UI.Forms.DateTime' ? 'Colibri.UI.Forms.DateTimeRange' : 'DateRangeTime';
             } else if(field.component == 'Select' || field.component == 'Colibri.UI.Forms.Select') {
                 field.params.multiple = true;
+                field.params.placeholderinfo = (value, values) => new Promise((resolve, reject) => {
+                    const res = [];
+                    for(const v of value) {
+                        res.push(v[field.selector.title]);
+                    }
+                    resolve(res.join(', '));
+                });
             } else if(field.component === 'Array' || field.component === 'Colibri.UI.Forms.Array') {
                 field.params.addlink = null;
             } else if(field.component === 'Checkbox' || field.component === 'Colibri.UI.Forms.Checkbox') {
@@ -44,6 +51,7 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
                 }];
                 field.params.default = null;
             }
+            field.params.required = false;
             field.params.readonly = false;
             field.params.enabled = true;
             delete field.default;
