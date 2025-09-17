@@ -60,7 +60,7 @@ class DataPointsController extends WebController
                 $point->dbms = $dtp->dbms;
                 $result[$name] = $point;
             } catch(Throwable $e) {
-                
+                app_debug($e->getMessage(), $e->getLine(), $e->getFile());
             }
         }
 
