@@ -51,6 +51,7 @@ class DataPointsController extends WebController
                 $dtp = App::$dataAccessPoints->Get($name);
                 $point->allowedTypes = $dtp->allowedTypes;
                 $point->hasIndexes = $dtp->hasIndexes;
+                $point->hasTriggers = $dtp->hasTriggers;
                 $point->fieldsHasPrefix = $dtp->fieldsHasPrefix;
                 $point->hasVirtual = $dtp->hasVirtual;
                 $point->hasMultiFieldIndexes = $dtp->hasMultiFieldIndexes;
