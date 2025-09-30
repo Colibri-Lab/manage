@@ -269,11 +269,13 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         
         if (this._visualCreated || !this.isConnected) {
             this.AddHandler('ConnectedTo', this.__shownHandler);
+            this.AddHandler('Shown', this.__shownHandler);
             return;
         }
 
         this._visualCreated = true;
         this.RemoveHandler('ConnectedTo', this.__shownHandler);
+        this.RemoveHandler('Shown', this.__shownHandler);
 
         if (this._fieldData?.params?.visual == true) {
 
