@@ -222,46 +222,6 @@ manage-components-tinymce-add-snippet:
   es: Insertar un fragmento
   kk: Сниппет қосу
   uz: Snippet qo'shish
-manage-components-tinymce-choose-snippet:
-  ru: Выбрать снипет
-  en: Choose a snippet
-  hy: Ընտրել snipet
-  it: Scegli snippet
-  es: Elegir un fragmento
-  kk: Сниппет таңдау
-  uz: Snippet tanlash
-manage-components-tinymce-snippet:
-  ru: Снипет
-  en: Snippet
-  hy: Սնիպետ
-  it: Snippet
-  es: Fragmento
-  kk: Сниппет
-  uz: Snippet
-manage-components-tinymce-edit-snippet:
-  ru: Редактировать снипет
-  en: Edit Snippet
-  hy: Խմբագրել snipet
-  it: Modifica snippet
-  es: Editar fragmento
-  kk: Сниппетті өңдеу
-  uz: Snippetni tahrirlash
-manage-components-tinymce-params:
-  ru: Параметры
-  en: Parameters
-  hy: Պարամետրեր
-  it: Parametri
-  es: Parámetros
-  kk: Параметрлер
-  uz: Parametrlar
-manage-components-tinymce-flexblock:
-  ru: Флексбокс (в начало, пространство между блоками)
-  en: Flexbox (to the beginning, the space between the blocks)
-  hy: Flexbox (ի սկզբանե, տարածք միջեւ բլոկների)
-  it: Flexbox (all'inizio, lo spazio tra i blocchi)
-  es: Flexbox (al principio, el espacio entre los bloques)
-  kk: Flexbox (блоктардың арасындағы кеңістікке дейін)
-  uz: Flexbox (bloklar orasidagi bo'shliq)
 manage-contextmenu-newfolder:
   ru: Новый раздел
   en: New section
