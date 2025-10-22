@@ -137,7 +137,8 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 const dom = editor.dom;
                 const sel = editor.selection;
                 const node = sel.getNode();
-                if (node.matches('component')) {
+                debugger;
+                if (node.matches('snippet')) {
 
                     let attrs = {};
                     for (const attr of node.attributes) {
