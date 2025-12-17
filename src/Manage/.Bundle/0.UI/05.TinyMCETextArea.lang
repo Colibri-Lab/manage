@@ -115,3 +115,29 @@ manage-components-tinymce-translate:
   tr: Çeviri
   zh: 翻译
   fa: ترجمه
+manage-components-tinymce-newrow:
+  ru: Данные снипета
+  en: Snippet Data
+  hy: Սնիպետի տվյալներ
+  it: Dati snippet
+  es: Datos del fragmento
+  kk: Сниппет деректері
+  uz: Snippet ma'lumotlari
+  cz: Data úryvku
+  de: Snippet-Daten
+  tr: Parçacık Verileri
+  zh: 片段数据
+  fa: داده‌های قطعه
+manage-components-tinymce-updaterow:
+  ru: Параметры
+  en: Parameters
+  hy: Ընտրանքներ
+  it: Parametri
+  es: Parámetros
+  kk: Параметрлер
+  uz: Parametrlar
+  cz: Parametry
+  de: Parameter
+  tr: Parametreler
+  zh: 参数
+  fa: پارامترها
