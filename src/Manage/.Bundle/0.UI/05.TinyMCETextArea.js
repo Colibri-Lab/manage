@@ -27,7 +27,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     _createSnippetTag(snippet, data, type = 'tag') {
         if (type === 'tag') {
             data = Object.map(data, (k, v) => {
-                if(typeof value === 'string') {
+                if(typeof v === 'string') {
                     return v;
                 } else {
                     return JSON.stringify(v);
