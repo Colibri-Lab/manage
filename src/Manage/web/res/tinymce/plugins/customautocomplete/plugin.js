@@ -112,6 +112,7 @@
                 s = s.previousSibling;
             }
 
+            debugger;
             var rawHtml = before + line.substr(0, start) + '<span id="autocomplete">' +
                 '<span id="autocomplete-delimiter">' + line.slice(start, end) + '</span>' +
                 '</span>' + line.substr(end);
