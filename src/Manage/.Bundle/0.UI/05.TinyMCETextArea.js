@@ -148,40 +148,6 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                         });
 
 
-                    // button.settings.editor.windowManager.open({
-                    //     title: '#{manage-components-tinymce-choose-snippet}',
-                    //     data: {},
-                    //     body: {
-                    //         name: 'snippet',
-                    //         type: 'listbox',
-                    //         label: '#{manage-components-tinymce-snippet}',
-                    //         values: comboList
-                    //     },
-                    //     onsubmit: (e1) => {
-                    //         const snippet = snippets[e1.data.snippet];
-                    //         const fields = snippet?.fields ?? null;
-                    //         if (fields) {
-                    //             const form = new App.Modules.Manage.Windows.FormWindow('snippet-form-window', document.body);
-                    //             form.Show('#{manage-components-tinymce-newrow} «' + snippet.text + '»', 1024, {
-                    //                 name: 'snippet',
-                    //                 fields: snippet.fields
-                    //             }, {})
-                    //                 .then((data) => {
-                    //                      button.settings.editor.focus();
-                    //                     _addSnippet(button, snippet, data);
-                    //                 })
-                    //                 .finally(() => {
-                    //                     form.Hide();
-                    //                     form.Dispose();
-                    //                 });
-                    //         }
-                    //         else {
-                    //             button.settings.editor.focus();
-                    //             _addSnippet(button, snippet, {});
-                    //         }
-
-                    //     }
-                    // });
 
                 });
 
