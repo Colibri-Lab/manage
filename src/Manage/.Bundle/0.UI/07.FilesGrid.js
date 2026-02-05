@@ -42,5 +42,21 @@ App.Modules.Manage.UI.FilesGrid = class extends Colibri.UI.Grid {
 
     }
 
+    /**
+     * Value Array
+     * @type {Array}
+     */
+    get value() {
+        return super.value;
+    }
+    /**
+     * Value Array
+     * @type {Array}
+     */
+    set value(value) {
+        super.value = value;
+        this.rows.title = '';
+    }
+
     
 }

@@ -38,6 +38,10 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
 
     }
 
+    get Store() {
+        return this._store;
+    }
+
     Render() {
         console.log('Rendering Module Manage');
         

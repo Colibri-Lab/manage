@@ -228,7 +228,8 @@ manage-folders-messages-removefoldermessage:
   tr: Klasörü silmek istediğinizden emin misiniz? Dikkat! Klasörle birlikte tüm
     içeriği de silinecek!
   zh: 确定要删除该文件夹吗？注意！文件夹及其所有内容将被删除！
-  fa: آیا مطمئن هستید که می‌خواهید پوشه را حذف کنید؟ توجه! با حذف پوشه، تمام محتویات آن نیز حذف خواهد شد!
+  fa: آیا مطمئن هستید که می‌خواهید پوشه را حذف کنید؟ توجه! با حذف پوشه، تمام
+    محتویات آن نیز حذف خواهد شد!
 manage-contextmenu-editfile:
   ru: Редактировать файл
   en: Edit file

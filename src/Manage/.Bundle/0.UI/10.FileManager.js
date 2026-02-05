@@ -295,8 +295,6 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
      */ 
     __foldersSelectionChanged(event, args) {
 
-        this._enableFilesPane();
-
         const selection = this._folders.selected;
         const folder = selection?.tag;
         if(!folder) {
@@ -304,9 +302,16 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
             return false;
         }
 
+        this._enableFilesPane();
+
         this._files.UnselectAllRows();
         this._files.UncheckAllRows();
-        Manage.Files(folder.path, this._searchInput.value);
+
+        Manage.Files(folder.path, this._searchInput.value, true).then(response => {
+            const files = response.result;
+            Manage.Store.Set('manage.files', response.result);
+            this._files.value = files;
+        });
         this.Dispatch('SelectionChanged', {});
 
     }
@@ -422,10 +427,15 @@ App.Modules.Manage.UI.FileManager = class extends Colibri.UI.Component {
         const selected = this._folders.selected;
         const folder = selected?.tag;
         if(!folder) {
+            this._files.ClearAllRows();
             return;
         }
 
-        Manage.Files(folder.path, this._searchInput.value);
+        Manage.Files(folder.path, this._searchInput.value, true).then(response => {
+            const files = response.result;
+            Manage.Store.Set('manage.files', response.result);
+            this._files.value = files;
+        });
 
     }
 

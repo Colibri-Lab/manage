@@ -141,3 +141,6 @@ manage-components-tinymce-updaterow:
   tr: Parametreler
   zh: 参数
   fa: پارامترها
+manage-components-tinymce-snippets:
+  ru: Список снипетов
+  en: Snippets list
