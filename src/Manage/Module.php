@@ -36,14 +36,25 @@ class Module extends BaseModule
     public function InitializeModule(): void
     {
 
-        App::Instance()->HandleEvent(EventsContainer::BundleFile, function ($event, $args) {
-            $file = new File($args->file);
-            if (in_array($file->extension, ['html', 'js'])) {
-                // компилируем html в javascript
-                $args->content = NoLangHelper::ParseString($args->content);
+        if(App::$domainKey === 'manage') {
+
+            if(App::$moduleManager->{'lang'}) {
+                App::$moduleManager->{'lang'}->InitCurrent(App::$request->cookie->{'manage-lang'});
+                App::$moduleManager->{'lang'}->SetUseCookie(false);    
+                App::$moduleManager->{'lang'}->SetCookieDomain($this->Config('lang-cookie-domain', App::$request->host)->GetValue());
             }
-            return true;
-        });
+
+            App::Instance()->HandleEvent(EventsContainer::BundleFile, function ($event, $args) {
+                $file = new File($args->file);
+                if (in_array($file->extension, ['html', 'js'])) {
+                    // компилируем html в javascript
+                    $args->content = NoLangHelper::ParseString($args->content);
+                }
+                return true;
+            });
+
+        }
+
 
     }
 
@@ -112,6 +123,24 @@ class Module extends BaseModule
             error_log('Error during translation: ' . $e->getMessage());
             return null;
         }
+    }
+
+    public function GetSettings(): array
+    {
+        $ret = [];
+
+        /** @var \App\Modules\Lang\Module $lang */
+        $lang = App::$moduleManager->Get('lang');
+
+        $langs = $lang->Langs();
+        $ret['langs'] = $langs;
+        $ret['lang-cookie-name'] = 'manage-lang';
+        $ret['lang-cookie-domain'] = $lang->GetCookieDomain();
+
+        $currentLang = $langs->{$lang->current};
+        $ret['lang'] = (object) array_merge(['name' => $lang->current], (array) $currentLang);
+
+        return $ret;
     }
     
 }

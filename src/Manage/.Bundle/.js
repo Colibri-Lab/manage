@@ -16,6 +16,7 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         this._formWindow = null;
 
         this._store = App.Store.AddChild('app.manage', {}, this);
+        this._store.AddPathLoader('manage.settings', 'Manage:Manage.Settings');
         this._store.AddPathLoader('manage.storages', () => this.Storages(true));
         this._store.AddPathLoader('manage.datapoints', () => this.DataPoints(true));
         this._store.AddPathLoader('manage.modules', () => this.Modules(true));
@@ -36,6 +37,21 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             }
         });
 
+        this._store.Reload('manage.settings').then(settings => {
+            if(!Colibri.Common.Cookie.Get(settings['lang-cookie-name'])) {
+                this.ChangeLanguage(settings.lang.name, settings);
+            }
+        });
+
+
+    }
+
+    ChangeLanguage(lang, settings) {
+        const s = settings ?? this._store.Query('manage.settings');
+        Colibri.Common.Cookie.Set(s['lang-cookie-name'], lang, 365, '/', s['lang-cookie-domain']);
+        Colibri.Common.Delay(100).then(() => {
+            location.reload();
+        });
     }
 
     get Store() {
