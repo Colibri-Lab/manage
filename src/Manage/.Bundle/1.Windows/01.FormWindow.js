@@ -67,13 +67,11 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
                     this._save.ClearHandlers();
                     this._save.AddHandler('Clicked', () => {
                         resolve(this._form.value);
-                        this.Hide();
                     });
 
                     this._cancel.ClearHandlers();
                     this._cancel.AddHandler('Clicked', () => {
                         reject();
-                        this.Hide();
                     });
         
                 }).finally(() => {
