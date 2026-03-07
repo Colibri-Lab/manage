@@ -94,7 +94,7 @@ class StoragesController extends WebController
         $result = [];
         $storages = Storages::Instance();
         $list = $storages->GetStorages();
-        foreach ($list as $name => $storage) {
+        foreach ($list as $storage) {
             $storageArray = $storage->ToArray();
             if ($langModule) {
                 if (isset($storageArray['desc']) && is_string($storageArray['desc']) && strstr($storageArray['desc'], '#{') !== false) {
@@ -120,7 +120,7 @@ class StoragesController extends WebController
             $storageArray['indexTypes'] = $storage->accessPoint->indexTypes;
             $storageArray['indexMethods'] = $storage->accessPoint->indexMethods;
             $storageArray['jsonIndexes'] = $storage->accessPoint->jsonIndexes;
-            $result[$name] = $storageArray;
+            $result[] = $storageArray;
         }
 
         return $this->Finish(200, 'ok', $result);
