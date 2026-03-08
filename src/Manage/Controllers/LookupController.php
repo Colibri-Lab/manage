@@ -63,6 +63,7 @@ class LookupController extends WebController
         $paramField = $post->{'param'};
         if (isset($lookup['storage'])) {
             $storageLookup = $lookup['storage'];
+            $moduleName = $storageLookup['module'];
             $storageName = $storageLookup['name'];
             $selectField = $storageLookup['select'] ?? '*';
             $titleField = $storageLookup['title'] ?? 'title';
@@ -73,7 +74,7 @@ class LookupController extends WebController
             $limit = $storageLookup['limit'] ?? null;
             $orderField = strstr(($storageLookup['order'] ?: $titleField), '{') === false ? '{' . ($storageLookup['order'] ?: $titleField) . '}' : ($storageLookup['order'] ?? $titleField);
 
-            $storage = Storages::Instance()->Load($storageName);
+            $storage = Storages::Instance()->Load($storageName, $moduleName ?? null);
             if (!$storage) {
                 return $this->Finish(404, 'Not found');
             }
