@@ -30,20 +30,23 @@ class ModulesController extends WebController
         }
 
         $result = [];
-        foreach (App::$moduleManager->list as $module) {
+        foreach (App::$moduleManager->list as $key => $module) {
             $config = $module->Config()->AsObject();
             if (!($config->visible ?? true)) {
                 continue;
             }
             $result[] = (object) [
+                'key' => $key,
                 'name' => $config->name,
                 'desc' => $config->desc ?? '',
                 'config' => $module->moduleConfigPath,
                 'storages' => $module->moduleStoragesPath,
-                'visible' => $config->visible ?? true
+                'visible' => $config->visible ?? true,
+                'for' => $config->for ?? []
             ];
         }
 
+    
         return $this->Finish(200, 'ok', $result);
 
     }
