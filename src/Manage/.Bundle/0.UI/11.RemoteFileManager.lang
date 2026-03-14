@@ -331,7 +331,8 @@ manage-remotefiles-messages-deletebucket-message:
   tr: Çöpü silmek istediğinizden emin misiniz? İçindeki tüm dosyalar kalıcı olarak
     silinecek!
   zh: 确定要删除该存储桶吗？桶内所有文件将被物理删除！
-  fa: آیا مطمئن هستید که می‌خواهید سطل را حذف کنید؟ تمام فایل‌های داخل سطل به صورت فیزیکی حذف خواهند شد!
+  fa: آیا مطمئن هستید که می‌خواهید سطل را حذف کنید؟ تمام فایل‌های داخل سطل به صورت
+    فیزیکی حذف خواهند شد!
 manage-remotefiles-messages-removefile-message-delete:
   ru: Удалить!
   en: Delete

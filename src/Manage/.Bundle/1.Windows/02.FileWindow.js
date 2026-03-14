@@ -80,7 +80,6 @@ App.Modules.Manage.Windows.FileWindow = class extends Colibri.UI.Window {
         }
 
 
-        App.Loading.Show();
         return new Promise((resolve, reject) => {
 
             this._save.ClearHandlers();
@@ -100,8 +99,6 @@ App.Modules.Manage.Windows.FileWindow = class extends Colibri.UI.Window {
                 this.Hide();
             });
         
-        }).finally(() => {
-            App.Loading.Hide();
         });
 
     }
