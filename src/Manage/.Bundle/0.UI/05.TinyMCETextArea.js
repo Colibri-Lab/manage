@@ -13,13 +13,13 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         this.autocomplete = this._fieldData.autocomplete;
 
         this.AddHandler('Changed', this.__thisChangedA);
-        
+
     }
 
     __thisChanged(event, args) {
         this._savedValue = this._getValue();
     }
-    
+
     __shownHandler(event, args) {
         this.__initVisual();
     }
@@ -27,7 +27,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     _createSnippetTag(snippet, data, type = 'tag') {
         if (type === 'tag') {
             data = Object.map(data, (k, v) => {
-                if(typeof v === 'string') {
+                if (typeof v === 'string') {
                     return v;
                 } else {
                     return JSON.stringify(v);
@@ -38,7 +38,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         else {
             let html = ['<component Component="' + snippet.name + '" contentEditable="false" shown="true"'];
             Object.forEach(data, (key, value) => {
-                if(typeof value === 'string') {
+                if (typeof value === 'string') {
                     html.push(key + '="' + value.replaceAll('"', '&quot;') + '"');
                 } else {
                     html.push(key + '="' + JSON.stringify(value).replaceAll('"', '&quot;') + '"');
@@ -126,7 +126,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                                     fields: snippet.fields
                                 }, {})
                                     .then((data) => {
-                                         button.settings.editor.focus();
+                                        button.settings.editor.focus();
                                         _addSnippet(button, snippet, data);
                                     })
                                     .finally(() => {
@@ -203,7 +203,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                             delete c['shown'];
                             delete c['style'];
                             c = Object.map(c, (k, v) => {
-                                if(v.isJson()) {
+                                if (v.isJson()) {
                                     return JSON.parse(v);
                                 } else {
                                     return v;
@@ -272,17 +272,17 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
         });
 
-        if(Lang != undefined) {
+        if (Lang != undefined) {
             const langs = Lang.Store.Query('lang.langs');
-            
+
             tools.push({
                 type: 'menubutton',
                 name: "translate",
                 icon: false,
                 text: "#{manage-components-tinymce-translate}",
                 menu: Object.values(Object.map(langs, (key, v) => ({
-                    text: v.desc, 
-                    value: key, 
+                    text: v.desc,
+                    value: key,
                     type: 'menuitem',
                     menu: Object.values(Object.map(langs, (k, vv) => (key != k ? {
                         text: vv.desc,
@@ -291,7 +291,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 }))),
                 onclick: (e) => {
                     const langKey = e?.control?.settings?.value
-                    if(langKey) {
+                    if (langKey) {
                         const l = langKey.split('-');
                         Lang.OpenAITranslate(this._getValue(), l[0], l[1]).then(result => {
                             this.value = result;
@@ -299,7 +299,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     }
 
                 }
-    
+
             });
         }
 
@@ -311,7 +311,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     }
 
     __initVisual() {
-        
+
         if (this._visualCreated || !this.isConnected) {
             this.AddHandler('ConnectedTo', this.__shownHandler);
             this.AddHandler('Shown', this.__shownHandler);
@@ -437,12 +437,22 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     foldGutter: true,
                     saveCursorPosition: true,
                     gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-                    extraKeys: { "Ctrl-/": (cm) => { cm.foldCode(cm.getCursor()); }, "Ctrl-Space": "autocomplete" },
+                    extraKeys: {
+                        "Ctrl-/": (cm) => {
+                            cm.foldCode(cm.getCursor());
+                        },
+                        "Ctrl-Space": "autocomplete",
+                        "Shift-T": (cm) => {
+                            cm.replaceSelection("\t", "end");
+                            return false;
+                        },
+                        "Tab": (cm) => {
+                            return false;
+                        }
+                    },
                     hintOptions: { hint: (cm, option) => new Promise((resolve) => this._getAutocomplete('cm', resolve, cm, option)) }
                 };
 
-                // TODO проблема с таб индексом, не берет
-                // props.tabindex = this._input.css('tab-index');
                 this._codemirror = CodeMirror.fromTextArea(this._input, defaultPros);
                 this._codemirror.setValue(this._input.value);
 
@@ -458,7 +468,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
             });
         }
-        
+
     }
 
     _getValue() {
@@ -799,7 +809,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         if (this._fieldData?.params?.visual == true) {
             tinymce.get(this._controlElementId)?.focus();
         } else if (this._fieldData?.params?.code) {
-
+            this._codemirror.focus();
         }
     }
 
