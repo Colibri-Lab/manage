@@ -12,7 +12,11 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
         this.autocomplete = this._fieldData.autocomplete;
 
-        this.AddHandler('Changed', this.__thisChangedA);
+        if(!(this._fieldData?.params?.visual || this._fieldData?.params?.code)) {
+            this._fieldData.params = Object.assign(this._fieldData?.params ?? {}, { visual: true });
+        }
+
+        this.AddHandler('Changed', this.__thisChanged);
 
     }
 
