@@ -162,8 +162,13 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
     }
 
     Files(path = '', searchTerm = '', returnPromise = false) {
+
+
         this.Requests('FileManager.Files')?.Abort();
-        const promise = this.Call('FileManager', 'Files', {path: path, term: searchTerm}, {}, true, 'FileManager.Files');
+        let promise = Promise.resolve([]);
+        if(path.indexOf('/files') === 0) {
+            promise = this.Call('FileManager', 'Files', {path: path, term: searchTerm}, {}, true, 'FileManager.Files');
+        }
         if(returnPromise) {
             return promise;
         }

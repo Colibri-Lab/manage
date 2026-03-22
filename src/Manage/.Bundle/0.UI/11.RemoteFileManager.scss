@@ -21,6 +21,15 @@
                 padding: 0px 20px;
                 margin-top: 10px;
                 height: 30px;
+                [data-object-name="icon"] {
+                    svg {
+                        path {
+                            fill: white;
+                            stroke: transparent;
+                        }
+                    }
+                    
+                }
             }
         }
         .app-component-split-left {
