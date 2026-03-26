@@ -17,6 +17,21 @@
                         <component Component="Colibri.UI.Grid.Column" name="id" shown="true" value="#" width="5%" resizable="true" />
                         <component Component="Colibri.UI.Grid.Column" name="datecreated" shown="true" value="#{manage-filemanager-remote-created}" width="10%" resizable="true" viewer="Colibri.UI.DateTimeViewer" />
                         <component Component="Colibri.UI.Grid.Column" name="guid" shown="true" value="#{manage-filemanager-remote-key}" width="20%" resizable="true"/>
+                        <component Component="Colibri.UI.Grid.Column" name="icon" shown="true" value="" width="50" resizable="false">
+                            <json-tag>
+                                {
+                                    params: {
+                                        render: (cell, row) => {
+                                            const icon = new Colibri.UI.Icon('icon', cell.valueContainer);
+                                            icon.shown = true;
+                                            icon.value = Colibri.UI.Files[row.value.name.pathinfo().ext] ?? Colibri.UI.Files['unknown'];
+                                            icon.width = 30;
+                                            icon.height = 30;
+                                        }
+                                    }
+                                }
+                            </json-tag>
+                        </component>
                         <component Component="Colibri.UI.Grid.Column" name="name" shown="true" value="#{manage-filemanager-remote-file}" width="25%" resizable="true" />
                         <component Component="Colibri.UI.Grid.Column" name="ext" shown="true" value="#{manage-filemanager-remote-type}" width="10%" resizable="true"/>
                         <component Component="Colibri.UI.Grid.Column" name="size" shown="true" value="#{manage-filemanager-remote-size}" width="10%" resizable="true" viewer="Colibri.UI.FileSizeViewer" />

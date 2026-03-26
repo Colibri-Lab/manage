@@ -14,6 +14,21 @@
             <component Component="App.Modules.Manage.UI.FilesGrid" name="files" shown="true" enabled="false" hasContextMenu="true" selectionMode="fullrow" showCheckboxes="true" emptyMessage="#{manage-filemanager-filesempty}">
                 <component-header>
                     <component-columns>
+                        <component Component="Colibri.UI.Grid.Column" name="icon" shown="true" value="" width="50" resizable="false">
+                            <json-tag>
+                                {
+                                    params: {
+                                        render: (cell, row) => {
+                                            const icon = new Colibri.UI.Icon('icon', cell.valueContainer);
+                                            icon.shown = true;
+                                            icon.value = Colibri.UI.Files[row.value.name.pathinfo().ext] ?? Colibri.UI.Files['unknown'];
+                                            icon.width = 30;
+                                            icon.height = 30;
+                                        }
+                                    }
+                                }
+                            </json-tag>
+                        </component>
                         <component Component="Colibri.UI.Grid.Column" name="name" shown="true" value="#{manage-filemanager-files-file}" width="60%" resizable="true" />
                         <component Component="Colibri.UI.Grid.Column" name="ext" shown="true" value="#{manage-filemanager-files-type}" width="10%" resizable="true"/>
                         <component Component="Colibri.UI.Grid.Column" name="size" shown="true" value="#{manage-filemanager-files-size}" width="10%" resizable="true" viewer="Colibri.UI.FileSizeViewer" />
