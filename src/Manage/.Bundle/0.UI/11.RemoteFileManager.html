@@ -1,23 +1,23 @@
 
 <div ComponentName="App.Modules.Manage.UI.RemoteFileManager">
 
-    <component Component="Colibri.UI.Split" name="split" shown="true" hasHandle="true">
-        <component Component="Colibri.UI.Pane" name="buckets-pane" shown="true">
-            <component Component="Colibri.UI.H2" name="ttl" shown="true">#{manage-filemanager-remote-buckets}</component>
-            <component Component="App.Modules.Tools.BucketsTree" name="buckets" shown="true" binding="app.manage.remotebuckets" hasContextMenu="true" hasTreeContextMenu="true" />
-        </component>
-        <component Component="Colibri.UI.Pane" name="data-pane" shown="true">
-            <component Component="Colibri.UI.H2" name="ttl" shown="true">#{manage-filemanager-remote-files}</component>
-            <component Component="Colibri.UI.Pane" name="search-pane" shown="true">
-                <component Component="Colibri.UI.Input" name="search-input" shown="true" placeholder="#{manage-filemanager-remote-search}" enabled="false" />
-            </component>
-            <component Component="App.Modules.Manage.UI.RemoteFilesGrid" name="files" shown="true" enabled="false" hasContextMenu="true" selectionMode="fullrow" showCheckboxes="true" binding="app.manage.remotefiles" emptyMessage="#{manage-filemanager-remote-filesempty}">
+    <Split name="split" shown="true" hasHandle="true">
+        <Pane name="buckets-pane" shown="true">
+            <H2 name="ttl" shown="true">#{manage-filemanager-remote-buckets}</H2>
+            <Tools.BucketsTree name="buckets" shown="true" binding="app.manage.remotebuckets" hasContextMenu="true" hasTreeContextMenu="true" />
+        </Pane>
+        <Pane name="data-pane" shown="true">
+            <H2 name="ttl" shown="true">#{manage-filemanager-remote-files}</H2>
+            <Pane name="search-pane" shown="true">
+                <Input name="search-input" shown="true" placeholder="#{manage-filemanager-remote-search}" enabled="false" />
+            </Pane>
+            <RemoteFilesGrid name="files" shown="true" enabled="false" hasContextMenu="true" selectionMode="fullrow" showCheckboxes="true" binding="app.manage.remotefiles" emptyMessage="#{manage-filemanager-remote-filesempty}">
                 <component-header>
                     <component-columns>
-                        <component Component="Colibri.UI.Grid.Column" name="id" shown="true" value="#" width="5%" resizable="true" />
-                        <component Component="Colibri.UI.Grid.Column" name="datecreated" shown="true" value="#{manage-filemanager-remote-created}" width="10%" resizable="true" viewer="Colibri.UI.DateTimeViewer" />
-                        <component Component="Colibri.UI.Grid.Column" name="guid" shown="true" value="#{manage-filemanager-remote-key}" width="20%" resizable="true"/>
-                        <component Component="Colibri.UI.Grid.Column" name="icon" shown="true" value="" width="50" resizable="false">
+                        <Grid.Column name="id" shown="true" value="#" width="5%" resizable="true" />
+                        <Grid.Column name="datecreated" shown="true" value="#{manage-filemanager-remote-created}" width="10%" resizable="true" viewer="Colibri.UI.DateTimeViewer" />
+                        <Grid.Column name="guid" shown="true" value="#{manage-filemanager-remote-key}" width="20%" resizable="true"/>
+                        <Grid.Column name="icon" shown="true" value="" width="50" resizable="false">
                             <json-tag>
                                 {
                                     params: {
@@ -27,24 +27,25 @@
                                             icon.value = Colibri.UI.Files[row.value.name.pathinfo().ext] ?? Colibri.UI.Files['unknown'];
                                             icon.width = 30;
                                             icon.height = 30;
+                                            icon.AddClass('app-manage-remotefilemanager-remotefilesgrid-icon');
                                         }
                                     }
                                 }
                             </json-tag>
-                        </component>
-                        <component Component="Colibri.UI.Grid.Column" name="name" shown="true" value="#{manage-filemanager-remote-file}" width="25%" resizable="true" />
-                        <component Component="Colibri.UI.Grid.Column" name="ext" shown="true" value="#{manage-filemanager-remote-type}" width="10%" resizable="true"/>
-                        <component Component="Colibri.UI.Grid.Column" name="size" shown="true" value="#{manage-filemanager-remote-size}" width="10%" resizable="true" viewer="Colibri.UI.FileSizeViewer" />
-                        <component Component="Colibri.UI.Grid.Column" name="md5" shown="true" value="#{manage-filemanager-remote-hash}" width="10%" resizable="true" />
-                        <component Component="Colibri.UI.Grid.Column" name="path" shown="true" value="#{manage-filemanager-remote-path}" width="10%" resizable="false" />
+                        </Grid.Column>
+                        <Grid.Column name="name" shown="true" value="#{manage-filemanager-remote-file}" width="25%" resizable="true" />
+                        <Grid.Column name="ext" shown="true" value="#{manage-filemanager-remote-type}" width="10%" resizable="true"/>
+                        <Grid.Column name="size" shown="true" value="#{manage-filemanager-remote-size}" width="10%" resizable="true" viewer="Colibri.UI.FileSizeViewer" />
+                        <Grid.Column name="md5" shown="true" value="#{manage-filemanager-remote-hash}" width="10%" resizable="true" />
+                        <Grid.Column name="path" shown="true" value="#{manage-filemanager-remote-path}" width="10%" resizable="false" />
                     </component-columns>
                 </component-header>
-            </component>
-            <component Component="Colibri.UI.FlexBox" name="buttons-pane" shown="true">
-                <component Component="Colibri.UI.UploadButton" name="upload-file" multiple="true" shown="true" enabled="false" icon="Colibri.UI.ContextMenuAddIcon">#{manage-filemanager-remote-buttons-upload}</component>
-                <component Component="Colibri.UI.SuccessButton" name="delete-file" shown="true" enabled="false" icon="Colibri.UI.ContextMenuRemoveIcon">#{manage-filemanager-remote-buttons-remove}</component>
-            </component>
-        </component>
-    </component>  
+            </RemoteFilesGrid>
+            <FlexBox name="buttons-pane" shown="true">
+                <UploadButton name="upload-file" multiple="true" shown="true" enabled="false" icon="Colibri.UI.ContextMenuAddIcon">#{manage-filemanager-remote-buttons-upload}</UploadButton>
+                <SuccessButton name="delete-file" shown="true" enabled="false" icon="Colibri.UI.ContextMenuRemoveIcon">#{manage-filemanager-remote-buttons-remove}</SuccessButton>
+            </FlexBox>
+        </Pane> 
+    </Split>  
 
 </div>

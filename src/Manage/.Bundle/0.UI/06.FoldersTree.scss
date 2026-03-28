@@ -1,0 +1,13 @@
+.app-manage-folders-tree-component {
+    .app-manage-folders-tree-folder-node {
+        .icon {
+            svg {
+                path, rect, circle, ellipse, line, polyline, polygon {
+                    &[fill="black"] {
+                        fill: #daa700;
+                    }
+                }
+            }
+        }
+    }
+}

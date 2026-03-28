@@ -2,6 +2,8 @@ App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
     
     constructor(name, container) {
         super(name, container);
+        this.AddClass('app-manage-folders-tree-component');
+
         this._foldersList = [];
         this._startPath = App.Store.Query('app.settings.res');
     }
@@ -30,6 +32,7 @@ App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
             newNode.icon = App.Modules.Tools.Icons.FolderIcon;
             newNode.tag = folder;
             newNode.editable = true;
+            newNode.AddClass('app-manage-folders-tree-folder-node');
             
 
             if(folder.parent == this._startPath) {
@@ -85,6 +88,7 @@ App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
         newNode.isLeaf = false;
         newNode.icon = App.Modules.Tools.Icons.FolderIcon;
         newNode.tag = {path: this._startPath, name: ''};
+        newNode.AddClass('app-manage-folders-tree-folder-node');
 
         this._renderLevel(newNode, this._startPath);
         newNode.Expand();

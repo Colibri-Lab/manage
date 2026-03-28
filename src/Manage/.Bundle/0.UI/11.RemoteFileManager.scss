@@ -47,5 +47,14 @@
             padding-top: 10px;
         }
     }
+    .app-manage-remotefilemanager-remotefilesgrid-icon {
+        svg {
+            path, rect, circle, ellipse, line, polyline, polygon {
+                &[fill="black"] {
+                    fill: #363636;
+                }
+            }
+        }
+    }
     
 }

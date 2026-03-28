@@ -48,4 +48,14 @@
             grid-template-rows: 40px 50px calc(100% - 90px);
         }
     }
+
+    .app-manage-filemanager-filesgrid-icon {
+        svg {
+            path, rect, circle, ellipse, line, polyline, polygon {
+                &[fill="black"] {
+                    fill: #363636;
+                }
+            }
+        }
+    }
 }

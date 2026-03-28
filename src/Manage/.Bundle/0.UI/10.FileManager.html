@@ -1,20 +1,20 @@
 
 <div ComponentName="App.Modules.Manage.UI.FileManager">
 
-    <component Component="Colibri.UI.Split" name="split" shown="true" hasHandle="true">
-        <component Component="Colibri.UI.Pane" name="folders-pane" shown="true">
-            <component Component="Colibri.UI.H2" name="ttl" shown="true">#{manage-filemanager-folders}</component>
-            <component Component="App.Modules.Manage.UI.FoldersTree" name="folders" shown="true" hasContextMenu="true" binding="app.manage.folders" />
-        </component>
-        <component Component="Colibri.UI.Pane" name="files-pane" shown="true">
-            <component Component="Colibri.UI.H2" name="ttl" shown="true">#{manage-filemanager-files}</component>
-            <component Component="Colibri.UI.Pane" name="search-pane" shown="true">
-                <component Component="Colibri.UI.Input" name="search-input" enabled="false" shown="true" placeholder="#{manage-filemanager-search}" />
-            </component>
-            <component Component="App.Modules.Manage.UI.FilesGrid" name="files" shown="true" enabled="false" hasContextMenu="true" selectionMode="fullrow" showCheckboxes="true" emptyMessage="#{manage-filemanager-filesempty}">
+    <Split name="split" shown="true" hasHandle="true">
+        <Pane name="folders-pane" shown="true">
+            <H2 Component="Colibri.UI.H2" name="ttl" shown="true">#{manage-filemanager-folders}</H2>
+            <FoldersTree name="folders" shown="true" hasContextMenu="true" binding="app.manage.folders" />
+        </Pane>
+        <Pane name="files-pane" shown="true">
+            <H2 name="ttl" shown="true">#{manage-filemanager-files}</H2>
+            <Pane name="search-pane" shown="true">
+                <Input name="search-input" enabled="false" shown="true" placeholder="#{manage-filemanager-search}" />
+            </Pane>
+            <FilesGrid name="files" shown="true" enabled="false" hasContextMenu="true" selectionMode="fullrow" showCheckboxes="true" emptyMessage="#{manage-filemanager-filesempty}">
                 <component-header>
                     <component-columns>
-                        <component Component="Colibri.UI.Grid.Column" name="icon" shown="true" value="" width="50" resizable="false">
+                        <Grid.Column name="icon" shown="true" value="" width="50" resizable="false">
                             <json-tag>
                                 {
                                     params: {
@@ -24,26 +24,27 @@
                                             icon.value = Colibri.UI.Files[row.value.name.pathinfo().ext] ?? Colibri.UI.Files['unknown'];
                                             icon.width = 30;
                                             icon.height = 30;
+                                            icon.AddClass('app-manage-filemanager-filesgrid-icon');
                                         }
                                     }
                                 }
                             </json-tag>
-                        </component>
-                        <component Component="Colibri.UI.Grid.Column" name="name" shown="true" value="#{manage-filemanager-files-file}" width="60%" resizable="true" />
-                        <component Component="Colibri.UI.Grid.Column" name="ext" shown="true" value="#{manage-filemanager-files-type}" width="10%" resizable="true"/>
-                        <component Component="Colibri.UI.Grid.Column" name="size" shown="true" value="#{manage-filemanager-files-size}" width="10%" resizable="true" viewer="Colibri.UI.FileSizeViewer" />
-                        <component Component="Colibri.UI.Grid.Column" name="created" shown="true" value="#{manage-filemanager-files-created}" width="10%" resizable="true" viewer="Colibri.UI.DateTimeViewer" />
-                        <component Component="Colibri.UI.Grid.Column" name="modified" shown="true" value="#{manage-filemanager-files-changed}" width="10%" resizable="false" viewer="Colibri.UI.DateTimeViewer" />
+                        </Grid.Column>
+                        <Grid.Column name="name" shown="true" value="#{manage-filemanager-files-file}" width="60%" resizable="true" />
+                        <Grid.Column name="ext" shown="true" value="#{manage-filemanager-files-type}" width="10%" resizable="true"/>
+                        <Grid.Column name="size" shown="true" value="#{manage-filemanager-files-size}" width="10%" resizable="true" viewer="Colibri.UI.FileSizeViewer" />
+                        <Grid.Column name="created" shown="true" value="#{manage-filemanager-files-created}" width="10%" resizable="true" viewer="Colibri.UI.DateTimeViewer" />
+                        <Grid.Column name="modified" shown="true" value="#{manage-filemanager-files-changed}" width="10%" resizable="false" viewer="Colibri.UI.DateTimeViewer" />
                     </component-columns>
                 </component-header>
-            </component>
+            </FilesGrid>
 
-            <component Component="Colibri.UI.FlexBox" name="buttons-pane" shown="true">
-                <component Component="Colibri.UI.UploadButton" name="upload-file" multiple="true" shown="true" enabled="false" icon="Colibri.UI.ContextMenuAddIcon">#{manage-filemanager-buttons-upload}</component>
-                <component Component="Colibri.UI.SuccessButton" name="edit-file" shown="true" enabled="false" icon="Colibri.UI.ContextMenuEditIcon">#{manage-filemanager-buttons-editname}</component>
-                <component Component="Colibri.UI.SuccessButton" name="delete-file" shown="true" enabled="false" icon="Colibri.UI.ContextMenuRemoveIcon">#{manage-filemanager-buttons-delete}</component>
-            </component>
-        </component>
-    </component>
+            <FlexBox name="buttons-pane" shown="true">
+                <UploadButton name="upload-file" multiple="true" shown="true" enabled="false" icon="Colibri.UI.ContextMenuAddIcon">#{manage-filemanager-buttons-upload}</UploadButton>
+                <SuccessButton name="edit-file" shown="true" enabled="false" icon="Colibri.UI.ContextMenuEditIcon">#{manage-filemanager-buttons-editname}</SuccessButton>
+                <SuccessButton name="delete-file" shown="true" enabled="false" icon="Colibri.UI.ContextMenuRemoveIcon">#{manage-filemanager-buttons-delete}</SuccessButton>
+            </FlexBox>
+        </Pane>
+    </Split>
 
 </div>
