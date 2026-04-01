@@ -33,6 +33,7 @@ function inArray(key, arr)
 	tinymce = parent.tinymce;
 	editor = tinymce.activeEditor;
 	var i, userSettings = editor.settings.codemirror ? editor.settings.codemirror : {};
+
 	CMsettings = {
 		path: userSettings.path || 'codemirror-4.8',
 		indentOnInit: userSettings.indentOnInit || false,
@@ -73,20 +74,26 @@ function inArray(key, arr)
 
 	// Merge config
 	for (i in userSettings.config) {
-		CMsettings.config[i] = userSettings.config[i];
+		if(userSettings.config.hasOwnProperty(i)) {
+			CMsettings.config[i] = userSettings.config[i];
+		}
 	}
 
 	// Merge jsFiles
 	for (i in userSettings.jsFiles) {
-		if (!inArray(userSettings.jsFiles[i], CMsettings.jsFiles)) {
-			CMsettings.jsFiles.push(userSettings.jsFiles[i]);
+		if(userSettings.jsFiles.hasOwnProperty(i)) {
+			if (!inArray(userSettings.jsFiles[i], CMsettings.jsFiles)) {
+				CMsettings.jsFiles.push(userSettings.jsFiles[i]);
+			}
 		}
 	}
 
 	// Merge cssFiles
 	for (i in userSettings.cssFiles) {
-		if (!inArray(userSettings.cssFiles[i], CMsettings.cssFiles)) {
-			CMsettings.cssFiles.push(userSettings.cssFiles[i]);
+		if(userSettings.cssFiles.hasOwnProperty(i)) {
+			if (!inArray(userSettings.cssFiles[i], CMsettings.cssFiles)) {
+				CMsettings.cssFiles.push(userSettings.cssFiles[i]);
+			}
 		}
 	}
 
@@ -94,7 +101,6 @@ function inArray(key, arr)
 	if (!/\/$/.test(CMsettings.path)) {
 		CMsettings.path += '/';
 	}
-
 	// Write stylesheets
 	for (i = 0; i < CMsettings.cssFiles.length; i++) {
 		document.write('<li'+'nk rel="stylesheet" type="text/css" href="' + CMsettings.path + CMsettings.cssFiles[i] + '" />');
