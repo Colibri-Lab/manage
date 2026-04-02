@@ -834,7 +834,6 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
             this._filepicker.Dispose();
         }
         if(this._observer) {
-            this._observer.unobserve();
             this._observer.disconnect();
         }
         super.Dispose();
