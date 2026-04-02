@@ -32,7 +32,7 @@ function inArray(key, arr)
 
 	tinymce = parent.tinymce;
 	editor = tinymce.activeEditor;
-	var i, userSettings = editor.settings.codemirror ? editor.settings.codemirror : {};
+	var i, userSettings = editor.getParam('codemirror') ? editor.getParam('codemirror') : {};
 
 	CMsettings = {
 		path: userSettings.path || 'codemirror-4.8',
@@ -130,15 +130,15 @@ function start()
 		return;
 	}
 
-	// Create legend for keyboard shortcuts for find & replace:
-	var head = parent.document.querySelectorAll('.mce-foot')[0],
-		div = parent.document.createElement('div'),
-		td1 = '<td style="font-size:11px;background:#777;color:#fff;padding:0 4px">',
-		td2 = '<td style="font-size:11px;padding-right:5px">';
-	div.innerHTML = '<table cellspacing="0" cellpadding="0" style="border-spacing:4px"><tr>' + td1 + (isMac ? '&#8984;-F' : 'Ctrl-F</td>') + td2 + tinymce.translate('Start search') + '</td>' + td1 + (isMac ? '&#8984;-G' : 'Ctrl-G') + '</td>' + td2 + tinymce.translate('Find next') + '</td>' + td1 + (isMac ? '&#8984;-Alt-F' : 'Shift-Ctrl-F') + '</td>' + td2 + tinymce.translate('Find previous') + '</td></tr>' + '<tr>' + td1 + (isMac ? '&#8984;-Alt-F' : 'Shift-Ctrl-F') + '</td>' + td2 + tinymce.translate('Replace') + '</td>' + td1 + (isMac ? 'Shift-&#8984;-Alt-F' : 'Shift-Ctrl-R') +'</td>' + td2 + tinymce.translate('Replace all') + '</td></tr></table>';
-	div.style.position = 'absolute';
-	div.style.left = div.style.bottom = '5px';
-	head.appendChild(div);
+	// // Create legend for keyboard shortcuts for find & replace:
+	// var head = parent.document.querySelectorAll('.mce-foot')[0],
+	// 	div = parent.document.createElement('div'),
+	// 	td1 = '<td style="font-size:11px;background:#777;color:#fff;padding:0 4px">',
+	// 	td2 = '<td style="font-size:11px;padding-right:5px">';
+	// div.innerHTML = '<table cellspacing="0" cellpadding="0" style="border-spacing:4px"><tr>' + td1 + (isMac ? '&#8984;-F' : 'Ctrl-F</td>') + td2 + tinymce.translate('Start search') + '</td>' + td1 + (isMac ? '&#8984;-G' : 'Ctrl-G') + '</td>' + td2 + tinymce.translate('Find next') + '</td>' + td1 + (isMac ? '&#8984;-Alt-F' : 'Shift-Ctrl-F') + '</td>' + td2 + tinymce.translate('Find previous') + '</td></tr>' + '<tr>' + td1 + (isMac ? '&#8984;-Alt-F' : 'Shift-Ctrl-F') + '</td>' + td2 + tinymce.translate('Replace') + '</td>' + td1 + (isMac ? 'Shift-&#8984;-Alt-F' : 'Shift-Ctrl-R') +'</td>' + td2 + tinymce.translate('Replace all') + '</td></tr></table>';
+	// div.style.position = 'absolute';
+	// div.style.left = div.style.bottom = '5px';
+	// head.appendChild(div);
 
 	// Set CodeMirror cursor and bookmark to same position as cursor was in TinyMCE:
 	var html = editor.getContent({source_view: true});
@@ -164,7 +164,7 @@ function start()
 		}
 
 		// Indent all code, if so requested:
-		if (editor.settings.codemirror.indentOnInit) {
+		if (editor.getParam('codemirror').indentOnInit) {
 			var last = inst.lineCount();
 			inst.operation(function() {
 				for (var i = 0; i < last; ++i) {
@@ -182,6 +182,8 @@ function start()
 	codemirror.on('change', function(inst) {
 		inst.isDirty = true;
 	});
+	codemirror.setSize('100%', '100%');
+	codemirror.refresh();
 }
 
 function findDepth(haystack, needle)
@@ -200,7 +202,7 @@ function findDepth(haystack, needle)
 }
 
 // This function is called by plugin.js, when user clicks 'Ok' button
-function submit()
+function getCode()
 {
 	"use strict";
 
@@ -229,31 +231,23 @@ function submit()
     var code = codemirror.getValue();
     if(code.search(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi) !== -1 || code.search(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi) !== -1)
     {
-    	editor.setContent(codemirror.getValue().replace(cc, ''));
+    	return (codemirror.getValue().replace(cc, ''));
     }
     else
     {
-        editor.setContent(codemirror.getValue().replace(cc, '<span id="CmCaReT"></span>'));
+        return(codemirror.getValue().replace(cc, '<span id="CmCaReT"></span>'));
     }
     
-	editor.isNotDirty = !isDirty;
-	if (isDirty) {
-		editor.nodeChanged();
-	}
-
-	// Set cursor:
-	var el = editor.dom.select('span#CmCaReT')[0];
-	if (el) {
-		editor.selection.scrollIntoView(el);
-		editor.selection.setCursorLocation(el,0);
-		editor.dom.remove(el);
-	}
 }
 
 </script>
 <style type="text/css">
 body {
 	margin: 0;
+}
+
+html, body {
+	height: 100%;
 }
 
 .CodeMirror {

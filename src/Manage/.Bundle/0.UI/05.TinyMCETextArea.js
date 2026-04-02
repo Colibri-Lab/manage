@@ -12,7 +12,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
         this.autocomplete = this._fieldData.autocomplete;
 
-        if(!(this._fieldData?.params?.visual || this._fieldData?.params?.code)) {
+        if (!(this._fieldData?.params?.visual || this._fieldData?.params?.code)) {
             this._fieldData.params = Object.assign(this._fieldData?.params ?? {}, { visual: true });
         }
 
@@ -62,14 +62,13 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         let tools = [];
         tools.push({
             name: "add-snippet",
-            icon: false,
             text: "#{manage-components-tinymce-add-snippet}",
-            onclick: (e) => {
-                const button = e.control;
+            onAction: (e) => {
+                const editor = tinymce.activeEditor;
 
-                const _addSnippet = (button, snippet, data) => {
-                    button.settings.editor.selection.setContent(this._createSnippetTag(snippet, data, 'html'));
-                    button.settings.editor.nodeChanged();
+                const _addSnippet = (editor, snippet, data) => {
+                    editor.selection.setContent(this._createSnippetTag(snippet, data, 'html'));
+                    editor.nodeChanged();
                     this.Dispatch('Changed');
                 }
 
@@ -119,37 +118,36 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                                 values: comboList
                             }
                         }
-                    }, {})
-                        .then((data) => {
-                            const snippet = snippets[data.snippet];
-                            const fields = snippet?.fields ?? null;
-                            if (fields) {
-                                const form = new App.Modules.Manage.Windows.FormWindow('snippet-form-window', document.body);
-                                form.Show('#{manage-components-tinymce-newrow} «' + snippet.text + '»', 800, {
-                                    name: 'snippet',
-                                    fields: snippet.fields
-                                }, {})
-                                    .then((data) => {
-                                        button.settings.editor.focus();
-                                        _addSnippet(button, snippet, data);
-                                    })
-                                    .finally(() => {
-                                        form.Hide();
-                                        form.Dispose();
-                                    });
-                            }
-                            else {
-                                button.settings.editor.focus();
-                                _addSnippet(button, snippet, {});
-                            }
+                    }, {}, '', {}, (data) => {
+                        const snippet = snippets[data.snippet];
+                        const fields = snippet?.fields ?? null;
+                        if (fields && Object.countKeys(fields) > 0) {
+                            const form = new App.Modules.Manage.Windows.FormWindow('snippet-form-window', document.body);
+                            form.Show('#{manage-components-tinymce-newrow} «' + snippet.text + '»', 800, {
+                                name: 'snippet',
+                                fields: snippet.fields
+                            }, {}, '', {}, (data) => {
+                                editor.focus();
+                                _addSnippet(editor, snippet, data);
+                                form.Hide();
+                                form.Dispose();
+                            }, () => {
+                                form.Hide();
+                                form.Dispose();
+                            });
+                        }
+                        else {
+                            editor.focus();
+                            _addSnippet(editor, snippet, {});
+                        }
 
-                            button.settings.editor.focus();
-                            _updateSnippet(button, node, snippet, data);
-                        })
-                        .finally(() => {
-                            form.Hide();
-                            form.Dispose();
-                        });
+                        editor.focus();
+                        form.Hide();
+                        form.Dispose();
+                    }, () => {
+                        form.Hide();
+                        form.Dispose();
+                    });
 
 
 
@@ -160,14 +158,18 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
         tools.push({
             name: "edit-snippet",
-            icon: false,
             text: "#{manage-components-tinymce-edit-snippet}",
-            onclick: (e) => {
-                const button = e.control;
-                const editor = button.settings.editor;
+            onAction: (e) => {
+                const editor = tinymce.activeEditor;
                 const dom = editor.dom;
                 const sel = editor.selection;
                 const node = sel.getNode();
+
+                const _updateSnippet = (editor, node, snippet, data) => {
+                    node.replaceWith(this._createSnippetTag(snippet, data));
+                    editor.nodeChanged();
+                    this.Dispatch('Changed');
+                }
 
                 if (node.matches('component')) {
 
@@ -179,12 +181,6 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     const snippetName = attrs.component;
                     delete attrs.Component;
                     const snippetParams = attrs;
-
-                    const _updateSnippet = (button, node, snippet, data) => {
-                        node.replaceWith(this._createSnippetTag(snippet, data));
-                        button.settings.editor.nodeChanged();
-                        this.Dispatch('Changed');
-                    }
 
 
                     let snippetObject = null;
@@ -198,7 +194,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     if (snippetObject) {
                         snippet = { text: snippetName, name: snippetName, options: snippetObject.Options(), fields: snippetObject.Params ? snippetObject.Params(snippetParams) : snippetObject.Fields(), data: snippetParams };
                         fields = snippet?.fields ?? null;
-                        if (fields) {
+                        if (fields && Object.countKeys(fields) > 0) {
                             let c = Object.cloneRecursive(snippetParams);
                             delete c['component'];
                             delete c['contenteditable'];
@@ -217,19 +213,19 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                             form.Show('#{manage-components-tinymce-updaterow} «' + snippet.text + '»', 800, {
                                 name: 'snippet',
                                 fields: snippet.fields
-                            }, c ?? {})
-                                .then((data) => {
-                                    button.settings.editor.focus();
-                                    _updateSnippet(button, node, snippet, data);
-                                })
-                                .finally(() => {
-                                    form.Hide();
-                                    form.Dispose();
-                                });
+                            }, c ?? {}, '', {}, (data) => {
+                                editor.focus();
+                                _updateSnippet(editor, node, snippet, data);
+                                form.Hide();
+                                form.Dispose();
+                            }, () => {
+                                form.Hide();
+                                form.Dispose();
+                            });
                         }
                         else {
-                            button.settings.editor.focus();
-                            _updateSnippet(button, node, snippet, e2.data);
+                            editor.focus();
+                            _updateSnippet(editor, node, snippet, e2.data);
                         }
                     }
                     else {
@@ -248,20 +244,20 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                             snippet = { text: snippetName, name: snippetName, options: snippetObject.options, fields: snippetObject.fields.map((f) => { f.value = snippetParams[f.name] === undefined ? '' : snippetParams[f.name]; return f; }) };
                             fields = snippet.fields;
                             if (fields.length > 0) {
-                                button.settings.editor.windowManager.open({
+                                editor.windowManager.open({
                                     title: '#{manage-components-tinymce-params} ' + snippet.text,
                                     data: {},
                                     body: fields,
-                                    minWidth: button.settings.editor.getParam("code_dialog_width", 600),
+                                    minWidth: editor.getParam("code_dialog_width", 600),
                                     onsubmit: (e2) => {
-                                        button.settings.editor.focus();
-                                        _updateSnippet(button, node, snippet, e2.data);
+                                        editor.focus();
+                                        _updateSnippet(editor, node, snippet, e2.data);
                                     }
                                 });
                             }
                             else {
-                                button.settings.editor.focus();
-                                _updateSnippet(button, node, snippet, e2.data);
+                                editor.focus();
+                                _updateSnippet(editor, node, snippet, e2.data);
                             }
 
                         })
@@ -277,31 +273,24 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         });
 
         if (Lang != undefined) {
-            const langs = Lang.Store.Query('lang.langs');
+            const langs = LangData;
 
             tools.push({
                 type: 'menubutton',
                 name: "translate",
-                icon: false,
                 text: "#{manage-components-tinymce-translate}",
-                menu: Object.values(Object.map(langs, (key, v) => ({
-                    text: v.desc,
-                    value: key,
-                    type: 'menuitem',
-                    menu: Object.values(Object.map(langs, (k, vv) => (key != k ? {
-                        text: vv.desc,
-                        value: key + '-' + k
-                    } : null)))
-                }))),
-                onclick: (e) => {
-                    const langKey = e?.control?.settings?.value
-                    if (langKey) {
-                        const l = langKey.split('-');
-                        Lang.OpenAITranslate(this._getValue(), l[0], l[1]).then(result => {
-                            this.value = result;
-                        });
-                    }
-
+                fetch: (callback) => {
+                    console.log(langs);
+                    callback(Object.values(Object.map(langs, (key, v) => ({
+                        text: v.desc,
+                        value: key,
+                        type: 'nestedmenuitem',
+                        getSubmenuItems: () => Object.values(Object.map(langs, (k, vv) => (key != k ? {
+                            type: 'menuitem',
+                            text: vv.desc,
+                            value: key + '-' + k
+                        } : null)))
+                    }))));
                 }
 
             });
@@ -315,164 +304,218 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     }
 
     __initVisual() {
-
-        if (this._visualCreated || !this.isConnected) {
-            this.AddHandler('ConnectedTo', this.__shownHandler);
-            this.AddHandler('Shown', this.__shownHandler);
-            return;
-        }
-
-        this._visualCreated = true;
-        this.RemoveHandler('ConnectedTo', this.__shownHandler);
-        this.RemoveHandler('Shown', this.__shownHandler);
-
-        if (this._fieldData?.params?.visual == true) {
-
-            if (tinymce.get(this._controlElementId)) {
-                tinymce.get(this._controlElementId).remove();
+        return new Promise((resolve, reject) => {
+            if (this._visualCreated || !this.isConnected) {
+                this.AddHandler('ConnectedTo', this.__shownHandler);
+                this.AddHandler('Shown', this.__shownHandler);
+                reject();
+                return;
             }
 
-            const additionalButtons = (this._fieldData?.params['has-snippets'] ?? true) ? this._createAdditionalSnippetsButtons() : null;
-            const additionalTools = (this._fieldData?.params['has-snippets'] ?? true) ? this._createAdditionalTools() : null;
+            this._visualCreated = true;
+            this.RemoveHandler('ConnectedTo', this.__shownHandler);
+            this.RemoveHandler('Shown', this.__shownHandler);
 
-            tinymce.init({
-                selector: '#' + this._controlElementId,
-                skin: this._fieldData?.params['tinymce-skin'] || 'nulla',
-                relative_urls: false,
-                remove_script_host: true,
-                allow_script_urls: true,
-                language: 'ru',
-                extended_valid_elements: "script[*],style[*]",
-                valid_children: "+body[script],pre[script|div|p|br|span|img|style|h1|h2|h3|h4|h5],*[*]",
-                valid_elements: "*[*]",
-                content_css: this._contentCss ?? '',
-                formats: Object.assign({
-                    flexBoxAlignStartSpaceBetween: { block: 'div', classes: 'app-ui-component app-component-flexbox app-component-shown -nowrap' },
-                }, this._contentFormats ?? {}),
-                content_style:
-                    '.app-component-flexbox { display: flex; align-items: flex-start; justify-content: space-between; border: 1px dashed #c0c0c0; padding: 10px; margin: 10px 0px; }' +
-                    '.app-component-flexbox > * { margin: 10px; }' + (this._contentStyle ?? ''),
-                style_formats: [
-                    { title: '#{manage-components-tinymce-flexblock}', format: 'flexBoxAlignStartSpaceBetween' }
-                ].concat(this._styleFormats ?? {}),
-                codemirror: {
-                    indentOnInit: true, // Whether or not to indent code on init.
-                    fullscreen: false, // Default setting is false
-                    path: '/res/codemirror', // Path to CodeMirror distribution
-                    config: { // CodeMirror config object
-                        mode: 'application/x-httpd-php',
-                        lineNumbers: true
+            if (this._fieldData?.params?.visual == true) {
+
+                if (tinymce.get(this._controlElementId)) {
+                    tinymce.get(this._controlElementId).remove();
+                }
+
+                const additionalButtons = (this._fieldData?.params['has-snippets'] ?? true) ? this._createAdditionalSnippetsButtons() : null;
+                const additionalTools = (this._fieldData?.params['has-snippets'] ?? true) ? this._createAdditionalTools() : null;
+
+                tinymce.init({
+                    selector: '#' + this._controlElementId,
+                    // skin: 'nulla',
+                    relative_urls: false,
+                    remove_script_host: true,
+                    allow_script_urls: true,
+                    language: window.Lang ? Lang.Current : 'ru',
+                    extended_valid_elements: "script[*],style[*]",
+                    valid_children: "+body[script],pre[script|div|p|br|span|img|style|h1|h2|h3|h4|h5],*[*]",
+                    valid_elements: "*[*]",
+                    formats: {
+                        flexBoxAlignStartSpaceBetween: { block: 'div', classes: 'app-ui-component app-component-flexbox app-component-shown -nowrap' },
                     },
-                    width: 800, // Default value is 800
-                    height: 600, // Default value is 550
-                    saveCursorPosition: true, // Insert caret marker
-                    jsFiles: [ // Additional JS files to load
-                        'mode/clike/clike.js',
-                        'mode/php/php.js'
-                    ]
-                },
-                menubar: false,
-                plugins: [
-                    "advlist link image lists charmap print preview hr anchor pagebreak spellchecker",
-                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                    "table contextmenu directionality emoticons template textcolor paste textcolor codemirror customautocomplete"
-                ],
-                toolbar1: this._fieldData?.params['tinymce-toolbar1'] ? (this._fieldData?.params['tinymce-toolbar1'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar1']) : "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
-                toolbar2: this._fieldData?.params['tinymce-toolbar2'] ? (this._fieldData?.params['tinymce-toolbar2'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar2']) : "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media embed code | pastetext | forecolor backcolor",
-                toolbar3: this._fieldData?.params['tinymce-toolbar3'] ? (this._fieldData?.params['tinymce-toolbar3'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar3']) : "grid_insert | table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
-                toolbar4: additionalButtons,
-                customautocomplete: {
-                    insertFrom: 'text',
-                    source: (query, callback) => this._getAutocomplete('tinymce', callback, null, query)
-                },
-
-                file_picker_callback: (callback, value, meta) => {
-                    const element = document.querySelector('.mce-open:hover');
-
-                    const position = element.bounds();
-                    position.top += position.height;
-
-                    if (!this._filepicker) {
+                    codemirror: {
+                        indentOnInit: true, // Whether or not to indent code on init.
+                        fullscreen: false, // Default setting is false
+                        path: '/res/codemirror', // Path to CodeMirror distribution
+                        config: { // CodeMirror config object
+                            mode: 'application/x-httpd-php',
+                            lineNumbers: true
+                        },
+                        width: 800, // Default value is 800
+                        height: 600, // Default value is 550
+                        saveCursorPosition: true, // Insert caret marker
+                        jsFiles: [ // Additional JS files to load
+                            'mode/clike/clike.js',
+                            'mode/php/php.js'
+                        ]
+                    },
+                    menubar: false,
+                    codemirror: {
+                        indentOnInit: true, // Whether or not to indent code on init.
+                        fullscreen: false, // Default setting is false
+                        path: '/res/codemirror', // Path to CodeMirror distribution
+                        config: { // CodeMirror config object
+                            mode: 'application/x-httpd-php',
+                            lineNumbers: true
+                        },
+                        width: 800, // Default value is 800
+                        height: 600, // Default value is 550
+                        saveCursorPosition: true, // Insert caret marker
+                        jsFiles: [ // Additional JS files to load
+                            'mode/clike/clike.js',
+                            'mode/php/php.js'
+                        ]
+                    },
+                    // 'contextmenu', 'codemirror', 'template', 'textcolor', 'paste','print',  'hr', 
+                    // 'spellchecker',, 'templategenerator' 'textcolor', 'pagebreak','customautocomplete', 'templategenerator'
+                    // image media 
+                    plugins: [
+                        'autoresize', 'advlist', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'codemirror',
+                        'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime', 'media', 'nonbreaking',
+                        'table', 'directionality', 'emoticons', 'customautocomplete', 'pagebreak'
+                    ],
+                    toolbar1: this._fieldData?.params['tinymce-toolbar1'] ? (this._fieldData?.params['tinymce-toolbar1'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar1']) : "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styles blocks fontfamily fontsize",
+                    toolbar2: this._fieldData?.params['tinymce-toolbar2'] ? (this._fieldData?.params['tinymce-toolbar2'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar2']) : "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media embed sourcecode | pastetext | forecolor backcolor",
+                    toolbar3: this._fieldData?.params['tinymce-toolbar3'] ? (this._fieldData?.params['tinymce-toolbar3'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar3']) : "grid_insert | table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
+                    toolbar4: additionalButtons,
+                    contextmenu_never_use_native: true,
+                    pagebreak_separator: '<span style="page-break-after: always;"></span>',
+                    customautocomplete: {
+                        insertFrom: 'text',
+                        queryBy: 'text',
+                        source: (query) => new Promise((resolve) => {
+                            this._getAutocomplete('tinymce', resolve, null, query);
+                        })
+                    },
+                    file_picker_callback: (callback, value, meta) => {
                         this._filepicker = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body);
-                    }
-                    this._filepicker.Show(false).then((data) => {
-                        const file = data[0];
-                        if (file?.bucket) {
-                            // Это удаленный файл
-                            callback('/modules/manage/files/by-guid.stream?bucket=' + file.bucket + '&guid=' + file.guid + '&type=' + file.ext);
-                        }
-                        else {
-                            callback(file.path);
-                        }
-                    });
-
-                },
-                setup: (ed) => {
-                    if (additionalTools) {
-                        additionalTools.forEach((button) => {
-                            button.editor = ed;
-                            ed.addButton(button.name, button);
+                        this._filepicker.Show(false).then((data) => {
+                            const file = data[0];
+                            if (file?.bucket) {
+                                // Это удаленный файл
+                                callback('/modules/manage/files/by-guid.stream?bucket=' + file.bucket + '&guid=' + file.guid + '&type=' + file.ext);
+                            }
+                            else {
+                                callback(file.path);
+                            }
                         });
+                    },
+                    setup: (ed) => {
+
+                        if (additionalTools) {
+                            additionalTools.forEach((button) => {
+                                if (button.type === 'menubutton') {
+                                    ed.ui.registry.addMenuButton(button.name, button);
+                                } else {
+                                    ed.ui.registry.addButton(button.name, button);
+                                }
+                            });
+                        }
+
+                        ed.on('change', (e) => {
+                            this._savedValue = this._getValue();
+                            this.Dispatch('Changed');
+                        });
+
+                        // ed.on('OpenWindow', (e) => {
+                        //     // Находим ближайший родительский контейнер интерфейса TinyMCE
+                        //     const wrappers = ed.getContainer().ownerDocument.querySelectorAll('.tox-tinymce-aux');
+                        //     if (wrappers) {
+                        //         wrappers.forEach(wrapper => {
+                        //             wrapper.style.zIndex = Colibri.UI.maxZIndex + 1;
+                        //         });
+                        //     }
+                        // });
+
+                        // ed.on('contextmenu', () => {
+                        //     const wrappers = ed.getContainer().ownerDocument.querySelectorAll('.tox-tinymce-aux');
+                        //     if (wrappers) {
+                        //         wrappers.forEach(wrapper => {
+                        //             wrapper.style.zIndex = Colibri.UI.maxZIndex + 1;
+                        //         });
+                        //     }
+                        // });
+
+                        this._observer = new MutationObserver((mutations) => {
+                            mutations.forEach((mutation) => {
+                                mutation.addedNodes.forEach((node) => {
+                                    // Проверяем, что это не контекстное меню (у него обычно другой контекст или атрибуты)
+                                    if (node.closest) {
+                                        const wrapper = node.closest('.tox-tinymce-aux');
+                                        if (wrapper) {
+                                            wrapper.style.zIndex = Colibri.UI.maxZIndex + 1;
+                                        }
+                                    }
+                                });
+                            });
+                        });
+
+                        this._observer.observe(document.body, { childList: true, subtree: true });
+
+                        ed.on('init', () => {
+                            resolve();
+                        });
+
                     }
-                    ed.on('change', (e) => {
+                });
+
+
+            } else if (this._fieldData?.params?.code) {
+                if (this._codemirror) {
+                    this._codemirror.getWrapperElement().remove();
+                }
+                const requirements = Colibri.Common.MimeType.extrequirements(this._fieldData?.params.code ?? 'html');
+                Colibri.UI.Require(requirements.css, requirements.js).then(() => {
+
+                    let defaultPros = {
+                        mode: Colibri.Common.MimeType.ext2mode(this._fieldData?.params?.code),
+                        indentOnInit: true,
+                        lineNumbers: true,
+                        lineWrapping: true,
+                        styleActiveLine: true,
+                        matchBrackets: true,
+                        foldGutter: true,
+                        saveCursorPosition: true,
+                        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+                        extraKeys: {
+                            "Ctrl-/": (cm) => {
+                                cm.foldCode(cm.getCursor());
+                            },
+                            "Ctrl-Space": "autocomplete",
+                            "Shift-T": (cm) => {
+                                cm.replaceSelection("\t", "end");
+                                return false;
+                            },
+                            "Tab": (cm) => {
+                                return false;
+                            }
+                        },
+                        hintOptions: { hint: (cm, option) => new Promise((resolve) => this._getAutocomplete('cm', resolve, cm, option)) }
+                    };
+
+                    this._codemirror = CodeMirror.fromTextArea(this._input, defaultPros);
+                    this._codemirror.setValue(this._input.value);
+
+                    this._codemirror.setSize('100%', '100%');
+                    this._codemirror.refresh();
+
+                    this._codemirror.on('change', (args) => {
+                        this._codemirror.refresh();
+                        this._getValue();
                         this._savedValue = this._getValue();
                         this.Dispatch('Changed');
                     });
 
-                }
-            });
+                    resolve();
 
-
-
-        } else if (this._fieldData?.params?.code) {
-            if (this._codemirror) {
-                this._codemirror.getWrapperElement().remove();
-            }
-            const requirements = Colibri.Common.MimeType.extrequirements(this._fieldData?.params.code ?? 'html');
-            Colibri.UI.Require(requirements.css, requirements.js).then(() => {
-
-                let defaultPros = {
-                    mode: Colibri.Common.MimeType.ext2mode(this._fieldData?.params?.code),
-                    indentOnInit: true,
-                    lineNumbers: true,
-                    lineWrapping: true,
-                    styleActiveLine: true,
-                    matchBrackets: true,
-                    foldGutter: true,
-                    saveCursorPosition: true,
-                    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-                    extraKeys: {
-                        "Ctrl-/": (cm) => {
-                            cm.foldCode(cm.getCursor());
-                        },
-                        "Ctrl-Space": "autocomplete",
-                        "Shift-T": (cm) => {
-                            cm.replaceSelection("\t", "end");
-                            return false;
-                        },
-                        "Tab": (cm) => {
-                            return false;
-                        }
-                    },
-                    hintOptions: { hint: (cm, option) => new Promise((resolve) => this._getAutocomplete('cm', resolve, cm, option)) }
-                };
-
-                this._codemirror = CodeMirror.fromTextArea(this._input, defaultPros);
-                this._codemirror.setValue(this._input.value);
-
-                this._codemirror.setSize('100%', '100%');
-                this._codemirror.refresh();
-
-                this._codemirror.on('change', (args) => {
-                    this._codemirror.refresh();
-                    this._getValue();
-                    this._savedValue = this._getValue();
-                    this.Dispatch('Changed');
                 });
-
-            });
-        }
-
+            }
+        });
     }
 
     _getValue() {
@@ -509,6 +552,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         let promise;
 
         this._savedValue = val;
+        this._input.value = val;
 
         if (this._autocompleteLoaded) {
             promise = Promise.resolve({
@@ -536,22 +580,25 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
             this.styleFormats = autoCompleteResult.result.styleFormats;
             this.tools = autoCompleteResult.result.tools;
 
-            Colibri.Common.Delay(100).then(() => {
+            // Colibri.Common.Delay(500).then(() => {
 
-                this.__initVisual();
-
+            this.__initVisual().then(() => {
                 if (this._fieldData?.params?.visual == true) {
                     try {
-                        tinymce.get(this._controlElementId).setContent(val ? val : '', { format: 'raw' });
+                        tinymce.get(this._controlElementId).setContent(this._savedValue ? this._savedValue : '', { format: 'raw' });
                     } catch (e) {
-                        this._input.value = val ? val : '';
+                        this._input.value = this._savedValue ? this._savedValue : '';
                     }
                 } else if (this._fieldData?.params?.code) {
-                    this._codemirror ? this._codemirror.setValue(val ? val : '') : (this._input.value = (val ? val : ''));
+                    this._codemirror ? this._codemirror.setValue(this._savedValue ? this._savedValue : '') : (this._input.value = (this._savedValue ? this._savedValue : ''));
                 } else {
-                    this._input.value = val ? val : '';
+                    this._input.value = this._savedValue ? this._savedValue : '';
                 }
-            })
+            }).catch(e => {
+
+            });
+
+            // });
 
         });
 
@@ -785,6 +832,10 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
     Dispose() {
         if (this._filepicker) {
             this._filepicker.Dispose();
+        }
+        if(this._observer) {
+            this._observer.unobserve();
+            this._observer.disconnect();
         }
         super.Dispose();
     }

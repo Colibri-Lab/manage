@@ -1,74 +1,85 @@
-/**
- * plugin.js
- *
- * Copyright 2013 Web Power, www.webpower.nl
- * @author Arjan Haverkamp
- */
+tinymce.PluginManager.add('codemirror', (editor, url) => {
+    function loadCss(file, doc = document) {
+        if (doc.getElementById(file)) return;
 
-/*jshint unused:false */
-/*global tinymce:true */
+        const link = doc.createElement('link');
+        link.id = file;
+        link.rel = 'stylesheet';
+        link.href = file;
 
-tinymce.PluginManager.requireLangPack('codemirror');
+        doc.head.appendChild(link);
+    }
 
-tinymce.PluginManager.add('codemirror', function(editor, url) {
 
-	function showSourceEditor() {
-        
-        editor.focus();
-        editor.selection.collapse(true);
-        
-        // Insert caret marker
-        if (editor.settings.codemirror.saveCursorPosition) {
-            editor.selection.setContent('<span style="display: none;" class="CmCaReT">&#x0;</span>');
-        }
+    editor.on('init', () => {
+        loadCss(editor.baseURI.toAbsolute("plugins/codemirror/codemirror.css"));
+    });
 
-        codemirrorWidth = 800;
-        if (editor.settings.codemirror.width) {
-            codemirrorWidth = editor.settings.codemirror.width;
-        }
-
-        codemirrorHeight = 550;
-        if (editor.settings.codemirror.width) {
-            codemirrorHeight = editor.settings.codemirror.height;
-        }
-        
-		var config = {
-			title: 'HTML source code',
-			url: url + '/source.html',
-			width: codemirrorWidth,
-			height: codemirrorHeight,
-			resizable : true,
-			maximizable : true,
-			fullScreen: editor.settings.codemirror.fullscreen,
+	// Функция для открытия окна с CodeMirror
+	const openCodeEditor = () => {
+		editor.windowManager.open({
+			title: 'Source Code',
+			label: 'sourcecode',
+			size: 'large',
+			body: {
+				type: 'panel',
+				size: 'large',
+				items: [
+                    {
+                        type: 'htmlpanel',
+                        html: `<iframe width="100%" height="100%" src="${editor.baseURI.toAbsolute("plugins/codemirror/source.html")}" style="width:100%;height:100%;border:0;"></iframe>`
+                    }
+                ]
+			},
 			buttons: [
-				{ text: 'Ok', subtype: 'primary', onclick: function(){
-					var doc = document.querySelectorAll('.mce-container-body>iframe')[0];
-					doc.contentWindow.submit();
-					win.close();
-				}},
-				{ text: 'Cancel', onclick: 'close' }
-			]
-		};
+				{ type: 'cancel', text: 'Cancel' },
+				{ type: 'submit', text: 'Save', primary: true }
+			],
 
-		var win = editor.windowManager.open(config);
+			// Событие срабатывает, когда iframe загружен
+			onMessage: (api, message) => {
+				// Можно использовать для кастомных уведомлений из iframe
+			},
 
-		if (editor.settings.codemirror.fullscreen) {
-			win.fullscreen(true);
-		}
+			onSubmit: (api) => {
+				debugger;
+				// Достаем iframe через селектор или API
+				const iframe = document.querySelector('.tox-dialog__body iframe');
+				if (iframe && iframe.contentWindow.getCode) {
+					const newContent = iframe.contentWindow.getCode();
+					editor.setContent(newContent);
+				}
+				api.close();
+			}
+		});
+
+		// Передаем данные в iframe после его загрузки
+		setTimeout(() => {
+			const iframe = document.querySelector('.tox-dialog__body iframe');
+			if (iframe && iframe.contentWindow.setCode) {
+				iframe.contentWindow.setCode(editor.getContent());
+			}
+		}, 500); // Небольшая задержка для гарантии загрузки DOM iframe
 	};
 
-	// Add a button to the button bar
-	editor.addButton('code', {
-		title: 'Source code',
-		icon: 'code',
-		onclick: showSourceEditor
+	// Добавляем кнопку в тулбар
+	editor.ui.registry.addButton('sourcecode', {
+		icon: 'sourcecode',
+		tooltip: 'Исходный код (CodeMirror)',
+		onAction: openCodeEditor
 	});
 
-	// Add a menu item to the tools menu
-	editor.addMenuItem('code', {
-		icon: 'code',
-		text: 'Source code',
-		context: 'tools',
-		onclick: showSourceEditor
+	// Добавляем пункт меню
+	editor.ui.registry.addMenuItem('sourcecode', {
+		text: 'Исходный код',
+		icon: 'sourcecode',
+		onAction: openCodeEditor
 	});
+
+	return {
+		getMetadata: () => ({
+			name: 'CodeMirror Plugin',
+			url: 'https://yourwebsite.com'
+		})
+	};
 });
