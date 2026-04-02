@@ -122,10 +122,10 @@ class Installer
         // self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/', './' . $webRoot . '/res/', 'tinymce/', 'tinymce/');
         self::_copyOrSymlink($mode, $webRoot . '../vendor/tinymce/', './' . $webRoot . '/res/', 'tinymce/', 'tinymce/');
         self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/tinymce/', './' . $webRoot . '/res/tinymce/', 'langs/', 'langs/');
-        self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/tinymce/plugins/', './' . $webRoot . '/res/tinymce/plugins', 'codemirror/', 'codemirror/');
-        self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/tinymce/plugins/', './' . $webRoot . '/res/tinymce/plugins', 'customautocomplete/', 'customautocomplete/');
-        self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/tinymce/plugins/', './' . $webRoot . '/res/tinymce/plugins', 'templategenerator/', 'templategenerator/');
-        self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/tinymce/plugins/', './' . $webRoot . '/res/tinymce/plugins', 'pagebreak/', 'pagebreak/');
+        self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/tinymce/plugins/', './' . $webRoot . '/res/tinymce/plugins/', 'codemirror/', 'codemirror/');
+        self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/tinymce/plugins/', './' . $webRoot . '/res/tinymce/plugins/', 'customautocomplete/', 'customautocomplete/');
+        self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/tinymce/plugins/', './' . $webRoot . '/res/tinymce/plugins/', 'templategenerator/', 'templategenerator/');
+        self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/tinymce/plugins/', './' . $webRoot . '/res/tinymce/plugins/', 'pagebreak/', 'pagebreak/');
  
         print_r('Установка завершена' . "\n");
 
