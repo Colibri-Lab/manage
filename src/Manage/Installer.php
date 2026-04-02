@@ -94,6 +94,7 @@ class Installer
         $path = $vendorDir . $targetDir;
         $configPath = $path . '/src/Manage/config-template/';
         $configDir = './config/';
+        $appRoot = './';
 
         if (!file_exists($configDir . 'app.yaml')) {
             print_r('Не найден файл конфигурации app.yaml' . "\n");
@@ -120,7 +121,7 @@ class Installer
         print_r('Установка ресурсов' . "\n");
         self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/', './' . $webRoot . '/res/', 'codemirror/', 'codemirror/');
         // self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/', './' . $webRoot . '/res/', 'tinymce/', 'tinymce/');
-        self::_copyOrSymlink($mode, $webRoot . '/../vendor/tinymce/', './' . $webRoot . '/res/', 'tinymce/', 'tinymce/');
+        self::_copyOrSymlink($mode, $appRoot . 'vendor/tinymce/', './' . $webRoot . '/res/', 'tinymce/', 'tinymce/');
         self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/tinymce/', './' . $webRoot . '/res/tinymce/', 'langs/', 'langs/');
         self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/tinymce/plugins/', './' . $webRoot . '/res/tinymce/plugins/', 'codemirror/', 'codemirror/');
         self::_copyOrSymlink($mode, $path . '/src/Manage/web/res/tinymce/plugins/', './' . $webRoot . '/res/tinymce/plugins/', 'customautocomplete/', 'customautocomplete/');
