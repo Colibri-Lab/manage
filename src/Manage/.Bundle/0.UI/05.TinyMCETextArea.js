@@ -386,6 +386,8 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     contextmenu_never_use_native: true,
                     pagebreak_separator: '<span style="page-break-after: always;"></span>',
                     customautocomplete: {
+                        trigger: '"',
+                        minChars: 0,
                         insertFrom: 'text',
                         queryBy: 'text',
                         source: (query) => new Promise((resolve) => {

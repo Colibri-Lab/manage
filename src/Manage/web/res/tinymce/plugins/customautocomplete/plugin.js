@@ -1,13 +1,12 @@
 tinymce.PluginManager.add('customautocomplete', function (editor) {
 
-    const options = editor.options.get('customautocomplete') || {};
+    const options = editor.getParam('customautocomplete') || {};
 
-    editor.ui.registry.addAutocompleter('customautocomplete', {
+    editor.ui.registry.addAutocompleter('customautocomplete_provider', {
         trigger: options.trigger || '@',
-        minChars: options.minChars || 1,
+        minChars: options.minChars || 0,
 
         fetch: (pattern) => {
-            debugger;
             const src = options.source;
 
             const promise = typeof src === 'function'
@@ -26,6 +25,30 @@ tinymce.PluginManager.add('customautocomplete', function (editor) {
             editor.selection.setRng(rng);
             editor.insertContent(value + ' ');
             api.hide();
+        }
+    });
+
+    function triggerAutocompleter(editor, char = null) {
+        char = options.trigger || '@';
+        editor.focus();
+        // 1. Вставляем триггер в текущую позицию курсора
+        editor.execCommand('mceInsertContent', false, char);
+
+        // 2. Генерируем событие клавиатуры (input), чтобы редактор считал триггер
+        const inputEvent = new InputEvent('input', {
+            bubbles: true,
+            cancelable: true,
+            inputType: 'insertText',
+            data: char
+        });
+
+        editor.getBody().dispatchEvent(inputEvent);
+    }
+
+    editor.on('keydown', (e) => {
+        if (e.ctrlKey && e.key === ' ') {
+            e.preventDefault();
+            triggerAutocompleter(editor, '@');
         }
     });
 
