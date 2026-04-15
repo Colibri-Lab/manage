@@ -154,3 +154,55 @@ manage-components-tinymce-snippets:
   tr: Parça listesi
   zh: 片段列表
   fa: فهرست قطعه‌ها
+manage-fields-tinymcetext-fieldparams-code:
+  ru: Отображать в виде редактора кода
+  en: Display as code editor
+  hy: Ցուցադրել որպես կոդի խմբագրիչ
+  it: Visualizza come editor di codice
+  es: Mostrar como editor de código
+  kk: Код редакторы ретінде көрсету
+  uz: Kod muharriri sifatida ko'rsatish
+  cz: Zobrazit jako editor kódu
+  de: Als Code-Editor anzeigen
+  tr: Kod düzenleyici olarak göster
+  zh: 以代码编辑器显示
+  fa: نمایش به عنوان ویرایشگر کد
+manage-fields-tinymcetext-fieldparams-code-note:
+  ru: Используется только в большом текстовом поле
+  en: Used only in a large text field
+  hy: Օգտագործվում է միայն մեծ տեքստային դաշտում
+  it: Utilizzato solo in un campo di testo grande
+  es: Utilizado solo en un campo de texto grande
+  kk: Тек үлкен мәтін өрісінде қолданылады
+  uz: Faqat katta matn maydonida ishlatiladi
+  cz: Používá se pouze ve velkém textovém poli
+  de: Wird nur in großen Textfeldern verwendet
+  tr: Sadece büyük metin alanında kullanılır
+  zh: 仅用于大文本字段
+  fa: فقط در فیلد متن بزرگ استفاده می‌شود
+manage-fields-tinymcetext-fieldparams-visual:
+  ru: Отображать в виде визуального редактора
+  en: Display as visual editor
+  hy: Ցուցադրել որպես տեսողական խմբագիր
+  it: Visualizza come editor visivo
+  es: Mostrar como editor visual
+  kk: Көрнекі редактор ретінде көрсету
+  uz: Vizual muharrir sifatida ko'rsatish
+  cz: Zobrazit jako vizuální editor
+  de: Als visueller Editor anzeigen
+  tr: Görsel düzenleyici olarak göster
+  zh: 以可视化编辑器显示
+  fa: نمایش به عنوان ویرایشگر بصری
+manage-fields-tinymcetext-fieldparams-visual-note:
+  ru: Используется только в большом текстовом поле
+  en: Used only in a large text field
+  hy: Օգտագործվում է միայն մեծ տեքստային դաշտում
+  it: Utilizzato solo in un campo di testo grande
+  es: Utilizado solo en un campo de texto grande
+  kk: Тек үлкен мәтін өрісінде қолданылады
+  uz: Faqat katta matn maydonida ishlatiladi
+  cz: Používá se pouze ve velkém textovém poli
+  de: Wird nur in großen Textfeldern verwendet
+  tr: Sadece büyük metin alanında kullanılır
+  zh: 仅用于大文本字段
+  fa: فقط در فیلد متن بزرگ استفاده می‌شود

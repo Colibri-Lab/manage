@@ -1,7 +1,67 @@
-.app-component-manage-file-field {
+.app-component-manage-remote-file-field {
+    width: 100%;
+
+    > [data-object-name$="-content"] > [data-object-name$="-container"] {
+
+        > .app-component-flexbox {
+            flex-wrap: nowrap;
+            > .app-component-icon {
+                width: 120px;
+                height: 66px;
+                flex: 1 1 120px;
+                margin-right: 20px;
+                border: 1px solid #c0c0c0;
+                border-radius: 3px; 
+                svg {
+                    padding: 10px;
+                }
+                
+            }
+        
+            > .app-component-pane {
+        
+                flex: 1 1 100%;
+
+                > .app-component-flexbox {
+                    padding-top: 10px;
+
+                    .app-component-icon {
+                        border: 1px solid #c0c0c0;
+                        border-radius: 3px; 
+                        width: 24px;
+                        height: 24px;
+                        cursor: pointer;
+                        margin-right: 5px;
+                        &.app-component-shown {
+                            display: inline-flex;
+                        }
+                        align-items: center;
+                        justify-content: center;
+
+                        &:hover {
+                            background: #f2f2f2;
+                        }
+                        svg {
+                            width: 20px;
+                            height: 20px;
+                            path {
+                                fill: #000000;
+                            }
+                        }
+                    }
+
+                }
+        
+            }
+    
+        }
+    }
+
     [data-object-name^="_buttons"] {
         .app-component-icon {
-            
+            svg path {
+
+            }
         }
     }
 }

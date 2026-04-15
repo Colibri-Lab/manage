@@ -1,7 +1,7 @@
 App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
 
     RenderFieldContainer() {
-        this.AddClass('app-component-manage-files-field');
+        this.AddClass('app-component-manage-remote-files-field');
 
         this._value = '';
 
@@ -215,4 +215,28 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
 
 }
 
+Colibri.UI.Forms.Field.RegisterFieldParam('App.Modules.Manage.UI.RemoteFiles', 'allow', {
+    type: 'varchar',
+    component: 'Text',
+    placeholder: '#{manage-fields-remotefiles-fieldparams-allow}',
+    note: '#{manage-fields-remotefiles-fieldparams-allow-note}',
+    params: {
+        condition: {
+            field: 'component',
+            method: (fieldValue, data, type, empty, inverse, fieldData) => Colibri.UI.Forms.Field.HasParam(fieldValue, 'allow')
+        }
+    }
+});
+Colibri.UI.Forms.Field.RegisterFieldParam('App.Modules.Manage.UI.RemoteFiles', 'size', {
+    type: 'int',
+    component: 'Number',
+    placeholder: '#{manage-fields-remotefiles-fieldparams-size}',
+    note: '#{manage-fields-remotefiles-fieldparams-size-note}',
+    params: {
+        condition: {
+            field: 'component',
+            method: (fieldValue, data, type, empty, inverse, fieldData) => Colibri.UI.Forms.Field.HasParam(fieldValue, 'size')
+        }
+    }
+});
 Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.RemoteFiles', 'App.Modules.Manage.UI.RemoteFiles', '#{manage-fields-remotefiles}', null, ['required','enabled','canbeempty','readonly','list','template','greed','viewer','fieldgenerator','generator','noteClass','validate','valuegenerator','onchangehandler','allow','size'])

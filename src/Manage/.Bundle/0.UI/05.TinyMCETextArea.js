@@ -489,7 +489,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                                 cm.foldCode(cm.getCursor());
                             },
                             "Ctrl-Space": "autocomplete",
-                            "Shift-T": (cm) => {
+                            "Alt-Shift-T": (cm) => {
                                 cm.replaceSelection("\t", "end");
                                 return false;
                             },
@@ -865,10 +865,55 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         if (this._fieldData?.params?.visual == true) {
             tinymce.get(this._controlElementId)?.focus();
         } else if (this._fieldData?.params?.code) {
-            this._codemirror.focus();
+            this._codemirror?.focus();
         }
     }
 
 }
+
+Colibri.UI.Forms.Field.RegisterFieldParam('App.Modules.Manage.UI.TinyMCETextArea', 'visual', {
+    type: 'bool',
+    placeholder: '#{manage-fields-tinymcetext-fieldparams-visual}',
+    note: '#{manage-fields-tinymcetext-fieldparams-visual-note}',
+    component: 'Checkbox',
+    default: false,
+    params: {
+        condition: {
+            field: 'component',
+            method: (fieldValue, data, type, empty, inverse, fieldData) => Colibri.UI.Forms.Field.HasParam(fieldValue, 'visual')
+        }
+    }
+});
+Colibri.UI.Forms.Field.RegisterFieldParam('App.Modules.Manage.UI.TinyMCETextArea', 'code', {
+    type: 'varchar',
+    placeholder: '#{manage-fields-tinymcetext-fieldparams-code}',
+    note: '#{manage-fields-tinymcetext-fieldparams-code-note}',
+    component: 'Select',
+    default: '',
+    params: {
+        readonly: false,
+        searchable: false,
+        required: false,
+        condition: {
+            field: 'component',
+            method: (fieldValue, data, type, empty, inverse, fieldData) => Colibri.UI.Forms.Field.HasParam(fieldValue, 'code')
+        }
+    },
+    selector: {
+        value: 'value',
+        title: 'title'
+    },
+    values: [
+        { value: '', title: '' },
+        { value: 'js', title: 'JavaScript' },
+        { value: 'css', title: 'CSS' },
+        { value: 'less', title: 'Less' },
+        { value: 'scss', title: 'Scss' },
+        { value: 'html', title: 'HTML' },
+        { value: 'php', title: 'PHP' },
+        { value: 'xml', title: 'XML' },
+        { value: 'yaml', title: 'YAML' }
+    ]
+});
 
 Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.TinyMCETextArea', 'App.Modules.Manage.UI.TinyMCETextArea', '#{manage-fields-tinymcetext}', null, ['required', 'enabled', 'canbeempty', 'readonly', 'list', 'template', 'greed', 'viewer', 'fieldgenerator', 'generator', 'noteClass', 'validate', 'valuegenerator', 'onchangehandler', 'visual', 'code'])

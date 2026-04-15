@@ -40,8 +40,10 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         this._store.Reload('manage.settings').then(settings => {
             if(!Colibri.Common.Cookie.Get(settings['lang-cookie-name'])) {
                 this.ChangeLanguage(settings.lang.name, settings);
+            } else {
+                Lang.Current = Colibri.Common.Cookie.Get(settings['lang-cookie-name']);
             }
-        });
+        }); 
 
 
     }

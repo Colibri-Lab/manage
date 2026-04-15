@@ -141,4 +141,30 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     }
 
 }
+
+Colibri.UI.Forms.Field.RegisterFieldParam('App.Modules.Manage.UI.File', 'allow', {
+    type: 'varchar',
+    component: 'Text',
+    placeholder: '#{manage-fields-file-fieldparams-allow}',
+    note: '#{manage-fields-file-fieldparams-allow-note}',
+    params: {
+        condition: {
+            field: 'component',
+            method: (fieldValue, data, type, empty, inverse, fieldData) => Colibri.UI.Forms.Field.HasParam(fieldValue, 'allow')
+        }
+    }
+});
+Colibri.UI.Forms.Field.RegisterFieldParam('App.Modules.Manage.UI.File', 'size', {
+    type: 'int',
+    component: 'Number',
+    placeholder: '#{manage-fields-file-fieldparams-size}',
+    note: '#{manage-fields-file-fieldparams-size-note}',
+    params: {
+        condition: {
+            field: 'component',
+            method: (fieldValue, data, type, empty, inverse, fieldData) => Colibri.UI.Forms.Field.HasParam(fieldValue, 'size')
+        }
+    }
+});
+
 Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.File', 'App.Modules.Manage.UI.File', '#{manage-fields-localfile}', null, ['required','enabled','canbeempty','readonly','list','template','greed','viewer','fieldgenerator','generator','noteClass','validate','valuegenerator','onchangehandler','allow','size']);
