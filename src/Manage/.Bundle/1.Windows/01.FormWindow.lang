@@ -24,3 +24,117 @@ manage-formwindow-buttons-cancel:
   tr: İptal
   zh: 取消
   fa: لغو
+manage-formwindow-options-import-json:
+  ru: Импортиторвать данные из JSON
+  en: Import data from JSON
+  hy: Ներմուծել տվյալները JSON-ից
+  it: Importa dati da JSON
+  es: Importar datos desde JSON
+  kk: JSON-дан деректерді импорттау
+  uz: JSON'dan veri içe aktar
+  cz: Importovat data z JSON
+  de: Daten aus JSON importieren
+  tr: JSON'dan veri içe aktar
+  zh: 从 JSON 导入数据
+  fa: واردات داده از JSON
+manage-formwindow-options-export-json:
+  ru: Скопировать данные в JSON
+  en: Copy data to JSON
+  hy: Տվյալները պատճենել JSON-ում
+  it: Copia dati in JSON
+  es: Copiar datos a JSON
+  kk: Деректерді JSON-ға көшіру
+  uz: Verileri JSON'a kopyala
+  cz: Kopírovat data do JSON
+  de: Daten in JSON kopieren
+  tr: Verileri JSON'a kopyala
+  zh: 将数据复制到 JSON
+  fa: کپی داده ها به JSON
+manage-formwindow-options-copied:
+  ru: Данные скопированы
+  en: Data copied
+  hy: Տվյալները պատճենվել են
+  it: Dati copiati
+  es: Datos copiados
+  kk: Деректер скопированы
+  uz: Veriler kopyalandı
+  cz: Data zkopírována
+  de: Daten kopiert
+  tr: Veriler kopyalandı
+  zh: 数据已复制
+  fa: داده ها کپی شد
+manage-formwindow-options-importtitle:
+  ru: Импорт данных
+  en: Data import
+  hy: Տվյալների ներմուծում
+  it: Importazione dati
+  es: Importación de datos
+  kk: Деректер импорты
+  uz: Ma'lumot importi
+  cz: Import data
+  de: Datenimport
+  tr: Veri içe aktarma
+  zh: 数据导入
+  fa: واردات داده
+manage-formwindow-options-importplaceholder:
+  ru: Текст JSON
+  en: JSON text
+  hy: JSON տեքստ
+  it: Testo JSON
+  es: Texto JSON
+  kk: JSON мәтіні
+  uz: JSON matni
+  cz: JSON text
+  de: JSON-Text
+  tr: JSON metni
+  zh: JSON 文本
+  fa: متن JSON
+manage-formwindow-options-importbutton:
+  ru: Импортировать
+  en: Import
+  hy: Ներմուծել
+  it: Importa
+  es: Importar
+  kk: Импорттау
+  uz: İçe aktar
+  cz: Importovat
+  de: Importieren
+  tr: İçe aktar
+  zh: 导入
+  fa: وارد کردن
+manage-formwindow-closeconfirm:
+  ru: Окно будет закрыто
+  en: The window will be closed
+  hy: Պատուհանը կփակվի
+  it: La finestra sarà chiusa
+  es: La ventana se cerrará
+  kk: Терезе жабылады
+  uz: Oyna yopılacak
+  cz: Okno bude zavřeno
+  de: Das Fenster wird geschlossen
+  tr: Pencere kapatılacak
+  zh: 窗口将被关闭
+  fa: پنجره بسته خواهد شد
+manage-formwindow-closeconfirmtitle:
+  ru: "Вы внесли изменения в данных, окно будет закрыто и данные будут утеряны, вы
+    уверены ? "
+  en: You have made changes to the data, the window will be closed and the data
+    will be lost, are you sure?
+  hy: "Դուք փոփոխություններ եք կատարել տվյալներում, պատուհանը կփակվի և տվյալները
+    կկորչեն, դուք համոզված ե՞ք:"
+  it: Hai apportato modifiche ai dati, la finestra sarà chiusa e i dati andranno
+    persi, sei sicuro?
+  es: Has realizado cambios en los datos, la ventana se cerrará y los datos se
+    perderán, ¿estás seguro?
+  kk: Данные были изменены, окно будет закрыто и данные будут потеряны, вы уверены?
+  uz: Ma'lumotlarda o'zgartirishlar yaptınız, pencere kapatılacak ve veriler
+    kaybolacak, emin misiniz?
+  cz: Udělali jste změny v datech, okno bude zavřeno a data budou ztracena, jste
+    si jisti?
+  de: Sie haben Änderungen an den Daten vorgenommen, das Fenster wird geschlossen
+    und die Daten gehen verloren, sind Sie sicher?
+  tr: Verilerde değişiklik yaptınız, pencere kapatılacak ve veriler kaybolacak,
+    emin misiniz?
+  zh: 您已对数据进行了更改，窗口将被关闭，数据将丢失，您确定吗？
+  fa: شما تغییراتی در داده ها ایجاد کرده اید، پنجره بسته خواهد شد و داده ها از دست
+    خواهند رفت، آیا مطمئن هستید؟

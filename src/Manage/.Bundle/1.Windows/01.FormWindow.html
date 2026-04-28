@@ -1,6 +1,10 @@
 <div ComponentName="App.Modules.Manage.Windows.FormWindow">
 
     <component-container>
+        <FlexBox shown="true" name="options">
+            <Link shown="true" name="import-json" value="#{manage-formwindow-options-import-json}"></Link>
+            <Link shown="true" name="export-json" value="#{manage-formwindow-options-export-json}"></Link>
+        </FlexBox>
         <Forms.Form name="form" shown="true" />
     </component-container>
     <component-footer>

@@ -5,6 +5,9 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
 
         this.AddClass('app-form-window-component');
 
+        this._optionsImportJson = this.Children('options/import-json');
+        this._optionsExportJson = this.Children('options/export-json');
+        
         this._form = this.Children('form');
         this._validator = new Colibri.UI.FormValidator(this._form);
         this._fieldEvents = {};
@@ -13,18 +16,50 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
         this._save = this.Children('save');
         this.movable = true;
 
+        this.AddHandler('WindowBeforeClosed', this.__thisWindowBeforeClosed);
         this.AddHandler('WindowClosed', this.__thisWindowClosed);
         this._validator.AddHandler('Validated', () => this._save.enabled = this._validator.Validate());
 
+        this._save.AddHandler('Clicked', () => (this._saveCallback && this._saveCallback(this._form.value)));
+        this._cancel.AddHandler('Clicked', () => (this._cancelCallback && this._cancelCallback()));
 
-        this._save.AddHandler('Clicked', () => {
-            this._saveCallback && this._saveCallback(this._form.value);
+        this._optionsExportJson.AddHandler('Clicked', this.__optionsExportJsonClicked, false, this);
+        this._optionsImportJson.AddHandler('Clicked', this.__optionsImportJsonClicked, false, this);
+
+    }
+
+    __optionsExportJsonClicked(event, args) {
+        const data = JSON.stringify(this._form.value, null, 4);
+        data.copyToClipboard().then(() => {
+            App.Notices.Add(new Colibri.UI.Notice('#{manage-formwindow-options-copied}', Colibri.UI.Notice.Success));
         });
+    }
 
-        this._cancel.AddHandler('Clicked', () => {
-            this._cancelCallback && this._cancelCallback();
+    __optionsImportJsonClicked(event, args) {
+        App.Prompt.Show('#{manage-formwindow-options-importtitle}', {
+            d: {
+                component: 'TextArea',
+                placeholder: '#{manage-formwindow-options-importplaceholder}'
+            }
+        }, '#{manage-formwindow-options-importbutton}').then((data) => {
+            this._form.value = JSON.parse(data.d);
+            return this.Dispatch('Changed', { component: this });
         });
+    }
 
+    async __thisWindowBeforeClosed(event, args) {
+        if (this._form.changed) {
+            try {
+                await App.Confirm.Show('#{manage-formwindow-closeconfirm}', '#{manage-formwindow-closeconfirmtitle}');
+                args.cancel = false;
+                return true;
+            } catch(e) {
+                args.cancel = true;
+                return true;
+            }
+        }
+        args.cancel = false;
+        return true;
     }
 
     __thisWindowClosed(event, args) {
