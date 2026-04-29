@@ -329,6 +329,8 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     selector: '#' + this._controlElementId,
                     license_key: 'gpl',
                     // skin: 'nulla',
+                    schema: 'html5',
+                    element_format: 'xhtml',
                     relative_urls: false,
                     remove_script_host: true,
                     allow_script_urls: true,
