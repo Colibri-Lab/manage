@@ -376,9 +376,9 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                     },
                     // 'contextmenu', 'codemirror', 'template', 'textcolor', 'paste','print',  'hr', 
                     // 'spellchecker',, 'templategenerator' 'textcolor', 'pagebreak','customautocomplete', 'templategenerator'
-                    // image media 
+                    // image media 'autoresize', 
                     plugins: [
-                        'autoresize', 'advlist', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'codemirror',
+                        'advlist', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'codemirror',
                         'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime', 'media', 'nonbreaking',
                         'table', 'directionality', 'emoticons', 'customautocomplete', 'pagebreak'
                     ],
