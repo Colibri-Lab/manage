@@ -427,25 +427,6 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                             this.Dispatch('Changed');
                         });
 
-                        // ed.on('OpenWindow', (e) => {
-                        //     // Находим ближайший родительский контейнер интерфейса TinyMCE
-                        //     const wrappers = ed.getContainer().ownerDocument.querySelectorAll('.tox-tinymce-aux');
-                        //     if (wrappers) {
-                        //         wrappers.forEach(wrapper => {
-                        //             wrapper.style.zIndex = Colibri.UI.maxZIndex + 1;
-                        //         });
-                        //     }
-                        // });
-
-                        // ed.on('contextmenu', () => {
-                        //     const wrappers = ed.getContainer().ownerDocument.querySelectorAll('.tox-tinymce-aux');
-                        //     if (wrappers) {
-                        //         wrappers.forEach(wrapper => {
-                        //             wrapper.style.zIndex = Colibri.UI.maxZIndex + 1;
-                        //         });
-                        //     }
-                        // });
-
                         this._observer = new MutationObserver((mutations) => {
                             mutations.forEach((mutation) => {
                                 mutation.addedNodes.forEach((node) => {
@@ -465,6 +446,18 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                         ed.on('init', () => {
                             resolve();
                         });
+
+                        // ed.on('PreInit', () => {
+                        //     const currentMenu = ed.options.get('contextmenu') || '';
+                        //     if (!currentMenu.includes('templatescontextmenu')) {
+                        //         ed.options.set('contextmenu', currentMenu + ' templatescontextmenu');
+                        //     }
+                        // })
+
+                        // ed.ui.registry.addNestedMenuItem('templatescontextmenu', {
+                        //     text: 'Снипеты',
+                        //     getSubmenuItems: () => additionalTools
+                        // });
 
                     }
                 });
@@ -838,7 +831,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         if (this._filepicker) {
             this._filepicker.Dispose();
         }
-        if(this._observer) {
+        if (this._observer) {
             this._observer.disconnect();
         }
         super.Dispose();
