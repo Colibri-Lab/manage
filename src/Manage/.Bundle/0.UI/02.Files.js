@@ -247,4 +247,4 @@ Colibri.UI.Forms.Field.RegisterFieldParam('App.Modules.Manage.UI.Files', 'size',
         }
     }
 });
-Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.Files', 'App.Modules.Manage.UI.Files', '#{manage-fields-localfiles}', null, ['required','enabled','canbeempty','readonly','list','template','greed','viewer','fieldgenerator','generator','noteClass','validate','valuegenerator','onchangehandler','allow','size']);
+Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.Files', 'App.Modules.Manage.UI.Files', '#{manage-fields-localfiles}', null, ['required','enabled','canbeempty','readonly','list','template','greed','viewer','fieldgenerator','generator','transformer','noteClass','validate','valuegenerator','onchangehandler','allow','size']);

@@ -912,4 +912,4 @@ Colibri.UI.Forms.Field.RegisterFieldParam('App.Modules.Manage.UI.TinyMCETextArea
     ]
 });
 
-Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.TinyMCETextArea', 'App.Modules.Manage.UI.TinyMCETextArea', '#{manage-fields-tinymcetext}', null, ['required', 'enabled', 'canbeempty', 'readonly', 'list', 'template', 'greed', 'viewer', 'fieldgenerator', 'generator', 'noteClass', 'validate', 'valuegenerator', 'onchangehandler', 'visual', 'code'])
+Colibri.UI.Forms.Field.RegisterFieldComponent('Manage.UI.TinyMCETextArea', 'App.Modules.Manage.UI.TinyMCETextArea', '#{manage-fields-tinymcetext}', null, ['required', 'enabled', 'canbeempty', 'readonly', 'list', 'template', 'greed', 'viewer', 'fieldgenerator', 'generator', 'transformer', 'noteClass', 'validate', 'valuegenerator', 'onchangehandler', 'visual', 'code'])
