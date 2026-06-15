@@ -31,7 +31,7 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
                 field.params.placeholderinfo = (value, values) => new Promise((resolve, reject) => {
                     const res = [];
                     for(const v of value) {
-                        res.push(v[field.selector.title]);
+                        res.push(Lang !== undefined ? Lang.Translate(v[field.selector.title]) : v[field.selector.title]);
                     }
                     resolve(res.join(', '));
                 });

@@ -63,3 +63,55 @@ manage-fields-file-fieldparams-size-note:
   tr: Sadece File/Files türündeki nesnelerle çalışır
   zh: 仅适用于 File/Files 类型的对象
   fa: فقط با اشیاء از نوع File/Files کار می‌کند
+manage-fields-file-importtitle:
+  ru: Импорт удаленного файла
+  en: Import remote file
+  hy: Արտաքին ֆայլի ներմուծում
+  it: Importa file remoto
+  es: Importar archivo remoto
+  kk: Қашықтағы файлды импорттау
+  uz: Masofaviy faylni import qilish
+  cz: Importovat vzdálený soubor
+  de: Remote-Datei importieren
+  tr: Uzak dosyayı içe aktar
+  zh: 导入远程文件
+  fa: وارد کردن فایل از راه دور
+manage-fields-file-importurlplaceholder:
+  ru: URL файла
+  en: File URL
+  hy: Ֆայլի URL
+  it: URL del file
+  es: URL del archivo
+  kk: Файл URL
+  uz: Fayl URL
+  cz: URL souboru
+  de: Datei-URL
+  tr: Dosya URL'si
+  zh: 文件 URL
+  fa: URL فایل
+manage-fields-remote-file-importbutton:
+  ru: Импортировать
+  en: Import
+  hy: Ներմուծել
+  it: Importa
+  es: Importar
+  kk: Импорттау
+  uz: Import qilish
+  cz: Importovat
+  de: Importieren
+  tr: İçe aktar
+  zh: 导入
+  fa: وارد کردن
+manage-fields-file-importlocalpathplaceholder:
+  ru: Локальный путь
+  en: Local path
+  hy: Լոկալ ուղի
+  it: Percorso locale
+  es: Ruta local
+  kk: Жергілікті жол
+  uz: Mahalliy yo'l
+  cz: Místní cesta
+  de: Lokaler Pfad
+  tr: Yerel yol
+  zh: 本地路径
+  fa: مسیر محلی

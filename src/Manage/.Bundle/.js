@@ -340,8 +340,30 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             });
     }
 
-    
+    ImportFileToRemoteFromUrl(url, bucket) {
+        return new Promise((resolve, reject) => {
+            this.Call('RemoteFileServer', 'ImportFile', {bucket: bucket, url: url})
+                .then((response) => {
+                    resolve(response.result.stat);
+                }).catch((response) => {
+                    App.Notices.Add(new Colibri.UI.Notice(response.result));
+                    reject(response.result);
+                });
+        });
+    }
 
+    ImportFileToLocalFromUrl(url, localpath) {
+        return new Promise((resolve, reject) => {
+            this.Call('FileManager', 'ImportFile', {localpath, url})
+                .then((response) => {
+                    resolve(response.result.url);
+                }).catch((response) => {
+                    App.Notices.Add(new Colibri.UI.Notice(response.result));
+                    reject(response.result);
+                });
+        });
+    }
+    
     get FormWindow() {
         if(this._formWindow) {
             return this._formWindow;

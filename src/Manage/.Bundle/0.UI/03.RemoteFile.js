@@ -16,6 +16,7 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
         this._clear = new Colibri.UI.Icon(this._name + '_clear', this._buttons);
         this._choose = new Colibri.UI.Icon(this._name + '_choose', this._buttons);
         this._download = new Colibri.UI.Icon(this._name + '_download', this._buttons);
+        this._import = new Colibri.UI.Icon(this._name + '_import', this._buttons);
 
         this._path.hasIcon = false;
         this._path.hasClearIcon = false;
@@ -23,14 +24,15 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
         this._flex.shown = this._icon.shown = 
         this._pane.shown = this._path.shown = 
         this._buttons.shown = this._clear.shown = 
-        this._choose.shown = this._download.shown = true;
+        this._choose.shown = this._download.shown = this._import.shown = true;
 
         this._clear.value = Colibri.UI.RemoveIcon;
         this._choose.value = Colibri.UI.FolderIcon;
         this._download.value = Colibri.UI.DownloadIcon;
+        this._import.value = Colibri.UI.ImportIcon;
 
         this._path.tabIndex = true;
-        this._clear.tabIndex = this._choose.tabIndex = this._download.tabIndex = true;
+        this._clear.tabIndex = this._choose.tabIndex = this._download.tabIndex = this._import.tabIndex = true;
         this._path.readonly = true;
 
         this._handleEvents();
@@ -43,7 +45,37 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
         this._clear.AddHandler('Clicked', this.__clearClicked, false, this);
         this._choose.AddHandler('Clicked', this.__chooseClicked, false, this);
         this._download.AddHandler('Clicked', this.__downloadClicked, false, this);
+        this._import.AddHandler('Clicked', this.__importClicked, false, this);
+    }
 
+    __importClicked(event, args) {
+        App.Prompt.Show('#{manage-fields-remote-file-importtitle}', {
+            url: {
+                component: 'Text',
+                placeholder: '#{manage-fields-remote-file-importurlplaceholder}'
+            },
+            bucket: {
+                component: 'Select',
+                placeholder: '#{manage-fields-remote-file-importbucketplaceholder}',
+                lookup: {
+                    binding: 'app.manage.remotebuckets'
+                },
+                selector: {
+                    value: 'token',
+                    title: 'desc'
+                }
+            }
+        }, '#{manage-fields-remote-file-importbutton}').then((data) => {
+            const url = data.url;
+            const bucket = data.bucket;
+            App.Loading.Show();
+            Manage.ImportFileToRemoteFromUrl(url, bucket).then((file) => {
+                this.value = file;
+                this.Dispatch('Changed', args);
+            }).finally(() => {
+                App.Loading.Hide();
+            });
+        });
     }
 
     _enableButtons() {

@@ -11,6 +11,9 @@ use Colibri\Web\Controller as WebController;
 use App\Modules\Security\Module as SecurityModule;
 use Colibri\IO\FileSystem\Finder;
 use Colibri\IO\FileSystem\Directory;
+use Colibri\IO\Request\Request;
+use Colibri\IO\Request\Type;
+use Colibri\Web\PayloadCopy;
 
 /**
  * File manager controller
@@ -67,7 +70,7 @@ class FileManagerController extends WebController
      * @param mixed|null $payload
      * @return object
      */
-    public function Folders(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
+    public function Folders(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload = null): object
     {
 
         if (!SecurityModule::Instance()->current) {
@@ -93,7 +96,7 @@ class FileManagerController extends WebController
      * @param mixed|null $payload
      * @return object
      */
-    public function Files(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
+    public function Files(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload = null): object
     {
 
         if (!SecurityModule::Instance()->current) {
@@ -119,7 +122,7 @@ class FileManagerController extends WebController
      * @param mixed|null $payload
      * @return object
      */
-    public function CreateFolder(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
+    public function CreateFolder(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload = null): object
     {
 
         if (!SecurityModule::Instance()->current) {
@@ -150,7 +153,7 @@ class FileManagerController extends WebController
      * @param mixed|null $payload
      * @return object
      */
-    public function RenameFolder(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
+    public function RenameFolder(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload = null): object
     {
 
         if (!SecurityModule::Instance()->current) {
@@ -180,7 +183,7 @@ class FileManagerController extends WebController
      * @param mixed|null $payload
      * @return object
      */
-    public function RemoveFolder(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
+    public function RemoveFolder(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload = null): object
     {
 
         if (!SecurityModule::Instance()->current) {
@@ -209,7 +212,7 @@ class FileManagerController extends WebController
      * @param mixed|null $payload
      * @return object
      */
-    public function RenameFile(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
+    public function RenameFile(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload = null): object
     {
 
         if (!SecurityModule::Instance()->current) {
@@ -239,7 +242,7 @@ class FileManagerController extends WebController
      * @param mixed|null $payload
      * @return object
      */
-    public function RemoveFile(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
+    public function RemoveFile(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload = null): object
     {
 
         if (!SecurityModule::Instance()->current) {
@@ -278,7 +281,7 @@ class FileManagerController extends WebController
      * @param mixed|null $payload
      * @return object
      */
-    public function UploadFiles(RequestCollection $get, RequestCollection $post, mixed $payload = null): object
+    public function UploadFiles(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload = null): object
     {
 
         if (!SecurityModule::Instance()->current) {
@@ -309,4 +312,56 @@ class FileManagerController extends WebController
 
 
 
+    /**
+     * Import the file to the local directory from url
+     * @param RequestCollection $get данные GET
+     * @param RequestCollection $post данные POST
+     * @param ? PayloadCopy $payload данные payload обьекта переданного через POST/PUT
+     * @return object
+     */
+    public function ImportFile(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload = null): object
+    {
+
+        $result = [];
+        $message = 'Result message';
+        $code = 200;
+
+        $url = $post->{'url'};
+        $localpath = $post->{'localpath'};
+
+        if(!$url) {
+            throw new \InvalidArgumentException('Url is required');
+        }
+
+        if(!$localpath) {
+            throw new \InvalidArgumentException('Local path is required');
+        }
+
+        $request = new Request($url, Type::Get);
+        $request->timeout = 15;
+        $response = $request->Execute();
+        if($response->status != 200) {
+            throw new \InvalidArgumentException('Failed to fetch file from URL: ' . $response->status);
+        }
+
+        $localUrl = App::$config->Query('res')->GetValue() . $localpath . basename($url);
+        $path = App::$webRoot . $localUrl;
+
+        File::Write($path, $response->data, true, '777');
+
+        $result = [
+            'url' => $localUrl,
+        ];
+            
+        return $this->Finish(
+            $code,
+            $message,
+            $result,
+            'utf-8'
+        );
+
+    }
+
+
+    
 }
