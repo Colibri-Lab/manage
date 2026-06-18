@@ -23,8 +23,8 @@ class LookupController extends WebController
     public function __construct(string|null $type = null)
     {
         parent::__construct($type);
-        $this->_cache = true;
-        $this->_lifetime = 600;
+        // $this->_cache = true;
+        // $this->_lifetime = 600;
     }
 
     protected static function _replaceFields(string $value, string $table, DataAccessPoint $point): string
@@ -70,6 +70,7 @@ class LookupController extends WebController
             $valueField = $storageLookup['value'] ?? 'value';
             $groupField = $storageLookup['group'] ?? null;
             $filter = $storageLookup['filter'] ?? null;
+            $selected = $post->{'selected'} ?? null;
             $dependsField = $storageLookup['depends'] ?? null;
             $limit = $storageLookup['limit'] ?? null;
             $orderField = strstr(($storageLookup['order'] ?: $titleField), '{') === false ? '{' . ($storageLookup['order'] ?: $titleField) . '}' : ($storageLookup['order'] ?? $titleField);
@@ -89,6 +90,7 @@ class LookupController extends WebController
                 $filters['_'] = $filter;
             }
 
+
             $orderField = str_replace('{', '', $orderField);
             $orderField = str_replace('}', '', $orderField);
             $dataTable = $tableClass::LoadBy($limit ? 1 : -1, $limit ?: 1000, $term, $filters, $orderField, '');
@@ -107,6 +109,15 @@ class LookupController extends WebController
                     }
                 }
             }
+
+            
+            if($selected) {
+                $row = $tableClass::LoadById($selected[$valueField] ?? $selected);
+                if($row) {
+                    $ret = [$row->ToArray(true), ...$ret];
+                }
+            }
+
         } elseif (isset($lookup['accesspoint'])) {
 
             $pointData = $lookup['accesspoint'];
