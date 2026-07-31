@@ -1,3 +1,8 @@
+/**
+ * @class
+ * @extends Colibri.UI.Window
+ * @memberof App.Modules.Manage.Windows
+ */
 App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
 
     constructor(name, container) {

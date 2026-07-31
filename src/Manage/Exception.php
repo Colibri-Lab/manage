@@ -8,6 +8,10 @@ namespace App\Modules\Manage;
 
 use Colibri\AppException;
 
+/**
+ * @class
+ * @extends AppException
+ */
 class Exception extends AppException
 {
 

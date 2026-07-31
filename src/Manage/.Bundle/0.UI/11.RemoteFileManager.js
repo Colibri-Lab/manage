@@ -1,4 +1,9 @@
-
+/**
+ * Remote file manager component
+ * @class
+ * @memberof App.Modules.Manage.UI
+ * @extends Colibri.UI.Component
+ */
 App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
 
     constructor(name, container) {

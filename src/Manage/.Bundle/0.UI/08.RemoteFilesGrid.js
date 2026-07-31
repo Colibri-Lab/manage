@@ -1,3 +1,9 @@
+/**
+ * Remote files grid component
+ * @class
+ * @memberof App.Modules.Manage.UI
+ * @extends Colibri.UI.Grid
+ */
 App.Modules.Manage.UI.RemoteFilesGrid = class extends Colibri.UI.Grid {
  
 

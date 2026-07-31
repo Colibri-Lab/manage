@@ -14,6 +14,8 @@ use App\Modules\Manage\Models\Fields\RemoteFileField;
 
 /**
  * Remove media files controller
+ * @class
+ * @extends WebController
  */
 class FilesController extends WebController
 {

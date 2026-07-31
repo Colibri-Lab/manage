@@ -1,3 +1,9 @@
+/**
+ * Remote file viewer component
+ * @class
+ * @memberof App.Modules.Manage.UI
+ * @extends Colibri.UI.Viewer
+ */
 App.Modules.Manage.UI.RemoteFileViewer = class extends Colibri.UI.Viewer {
     
     constructor(name, container, element = null, root = null) {

@@ -15,6 +15,8 @@ use Colibri\Web\Templates\PhpTemplate;
 
 /**
  * Templates controller
+ * @class
+ * @extends WebController
  */
 class TemplatesController extends WebController
 {

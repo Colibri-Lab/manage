@@ -24,8 +24,7 @@ use Colibri\AppException;
 
 /**
  * Представление файла в хранилище
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Fields
+ * @class
  *
  * @property-read bool $isOnline да, если файл - это url
  * @property-read bool $isValid да, если файл существует

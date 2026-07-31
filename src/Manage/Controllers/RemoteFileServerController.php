@@ -16,6 +16,8 @@ use InvalidArgumentException;
 
 /**
  * Remote media files controller
+ * @class
+ * @extends WebController
  */
 class RemoteFileServerController extends WebController
 {

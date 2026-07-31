@@ -1,3 +1,9 @@
+/**
+ * Folders tree component
+ * @class
+ * @memberof App.Modules.Manage.UI
+ * @extends Colibri.UI.Tree
+ */
 App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
     
     constructor(name, container) {

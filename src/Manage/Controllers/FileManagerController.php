@@ -17,6 +17,8 @@ use Colibri\Web\PayloadCopy;
 
 /**
  * File manager controller
+ * @class
+ * @extends WebController
  */
 class FileManagerController extends WebController
 {

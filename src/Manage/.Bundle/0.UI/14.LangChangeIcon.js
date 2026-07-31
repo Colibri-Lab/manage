@@ -1,3 +1,9 @@
+/**
+ * Language change icon component
+ * @class
+ * @memberof App.Modules.Manage
+ * @extends Colibri.UI.Icon
+ */
 App.Modules.Manage.LangChangeIcon = class extends Colibri.UI.Icon {
     constructor(name, container) {
         super(name, container);

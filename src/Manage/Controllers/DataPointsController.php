@@ -28,6 +28,8 @@ use Throwable;
 
 /**
  * Datapoint access controller
+ * @class
+ * @extends WebController
  */
 class DataPointsController extends WebController
 {

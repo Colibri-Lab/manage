@@ -1,3 +1,9 @@
+/**
+ * File field component
+ * @class
+ * @memberof App.Modules.Manage.UI
+ * @extends Colibri.UI.Forms.Field
+ */
 App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     
     RenderFieldContainer() {

@@ -18,6 +18,8 @@ use Colibri\Web\PayloadCopy;
 
 /**
  * Module index controller
+ * @class
+ * @extends WebController
  */
 class Controller extends WebController
 {

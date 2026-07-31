@@ -16,6 +16,8 @@ use Colibri\Data\Models\DataTable;
 
 /**
  * Lookup data controller
+ * @class
+ * @extends WebController
  */
 class LookupController extends WebController
 {

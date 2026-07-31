@@ -13,6 +13,8 @@ use App\Modules\Security\Module as SecurityModule;
 
 /**
  * Storages controller
+ * @class
+ * @extends WebController
  */
 class StoragesController extends WebController
 {

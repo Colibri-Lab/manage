@@ -11,8 +11,8 @@ use InvalidArgumentException;
 
 /**
  * Manage main controller
- * @author self
- * @package App\Modules\Manage\Controllers
+ * @class
+ * @extends WebController
  */
 class ManageController extends WebController
 {

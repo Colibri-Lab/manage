@@ -1,3 +1,9 @@
+/**
+ * Files grid component
+ * @class
+ * @memberof App.Modules.Manage.UI
+ * @extends Colibri.UI.Grid
+ */
 App.Modules.Manage.UI.FilesGrid = class extends Colibri.UI.Grid {
  
 

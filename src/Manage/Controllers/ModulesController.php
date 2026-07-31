@@ -11,6 +11,8 @@ use App\Modules\Security\Module as SecurityModule;
 
 /**
  * Modules controller
+ * @class
+ * @extends WebController
  */
 class ModulesController extends WebController
 {

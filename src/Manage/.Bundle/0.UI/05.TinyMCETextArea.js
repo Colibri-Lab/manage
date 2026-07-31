@@ -1,3 +1,9 @@
+/**
+ * TinyMCE text area component
+ * @class
+ * @memberof App.Modules.Manage.UI
+ * @extends Colibri.UI.Forms.TextArea
+ */
 App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea {
 
     RenderFieldContainer() {

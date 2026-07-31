@@ -15,8 +15,8 @@ use Colibri\Data\Storages\Fields\Field;
 
 /**
  * Класс поле список файлов
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Fields
+ * @class
+ * @extends ArrayList
  */
 class RemoteFileListField extends ArrayList
 {

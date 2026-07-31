@@ -23,7 +23,8 @@ use OpenAI\Client;
 
 /**
  * Backend manage module
- * @package App\Modules\Manage
+ * @class
+ * @extends BaseModule
  */
 class Module extends BaseModule
 {
