@@ -5,6 +5,12 @@
  */
 App.Modules.Manage.Windows.FileWindow = class extends Colibri.UI.Window {
 
+    /**
+     * Constructor
+     * @constructor
+     * @param {string} name component name
+     * @param {Colibri.UI.IContainer} container component container
+     */
     constructor(name, container) {
         super(name, container, Colibri.UI.Templates['App.Modules.Manage.Windows.FileWindow'], '#{manage-filewindow-title}');
 
@@ -26,16 +32,25 @@ App.Modules.Manage.Windows.FileWindow = class extends Colibri.UI.Window {
         
     }
 
+    /**
+     * Set multiple selection
+     * @type {boolean}
+     */    
     set multiple(value) {
         this._manager.multiple = value;
         this._remotemanager.multiple = value;
     }
 
+    /**
+     * Get multiple selection
+     * @type {boolean}
+     */
     get multiple() {
         return this._manager.multiple;
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -47,6 +62,7 @@ App.Modules.Manage.Windows.FileWindow = class extends Colibri.UI.Window {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -56,15 +72,23 @@ App.Modules.Manage.Windows.FileWindow = class extends Colibri.UI.Window {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
-     */ 
+     */  
     __selectionChangedOnRemoteManager(event, args) {
         this._save.enabled = !!this._remotemanager.selected || this._remotemanager.checked.length > 0;
     }
 
-
+    /**
+     * Show the file window
+     * @param {boolean} multiple allow multiple selection
+     * @param {boolean} showRemote show remote files tab
+     * @param {boolean} showLocal show local files tab
+     * @returns {Promise} promise with selected files
+     * @public
+     */
     Show(multiple = true, showRemote = true, showLocal = true) {
 
         this.multiple = multiple;

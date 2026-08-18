@@ -6,6 +6,10 @@
  */
 App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea {
 
+    /**
+     * Render field container
+     * @public
+     */
     RenderFieldContainer() {
         super.RenderFieldContainer();
         this.AddClass('app-tinymcetextarea-component');
@@ -26,14 +30,30 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */
     __thisChanged(event, args) {
         this._savedValue = this._getValue();
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */
     __shownHandler(event, args) {
         this.__initVisual();
     }
 
+    /**
+     * @ignore
+     * @private 
+     */
     _createSnippetTag(snippet, data, type = 'tag') {
         if (type === 'tag') {
             data = Object.map(data, (k, v) => {
@@ -60,10 +80,18 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         }
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _createAdditionalSnippetsButtons() {
         return 'add-snippet edit-snippet translate' + (this._tools ?? []).map(tool => tool.name).join(' | ');
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _createAdditionalTools() {
         let tools = [];
         tools.push({
@@ -309,6 +337,10 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         return tools;
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     __initVisual() {
         return new Promise((resolve, reject) => {
             if (this._visualCreated || !this.isConnected) {
@@ -522,6 +554,10 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         });
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _getValue() {
 
         if (this._fieldData?.params?.visual == true) {
@@ -548,10 +584,18 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         }
     }
 
+    /**
+     * Value of the field
+     * @type {string}
+     */
     get value() {
         return this._savedValue;
     }
 
+    /**
+     * Value of the field
+     * @type {string}
+     */
     set value(val) {
         let promise;
 
@@ -608,20 +652,35 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
 
     }
 
-
+    /**
+     * Is component readonly
+     * @type {string}
+     */
     get readonly() {
         return super.readonly;
     }
 
+    /**
+     * Is component readonly
+     * @type {string}
+     */
     set readonly(value) {
         super.readonly = value;
 
     }
 
+    /**
+     * Is component enabled
+     * @type {boolean}
+     */
     get enabled() {
         return super.enabled;
     }
 
+    /**
+     * Is component enabled
+     * @type {boolean}
+     */
     set enabled(value) {
         super.enabled = value;
         if (this._fieldData?.params?.visual == true) {
@@ -644,17 +703,33 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         }
     }
 
+    /**
+     * Is component shown
+     * @type {boolean}
+     */
     get shown() {
         return super.shown;
     }
 
+    /**
+     * Is component shown
+     * @type {boolean}
+     */
     set shown(value) {
         super.shown = value;
     }
 
+    /**
+     * Field params
+     * @type {Object}
+     */
     get params() {
         return this._fieldData?.params ?? {};
     }
+    /**
+     * Field params
+     * @type {Object}
+     */
     set params(value) {
         if (!this._fieldData) {
             this._fieldData = {};
@@ -662,6 +737,10 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         this._fieldData.params = value;
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _getAutocomplete(type, resolve, cm, option) {
 
         if (type === 'cm') {
@@ -811,6 +890,10 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         this._tools = this._convertObject(value);
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _convertObject(array) {
 
         let ret = [];
@@ -833,6 +916,10 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         return ret;
     }
 
+    /**
+     * Disposes the component
+     * @public
+     */
     Dispose() {
         if (this._filepicker) {
             this._filepicker.Dispose();
@@ -843,6 +930,10 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         super.Dispose();
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _setLookup() {
         if (this._fieldData?.lookup?.controller) {
             let controller = this._fieldData.lookup.controller;
@@ -863,6 +954,10 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         }
     }
 
+    /**
+     * Focuses the component
+     * @public
+     */
     Focus() {
         if (this._fieldData?.params?.visual == true) {
             tinymce.get(this._controlElementId)?.focus();

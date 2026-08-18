@@ -5,11 +5,17 @@
  */
 App.Modules.Manage = class extends Colibri.Modules.Module {
 
-    /** @constructor */
+    /** 
+     * @constructor
+     */
     constructor() {
         super('Manage');
     }
 
+    /**
+     * Initialize module
+     * @public
+     */
     InitializeModule() {
         super.InitializeModule();
 
@@ -50,6 +56,12 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
 
     }
 
+    /**
+     * Change language
+     * @param {string} lang language code   
+     * @param {Object} settings settings object
+     * @public
+     */
     ChangeLanguage(lang, settings) {
         const s = settings ?? this._store.Query('manage.settings');
         Colibri.Common.Cookie.Set(s['lang-cookie-name'], lang, 365, '/', s['lang-cookie-domain']);
@@ -58,24 +70,47 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
 
+    /**
+     * Get store object
+     * @type {Colibri.Store}
+     */
     get Store() {
         return this._store;
     }
 
+    /**
+     * Render module
+     * @public
+     */
     Render() {
         console.log('Rendering Module Manage');
-        
-
     }
 
+    /**
+     * Register module events
+     * @public
+     */
     RegisterEvents() {
         console.log('Registering module events for Manage');
     }
 
+    /**
+     * Register event handlers
+     * @public
+     */
     RegisterEventHandlers() {
         console.log('Registering event handlers for Manage');
     }
 
+    /**
+     * Get file by guid
+     * @param {string} name file name
+     * @param {string} guid file guid
+     * @param {string} bucket storage bucket
+     * @param {string} type file type
+     * @public
+     * @async
+     */
     FileByGuid(name, guid, bucket, type) {
         return new Promise((resolve, reject) => {
             this.Call('Files', 'ByGuid', {guid: guid, bucket: bucket, type: type}).then((response) => {
@@ -89,10 +124,24 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
 
+    /**
+     * Open file by guid
+     * @param {string} guid file guid
+     * @param {string} bucket storage bucket
+     * @param {string} type file type
+     * @public
+     */
     OpenFileByGuid(guid, bucket, type) {
         window.open('/modules/manage/files/by-guid.stream?guid=' + guid + '&bucket=' + bucket + '&type=' + type);
     }
 
+    /**
+     * Get storages
+     * @param {boolean} returnPromise if true, returns promise instead of setting store
+     * @returns {Promise|undefined} promise if returnPromise is true, otherwise undefined
+     * @public
+     * @async
+     */
     Storages(returnPromise = false) {
         const promise = this.Call('Storages', 'Config', {__raw: 1});
         if(returnPromise) {
@@ -105,6 +154,13 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
 
+    /**
+     * Get modules
+     * @param {boolean} returnPromise if true, returns promise instead of setting store
+     * @returns {Promise|undefined} promise if returnPromise is true, otherwise undefined
+     * @public
+     * @async
+     */
     Modules(returnPromise = false) {
         const promise = this.Call('Modules', 'Config');
         if(returnPromise) {
@@ -117,6 +173,13 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
 
+    /**
+     * Get templates
+     * @param {boolean} returnPromise if true, returns promise instead of setting store
+     * @returns {Promise|undefined} promise if returnPromise is true, otherwise undefined
+     * @public
+     * @async
+     */
     Templates(returnPromise = false) {
         const promise = this.Call('Templates', 'Config');
         if(returnPromise) {
@@ -129,6 +192,13 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
 
+    /**
+     * Get snippets
+     * @param {boolean} returnPromise if true, returns promise instead of setting store
+     * @returns {Promise|undefined} promise if returnPromise is true, otherwise undefined
+     * @public
+     * @async
+     */
     Snippets(returnPromise = false) {
         const promise = this.Call('Templates', 'Snippets');
         if(returnPromise) {
@@ -141,6 +211,13 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
 
+    /**
+     * Get data points
+     * @param {boolean} returnPromise if true, returns promise instead of setting store
+     * @returns {Promise|undefined} promise if returnPromise is true, otherwise undefined
+     * @public
+     * @async
+     */
     DataPoints(returnPromise = false) {
         const promise = this.Call('DataPoints', 'Config');
         if(returnPromise) {
@@ -153,6 +230,14 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
 
+    /**
+     * Get folders
+     * @param {string} path
+     * @param {boolean} returnPromise if true, returns promise instead of setting store
+     * @returns {Promise|undefined} promise if returnPromise is true, otherwise undefined
+     * @public
+     * @async
+     */
     Folders(path = '', returnPromise = false) {
         const promise = this.Call('FileManager', 'Folders', {path: path})
         if(returnPromise) {
@@ -165,8 +250,16 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
 
+    /**
+     * Get files
+     * @param {string} path
+     * @param {string} searchTerm
+     * @param {boolean} returnPromise if true, returns promise instead of setting store
+     * @returns {Promise|undefined} promise if returnPromise is true, otherwise undefined
+     * @public
+     * @async
+     */
     Files(path = '', searchTerm = '', returnPromise = false) {
-
 
         this.Requests('FileManager.Files')?.Abort();
         let promise = Promise.resolve([]);
@@ -185,6 +278,11 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
 
+    /**
+     * Create folder
+     * @param {string} path
+     * @public
+     */
     CreateFolder(path) {
         this.Call('FileManager', 'CreateFolder', {path: path})
             .then((response) => {
@@ -199,6 +297,12 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             });
     }
 
+    /**
+     * Rename folder
+     * @param {string} pathFrom
+     * @param {string} pathTo
+     * @public
+     */
     RenameFolder(pathFrom, pathTo) {
         this.Call('FileManager', 'RenameFolder', {pathFrom: pathFrom, pathTo: pathTo})
             .then((response) => {
@@ -208,6 +312,11 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             });
     }
 
+    /**
+     * Remove folder
+     * @param {string} path
+     * @public
+     */
     RemoveFolder(path) {
         this.Call('FileManager', 'RemoveFolder', {path: path})
             .then((response) => {
@@ -217,6 +326,13 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             });
     }
 
+    /**
+     * Rename file
+     * @param {string} path
+     * @param {string} nameFrom
+     * @param {string} nameTo
+     * @public
+     */
     RenameFile(path, nameFrom, nameTo) {
         this.Call('FileManager', 'RenameFile', {path: path, nameFrom: nameFrom, nameTo: nameTo})
             .then((response) => {
@@ -226,6 +342,11 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             });
     }
 
+    /**
+     * Remove file
+     * @param {string} path
+     * @public
+     */
     RemoveFile(path) {
         this.Call('FileManager', 'RemoveFile', {path: path})
             .then((response) => {
@@ -235,6 +356,12 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             });
     }
 
+    /**
+     * Upload files
+     * @param {string} path
+     * @param {File[]} files
+     * @public
+     */
     UploadFiles(path, files) {
         this.Call('FileManager', 'UploadFiles', {path: path, files: files}, {}, true, 'UploadFiles')
             .then((response) => {
@@ -249,6 +376,13 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             });
     }
 
+    /**
+     * Get remote buckets
+     * @param {boolean} returnPromise if true, returns promise instead of setting store
+     * @returns {Promise|undefined} promise if returnPromise is true, otherwise undefined
+     * @public
+     * @async
+     */
     RemoteBuckets(returnPromise = false) {
         const promise = this.Call('RemoteFileServer', 'ListBuckets')
         if(returnPromise) {
@@ -261,6 +395,17 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
 
+    /**
+     * Get remote files
+     * @param {Object} bucket bucket object
+     * @param {string|null} term search term
+     * @param {number} page page number
+     * @param {number} pagesize number of items per page
+     * @param {boolean} returnPromise if true, returns promise instead of setting store
+     * @returns {Promise|undefined} promise if returnPromise is true, otherwise undefined
+     * @public
+     * @async
+     */
     RemoteFiles(bucket, term = null, page = 1, pagesize = 20, returnPromise = false) {
         if(!bucket) {
             return;
@@ -289,6 +434,11 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
     
+    /**
+     * Create remote bucket
+     * @param {string} bucket bucket name
+     * @public
+     */
     CreateBucket(bucket) {
         this.Call('RemoteFileServer', 'CreateBucket', {bucket: bucket})
             .then((response) => {
@@ -300,6 +450,11 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             });
     }
 
+    /**
+     * Remove remote bucket
+     * @param {Object} bucket bucket object
+     * @public
+     */
     RemoveBucket(bucket) {
         this.Call('RemoteFileServer', 'RemoveBucket', {bucket: bucket.name})
             .then((response) => {
@@ -311,7 +466,12 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             });
     }
 
-
+    /**
+     * Upload files to remote bucket
+     * @param {Object} bucket bucket object
+     * @param {File[]} files files to upload
+     * @public
+     */
     UploadFilesToRemote(bucket, files) {
         this.Call('RemoteFileServer', 'UploadFiles', {bucket: bucket.token, bucketname: bucket.name, files: files}, {}, true, 'UploadFiles')
             .then((response) => {
@@ -326,6 +486,12 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             });
     }
 
+    /** 
+     * Delete files from remote bucket
+     * @param {Object} bucket bucket object
+     * @param {string[]} files array of file guids to delete
+     * @public
+     */
     DeleteFilesFromRemote(bucket, files) {
         this.Call('RemoteFileServer', 'RemoveFile', {bucket: bucket.token, files: files})
             .then((response) => {
@@ -342,6 +508,14 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
             });
     }
 
+    /**
+     * Import file to remote bucket from URL
+     * @param {string} url file URL
+     * @param {Object} bucket bucket object
+     * @returns {Promise} promise that resolves with the file stat
+     * @public
+     * @async
+     */
     ImportFileToRemoteFromUrl(url, bucket) {
         return new Promise((resolve, reject) => {
             this.Call('RemoteFileServer', 'ImportFile', {bucket: bucket, url: url})
@@ -354,6 +528,14 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
 
+    /**
+     * Import file to local storage from URL
+     * @param {string} url file URL
+     * @param {string} localpath local file path
+     * @returns {Promise} promise that resolves with the file URL
+     * @public
+     * @async
+     */
     ImportFileToLocalFromUrl(url, localpath) {
         return new Promise((resolve, reject) => {
             this.Call('FileManager', 'ImportFile', {localpath, url})
@@ -366,6 +548,10 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
     }
     
+    /**
+     * Get the form window instance
+     * @type {App.Modules.Manage.Windows.FormWindow}
+     */
     get FormWindow() {
         if(this._formWindow) {
             return this._formWindow;
@@ -379,6 +565,10 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         return this._formWindow;
     }
 
+    /**
+     * Get the filter window instance
+     * @type {App.Modules.Manage.Windows.FilterWindow}
+     */
     get FilterWindow() {
         if(this._filterWindow) {
             return this._filterWindow;
@@ -392,7 +582,10 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         return this._filterWindow;
     }
 
-
+    /**
+     * Get the store object
+     * @type {Colibri.Store}
+     */
     get Store() {
         return this._store;
     }

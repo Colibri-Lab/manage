@@ -5,6 +5,12 @@
  */
 App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
 
+    /**
+     * Constructor
+     * @constructor
+     * @param {string} name component name
+     * @param {Colibri.UI.IContainer} container component container
+     */
     constructor(name, container) {
         super(name, container, Colibri.UI.Templates['App.Modules.Manage.Windows.FormWindow']);
 
@@ -33,6 +39,12 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
 
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.UI.Event} event
+     * @param {Object} args
+     */
     __optionsExportJsonClicked(event, args) {
         const data = JSON.stringify(this._form.value, null, 4);
         data.copyToClipboard().then(() => {
@@ -40,6 +52,12 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
         });
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.UI.Event} event
+     * @param {Object} args
+     */
     __optionsImportJsonClicked(event, args) {
         App.Prompt.Show('#{manage-formwindow-options-importtitle}', {
             d: {
@@ -52,6 +70,13 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
         });
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.UI.Event} event
+     * @param {Object} args
+     * @async
+     */
     async __thisWindowBeforeClosed(event, args) {
         if (this._form.changed) {
             try {
@@ -67,10 +92,24 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
         return true;
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.UI.Event} event
+     * @param {Object} args
+     */
     __thisWindowClosed(event, args) {
         this._form.Clear();
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Object} storage storage object
+     * @param {Object} s parent storage object
+     * @param {string} p parent field path
+     * @returns {Object} modified storage object
+     */
     _performChanges(storage, s, p) {
         Object.forEach(storage.fields, (name, field) => {
             field.storage = s ? s.name : storage.name;
@@ -87,6 +126,19 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
         return storage;
     }
 
+    /**
+     * Show the form window
+     * @param {string} title window title
+     * @param {number} width window width
+     * @param {Object|string} fieldBinding field binding object or store query string
+     * @param {Object|string} dataBinding data binding object or store query string
+     * @param {string} className additional class name for the window
+     * @param {Object} fieldEvents field events object
+     * @param {Function} saveCallback save callback function
+     * @param {Function} cancelCallback cancel callback function
+     * @returns {Promise} promise that resolves when the form is shown
+     * @public
+     */
     Show(title, width, fieldBinding, dataBinding, className = '', fieldEvents = {}, saveCallback, cancelCallback) {
 
         this._saveCallback = saveCallback;
@@ -122,6 +174,12 @@ App.Modules.Manage.Windows.FormWindow = class extends Colibri.UI.Window {
 
     }
 
+    /**
+     * Recreate the form with new fields and value
+     * @param {Object} fields form fields object
+     * @param {Object} value form value object
+     * @public
+     */
     ReCreateForm(fields, value) {
 
         this._form.Clear();

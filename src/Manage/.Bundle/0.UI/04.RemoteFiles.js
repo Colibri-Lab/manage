@@ -6,6 +6,10 @@
  */
 App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
 
+    /**
+     * Render field container
+     * @public
+     */
     RenderFieldContainer() {
         this.AddClass('app-component-manage-remote-files-field');
 
@@ -78,13 +82,24 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
 
     }
 
-    
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */
     __clearClicked(event, args) {
         this._value.splice(event.sender.tag.index, 1);
         this.value = this._value;
         this.Dispatch('Changed', args);
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */
     __chooseClicked(event, args) {
         const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body);
         files.Show(false).then((data) => {
@@ -96,16 +111,27 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
         });
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */
     __downloadClicked(event, args) {
         DownloadFileByPath(this._getUrl(event.sender.tag.value));
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _handleEvents() {
         this._clear.AddHandler('Clicked', this.__clearClicked, false, this);
         this._choose.AddHandler('Clicked', this.__chooseClicked, false, this);
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -116,10 +142,11 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
-     */ 
+     */
     __chooseClicked(event, args) {
         const files = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body); 
         files.Show(true, true, false).then((data) => {
@@ -132,20 +159,25 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
 
 
     /**
-     * Поставить фокус
+     * Focus on component
      */
     Focus() {
         // this._path.Focus();
+        // do nothing
     }
     
 
     /**
-     * Значение поля (выбранный файл)
-     * @type {File}
+     * Value of the field (selected file)
+     * @type {Array<File>}
      */
     get value() {
         return this._value;
     }
+    /**
+     * Value of the field (selected file)
+     * @type {Array<File>}
+     */
     set value(value) {
         if(!value) {
             this._value = [];
@@ -160,6 +192,10 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
         this._showValue();
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _showValue() {
 
         let found = [];
@@ -191,6 +227,10 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
 
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _showIcon(component, value) {
 
         if(!value?.ext) {
@@ -211,10 +251,18 @@ App.Modules.Manage.UI.RemoteFiles = class extends Colibri.UI.Forms.Field {
         
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _isValue(value) {
         return Object.isObject(value);
     }
     
+    /**
+     * @ignore
+     * @private
+     */
     _getUrl(value) {
         return '/modules/manage/files/by-guid.stream?bucket=' + value.bucket + '&guid=' + value.guid + '&type=' + value.ext;
     }

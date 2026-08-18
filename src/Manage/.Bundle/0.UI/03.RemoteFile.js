@@ -6,6 +6,10 @@
  */
 App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
 
+    /**
+     * Render field container
+     * @public
+     */
     RenderFieldContainer() {
         this.AddClass('app-component-manage-remote-file-field');
 
@@ -46,6 +50,10 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
 
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _handleEvents() {
 
         this._clear.AddHandler('Clicked', this.__clearClicked, false, this);
@@ -54,6 +62,12 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
         this._import.AddHandler('Clicked', this.__importClicked, false, this);
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */
     __importClicked(event, args) {
         App.Prompt.Show('#{manage-fields-remote-file-importtitle}', {
             url: {
@@ -84,6 +98,10 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
         });
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _enableButtons() {
         const enabled = this._isValue(this._value);
         this._clear.enabled = enabled;
@@ -92,6 +110,7 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -102,6 +121,7 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -112,6 +132,7 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -127,6 +148,7 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -139,7 +161,8 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
     }
 
     /**
-     * Поставить фокус
+     * Focus on component
+     * @public
      */
     Focus() {
         this._path.Focus();
@@ -147,22 +170,33 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
     
 
     /**
-     * Значение поля (выбранный файл)
+     * Value of the field (selected file)
      * @type {File}
      */
     get value() {
         return this._value;
     }
+    /**
+     * Value of the field (selected file)
+     * @type {File}
+     */
     set value(value) {
         this._value = value;
         this._showValue();
         this._enableButtons();
     }
-
+    /**
+     * @ignore
+     * @private
+     */
     _isValue(value) {
         return Object.isObject(value);
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _showValue() {
         if(this._isValue(this._value)) {
             this._path.value = this._value.name + ' (' + this._value.ext + ')';
@@ -174,6 +208,10 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
         }
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _showIcon() {
         const value = this._value;
 
@@ -193,6 +231,10 @@ App.Modules.Manage.UI.RemoteFile = class extends Colibri.UI.Forms.Field {
         }   
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _getUrl(value) {
         return '/modules/manage/files/by-guid.stream?bucket=' + value.bucket + '&guid=' + value.guid + '&type=' + value.ext;
     }

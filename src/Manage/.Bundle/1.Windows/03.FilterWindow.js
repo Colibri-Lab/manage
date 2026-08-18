@@ -5,6 +5,12 @@
  */
 App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
 
+    /**
+     * Constructor
+     * @constructor
+     * @param {string} name component name
+     * @param {Colibri.UI.IContainer} container component container
+     */
     constructor(name, container) {
         super(name, container, Colibri.UI.Templates['App.Modules.Manage.Windows.FilterWindow']);
 
@@ -21,6 +27,12 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
         
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.UI.Event} event
+     * @param {Object} args
+     */
     _performChanges(storage, s, p) {
 
         Object.forEach(storage.fields, (name, field) => {
@@ -88,6 +100,11 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
         return storage;
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Object} form data object
+     */
     _cleanFilters(formData) {
         const newFormData = {};
         Object.forEach(formData, (name, value) => {
@@ -122,6 +139,17 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
         return newFormData;
     }
 
+    /**
+     * Show the filter window
+     * @param {string} title window title
+     * @param {number} width window width
+     * @param {string|Object} fieldBinding field binding (object or store query)
+     * @param {string|Object} dataBinding data binding (object or store query)
+     * @param {string} className additional class name for the window
+     * @param {Object} fieldEvents field events object
+     * @returns {Promise} promise with selected filters
+     * @public
+     */
     Show(title, width, fieldBinding, dataBinding, className = '', fieldEvents = {}) {
 
         this.title = title;
@@ -174,6 +202,12 @@ App.Modules.Manage.Windows.FilterWindow = class extends Colibri.UI.Window {
 
     }
 
+    /**
+     * Recreate the form with new fields and value
+     * @param {Object} fields form fields object
+     * @param {Object} value form value object
+     * @public
+     */
     ReCreateForm(fields, value) {
 
         let newFields = Object.assign({

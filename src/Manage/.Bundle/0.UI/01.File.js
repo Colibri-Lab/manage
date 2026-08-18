@@ -6,6 +6,10 @@
  */
 App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     
+    /**
+     * Render field container
+     * @public
+     */
     RenderFieldContainer() {
         this.AddClass('app-component-manage-file-field');
 
@@ -44,6 +48,10 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
 
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _handleEvents() {
 
         this._path.AddHandler(['Filled', 'Cleared'], this.__pathChanged, false, this);
@@ -54,6 +62,7 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -64,6 +73,7 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -74,6 +84,7 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -89,6 +100,7 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -98,6 +110,7 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -126,7 +139,8 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     }
 
     /**
-     * Поставить фокус
+     * Focus on component
+     * @public
      */
     Focus() {
         this._path.Focus();
@@ -134,22 +148,34 @@ App.Modules.Manage.UI.File = class extends Colibri.UI.Forms.Field {
     
 
     /**
-     * Значение поля (выбранный файл)
+     * Value object
      * @type {File}
      */
     get value() {
         return this._value;
     }
+    /**
+     * Value object
+     * @type {File}
+     */
     set value(value) {
         this._value = value;
         this._showValue();
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _showValue() {
         this._path.value = this._value?.path ?? this._value;
         this._showIcon();
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _showIcon() {
         try {
             const value = this._value?.path ?? this._value;

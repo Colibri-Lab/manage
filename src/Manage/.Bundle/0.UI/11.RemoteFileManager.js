@@ -6,6 +6,12 @@
  */
 App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
 
+    /**
+     * Constructor
+     * @constructor
+     * @param {string} name component name
+     * @param {Colibri.UI.IContainer} container component container
+     */
     constructor(name, container) {
         super(name, container, Colibri.UI.Templates['App.Modules.Manage.UI.RemoteFileManager']);
 
@@ -39,11 +45,21 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
 
     }
 
-    /** @protected */
+    /** 
+     * @ignore
+     * @protected
+     */
     _registerEvents() {
         this.RegisterEvent('SelectionChanged', false, 'Когда выбор файлов изменился');
     }
     
+    /**
+     * @ignore
+     * @private
+     * @param {String} bucket bucket name
+     * @param {String} searchTerm search term
+     * @param {Number} page page number
+     */
     _loadDataPage(bucket, searchTerm, page) {
         this._filesCurrentPage = page;
         Manage.RemoteFiles(bucket, searchTerm, page, 20);
@@ -51,6 +67,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
 
     
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -66,10 +83,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
-     */ 
+     */  
     __bucketsSelectionChanged(event, args) {
         const selection = this._buckets.selected;
         
@@ -85,6 +103,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -95,10 +114,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
-     */ 
+     */  
     __dataSelectionChanged(event, args) {
         const checked = this._files.checked;
         const selected = this._files.selected;
@@ -107,6 +127,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -119,10 +140,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
-     */ 
+     */  
     __deleteDataButtonClicked(event, args) {
         const selection = this._buckets.selected;
         const bucket = selection?.tag;
@@ -154,6 +176,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -182,6 +205,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -209,10 +233,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
 
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
-     */ 
+     */  
     __renderDataContextMenu(event, args) {
         let contextmenu = [];
         
@@ -226,6 +251,7 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
@@ -247,10 +273,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
-     */ 
+     */  
     __renderBucketsContextMenu(event, args) {
         
         let contextmenu = [];
@@ -272,10 +299,11 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
-     */ 
+     */  
     __clickOnBucketsContextMenu(event, args) {
 
         const item = args?.item;
@@ -316,15 +344,26 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
 
     }
 
-    
+    /**
+     * Is component got multiple values
+     * @type {boolean}
+     */
     set multiple(value) {
         this._files.showCheckboxes = value === true || value === 'true';
     } 
 
+    /**
+     * Is component got multiple values
+     * @type {boolean}
+     */
     get multiple() {
         return this._files.showCheckboxes;
     }
 
+    /**
+     * Is component editable
+     * @type {boolean}
+     */
     set editable(value) {
         const buttonsPane = this.Children('split/files-pane/buttons-pane');
         buttonsPane.shown = value === true || value === 'true';
@@ -336,19 +375,35 @@ App.Modules.Manage.UI.RemoteFileManager = class extends Colibri.UI.Component {
         }
     } 
 
+    /**
+     * Is component editable
+     * @type {boolean}
+     */
     get editable() {
         const buttonsPane = this.Children('split/files-pane/buttons-pane');
         return buttonsPane.shown;
     }
 
+    /**
+     * Is component selected
+     * @type {boolean}
+     */
     get selected() {
         return this._files.selected;
     }
 
+    /**
+     * Is component checked
+     * @type {boolean}
+     */
     get checked() {
         return this._files.checked;
     }
 
+    /**
+     * Component files
+     * @type {Array}
+     */
     get files() {
         const files = [];
         if(this._files.selected) {

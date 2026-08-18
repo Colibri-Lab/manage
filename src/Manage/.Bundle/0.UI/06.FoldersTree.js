@@ -6,6 +6,12 @@
  */
 App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
     
+    /**
+     * Constructor
+     * @constructor
+     * @param {string} name component name
+     * @param {Colibri.UI.IContainer} container component container
+     */
     constructor(name, container) {
         super(name, container);
         this.AddClass('app-manage-folders-tree-component');
@@ -14,6 +20,12 @@ App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
         this._startPath = App.Store.Query('app.settings.res');
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {string} parent 
+     * @returns {Array}
+     */
     _findLevel(parent) {
         let ret = [];
         this._foldersList.forEach((folder) => {
@@ -25,6 +37,12 @@ App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
         return ret;
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.UI.TreeNode} node 
+     * @param {string} parent 
+     */
     _renderLevel(node, parent) {
 
         const folders = this._findLevel(parent);
@@ -56,6 +74,10 @@ App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
 
     }
 
+    /**
+     * @ignore
+     * @private
+     */
     _removeUnexistent() {
         this.allNodes.forEach((node) => {
             if(node.tag?.path === this._startPath) {
@@ -108,7 +130,13 @@ App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
 
     }
 
-    
+    /**
+     * Adds a new node to the tree
+     * @param {Colibri.UI.TreeNode} parent 
+     * @param {string} title 
+     * @param {string} tag
+     * @returns {Colibri.UI.TreeNode}
+     */
     AddNew(parent, title, tag) {
         const node = parent.nodes.Add('new');
         node.text = title;

@@ -5,6 +5,13 @@
  * @extends Colibri.UI.Icon
  */
 App.Modules.Manage.LangChangeIcon = class extends Colibri.UI.Icon {
+
+    /**
+     * Constructor
+     * @constructor
+     * @param {string} name component name
+     * @param {Colibri.UI.IContainer} container component container
+     */
     constructor(name, container) {
         super(name, container);
 
@@ -16,6 +23,12 @@ App.Modules.Manage.LangChangeIcon = class extends Colibri.UI.Icon {
 
     } 
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */
     __thisClicked(event, args) {
         const contextMenuObject = new Colibri.UI.ContextMenu(this.name + '_contextmenu', document.body, this._contextMenuPosition ?? [Colibri.UI.ContextMenu.LB, Colibri.UI.ContextMenu.LT]);
         contextMenuObject.parent = this;
@@ -23,6 +36,12 @@ App.Modules.Manage.LangChangeIcon = class extends Colibri.UI.Icon {
         contextMenuObject.AddHandler('Clicked', this.__contextMenuObjectClicked, false, this);
     }
 
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */
     __contextMenuObjectClicked(event, args) {
         event.sender.Hide();
         this.Dispatch('ContextMenuItemClicked', Object.assign(args, {item: event.sender}));
@@ -51,6 +70,7 @@ App.Modules.Manage.LangChangeIcon = class extends Colibri.UI.Icon {
     }
 
     /**
+     * @ignore
      * @private
      * @param {Colibri.Events.Event} event event object
      * @param {*} args event arguments
