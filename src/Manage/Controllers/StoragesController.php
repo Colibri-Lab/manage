@@ -26,7 +26,10 @@ class StoragesController extends WebController
      */
     private function _convertFields($fields)
     {
-        /** @var \App\Modules\Lang\Module $langModule */
+        /** 
+         * @var \App\Modules\Lang\Module $langModule
+         * @ignore
+         */
         $langModule = App::$moduleManager->Get('lang');
 
         foreach ($fields as $fieldName => $fieldArray) {
@@ -86,7 +89,10 @@ class StoragesController extends WebController
      */
     public function Config(RequestCollection $get, RequestCollection $post, ? PayloadCopy $payload): object
     {
-        /** @var \App\Modules\Lang\Module $langModule */
+        /** 
+         * @var \App\Modules\Lang\Module $langModule
+         * @ignore
+         */
         $langModule = App::$moduleManager->Get('lang');
 
         if (!SecurityModule::Instance()->current) {

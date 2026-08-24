@@ -10,6 +10,7 @@ App.Modules.Manage.UI.RemoteFilesGrid = class extends Colibri.UI.Grid {
     /**
      * Render bounded to component data
      * @protected
+     * @ignore
      * @param {*} data 
      * @param {String} path 
      */

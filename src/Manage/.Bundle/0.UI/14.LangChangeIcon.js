@@ -51,6 +51,7 @@ App.Modules.Manage.LangChangeIcon = class extends Colibri.UI.Icon {
     /**
      * Render bounded to component data
      * @protected
+     * @ignore
      * @param {*} data 
      * @param {String} path 
      */

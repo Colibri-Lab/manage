@@ -130,7 +130,10 @@ class Module extends BaseModule
     {
         $ret = [];
 
-        /** @var \App\Modules\Lang\Module $lang */
+        /** 
+         * @var \App\Modules\Lang\Module
+         * @ignore
+         */
         $lang = App::$moduleManager->Get('lang');
 
         $langs = $lang->Langs();

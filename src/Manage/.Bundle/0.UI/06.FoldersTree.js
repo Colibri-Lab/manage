@@ -92,6 +92,7 @@ App.Modules.Manage.UI.FoldersTree = class extends Colibri.UI.Tree {
     /**
      * Render bounded to component data
      * @protected
+     * @ignore
      * @param {*} data 
      * @param {String} path 
      */
