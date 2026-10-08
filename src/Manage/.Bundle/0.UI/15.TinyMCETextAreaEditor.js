@@ -1,0 +1,963 @@
+/**
+ * Tiny mce text area component editor
+ * @class
+ * @extends Colibri.UI.Editor
+ * @memberof App.Modules.Manage.UI
+ */
+App.Modules.Manage.UI.TinyMCETextAreaEditor = class extends Colibri.UI.Editor {
+    
+    /**
+     * @constructor
+     * @param {string} name name of component
+     * @param {Element|Colibri.UI.component} container container of component
+     */
+    constructor(name, container) {
+        /* создаем компонент и передаем шаблон */
+        super(name, container, Element.create('textarea'));
+        this.AddClass('app-modules-manage-ui-tinymcetextareaeditor');
+
+        this.elementID = 'html' + Date.Mc();
+
+        this.AddHandler('Shown', this.__shownHandler, false, this);
+        this._element.addEventListener('change', (e) => this.__thisChanged(e));
+
+    }
+
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */
+    __thisChanged(event, args) {
+        this._savedValue = this._getValue();
+        this.Dispatch('Changed', {value: this._savedValue, component: this});
+    }
+
+    /**
+     * @ignore
+     * @private
+     * @param {Colibri.Events.Event} event event object
+     * @param {*} args event arguments
+     */
+    __shownHandler(event, args) {
+        this.__initVisual();
+    }
+
+    /**
+     * @ignore
+     * @private 
+     */
+    _createSnippetTag(snippet, data, type = 'tag') {
+        if (type === 'tag') {
+            data = Object.map(data, (k, v) => {
+                if (typeof v === 'string') {
+                    return v;
+                } else {
+                    return JSON.stringify(v);
+                }
+            });
+            return Element.create('component', Object.assign({ Component: snippet.name, contentEditable: 'false' }, data, { shown: 'true', style: snippet.options.styles }));
+        }
+        else {
+            let html = ['<component Component="' + snippet.name + '" contentEditable="false" shown="true"'];
+            Object.forEach(data, (key, value) => {
+                if (typeof value === 'string') {
+                    html.push(key + '="' + value.replaceAll('"', '&quot;') + '"');
+                } else {
+                    html.push(key + '="' + JSON.stringify(value).replaceAll('"', '&quot;') + '"');
+                }
+            });
+            html.push('style="' + snippet.options.styles + '"');
+            html.push(' />');
+            return html.join(' ');
+        }
+    }
+
+    /**
+     * @ignore
+     * @private
+     */
+    _createAdditionalSnippetsButtons() {
+        return 'add-snippet edit-snippet translate' + (this._tools ?? []).map(tool => tool.name).join(' | ');
+    }
+
+    /**
+     * @ignore
+     * @private
+     */
+    _createAdditionalTools() {
+        let tools = [];
+        tools.push({
+            name: "add-snippet",
+            text: "#{manage-components-tinymce-add-snippet}",
+            onAction: (e) => {
+                const editor = tinymce.activeEditor;
+
+                const _addSnippet = (editor, snippet, data) => {
+                    editor.selection.setContent(this._createSnippetTag(snippet, data, 'html'));
+                    editor.nodeChanged();
+                    this.Dispatch('Changed', {component: this, value: this._savedValue});
+                }
+
+                Promise.all([
+                    Manage.Store.AsyncQuery('manage.modules'),
+                    Manage.Store.AsyncQuery('manage.snippets')
+                ]).then((responses) => {
+                    const modules = responses[0];
+                    const phpsnippets = responses[1];
+
+                    const snippets = {};
+                    const comboList = [];
+
+                    for (const module of modules) {
+
+                        const snippetsObject = eval('App.Modules.' + module.name + '.Snippets');
+                        if (!snippetsObject) {
+                            continue;
+                        }
+                        const snippetsList = Object.keys(snippetsObject);
+                        if (snippetsList.length == 0) {
+                            continue;
+                        }
+
+                        for (const snippet of snippetsList) {
+                            const name = 'App.Modules.' + module.name + '.Snippets.' + snippet;
+                            const snippetObject = eval(name);
+                            snippets[snippet] = { text: snippet, name: name, options: snippetObject.Options(), fields: snippetObject.Params ? snippetObject.Params() : snippetObject.Fields() };
+                            comboList.push({ title: snippets[snippet].options?.title ?? snippet, value: snippet });
+                        }
+
+                    }
+
+                    Object.forEach(phpsnippets, (module, snippetsList) => {
+                        for (const snippet of snippetsList) {
+                            snippets[snippet.text] = snippet;
+                            comboList.push({ title: snippet.options?.title ?? snippet.text, value: snippet.text });
+                        }
+                    });
+
+                    const form = new App.Modules.Manage.Windows.FormWindow('snippet-list-window', document.body);
+                    form.Show('#{manage-components-tinymce-snippets}', 500, {
+                        name: 'snippet',
+                        fields: {
+                            snippet: {
+                                component: 'List',
+                                values: comboList
+                            }
+                        }
+                    }, {}, '', {}, (data) => {
+                        const snippet = snippets[data.snippet];
+                        const fields = snippet?.fields ?? null;
+                        if (fields && Object.countKeys(fields) > 0) {
+                            const form = new App.Modules.Manage.Windows.FormWindow('snippet-form-window', document.body);
+                            form.Show('#{manage-components-tinymce-newrow} «' + snippet.text + '»', 800, {
+                                name: 'snippet',
+                                fields: snippet.fields
+                            }, {}, '', {}, (data) => {
+                                editor.focus();
+                                _addSnippet(editor, snippet, data);
+                                form.Hide();
+                                form.Dispose();
+                            }, () => {
+                                form.Hide();
+                                form.Dispose();
+                            });
+                        }
+                        else {
+                            editor.focus();
+                            _addSnippet(editor, snippet, {});
+                        }
+
+                        editor.focus();
+                        form.Hide();
+                        form.Dispose();
+                    }, () => {
+                        form.Hide();
+                        form.Dispose();
+                    });
+
+
+
+                });
+
+            }
+        });
+
+        tools.push({
+            name: "edit-snippet",
+            text: "#{manage-components-tinymce-edit-snippet}",
+            onAction: (e) => {
+                const editor = tinymce.activeEditor;
+                const dom = editor.dom;
+                const sel = editor.selection;
+                const node = sel.getNode();
+
+                const _updateSnippet = (editor, node, snippet, data) => {
+                    node.replaceWith(this._createSnippetTag(snippet, data));
+                    editor.nodeChanged();
+                    this.Dispatch('Changed', {component: this, value: this._savedValue});
+                }
+
+                if (node.matches('component')) {
+
+                    let attrs = {};
+                    for (const attr of node.attributes) {
+                        attrs[attr.name] = attr.value;
+                    }
+
+                    const snippetName = attrs.component;
+                    delete attrs.Component;
+                    const snippetParams = attrs;
+
+
+                    let snippetObject = null;
+                    try {
+                        snippetObject = eval(snippetName);
+                    }
+                    catch (e) { }
+
+                    let snippet = null;
+                    let fields = [];
+                    if (snippetObject) {
+                        snippet = { text: snippetName, name: snippetName, options: snippetObject.Options(), fields: snippetObject.Params ? snippetObject.Params(snippetParams) : snippetObject.Fields(), data: snippetParams };
+                        fields = snippet?.fields ?? null;
+                        if (fields && Object.countKeys(fields) > 0) {
+                            let c = Object.cloneRecursive(snippetParams);
+                            delete c['component'];
+                            delete c['contenteditable'];
+                            delete c['data-mce-selected'];
+                            delete c['data-mce-style'];
+                            delete c['shown'];
+                            delete c['style'];
+                            c = Object.map(c, (k, v) => {
+                                if (v.isJson()) {
+                                    return JSON.parse(v);
+                                } else {
+                                    return v;
+                                }
+                            });
+                            const form = new App.Modules.Manage.Windows.FormWindow('snippet-form-window', document.body);
+                            form.Show('#{manage-components-tinymce-updaterow} «' + snippet.text + '»', 800, {
+                                name: 'snippet',
+                                fields: snippet.fields
+                            }, c ?? {}, '', {}, (data) => {
+                                editor.focus();
+                                _updateSnippet(editor, node, snippet, data);
+                                form.Hide();
+                                form.Dispose();
+                            }, () => {
+                                form.Hide();
+                                form.Dispose();
+                            });
+                        }
+                        else {
+                            editor.focus();
+                            _updateSnippet(editor, node, snippet, e2.data);
+                        }
+                    }
+                    else {
+                        Manage.Store.AsyncQuery('manage.snippets').then((snippets) => {
+
+                            Object.forEach(snippets, (module, snippetsList) => {
+                                for (const sn of snippetsList) {
+                                    if (snippetName === sn.text) {
+                                        snippetObject = sn;
+                                        return false;
+                                    }
+                                }
+                                return true;
+                            });
+
+                            snippet = { text: snippetName, name: snippetName, options: snippetObject.options, fields: snippetObject.fields.map((f) => { f.value = snippetParams[f.name] === undefined ? '' : snippetParams[f.name]; return f; }) };
+                            fields = snippet.fields;
+                            if (fields.length > 0) {
+                                editor.windowManager.open({
+                                    title: '#{manage-components-tinymce-params} ' + snippet.text,
+                                    data: {},
+                                    body: fields,
+                                    minWidth: editor.getParam("code_dialog_width", 600),
+                                    onsubmit: (e2) => {
+                                        editor.focus();
+                                        _updateSnippet(editor, node, snippet, e2.data);
+                                    }
+                                });
+                            }
+                            else {
+                                editor.focus();
+                                _updateSnippet(editor, node, snippet, e2.data);
+                            }
+
+                        })
+                    }
+
+
+
+                }
+
+
+            }
+
+        });
+
+        if (Lang != undefined) {
+            const langs = LangData;
+
+            tools.push({
+                type: 'menubutton',
+                name: "translate",
+                text: "#{manage-components-tinymce-translate}",
+                fetch: (callback) => {
+                    console.log(langs);
+                    callback(Object.values(Object.map(langs, (key, v) => ({
+                        text: v.desc,
+                        value: key,
+                        type: 'nestedmenuitem',
+                        getSubmenuItems: () => Object.values(Object.map(langs, (k, vv) => (key != k ? {
+                            type: 'menuitem',
+                            text: vv.desc,
+                            value: key + '-' + k
+                        } : null)))
+                    }))));
+                }
+
+            });
+        }
+
+        if (this._tools) {
+            tools = tools.concat(this._tools);
+        }
+
+        return tools;
+    }
+
+    /**
+     * @ignore
+     * @private
+     */
+    __initVisual() {
+        return new Promise((resolve, reject) => {
+            if (this._visualCreated || !this.isConnected) {
+                this.AddHandler('ConnectedTo', this.__shownHandler);
+                this.AddHandler('Shown', this.__shownHandler);
+                reject();
+                return;
+            }
+
+            this._visualCreated = true;
+            this.RemoveHandler('ConnectedTo', this.__shownHandler);
+            this.RemoveHandler('Shown', this.__shownHandler);
+
+            if (this._fieldData?.params?.visual == true) {
+
+                if (tinymce.get(this.elementID)) {
+                    tinymce.get(this.elementID).remove();
+                }
+
+                const additionalButtons = (this._fieldData?.params['has-snippets'] ?? true) ? this._createAdditionalSnippetsButtons() : null;
+                const additionalTools = (this._fieldData?.params['has-snippets'] ?? true) ? this._createAdditionalTools() : null;
+
+                tinymce.init({
+                    selector: '#' + this.elementID,
+                    license_key: 'gpl',
+                    // skin: 'nulla',
+                    schema: 'html5',
+                    element_format: 'xhtml',
+                    relative_urls: false,
+                    remove_script_host: true,
+                    allow_script_urls: true,
+                    language: window.Lang ? Lang.Current : 'ru',
+                    extended_valid_elements: "script[*],style[*]",
+                    valid_children: "+body[script],pre[script|div|p|br|span|img|style|h1|h2|h3|h4|h5],*[*]",
+                    valid_elements: "*[*]",
+                    formats: {
+                        flexBoxAlignStartSpaceBetween: { block: 'div', classes: 'app-ui-component app-component-flexbox app-component-shown -nowrap' },
+                    },
+                    codemirror: {
+                        indentOnInit: true, // Whether or not to indent code on init.
+                        fullscreen: false, // Default setting is false
+                        path: '/res/codemirror', // Path to CodeMirror distribution
+                        config: { // CodeMirror config object
+                            mode: 'application/x-httpd-php',
+                            lineNumbers: true
+                        },
+                        width: 800, // Default value is 800
+                        height: 600, // Default value is 550
+                        saveCursorPosition: true, // Insert caret marker
+                        jsFiles: [ // Additional JS files to load
+                            'mode/clike/clike.js',
+                            'mode/php/php.js'
+                        ]
+                    },
+                    menubar: false,
+                    codemirror: {
+                        indentOnInit: true, // Whether or not to indent code on init.
+                        fullscreen: false, // Default setting is false
+                        path: '/res/codemirror', // Path to CodeMirror distribution
+                        config: { // CodeMirror config object
+                            mode: 'application/x-httpd-php',
+                            lineNumbers: true
+                        },
+                        width: 800, // Default value is 800
+                        height: 600, // Default value is 550
+                        saveCursorPosition: true, // Insert caret marker
+                        jsFiles: [ // Additional JS files to load
+                            'mode/clike/clike.js',
+                            'mode/php/php.js'
+                        ]
+                    },
+                    // 'contextmenu', 'codemirror', 'template', 'textcolor', 'paste','print',  'hr', 
+                    // 'spellchecker',, 'templategenerator' 'textcolor', 'pagebreak','customautocomplete', 'templategenerator'
+                    // image media 'autoresize', 
+                    plugins: [
+                        'advlist', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'codemirror',
+                        'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime', 'media', 'nonbreaking',
+                        'table', 'directionality', 'emoticons', 'customautocomplete', 'pagebreak'
+                    ],
+                    toolbar1: this._fieldData?.params['tinymce-toolbar1'] ? (this._fieldData?.params['tinymce-toolbar1'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar1']) : "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styles blocks fontfamily fontsize",
+                    toolbar2: this._fieldData?.params['tinymce-toolbar2'] ? (this._fieldData?.params['tinymce-toolbar2'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar2']) : "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media embed sourcecode | pastetext | forecolor backcolor",
+                    toolbar3: this._fieldData?.params['tinymce-toolbar3'] ? (this._fieldData?.params['tinymce-toolbar3'] === 'null' ? null : this._fieldData?.params['tinymce-toolbar3']) : "grid_insert | table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks nonbreaking pagebreak restoredraft",
+                    toolbar4: additionalButtons,
+                    contextmenu_never_use_native: true,
+                    pagebreak_separator: '<span style="page-break-after: always;"></span>',
+                    customautocomplete: {
+                        trigger: '"',
+                        minChars: 0,
+                        insertFrom: 'text',
+                        queryBy: 'text',
+                        source: (query) => new Promise((resolve) => {
+                            this._getAutocomplete('tinymce', resolve, null, query);
+                        })
+                    },
+                    file_picker_callback: (callback, value, meta) => {
+                        this._filepicker = new App.Modules.Manage.Windows.FileWindow('filepicker', document.body);
+                        this._filepicker.Show(false).then((data) => {
+                            const file = data[0];
+                            if (file?.bucket) {
+                                // Это удаленный файл
+                                callback('/modules/manage/files/by-guid.stream?bucket=' + file.bucket + '&guid=' + file.guid + '&type=' + file.ext);
+                            }
+                            else {
+                                callback(file.path);
+                            }
+                        });
+                    },
+                    setup: (ed) => {
+
+                        if (additionalTools) {
+                            additionalTools.forEach((button) => {
+                                if (button.type === 'menubutton') {
+                                    ed.ui.registry.addMenuButton(button.name, button);
+                                } else {
+                                    ed.ui.registry.addButton(button.name, button);
+                                }
+                            });
+                        }
+
+                        ed.on('change', (e) => {
+                            this._savedValue = this._getValue();
+                            this.Dispatch('Changed', {component: this, value: this._savedValue});
+                        });
+
+                        this._observer = new MutationObserver((mutations) => {
+                            mutations.forEach((mutation) => {
+                                mutation.addedNodes.forEach((node) => {
+                                    // Проверяем, что это не контекстное меню (у него обычно другой контекст или атрибуты)
+                                    if (node.closest) {
+                                        const wrapper = node.closest('.tox-tinymce-aux');
+                                        if (wrapper) {
+                                            wrapper.style.zIndex = Colibri.UI.maxZIndex + 1;
+                                        }
+                                    }
+                                });
+                            });
+                        });
+
+                        this._observer.observe(document.body, { childList: true, subtree: true });
+
+                        ed.on('init', () => {
+                            resolve();
+                        });
+
+                        // ed.on('PreInit', () => {
+                        //     const currentMenu = ed.options.get('contextmenu') || '';
+                        //     if (!currentMenu.includes('templatescontextmenu')) {
+                        //         ed.options.set('contextmenu', currentMenu + ' templatescontextmenu');
+                        //     }
+                        // })
+
+                        // ed.ui.registry.addNestedMenuItem('templatescontextmenu', {
+                        //     text: 'Снипеты',
+                        //     getSubmenuItems: () => additionalTools
+                        // });
+
+                    }
+                });
+
+
+            } else if (this._fieldData?.params?.code) {
+                if (this._codemirror) {
+                    this._codemirror.getWrapperElement().remove();
+                }
+                const requirements = Colibri.Common.MimeType.extrequirements(this._fieldData?.params.code ?? 'html');
+                Colibri.UI.Require(requirements.css, requirements.js).then(() => {
+
+                    let defaultPros = {
+                        mode: Colibri.Common.MimeType.ext2mode(this._fieldData?.params?.code),
+                        indentOnInit: true,
+                        lineNumbers: true,
+                        lineWrapping: true,
+                        styleActiveLine: true,
+                        matchBrackets: true,
+                        foldGutter: true,
+                        saveCursorPosition: true,
+                        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+                        extraKeys: {
+                            "Ctrl-/": (cm) => {
+                                cm.foldCode(cm.getCursor());
+                            },
+                            "Ctrl-Space": "autocomplete",
+                            "Alt-Shift-T": (cm) => {
+                                cm.replaceSelection("\t", "end");
+                                return false;
+                            },
+                            "Tab": (cm) => {
+                                return false;
+                            }
+                        },
+                        hintOptions: { hint: (cm, option) => new Promise((resolve) => this._getAutocomplete('cm', resolve, cm, option)) }
+                    };
+
+                    this._codemirror = CodeMirror.fromTextArea(this._element, defaultPros);
+                    this._codemirror.setValue(this._element.value);
+
+                    this._codemirror.setSize('100%', '100%');
+                    this._codemirror.refresh();
+
+                    this._codemirror.on('change', (args) => {
+                        this._codemirror.refresh();
+                        this._getValue();
+                        this._savedValue = this._getValue();
+                        this.Dispatch('Changed', {component: this, value: this._savedValue});
+                    });
+
+                    resolve();
+
+                });
+            }
+        });
+    }
+
+    /**
+     * @ignore
+     * @private
+     */
+    _getValue() {
+
+        if (this._fieldData?.params?.visual == true) {
+            try {
+                var html = tinymce.get(this.elementID).getContent();
+            } catch (e) {
+                var html = '';
+            }
+            var ret = html
+                .replaceAll('<!DOCTYPE html>', '')
+                .replaceAll('<html>', '')
+                .replaceAll('</html>', '')
+                .replaceAll('<head>', '')
+                .replaceAll('</head>', '')
+                .replaceAll('<body>', '')
+                .replaceAll('</body>', '');
+            return ret;
+        }
+        else if (this._fieldData?.params?.code) {
+            return this._codemirror && this._codemirror.getValue();
+        }
+        else {
+            return this._element.value;
+        }
+    }
+
+    /**
+     * Value of the field
+     * @type {string}
+     */
+    get value() {
+        return this._savedValue;
+    }
+
+    /**
+     * Value of the field
+     * @type {string}
+     */
+    set value(val) {
+        let promise;
+
+        this._savedValue = val;
+        this._element.value = val;
+
+        if (this._autocompleteLoaded) {
+            promise = Promise.resolve({
+                result: {
+                    snippets: this.snippets,
+                    autocomplete: this.autocomplete,
+                    contentCss: this.contentCss,
+                    contentStyle: this.contentStyle,
+                    contntFormats: this.contentFormats,
+                    styleFormats: this.styleFormats
+                }
+            });
+        } else {
+            promise = this._setLookup();
+        }
+
+        promise.then(autoCompleteResult => {
+
+            this._autocompleteLoaded = true;
+            this.snippets = autoCompleteResult.result.snippets;
+            this.autocomplete = autoCompleteResult.result.autocomplete;
+            this.contentCss = autoCompleteResult.result.contentCss;
+            this.contentStyle = autoCompleteResult.result.contentStyle;
+            this.contentFormats = autoCompleteResult.result.contentFormats;
+            this.styleFormats = autoCompleteResult.result.styleFormats;
+            this.tools = autoCompleteResult.result.tools;
+
+            // Colibri.Common.Delay(500).then(() => {
+
+            this.__initVisual().then(() => {
+                if (this._fieldData?.params?.visual == true) {
+                    try {
+                        tinymce.get(this.elementID).setContent(this._savedValue ? this._savedValue : '', { format: 'raw' });
+                    } catch (e) {
+                        this._element.value = this._savedValue ? this._savedValue : '';
+                    }
+                } else if (this._fieldData?.params?.code) {
+                    this._codemirror ? this._codemirror.setValue(this._savedValue ? this._savedValue : '') : (this._element.value = (this._savedValue ? this._savedValue : ''));
+                } else {
+                    this._element.value = this._savedValue ? this._savedValue : '';
+                }
+            }).catch(e => {
+
+            });
+
+            // });
+
+        });
+
+    }
+
+    /**
+     * Is component readonly
+     * @type {string}
+     */
+    get readonly() {
+        return super.readonly;
+    }
+
+    /**
+     * Is component readonly
+     * @type {string}
+     */
+    set readonly(value) {
+        super.readonly = value;
+
+    }
+
+    /**
+     * Is component enabled
+     * @type {boolean}
+     */
+    get enabled() {
+        return super.enabled;
+    }
+
+    /**
+     * Is component enabled
+     * @type {boolean}
+     */
+    set enabled(value) {
+        super.enabled = value;
+        if (this._fieldData?.params?.visual == true) {
+            try {
+                if (value) {
+                    tinymce.activeEditor.mode.set('design');
+                }
+                else {
+                    tinymce.activeEditor.mode.set('readonly');
+                }
+            } catch (e) {
+            }
+        } else if (this._fieldData?.params?.code && this._codemirror) {
+            if (value) {
+                this._codemirror.setOption('readOnly', null);
+            }
+            else {
+                this._codemirror.setOption('readOnly', 'nocursor');
+            }
+        }
+    }
+
+    /**
+     * Is component shown
+     * @type {boolean}
+     */
+    get shown() {
+        return super.shown;
+    }
+
+    /**
+     * Is component shown
+     * @type {boolean}
+     */
+    set shown(value) {
+        super.shown = value;
+    }
+
+    /**
+     * Field params
+     * @type {Object}
+     */
+    get params() {
+        return this._fieldData?.params ?? {};
+    }
+    /**
+     * Field params
+     * @type {Object}
+     */
+    set params(value) {
+        if (!this._fieldData) {
+            this._fieldData = {};
+        }
+        this._fieldData.params = value;
+    }
+
+    /**
+     * @ignore
+     * @private
+     */
+    _getAutocomplete(type, resolve, cm, option) {
+
+        if (type === 'cm') {
+            let cursor = cm.getCursor(), line = cm.getLine(cursor.line);
+            let start = cursor.ch, end = cursor.ch;
+
+            while (start && /[A-zА-я]/.test(line.charAt(start - 1))) --start;
+            while (end < line.length && /[A-zА-я]/.test(line.charAt(end))) ++end;
+
+            const word = line.slice(start, end);
+
+            let res = [];
+            Object.forEach(this._autocomplete, (text, displayText) => {
+                if (!word || text.indexOf(word) != -1 || displayText.indexOf(word) != -1) {
+                    res.push({ text: '"' + text + '"', displayText: text + ' (' + displayText + ')' });
+                }
+            });
+
+            res = res.splice(0, 20);
+
+            resolve({
+                list: res,
+                from: CodeMirror.Pos(cursor.line, start),
+                to: CodeMirror.Pos(cursor.line, end)
+            });
+
+        } else if (type === 'tinymce') {
+            let res = [];
+
+            Object.forEach(this._autocomplete, (text, displayText) => {
+                if (!option || text.indexOf(option) != -1 || displayText.indexOf(option) != -1) {
+                    res.push({ text: '"' + text + '"', displayText: text + ' (' + displayText + ')' });
+                }
+            });
+            res = res.splice(0, 20);
+            resolve(res);
+        }
+
+    }
+
+    /**
+     * Autocomplete list
+     * @type {Array}
+     */
+    get autocomplete() {
+        return this._autocomplete;
+    }
+    /**
+     * Autocomplete list
+     * @type {Array}
+     */
+    set autocomplete(value) {
+        this._autocomplete = value;
+    }
+
+    /**
+     * Snippets used
+     * @type {Object}
+     */
+    get snippets() {
+        return this._snippets;
+    }
+    /**
+     * Snippets used
+     * @type {Object}
+     */
+    set snippets(value) {
+        this._snippets = value;
+    }
+
+    /**
+     * Style formats for TinyMCE
+     * @type {Object}
+     */
+    get styleFormats() {
+        return this._styleFormats;
+    }
+    /**
+     * Style formats for TinyMCE
+     * @type {Object}
+     */
+    set styleFormats(value) {
+        this._styleFormats = value;
+    }
+
+    /**
+     * String array of content style for TinyMCE
+     * @type {String}
+     */
+    get contentStyle() {
+        return this._contentStyle;
+    }
+    /**
+     * String array of content style for TinyMCE
+     * @type {String}
+     */
+    set contentStyle(value) {
+        this._contentStyle = value;
+    }
+
+    /**
+     * Content formats for TinyMCE
+     * @type {Object}
+     */
+    get contentFormats() {
+        return this._contentFormats;
+    }
+    /**
+     * Content formats for TinyMCE
+     * @type {Object}
+     */
+    set contentFormats(value) {
+        this._contentFormats = value;
+    }
+
+    /**
+     * Content css style for TinyMCE
+     * @type {String}
+     */
+    get contentCss() {
+        return this._contentCss;
+    }
+    /**
+     * Content css style for TinyMCE
+     * @type {String}
+     */
+    set contentCss(value) {
+        this._contentCss = value;
+    }
+
+    /**
+     * Tools object
+     * @type {Object}
+     */
+    get tools() {
+        return this._tools;
+    }
+    /**
+     * Tools object
+     * @type {Object}
+     */
+    set tools(value) {
+        if (!Array.isArray(value)) {
+            value = [];
+        }
+        // onclick must be evaled
+        this._tools = this._convertObject(value);
+    }
+
+    /**
+     * @ignore
+     * @private
+     */
+    _convertObject(array) {
+
+        let ret = [];
+        if (!Array.isArray(array)) {
+            return array;
+        }
+
+        for (const o of array) {
+            let oo = Object.cloneRecursive(o);
+            Object.forEach(oo, (name, v) => {
+                if (name === 'onclick') {
+                    oo[name] = typeof v === 'string' ? eval(v) : v;
+                } else {
+                    oo[name] = this._convertObject(v);
+                }
+            });
+            ret.push(oo);
+        }
+
+        return ret;
+    }
+
+    /**
+     * Disposes the component
+     * @public
+     */
+    Dispose() {
+        if (this._filepicker) {
+            this._filepicker.Dispose();
+        }
+        if (this._observer) {
+            this._observer.disconnect();
+        }
+        super.Dispose();
+    }
+
+    /**
+     * @ignore
+     * @private
+     */
+    _setLookup() {
+        if (this._fieldData?.lookup?.controller) {
+            let controller = this._fieldData.lookup.controller;
+            let module = eval(controller.module);
+            return module.Call(controller.class, controller.method, { _requestCache: true });
+        } else {
+            return Promise.resolve({
+                result: {
+                    snippets: [],
+                    autocomplete: [],
+                    contentCss: '',
+                    contentStyle: {},
+                    contntFormats: {},
+                    styleFormats: {},
+                    tools: {}
+                }
+            });
+        }
+    }
+
+    /**
+     * Focuses the component
+     * @public
+     */
+    Focus() {
+        if (this._fieldData?.params?.visual == true) {
+            tinymce.get(this._controlElementId)?.focus();
+        } else if (this._fieldData?.params?.code) {
+            this._codemirror?.focus();
+        }
+    }
+
+}
