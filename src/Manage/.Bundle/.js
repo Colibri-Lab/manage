@@ -46,7 +46,9 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
         });
 
         this._store.Reload('manage.settings').then(settings => {
-            if(!Colibri.Common.Cookie.Get(settings['lang-cookie-name'])) {
+            if(App.Native) {
+                Lang.Current = globalThis.ColibriNativeConfig.locale;
+            } else if(!Colibri.Common.Cookie.Get(settings['lang-cookie-name'])) {
                 this.ChangeLanguage(settings.lang.name, settings);
             } else {
                 Lang.Current = Colibri.Common.Cookie.Get(settings['lang-cookie-name']);
@@ -57,17 +59,23 @@ App.Modules.Manage = class extends Colibri.Modules.Module {
     }
 
     /**
-     * Change language
-     * @param {string} lang language code   
-     * @param {Object} settings settings object
+     * Persists the selected language and reloads the matching application bundle.
+     * @param {string} lang Language code.
+     * @param {Object} settings Language settings.
+     * @returns {Promise<void>} Resolves after requesting the locale change.
      * @public
+     * @async
      */
-    ChangeLanguage(lang, settings) {
+    async ChangeLanguage(lang, settings) {
+        if(App.Native) {
+            await App.Native.SetLocale(lang);
+            return;
+        }
+
         const s = settings ?? this._store.Query('manage.settings');
         Colibri.Common.Cookie.Set(s['lang-cookie-name'], lang, 365, '/', s['lang-cookie-domain']);
-        Colibri.Common.Delay(100).then(() => {
-            location.reload();
-        });
+        await Colibri.Common.Delay(100);
+        location.reload();
     }
 
     /**
