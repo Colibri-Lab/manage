@@ -114,7 +114,7 @@ class LookupController extends WebController
 
             
             if($selected) {
-                $row = $tableClass::LoadById($selected[$valueField] ?? $selected);
+                $row = $tableClass::LoadById($selected[0] ?? $selected[$valueField] ?? $selected);
                 if($row) {
                     $ret = [$row->ToArray(true), ...$ret];
                 }
