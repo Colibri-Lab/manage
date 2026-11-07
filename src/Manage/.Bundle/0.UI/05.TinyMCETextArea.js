@@ -7,6 +7,14 @@
 App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea {
 
     /**
+     * Promise for the active TinyMCE or CodeMirror initialization.
+     * @var {Promise|null}
+     * @private
+     * @ignore
+     */
+    _visualInitialization = null;
+
+    /**
      * Render field container
      * @public
      */
@@ -19,6 +27,7 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
         this._filepicker = null;
 
         this._visualCreated = false;
+        this._visualInitialization = null;
 
         this.autocomplete = this._fieldData.autocomplete;
 
@@ -342,17 +351,21 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
      * @private
      */
     __initVisual() {
-        return new Promise((resolve, reject) => {
-            if (this._visualCreated || !this.isConnected) {
+        if (this._visualInitialization) {
+            return this._visualInitialization;
+        }
+        if (!this.isConnected) {
+            return new Promise((resolve, reject) => {
                 this.AddHandler('ConnectedTo', this.__shownHandler);
                 this.AddHandler('Shown', this.__shownHandler);
                 reject();
-                return;
-            }
+            });
+        }
 
-            this._visualCreated = true;
-            this.RemoveHandler('ConnectedTo', this.__shownHandler);
-            this.RemoveHandler('Shown', this.__shownHandler);
+        this._visualCreated = true;
+        this.RemoveHandler('ConnectedTo', this.__shownHandler);
+        this.RemoveHandler('Shown', this.__shownHandler);
+        this._visualInitialization = new Promise((resolve, reject) => {
 
             if (this._fieldData?.params?.visual == true) {
 
@@ -554,6 +567,8 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                 });
             }
         });
+
+        return this._visualInitialization;
     }
 
     /**
