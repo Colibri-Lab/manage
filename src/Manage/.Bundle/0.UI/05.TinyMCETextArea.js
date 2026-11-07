@@ -460,10 +460,12 @@ App.Modules.Manage.UI.TinyMCETextArea = class extends Colibri.UI.Forms.TextArea 
                             });
                         }
 
-                        ed.on('change', (e) => {
+                        const syncEditorValue = () => {
                             this._savedValue = this._getValue();
                             this.Dispatch('Changed');
-                        });
+                        };
+                        ed.on('input', syncEditorValue);
+                        ed.on('change', syncEditorValue);
 
                         this._observer = new MutationObserver((mutations) => {
                             mutations.forEach((mutation) => {
