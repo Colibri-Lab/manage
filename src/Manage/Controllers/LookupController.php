@@ -124,7 +124,8 @@ class LookupController extends WebController
 
             $pointData = $lookup['accesspoint'];
             if(strstr($pointData['point'], 'storage(') !== false) {
-                $point = Storages::Instance()->Load(str_replace('storage(', '', rtrim($pointData['point'], ')')))->accessPoint;
+                $partsOfStorage = explode(',', str_replace('storage(', '', rtrim($pointData['point'], ')')));
+                $point = Storages::Instance()->Load($partsOfStorage[1], $partsOfStorage[0])->accessPoint;
             } else {
                 $point = App::$dataAccessPoints->Get($pointData['point']);
             }
