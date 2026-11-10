@@ -123,7 +123,11 @@ class LookupController extends WebController
         } elseif (isset($lookup['accesspoint'])) {
 
             $pointData = $lookup['accesspoint'];
-            $point = App::$dataAccessPoints->Get($pointData['point']);
+            if(strstr($pointData['point'], 'storage(') !== false) {
+                $point = Storages::Instance()->Load(str_replace('storage(', '', rtrim($pointData['point'], ')')))->accessPoint;
+            } else {
+                $point = App::$dataAccessPoints->Get($pointData['point']);
+            }
             $table = $pointData['table'];
             $fields = $pointData['fields'];
             $filter = $pointData['filter'];
